@@ -1,13 +1,13 @@
 
 /**
- * {Project Description Here}
+ * This program manages a database of seminars whose data is read from a command file.
  */
 
 /**
  * The class containing the main method.
  *
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author Phillip Jordan
+ * @version 1.0
  */
 
 // On my honor:
@@ -37,6 +37,11 @@ public class SemManager {
      */
     public static void main(String[] args) {
         // This is the main file for the program.
+    	int memsize = Integer.parseInt(args[0]);
+    	int hashsize = Integer.parseInt(args[1]);
+    	String fname = args[2];
+    	HashTable db = new HashTable(memsize, hashsize);
+    	SemParser fileRead = new SemParser(fname, db);
         Seminar dum = new Seminar();
     }
 }
