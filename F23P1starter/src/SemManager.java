@@ -3,6 +3,8 @@
  * This program manages a database of seminars whose data is read from a command file.
  */
 
+import java.io.FileNotFoundException;
+
 /**
  * The class containing the main method.
  *
@@ -41,7 +43,11 @@ public class SemManager {
     	int hashsize = Integer.parseInt(args[1]);
     	String fname = args[2];
     	HashTable db = new HashTable(memsize, hashsize);
+    	try {
     	SemParser fileRead = new SemParser(fname, db);
+    	} catch (FileNotFoundException e) {
+    	    e.printStackTrace();
+    	}
         Seminar dum = new Seminar();
     }
 }
