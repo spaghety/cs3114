@@ -1,6 +1,6 @@
 /**
  * This class represents the database containing all of the seminars.
- */
+ */ 
 
 /**
  * 
