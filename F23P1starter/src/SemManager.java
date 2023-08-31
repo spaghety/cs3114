@@ -27,7 +27,7 @@ import java.io.FileNotFoundException;
 /**
  * The class containing the main method.
  *
- * @author Phillip Jordan
+ * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 1.0
  */

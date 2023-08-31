@@ -1,8 +1,9 @@
 import student.TestCase;
 
 /**
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 1.0
  */
 public class SemManagerTest extends TestCase {
     /**

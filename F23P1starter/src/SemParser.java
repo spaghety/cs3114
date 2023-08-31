@@ -2,6 +2,10 @@
 /**
  * This program serves the sole function of reading the command file and passing
  * instructions to the database manager.
+ * 
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 1.0
  */
 
 /**
