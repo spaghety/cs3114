@@ -32,22 +32,20 @@ import java.io.FileNotFoundException;
  * @version 1.0
  */
 public class SemManager {
-    /**
-     * @param args
-     *            Command line parameters
-     */
-    public static void main(String[] args) {
-        // This is the main file for the program.
-        int memsize = Integer.parseInt(args[0]);
-        int hashsize = Integer.parseInt(args[1]);
-        String fname = args[2];
-        HashTable db = new HashTable(memsize, hashsize);
-        try {
-            SemParser fileRead = new SemParser(fname, db);
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Seminar dum = new Seminar();
-    }
+	/**
+	 * @param args Command line parameters
+	 */
+	public static void main(String[] args) {
+		// This is the main file for the program.
+		int memsize = Integer.parseInt(args[0]);
+		int hashsize = Integer.parseInt(args[1]);
+		String fname = args[2];
+		HashTable db = new HashTable(memsize, hashsize);
+		try {
+			SemParser fileRead = new SemParser(fname, db);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		Seminar dum = new Seminar();
+	}
 }
