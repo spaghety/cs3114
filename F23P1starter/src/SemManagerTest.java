@@ -3,7 +3,7 @@ import student.TestCase;
 /**
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 1.0
+ * @version 2023.09.05
  */
 public class SemManagerTest extends TestCase {
     /**
@@ -17,11 +17,9 @@ public class SemManagerTest extends TestCase {
     /**
      * Get code coverage of the class declaration.
      */
-    public void testMInitx()
-    {
+    public void testMInitx() {
         SemManager sem = new SemManager();
         assertNotNull(sem);
         SemManager.main(null);
     }
 }
-

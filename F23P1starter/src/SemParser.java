@@ -5,19 +5,26 @@
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 1.0
+ * @version 2023.09.05
  */
 
-/**
- * 
- */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SemParser {
-    public SemParser(String fname, HashTable db) throws FileNotFoundException {
+    /**
+     * Parses the input file and store the data in a Seminar object
+     * 
+     * @param fname
+     *            File name
+     * @param db
+     *            The hash table to be passed in
+     * @throws FileNotFoundException
+     */
+    public SemParser(String fname, HashTable db)
+        throws FileNotFoundException {
         File infile = new File(fname);
         Scanner sc = new Scanner(infile);
         String command;
@@ -55,7 +62,7 @@ public class SemParser {
                     for (int i = 0; i < tags.length; i++) {
                         if (tags[i] != "") {
                             System.out.printf(" %s", tags[i]);
-                            if (tags.length-1 != i) {
+                            if (tags.length - 1 != i) {
                                 System.out.print(",");
                             }
                         }
@@ -75,5 +82,6 @@ public class SemParser {
                     break;
             }
         }
+        sc.close();
     }
 }

@@ -33,11 +33,12 @@ import java.io.FileNotFoundException;
  */
 public class SemManager {
     /**
+     * This is the main file for the program
+     * 
      * @param args
      *            Command line parameters
      */
     public static void main(String[] args) {
-        // This is the main file for the program.
         int memsize = Integer.parseInt(args[0]);
         int hashsize = Integer.parseInt(args[1]);
         String fname = args[2];
