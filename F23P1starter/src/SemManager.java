@@ -34,6 +34,7 @@ import java.io.FileNotFoundException;
 public class SemManager {
     /**
      * This is the main file for the program
+     * Note: memsize is always a power of 2
      * 
      * @param args
      *            Command line parameters
