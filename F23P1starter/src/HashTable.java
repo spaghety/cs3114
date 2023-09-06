@@ -76,7 +76,7 @@ public class HashTable {
         int M = hash(id);
         if (bArray[M] != 0) {
             freeBlock[fbindex] = id;
-            freeBlock++;
+            fbindex++;
             return true;
         }
         return false;
