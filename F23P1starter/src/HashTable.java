@@ -57,7 +57,7 @@ public class HashTable {
      * 
      * @param id
      *            ID of the item being inserted
-     * @return true of inserted, false if not
+     * @return true if inserted, false if not
      */
     public boolean insert(int id) {
         int M = hash(id);
@@ -73,8 +73,11 @@ public class HashTable {
      * This function removes entries from the hash table and will free space
      * once fully implemented.
      * 
+     * Shouldn't this give a tombstone there??
+     * 
      * @param id
      *            ID of the item being removed.
+     * @return true if removed, false if not
      */
     public boolean remove(int id) {
         int M = hash(id);
