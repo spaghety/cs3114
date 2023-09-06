@@ -16,7 +16,7 @@ public class HashTable {
     /**
      * Constructor
      * 
-     * @param memsize 
+     * @param memsize
      * @param hashsize
      */
     public HashTable(int memsize, int hashsize) {
@@ -30,6 +30,8 @@ public class HashTable {
     /**
      * This function doubles the size of the byte array in case it reaches max
      * capacity.
+     * 
+     * @return true if success
      */
     private boolean doubleCap() {
         byte[] tempArr = new byte[bArray.length * 2];
@@ -41,8 +43,9 @@ public class HashTable {
         return true;
     }
 
+
     /**
-     * 
+     * @return hash slot
      */
     private int hash(int id) {
         return id % bArray.length;
@@ -54,6 +57,7 @@ public class HashTable {
      * 
      * @param id
      *            ID of the item being inserted
+     * @return true of inserted, false if not
      */
     public boolean insert(int id) {
         int M = hash(id);
