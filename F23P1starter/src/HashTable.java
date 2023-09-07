@@ -70,7 +70,7 @@ public class HashTable {
     private int hash(int id) {
         int index = id % size;
         int h2 = (((id / size) % (size / 2)) * 2) + 1;
-        while (bArray[index] != 0x0) {
+        while (bArray[index] != 0x0 && bArray[index] != TOMBSTONE) {
             index += h2;
             index %= size;
         }
@@ -115,7 +115,22 @@ public class HashTable {
         }
         return false;
     }
-
+    
+    /**
+     * Finds an item in the hash table by id.
+     * 
+     * @param id
+     *            id of the item to be removed.
+     * @return Array index if item is found, -1 if not.
+     */
+    public int find(int id) {
+        for (int i = 0; i < size; i++) {
+            if (bArray[i] == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     /**
      * Gets the underlying array.
