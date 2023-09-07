@@ -39,7 +39,6 @@ public class HashTable {
             temp.setNext(freespace[initindex]);
             freespace[initindex] = temp;
         }
-
     }
 
 
@@ -95,6 +94,11 @@ public class HashTable {
      */
     public boolean remove(int id) {
         return false;
-
     }
+    
+    
+    public byte[] getArray() {
+        return bArray;
+    }
+    
 }
