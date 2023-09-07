@@ -41,8 +41,7 @@ public class SemParser {
      *            The hash table to be passed in
      * @throws FileNotFoundException
      */
-    public SemParser(String fname, HashTable db)
-        throws FileNotFoundException {
+    public SemParser(String fname, HashTable db) throws FileNotFoundException {
         File infile = new File(fname);
         Scanner sc = new Scanner(infile);
         String command;
@@ -50,8 +49,8 @@ public class SemParser {
         String courseName;
         String date;
         int length;
-        int x;
-        int y;
+        short x;
+        short y;
         int cost;
         String desc;
         while (sc.hasNextLine()) {
@@ -64,13 +63,15 @@ public class SemParser {
                     courseName = sc.nextLine();
                     date = sc.next();
                     length = sc.nextInt();
-                    x = sc.nextInt();
-                    y = sc.nextInt();
+                    x = (short)sc.nextInt();
+                    y = (short)sc.nextInt();
                     cost = sc.nextInt();
                     sc.nextLine();
                     tags = sc.nextLine().split(" ");
                     desc = sc.nextLine();
-
+                    Seminar sem = new Seminar(id, courseName, date, length, x,
+                        y, cost, tags, desc);
+                    db.insert(id, sem);
                     System.out.printf(
                         "Successfully inserted record with ID %d\n"
                             + "ID: %d, Title: %s\n"
@@ -93,6 +94,7 @@ public class SemParser {
                     break;
                 case "print":
                     courseName = sc.nextLine();
+                    db.printout((courseName.equals("hashtable")));
                     break;
                 case "delete":
                     id = sc.nextInt();

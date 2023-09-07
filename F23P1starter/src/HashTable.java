@@ -35,15 +35,15 @@ public class HashTable {
         // blocks. e.g. 0 keeps track of all size 1 blocks, 1 keeps track of 2,
         // etc.
         /*
-        freespace = new FreeBlock[(int)(Math.log(memsize) / Math.log(2))];
-        int initindex = (int)(Math.log(memsize / hashsize) / Math.log(2));
-        freespace[initindex] = new FreeBlock(hashsize);
-        for (int i = hashsize; i >= 0; i--) {
-            FreeBlock temp = new FreeBlock(i);
-            temp.setNext(freespace[initindex]);
-            freespace[initindex] = temp;
-        }
-        */
+         * freespace = new FreeBlock[(int)(Math.log(memsize) / Math.log(2))];
+         * int initindex = (int)(Math.log(memsize / hashsize) / Math.log(2));
+         * freespace[initindex] = new FreeBlock(hashsize);
+         * for (int i = hashsize; i >= 0; i--) {
+         * FreeBlock temp = new FreeBlock(i);
+         * temp.setNext(freespace[initindex]);
+         * freespace[initindex] = temp;
+         * }
+         */
     }
 
 
@@ -87,9 +87,11 @@ public class HashTable {
      * 
      * @param id
      *            id of the item to be inserted.
+     * @param sem
+     *            Seminar object to be inserted.
      * @return true if successful, false if not.
      */
-    public boolean insert(int id) {
+    public boolean insert(int id, Seminar sem) {
         int index = hash(id);
         // if (bArray[M] == 0) {
         // bArray[M] = (byte)id;
@@ -117,7 +119,8 @@ public class HashTable {
         }
         return false;
     }
-    
+
+
     /**
      * Finds an item in the hash table by id.
      * 
@@ -134,6 +137,7 @@ public class HashTable {
         return -1;
     }
 
+
     /**
      * Gets the underlying array.
      * 
@@ -141,6 +145,40 @@ public class HashTable {
      */
     public byte[] getArray() {
         return bArray;
+    }
+
+
+    /**
+     * Prints out either the free blocks of space in the memory or the contents
+     * of the hash table by id and index.
+     * 
+     * @param type
+     *            true if printing out the hash table, false if printing out
+     *            free memory blocks.
+     * @return the string for the parser to print.
+     */
+    public String printout(boolean type) {
+        StringBuilder result = new StringBuilder();
+        if (type) {
+            for (int i = 0; i < bArray.length; i++) {
+                if (bArray[i] != 0) {
+                    result.append("\n" + i);
+                }
+            }
+        }
+        else {
+            /*
+             * for (int i = 0; i < freespace.length; i++) {
+             * FreeBlock curr = freespace[i];
+             * while(curr != null) {
+             * System.out.println(Math.pow(2, i)+" : "+curr.getIndex());
+             * curr = curr.getNext();
+             * }
+             * } COMMENTED OUT UNTIL WE START IMPLEMENTING THE FREEBLOCK
+             * FUNCTIONALITY
+             */
+        }
+        return result.toString();
     }
 
 }

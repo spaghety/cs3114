@@ -9,6 +9,7 @@ public class HashTableTest extends TestCase {
     private HashTable hashTable;
     private static int size = 16;
     private byte[] compare;
+    private Seminar sem;
 
     /**
      * Sets up the tests that follow.
@@ -18,10 +19,13 @@ public class HashTableTest extends TestCase {
         hashTable = new HashTable(size, size);
         byte a = 0x1;
         byte b = 0x5;
-        hashTable.insert(a);
-        hashTable.insert(b);
+        hashTable.insert(11, sem);
+        hashTable.insert(11, sem);
         compare[a % size] = a;
         compare[b % size] = b;
+        sem = new Seminar(11, "test", "9/6/2023", 10, (short)2, (short)6, 100,
+            new String[] { "example", "test", "other test string" },
+            "This is a test seminar for testing.");
     }
 
 
@@ -32,6 +36,7 @@ public class HashTableTest extends TestCase {
     public void testInsertNoCollision() {
         assertArrayEquals(compare, hashTable.getArray());
     }
+
 
     /**
      * Tests the find method
@@ -50,12 +55,13 @@ public class HashTableTest extends TestCase {
 // assertArrayEquals(hashTable.getArray(), compare);
 // }
 
+
     /**
      * Tests insert() when there's a collision
      */
     public void testInsertWithCollision() {
         byte c = 0x11;
-        hashTable.insert(c);
+        hashTable.insert(11, sem);
         int h2 = (((c / size) % (size / 2)) * 2) + 1;
         int index = c % size;
         while (compare[index] != 0x0) {
@@ -91,7 +97,7 @@ public class HashTableTest extends TestCase {
     public void testInsertAtTombstone() {
         hashTable.remove(0x5);
         byte b = 0x15;
-        hashTable.insert(b);
+        hashTable.insert(11, sem);
         compare[b % size] = b;
         assertArrayEquals(compare, hashTable.getArray());
     }
