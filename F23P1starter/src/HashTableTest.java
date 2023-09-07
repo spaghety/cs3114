@@ -19,7 +19,7 @@ public class HashTableTest extends TestCase {
 
 
     public void testInsertNoCollision() {
-        byte a = 0x0;
+        byte a = 0x8;
         byte b = 0x5;
         hashTable.insert(a);
         hashTable.insert(b);
@@ -29,7 +29,7 @@ public class HashTableTest extends TestCase {
     }
 
     public void testInsertWithCollision() {
-        byte c = 0x8;
+        byte c = 0x10;
         hashTable.insert(c);
         int h2 = (((c / size) % (size / 2)) * 2) + 1;
         compare[(c % size + h2) % size] = c;

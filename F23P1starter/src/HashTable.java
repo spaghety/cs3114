@@ -65,7 +65,13 @@ public class HashTable {
      * @return the hashed id to be used as an index.
      */
     private int hash(int id) {
-        return id % bArray.length;
+        int index = id % bArray.length;
+        int h2 = (((id / bArray.length) % (bArray.length / 2)) * 2) + 1;
+        while (bArray[index] != 0x0) {
+            index += h2;
+            index %= bArray.length;
+        }
+        return index;
     }
 
 
