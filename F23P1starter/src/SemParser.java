@@ -41,8 +41,7 @@ public class SemParser {
      *            The hash table to be passed in
      * @throws FileNotFoundException
      */
-    public SemParser(String fname, HashTable db)
-        throws FileNotFoundException {
+    public SemParser(String fname, HashTable db) throws FileNotFoundException {
         File infile = new File(fname);
         Scanner sc = new Scanner(infile);
         String command;

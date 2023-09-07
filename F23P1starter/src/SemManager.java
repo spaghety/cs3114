@@ -37,8 +37,9 @@ public class SemManager {
      * Note: both memsize and hashsize are always a power of two
      * 
      * @param args
-     *            Command line parameters        
-     * @throws FileNotFoundException if file is not found
+     *            Command line parameters
+     * @throws FileNotFoundException
+     *             if file is not found
      */
     public static void main(String[] args) {
         int memsize = Integer.parseInt(args[0]);

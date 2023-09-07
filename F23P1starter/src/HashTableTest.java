@@ -33,6 +33,7 @@ public class HashTableTest extends TestCase {
         assertArrayEquals(compare, hashTable.getArray());
     }
 
+
     /**
      * Tests the find method
      */
@@ -49,6 +50,7 @@ public class HashTableTest extends TestCase {
 // compare[(c % size + h2) % size] = c;
 // assertArrayEquals(hashTable.getArray(), compare);
 // }
+
 
     /**
      * Tests insert() when there's a collision

@@ -35,15 +35,15 @@ public class HashTable {
         // blocks. e.g. 0 keeps track of all size 1 blocks, 1 keeps track of 2,
         // etc.
         /*
-        freespace = new FreeBlock[(int)(Math.log(memsize) / Math.log(2))];
-        int initindex = (int)(Math.log(memsize / hashsize) / Math.log(2));
-        freespace[initindex] = new FreeBlock(hashsize);
-        for (int i = hashsize; i >= 0; i--) {
-            FreeBlock temp = new FreeBlock(i);
-            temp.setNext(freespace[initindex]);
-            freespace[initindex] = temp;
-        }
-        */
+         * freespace = new FreeBlock[(int)(Math.log(memsize) / Math.log(2))];
+         * int initindex = (int)(Math.log(memsize / hashsize) / Math.log(2));
+         * freespace[initindex] = new FreeBlock(hashsize);
+         * for (int i = hashsize; i >= 0; i--) {
+         * FreeBlock temp = new FreeBlock(i);
+         * temp.setNext(freespace[initindex]);
+         * freespace[initindex] = temp;
+         * }
+         */
     }
 
 
@@ -117,7 +117,8 @@ public class HashTable {
         }
         return false;
     }
-    
+
+
     /**
      * Finds an item in the hash table by id.
      * 
@@ -133,6 +134,7 @@ public class HashTable {
         }
         return -1;
     }
+
 
     /**
      * Gets the underlying array.
