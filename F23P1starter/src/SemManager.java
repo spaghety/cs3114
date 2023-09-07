@@ -34,10 +34,11 @@ import java.io.FileNotFoundException;
 public class SemManager {
     /**
      * This is the main file for the program
-     * Note: both memsize and hashsize is always a power of two
+     * Note: both memsize and hashsize are always a power of two
      * 
      * @param args
-     *            Command line parameters
+     *            Command line parameters        
+     * @throws FileNotFoundException if file is not found
      */
     public static void main(String[] args) {
         int memsize = Integer.parseInt(args[0]);
