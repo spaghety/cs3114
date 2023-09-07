@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class HashTable {
     public static byte TOMBSTONE = (byte)0xff;
     private byte[] bArray;
-    private FreeBlock[] freespace;
+    // private FreeBlock[] freespace;
     private int size;
     private int fbindex;
 
@@ -34,6 +34,7 @@ public class HashTable {
         // Each element of this array will represent the 2^(index) memory
         // blocks. e.g. 0 keeps track of all size 1 blocks, 1 keeps track of 2,
         // etc.
+        /*
         freespace = new FreeBlock[(int)(Math.log(memsize) / Math.log(2))];
         int initindex = (int)(Math.log(memsize / hashsize) / Math.log(2));
         freespace[initindex] = new FreeBlock(hashsize);
@@ -42,6 +43,7 @@ public class HashTable {
             temp.setNext(freespace[initindex]);
             freespace[initindex] = temp;
         }
+        */
     }
 
 
