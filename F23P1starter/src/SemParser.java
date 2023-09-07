@@ -31,6 +31,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Parses the input file into Seminar objects
+ */
 public class SemParser {
     /**
      * Parses the input file and store the data in a Seminar object
@@ -79,7 +82,7 @@ public class SemParser {
                             + "Description: %s\n" + "Keywords:", id, id,
                         courseName, date, length, x, y, cost, desc);
                     for (int i = 0; i < tags.length; i++) {
-                        if (tags[i] != "") {
+                        if (!tags[i].equals("")) {
                             System.out.printf(" %s", tags[i]);
                             if (tags.length - 1 != i) {
                                 System.out.print(",");
