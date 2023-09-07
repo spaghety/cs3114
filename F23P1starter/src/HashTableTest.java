@@ -16,18 +16,25 @@ public class HashTableTest extends TestCase {
     public void setUp() {
         compare = new byte[size];
         hashTable = new HashTable(size, size);
-    }
-
-
-    public void testInsertNoCollision() {
         byte a = 0x1;
         byte b = 0x5;
         hashTable.insert(a);
         hashTable.insert(b);
         compare[a % size] = a;
         compare[b % size] = b;
-        System.out.println(Arrays.toString(compare));
+    }
+
+
+    public void testInsertNoCollision() {
+        // Stuff is already inserted so no need to do more!
+        // System.out.println(Arrays.toString(compare));
         assertArrayEquals(compare, hashTable.getArray());
+    }
+    
+    public void testFind() {
+        assertEquals(1, hashTable.find(0x1));
+        assertEquals(5, hashTable.find(0x5));
+        assertEquals(-1, hashTable.find(0x6));
     }
 
 //    public void testInsertWithCollision() {
@@ -39,13 +46,6 @@ public class HashTableTest extends TestCase {
 //    }
     
     public void testInsertWithCollision() {
-        byte a = 0x1;
-        byte b = 0x5;
-        hashTable.insert(a);
-        hashTable.insert(b);
-        compare[a % size] = a;
-        compare[b % size] = b;
-
         byte c = 0x11;
         hashTable.insert(c);
         int h2 = (((c / size) % (size / 2)) * 2) + 1;
