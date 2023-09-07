@@ -4,6 +4,8 @@
  * @version 2023.09.05
  */
 
+import java.util.Arrays;
+
 /**
  * This class sets up the hash table storing all the seminars.
  */
@@ -26,7 +28,7 @@ public class HashTable {
      */
     public HashTable(int memsize, int hashsize) {
         bArray = new byte[memsize];
-        size = memsize;
+        size = hashsize;
         fbindex = 0;
         // Each element of this array will represent the 2^(index) memory
         // blocks. e.g. 0 keeps track of all size 1 blocks, 1 keeps track of 2,
@@ -65,12 +67,14 @@ public class HashTable {
      * @return the hashed id to be used as an index.
      */
     private int hash(int id) {
-        int index = id % bArray.length;
-        int h2 = (((id / bArray.length) % (bArray.length / 2)) * 2) + 1;
+        int index = id % size;
+        int h2 = (((id / size) % (size / 2)) * 2) + 1;
         while (bArray[index] != 0x0) {
             index += h2;
-            index %= bArray.length;
+            index %= size;
         }
+        // System.out.println("Length = " + size);
+        // System.out.println("Index = " + index);
         return index;
     }
 
@@ -83,12 +87,14 @@ public class HashTable {
      * @return true if successful, false if not.
      */
     public boolean insert(int id) {
-        int M = hash(id);
-        if (bArray[M] == 0) {
-            bArray[M] = (byte)id;
-            return true;
-        }
-        return false;
+        int index = hash(id);
+        // if (bArray[M] == 0) {
+        // bArray[M] = (byte)id;
+        // return true;
+        // }
+        // return false;
+        bArray[index] = (byte)id;
+        return true;
     }
 
 
@@ -101,10 +107,10 @@ public class HashTable {
     public boolean remove(int id) {
         return false;
     }
-    
-    
+
+
     public byte[] getArray() {
         return bArray;
     }
-    
+
 }

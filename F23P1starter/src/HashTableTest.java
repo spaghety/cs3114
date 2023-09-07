@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertArrayEquals;
+import java.util.Arrays;
 import student.TestCase;
 
 /**
@@ -6,38 +7,46 @@ import student.TestCase;
  */
 public class HashTableTest extends TestCase {
     private HashTable hashTable;
-    private static int size = 8;
+    private static int size = 16;
     private byte[] compare;
 
     /**
      * Sets up the tests that follow.
      */
     public void setUp() {
-        compare = new byte[size * 4];
-        hashTable = new HashTable(size * 4, size);
+        compare = new byte[size];
+        hashTable = new HashTable(size, size);
     }
 
 
     public void testInsertNoCollision() {
-        byte a = 0x8;
+        byte a = 0x1;
         byte b = 0x5;
         hashTable.insert(a);
         hashTable.insert(b);
         compare[a % size] = a;
         compare[b % size] = b;
-        assertArrayEquals(hashTable.getArray(), compare);
+        System.out.println(Arrays.toString(compare));
+        assertArrayEquals(compare, hashTable.getArray());
     }
 
-    public void testInsertWithCollision() {
-        byte c = 0x10;
-        hashTable.insert(c);
-        int h2 = (((c / size) % (size / 2)) * 2) + 1;
-        compare[(c % size + h2) % size] = c;
-        assertArrayEquals(hashTable.getArray(), compare);
-    }
+//    public void testInsertWithCollision() {
+//        byte c = 0x10;
+//        hashTable.insert(c);
+//        int h2 = (((c / size) % (size / 2)) * 2) + 1;
+//        compare[(c % size + h2) % size] = c;
+//        assertArrayEquals(hashTable.getArray(), compare);
+//    }
     
-    public void testInsertDoubleCollision() {
-        byte c = 0xD;
+    public void testInsertWithCollision() {
+        byte a = 0x1;
+        byte b = 0x5;
+        hashTable.insert(a);
+        hashTable.insert(b);
+        compare[a % size] = a;
+        compare[b % size] = b;
+
+        byte c = 0x11;
         hashTable.insert(c);
         int h2 = (((c / size) % (size / 2)) * 2) + 1;
         int index = c % size;
@@ -45,8 +54,9 @@ public class HashTableTest extends TestCase {
             index += h2;
             index %= size;
         }
-        System.out.println(index);
         compare[index] = c;
-        assertArrayEquals(hashTable.getArray(), compare);
+        // System.out.println(h2);
+        System.out.println(Arrays.toString(compare));
+        assertArrayEquals(compare, hashTable.getArray());
     }
 }
