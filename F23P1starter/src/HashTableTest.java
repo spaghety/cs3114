@@ -58,16 +58,35 @@ public class HashTableTest extends TestCase {
         }
         compare[index] = c;
         // System.out.println(h2);
-        System.out.println(Arrays.toString(compare));
+        // System.out.println(Arrays.toString(compare));
         assertArrayEquals(compare, hashTable.getArray());
     }
 
 
+    /**
+     * Tests removing an entry and make sure there is a tombstone
+     */
     public void testRemove() {
         assertFalse(hashTable.remove(0x6));
         assertTrue(hashTable.remove(0x5));
         assertFalse(hashTable.remove(0x5));
+        compare[5] = HashTable.TOMBSTONE;
+        assertArrayEquals(compare, hashTable.getArray());
         assertTrue(hashTable.remove(0x1));
         assertFalse(hashTable.remove(0x1));
+        compare[1] = HashTable.TOMBSTONE;
+        assertArrayEquals(compare, hashTable.getArray());
+    }
+
+
+    /**
+     * Tests inserting into where the tombstone is
+     */
+    public void testInsertAtTombstone() {
+        hashTable.remove(0x5);
+        byte b = 0x15;
+        hashTable.insert(b);
+        compare[b % size] = b;
+        assertArrayEquals(compare, hashTable.getArray());
     }
 }
