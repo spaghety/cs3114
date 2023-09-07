@@ -18,38 +18,33 @@
 // letter of this restriction.
 
 /**
- * This program manages a database of seminars whose data is read from a command
- * file.
+ * This class represents unallocated free space in the memory block in the form of a linked list.
  */
-
-import java.io.FileNotFoundException;
 
 /**
- * The class containing the main method.
- *
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 1.0
+ *
  */
-public class SemManager {
-    /**
-     * This is the main file for the program
-     * Note: both memsize and hashsize is always a power of two
-     * 
-     * @param args
-     *            Command line parameters
-     */
-    public static void main(String[] args) {
-        int memsize = Integer.parseInt(args[0]);
-        int hashsize = Integer.parseInt(args[1]);
-        String fname = args[2];
-        HashTable db = new HashTable(memsize, hashsize);
-        try {
-            SemParser fileRead = new SemParser(fname, db);
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Seminar dum = new Seminar();
+public class FreeBlock {
+    private FreeBlock next;
+    private int index;
+    public FreeBlock(int i) {
+        next = null;
+        index = i;
     }
+    public int getIndex() {
+        return index;
+    }
+    public boolean setNext(FreeBlock n) {
+        if (n == null) {
+            return false;
+        }
+        next = n;
+        return true;
+    }
+    public FreeBlock getNext() {
+        return next;
+    }
+
 }
