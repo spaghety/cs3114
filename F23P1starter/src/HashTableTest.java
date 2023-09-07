@@ -1,9 +1,9 @@
 import static org.junit.Assert.assertArrayEquals;
-import java.util.Arrays;
+// import java.util.Arrays;
 import student.TestCase;
 
 /**
- * 
+ * Test class for HashTable
  */
 public class HashTableTest extends TestCase {
     private HashTable hashTable;
@@ -25,13 +25,17 @@ public class HashTableTest extends TestCase {
     }
 
 
+    /**
+     * Tests insert() without collision
+     * The insertion is already done in setUp()
+     */
     public void testInsertNoCollision() {
-        // Stuff is already inserted so no need to do more!
-        // System.out.println(Arrays.toString(compare));
         assertArrayEquals(compare, hashTable.getArray());
     }
 
-
+    /**
+     * Tests the find method
+     */
     public void testFind() {
         assertEquals(1, hashTable.find(0x1));
         assertEquals(5, hashTable.find(0x5));
@@ -46,7 +50,9 @@ public class HashTableTest extends TestCase {
 // assertArrayEquals(hashTable.getArray(), compare);
 // }
 
-
+    /**
+     * Tests insert() when there's a collision
+     */
     public void testInsertWithCollision() {
         byte c = 0x11;
         hashTable.insert(c);
