@@ -30,21 +30,23 @@ public class HashTableTest extends TestCase {
         // System.out.println(Arrays.toString(compare));
         assertArrayEquals(compare, hashTable.getArray());
     }
-    
+
+
     public void testFind() {
         assertEquals(1, hashTable.find(0x1));
         assertEquals(5, hashTable.find(0x5));
         assertEquals(-1, hashTable.find(0x6));
     }
 
-//    public void testInsertWithCollision() {
-//        byte c = 0x10;
-//        hashTable.insert(c);
-//        int h2 = (((c / size) % (size / 2)) * 2) + 1;
-//        compare[(c % size + h2) % size] = c;
-//        assertArrayEquals(hashTable.getArray(), compare);
-//    }
-    
+// public void testInsertWithCollision() {
+// byte c = 0x10;
+// hashTable.insert(c);
+// int h2 = (((c / size) % (size / 2)) * 2) + 1;
+// compare[(c % size + h2) % size] = c;
+// assertArrayEquals(hashTable.getArray(), compare);
+// }
+
+
     public void testInsertWithCollision() {
         byte c = 0x11;
         hashTable.insert(c);
@@ -58,5 +60,14 @@ public class HashTableTest extends TestCase {
         // System.out.println(h2);
         System.out.println(Arrays.toString(compare));
         assertArrayEquals(compare, hashTable.getArray());
+    }
+
+
+    public void testRemove() {
+        assertFalse(hashTable.remove(0x6));
+        assertTrue(hashTable.remove(0x5));
+        assertFalse(hashTable.remove(0x5));
+        assertTrue(hashTable.remove(0x1));
+        assertFalse(hashTable.remove(0x1));
     }
 }
