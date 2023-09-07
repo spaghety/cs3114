@@ -22,8 +22,15 @@ public class HashTable {
 	    bArray = new byte[memsize];
 	    size = memsize;
 	    fbindex = 0;
-	    freespace = new FreeBlock[(int) (Math.log(hashsize)/Math.log(2))];
-	    freespace[freespace.length-1] = new FreeBlock(0);
+	    //Each element of this array will represent the 2^(index) memory blocks. e.g. 0 keeps track of all size 1 blocks, 1 keeps track of 2, etc.
+	    freespace = new FreeBlock[(int) (Math.log(memsize)/Math.log(2))];
+        int initindex = (int) (Math.log(memsize/hashsize)/Math.log(2));
+	    freespace[initindex] = new FreeBlock(hashsize);
+	    for (int i=hashsize; i>=0; i--) {
+	        FreeBlock temp = new FreeBlock(i);
+	        temp.setNext(freespace[initindex]);
+	        freespace[initindex] = temp;
+	    }
 	    
 	}
 	/**
