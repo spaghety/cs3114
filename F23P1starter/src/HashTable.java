@@ -5,7 +5,7 @@
  * @version 2023.09.05
  */
 
-import java.util.Arrays;
+// import java.util.Arrays;
 
 /**
  * This class sets up the hash table storing all the seminars.
@@ -15,7 +15,7 @@ public class HashTable {
     private byte[] bArray;
     // private FreeBlock[] freespace;
     private int size;
-    private int fbindex;
+    // private int fbindex;
 
     /**
      * Constructor
@@ -30,7 +30,7 @@ public class HashTable {
     public HashTable(int memsize, int hashsize) {
         bArray = new byte[memsize];
         size = hashsize;
-        fbindex = 0;
+        // fbindex = 0;
         // Each element of this array will represent the 2^(index) memory
         // blocks. e.g. 0 keeps track of all size 1 blocks, 1 keeps track of 2,
         // etc.
