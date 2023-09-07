@@ -1,3 +1,4 @@
+
 /**
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
@@ -102,13 +103,24 @@ public class HashTable {
      * Removes items from the hash table by id.
      * 
      * @param id
-     * @return true if successful, false if not.
+     * @return true if item is found and removed, false if not.
      */
     public boolean remove(int id) {
+        for (int i = 0; i < size; i++) {
+            if (bArray[i] == id) {
+                bArray[i] = TOMBSTONE;
+                return true;
+            }
+        }
         return false;
     }
 
 
+    /**
+     * Gets the underlying array.
+     * 
+     * @return The underlying array
+     */
     public byte[] getArray() {
         return bArray;
     }
