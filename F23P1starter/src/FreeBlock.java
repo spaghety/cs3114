@@ -21,11 +21,11 @@
  * This class represents unallocated free space in the memory block in the form of a linked list.
  */
 
-/**
+/*
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  *
- */
+ *
 public class FreeBlock {
     private FreeBlock next;
     private int index;
@@ -48,3 +48,4 @@ public class FreeBlock {
     }
 
 }
+*/

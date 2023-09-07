@@ -1,15 +1,20 @@
-import student.TestCase;
+// import student.TestCase;
 
 /**
  * Unit tests for the FreeBlock class
  */
+
+/*
 public class FreeBlockTest extends TestCase {
     private FreeBlock freeBlock;
     private static int index = 4;
+*/
 
     /**
      * Sets up the tests that follow.
      */
+    
+    /*
     public void setUp() {
         freeBlock = new FreeBlock(index);
     }
@@ -26,3 +31,4 @@ public class FreeBlockTest extends TestCase {
         assertFalse(freeBlock.setNext(null));
     }
 }
+*/
