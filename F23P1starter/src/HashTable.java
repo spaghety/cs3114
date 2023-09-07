@@ -103,6 +103,7 @@ public class HashTable {
      * Removes items from the hash table by id.
      * 
      * @param id
+     *            id of the item to be removed.
      * @return true if item is found and removed, false if not.
      */
     public boolean remove(int id) {
