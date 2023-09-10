@@ -22,32 +22,38 @@
  * of a linked list.
  */
 
-/*
+/**
  * @author Phillip Jordan (alexj14)
  * 
  * @author Ta-Jung (David) Lin (davidsmile)
- *
- *
- * public class FreeBlock {
- * private FreeBlock next;
- * private int index;
- * public FreeBlock(int i) {
- * next = null;
- * index = i;
- * }
- * public int getIndex() {
- * return index;
- * }
- * public boolean setNext(FreeBlock n) {
- * if (n == null) {
- * return false;
- * }
- * next = n;
- * return true;
- * }
- * public FreeBlock getNext() {
- * return next;
- * }
- * 
- * }
+ * @version 2023.09.10
  */
+public class FreeBlock {
+    private FreeBlock next;
+    private int index;
+
+    public FreeBlock(int i) {
+        next = null;
+        index = i;
+    }
+
+
+    public int getIndex() {
+        return index;
+    }
+
+
+    public boolean setNext(FreeBlock n) {
+        if (n == null) {
+            return false;
+        }
+        next = n;
+        return true;
+    }
+
+
+    public FreeBlock getNext() {
+        return next;
+    }
+
+}
