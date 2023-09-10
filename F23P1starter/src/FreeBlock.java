@@ -32,17 +32,35 @@ public class FreeBlock {
     private FreeBlock next;
     private int index;
 
+    /**
+     * constructor
+     * 
+     * @param i
+     *            Index value passed in
+     */
     public FreeBlock(int i) {
         next = null;
         index = i;
     }
 
 
+    /**
+     * Getter method for index value
+     * 
+     * @return The index value
+     */
     public int getIndex() {
         return index;
     }
 
 
+    /**
+     * Sets the next FreeBlock reference. Returns false if param is null
+     * 
+     * @param n
+     *            The next FreeBlock
+     * @return true if successfully set, false if not (param is null)
+     */
     public boolean setNext(FreeBlock n) {
         if (n == null) {
             return false;
@@ -52,6 +70,11 @@ public class FreeBlock {
     }
 
 
+    /**
+     * Getter method for the next FreeBlock
+     * 
+     * @return The next FreeBlock
+     */
     public FreeBlock getNext() {
         return next;
     }
