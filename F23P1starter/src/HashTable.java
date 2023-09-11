@@ -82,16 +82,15 @@ public class HashTable {
 	 * @return true if successful, false if not.
 	 * @throws Exception
 	 */
-	public boolean insert(int id, Seminar sem) throws Exception {
-		byte[] ser = sem.serialize();
-		int index = hash(id, ser.length);
+	public boolean insert(int id, byte[] sem) throws Exception {
+		int index = hash(id, sem.length);
 		// if (bArray[M] == 0) {
 		// bArray[M] = (byte)id;
 		// return true;
 		// }
 		// return false;
-		for (int i = 0; i < ser.length; i++) {
-			bArray[index + i] = ser[i];
+		for (int i = 0; i < sem.length; i++) {
+			bArray[index + i] = sem[i];
 		}
 		return true;
 	}

@@ -59,7 +59,7 @@ public class SemParser {
             String[] tags;
             command = sc.next();
             switch (command) {
-                case "insert":
+                case "insert": // Execute to insert new seminar
                     id = sc.nextInt();
                     sc.nextLine();
                     courseName = sc.nextLine();
@@ -71,34 +71,40 @@ public class SemParser {
                     sc.nextLine();
                     tags = sc.nextLine().split(" ");
                     desc = sc.nextLine();
-                    Seminar sem = new Seminar(id, courseName, date, length, x,
-                        y, cost, tags, desc);
-                    db.insert(id, sem);
-                    System.out.printf(
-                        "Successfully inserted record with ID %d\n"
-                            + "ID: %d, Title: %s\n"
-                            + "Date: %s, Length: %d, X: %d, Y: %d, Cost: %d\n"
-                            + "Description: %s\n" + "Keywords:", id, id,
-                        courseName, date, length, x, y, cost, desc);
-                    for (int i = 0; i < tags.length; i++) {
-                        if (!tags[i].equals("")) {
-                            System.out.printf(" %s", tags[i]);
-                            if (tags.length - 1 != i) {
-                                System.out.print(",");
+                    try {
+                        byte[] sem = (new Seminar(id, courseName, date, length,
+                            x, y, cost, tags, desc)).serialize();
+                        db.insert(id, sem);
+                        System.out.printf(
+                            "Successfully inserted record with ID %d\n"
+                                + "ID: %d, Title: %s\n"
+                                + "Date: %s, Length: %d, X: %d, Y: %d, Cost: %d\n"
+                                + "Description: %s\n" + "Keywords:", id, id,
+                            courseName, date, length, x, y, cost, desc);
+                        for (int i = 0; i < tags.length; i++) {
+                            if (!tags[i].equals("")) {
+                                System.out.printf(" %s", tags[i]);
+                                if (tags.length - 1 != i) {
+                                    System.out.print(",");
+                                }
                             }
                         }
+                        System.out.printf("\nSize: %d\n", sem.length);
                     }
-                    System.out.print("\n");
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
-                case "search":
+                case "search": // Execute to search for existing seminar
                     id = sc.nextInt();
                     sc.nextLine();
                     break;
-                case "print":
+                case "print": // Execute to print either hashtable data or
+                              // freeblock data
                     courseName = sc.nextLine();
                     db.printout((courseName.equals("hashtable")));
                     break;
-                case "delete":
+                case "delete": // Execute to delete object from the hash table
                     id = sc.nextInt();
                     sc.nextLine();
                     break;
