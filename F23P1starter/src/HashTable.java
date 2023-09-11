@@ -12,7 +12,7 @@
  */
 public class HashTable {
 	public static byte TOMBSTONE = (byte) 0xff;
-	private byte[] bArray;
+	private SemRecord[] records;
 	private FreeBlock[] freespace;
 	private int size;
 
@@ -24,20 +24,9 @@ public class HashTable {
 	 * @param hashsize the number of slots to start with initially (may increase
 	 *                 with time) will always be a power of 2.
 	 */
-	public HashTable(int memsize, int hashsize) {
-		bArray = new byte[memsize];
+	public HashTable(int hashsize) {
+		records = new SemRecord[hashsize];
 		size = hashsize;
-		// Each element of this array will represent the 2^(index) memory
-		// blocks. e.g. 0 keeps track of all size 1 blocks, 1 keeps track of 2,
-		// etc.
-		freespace = new FreeBlock[(int) (Math.log(memsize) / Math.log(2))];
-		int initindex = (int) (Math.log(memsize / hashsize) / Math.log(2));
-		freespace[initindex] = new FreeBlock(hashsize);
-		for (int i = hashsize; i >= 0; i--) {
-			FreeBlock temp = new FreeBlock(i);
-			temp.setNext(freespace[initindex]);
-			freespace[initindex] = temp;
-		}
 	}
 
 	/**
@@ -46,10 +35,10 @@ public class HashTable {
 	 * @return true if successful, false if not.
 	 */
 	private boolean doubleCap() {
-		byte[] tempArr = new byte[bArray.length * 2];
-		for (int i = 0; i < bArray.length; i++) {
-			if (bArray[i] != 0) {
-				tempArr[bArray[i] % tempArr.length] = bArray[i];
+		SemRecord[] tempArr = new SemRecord[records.length * 2];
+		for (int i = 0; i < records.length; i++) {
+			if (records[i] != 0) {
+				tempArr[records[i].getIndex % tempArr.length] = records[i];
 			}
 		}
 		return true;
