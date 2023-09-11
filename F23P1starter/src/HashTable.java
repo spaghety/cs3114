@@ -69,7 +69,9 @@ public class HashTable {
      *            id of the object being entered in.
      * @return the hashed id to be used as an index.
      */
-    private int hash(int id) {
+    private int hash(int id, int objsize) {
+    	//Rounds the object size up to the next power of two.
+    	objsize = Integer.highestOneBit(objsize-1) << 1;
         int index = id % size;
         int h2 = (((id / size) % (size / 2)) * 2) + 1;
         while (bArray[index] != 0x0 && bArray[index] != TOMBSTONE) {
@@ -90,15 +92,19 @@ public class HashTable {
      * @param sem
      *            Seminar object to be inserted.
      * @return true if successful, false if not.
+     * @throws Exception 
      */
-    public boolean insert(int id, Seminar sem) {
-        int index = hash(id);
+    public boolean insert(int id, Seminar sem) throws Exception {
+    	byte[] ser = sem.serialize();
+        int index = hash(id, ser.length);
         // if (bArray[M] == 0) {
         // bArray[M] = (byte)id;
         // return true;
         // }
         // return false;
-        bArray[index] = (byte)id;
+        for (int i = 0; i<ser.length; i++) {
+        	bArray[index+i] = ser[i];
+        }
         return true;
     }
 
