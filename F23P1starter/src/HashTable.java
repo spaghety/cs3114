@@ -63,11 +63,12 @@ public class HashTable {
 	private int hash(int id, int objsize) {
 		// Rounds the object size up to the next power of two.
 		objsize = Integer.highestOneBit(objsize - 1) << 1;
-		int index = id % size;
-		int h2 = (((id / size) % (size / 2)) * 2) + 1;
+		int slots = size/objsize;
+		int index = id % slots;
+		int h2 = (((id / slots) % (slots / 2)) * 2) + 1;
 		while (bArray[index] != 0x0 && bArray[index] != TOMBSTONE) {
 			index += h2;
-			index %= size;
+			index %= slots;
 		}
 		// System.out.println("Length = " + size);
 		// System.out.println("Index = " + index);
