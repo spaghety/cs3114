@@ -10,9 +10,11 @@ public class SemRecord {
     private int id;
     private int semIndex;
     private int semSize;
+    private boolean stone;
     public SemRecord(int id, int index, int size) {
         semIndex = index;
         semSize = size;
+        stone = false;
     }
     public int getIndex() {
         return semIndex;
@@ -22,5 +24,11 @@ public class SemRecord {
     }
     public int getId() {
         return id;
+    }
+    public boolean isTombstone() {
+        return stone;
+    }
+    public void makeTombstone() {
+        stone = true;
     }
 }

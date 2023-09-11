@@ -11,7 +11,7 @@
  * This class sets up the hash table storing all the seminars.
  */
 public class HashTable {
-	public static byte TOMBSTONE = (byte) 0xff;
+	public static SemRecord TOMBSTONE = new SemRecord(0, 0, 0);
 	private SemRecord[] records;
 	private FreeBlock[] freespace;
 	private int size;
@@ -37,8 +37,8 @@ public class HashTable {
 	private boolean doubleCap() {
 		SemRecord[] tempArr = new SemRecord[records.length * 2];
 		for (int i = 0; i < records.length; i++) {
-			if (records[i] != 0) {
-				tempArr[records[i].getIndex % tempArr.length] = records[i];
+			if (records[i] != null) {
+				tempArr[records[i].getId() % tempArr.length] = records[i];
 			}
 		}
 		return true;
@@ -55,7 +55,7 @@ public class HashTable {
 		int slots = size/objsize;
 		int index = id % slots;
 		int h2 = (((id / slots) % (slots / 2)) * 2) + 1;
-		while (bArray[index] != 0x0 && bArray[index] != TOMBSTONE) {
+		while (records[index] != null && !records[index].isTombstone()) {
 			index += h2;
 			index %= slots;
 		}
@@ -72,17 +72,9 @@ public class HashTable {
 	 * @return true if successful, false if not.
 	 * @throws Exception
 	 */
-	public boolean insert(int id, byte[] sem) throws Exception {
-		int index = hash(id, sem.length);
-		// if (bArray[M] == 0) {
-		// bArray[M] = (byte)id;
-		// return true;
-		// }
-		// return false;
-		for (int i = 0; i < sem.length; i++) {
-			bArray[index + i] = sem[i];
-		}
-		return true;
+	public boolean insert(int id, int size, int index) {
+		// TO IMPLEMENT
+	    return false;
 	}
 
 	/**
@@ -93,8 +85,8 @@ public class HashTable {
 	 */
 	public boolean remove(int id) {
 		for (int i = 0; i < size; i++) {
-			if (bArray[i] == id) {
-				bArray[i] = TOMBSTONE;
+			if (records[i].getId() == id) {
+				records[i].makeTombstone();
 				return true;
 			}
 		}
@@ -109,7 +101,7 @@ public class HashTable {
 	 */
 	public int find(int id) {
 		for (int i = 0; i < size; i++) {
-			if (bArray[i] == id) {
+			if (records[i].getId() == id) {
 				return i;
 			}
 		}
@@ -121,8 +113,8 @@ public class HashTable {
 	 * 
 	 * @return The underlying array
 	 */
-	public byte[] getArray() {
-		return bArray;
+	public SemRecord[] getArray() {
+		return records;
 	}
 
 	/**
@@ -136,18 +128,11 @@ public class HashTable {
 	public String printout(boolean type) {
 		StringBuilder result = new StringBuilder();
 		if (type) {
-			for (int i = 0; i < bArray.length; i++) {
-				if (bArray[i] != 0) {
+			for (int i = 0; i < records.length; i++) {
+				if (records[i] != null && !records[i].isTombstone()) {
 					result.append("\n" + i);
 				}
 			}
-		} else {
-			/*
-			 * for (int i = 0; i < freespace.length; i++) { FreeBlock curr = freespace[i];
-			 * while(curr != null) { System.out.println(Math.pow(2,
-			 * i)+" : "+curr.getIndex()); curr = curr.getNext(); } } COMMENTED OUT UNTIL WE
-			 * START IMPLEMENTING THE FREEBLOCK FUNCTIONALITY
-			 */
 		}
 		return result.toString();
 	}
