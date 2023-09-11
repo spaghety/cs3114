@@ -13,14 +13,15 @@ public class HashTableTest extends TestCase {
 
     /**
      * Sets up the tests that follow.
+     * @throws Exception 
      */
-    public void setUp() {
+    public void setUp() throws Exception {
         compare = new byte[size];
         hashTable = new HashTable(size, size);
         byte a = 0x1;
         byte b = 0x5;
-        hashTable.insert(11, sem);
-        hashTable.insert(11, sem);
+        hashTable.insert(11, sem.serialize());
+        hashTable.insert(11, sem.serialize());
         compare[a % size] = a;
         compare[b % size] = b;
         sem = new Seminar(11, "test", "9/6/2023", 10, (short)2, (short)6, 100,
@@ -58,10 +59,11 @@ public class HashTableTest extends TestCase {
 
     /**
      * Tests insert() when there's a collision
+     * @throws Exception 
      */
-    public void testInsertWithCollision() {
+    public void testInsertWithCollision() throws Exception {
         byte c = 0x11;
-        hashTable.insert(11, sem);
+        hashTable.insert(11, sem.serialize());
         int h2 = (((c / size) % (size / 2)) * 2) + 1;
         int index = c % size;
         while (compare[index] != 0x0) {
@@ -93,11 +95,12 @@ public class HashTableTest extends TestCase {
 
     /**
      * Tests inserting into where the tombstone is
+     * @throws Exception 
      */
-    public void testInsertAtTombstone() {
+    public void testInsertAtTombstone() throws Exception {
         hashTable.remove(0x5);
         byte b = 0x15;
-        hashTable.insert(11, sem);
+        hashTable.insert(11, sem.serialize());
         compare[b % size] = b;
         assertArrayEquals(compare, hashTable.getArray());
     }
