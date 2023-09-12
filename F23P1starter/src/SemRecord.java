@@ -77,4 +77,20 @@ public class SemRecord {
     public void makeTombstone() {
         stone = true;
     }
+
+
+    @Override
+    public boolean equals(Object other) {
+        if (!other.getClass().equals(this.getClass())) {
+            return false;
+        }
+        SemRecord that = (SemRecord) other;
+        if (stone) {
+            return false;
+        }
+        if (that.isTombstone()) {
+            return false;
+        }
+        return this.getIndex() == that.getIndex();
+    }
 }
