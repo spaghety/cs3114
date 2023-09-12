@@ -47,6 +47,8 @@ public class SemRecordTest extends TestCase {
      */
     @SuppressWarnings("unlikely-arg-type")
     public void testEquals() {
+        // Null case
+        assertFalse(semRecord.equals(null));
         // Wrong object class case
         assertFalse(semRecord.equals("Hello"));
         // Same object case
