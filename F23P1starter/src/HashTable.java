@@ -11,7 +11,7 @@
  * This class sets up the hash table storing all the seminars.
  */
 public class HashTable {
-    public static SemRecord TOMBSTONE = new SemRecord(0, 0, 0);
+//    public static SemRecord TOMBSTONE = new SemRecord(0, 0, 0);
     private SemRecord[] records;
 // private FreeBlock[] freespace;
     private int size;
