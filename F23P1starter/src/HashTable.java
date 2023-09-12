@@ -80,14 +80,20 @@ public class HashTable {
 	 * Searches for an existing record in the hash table
 	 * 
 	 * @param id id to hash
-	 * @return index of existing record with a matching id
+	 * @return index of existing record with a matching id or -1 if it could not be
+	 *         found
 	 */
-	private int hashSearch(int id) { // TODO Create catch for infinite loop of searching when the id doesn't exist
+	private int hashSearch(int id) {
 		int index = id % records.length;
 		int h2 = (((id / records.length) % (records.length / 2)) * 2) + 1;
-		while (records[index] == null || records[index].isTombstone()) {
+		int iter = 0;
+		while ((records[index] == null || records[index].isTombstone()) && iter < records.length) {
 			index += h2;
 			index %= records.length;
+			iter++;
+		}
+		if (records[index] == null || records[index].isTombstone()) {
+			return -1;
 		}
 		return index;
 	}
@@ -100,6 +106,9 @@ public class HashTable {
 	 */
 	public SemRecord remove(int id) {
 		int index = hashSearch(id);
+		if (index == -1) {
+			return null;
+		}
 		SemRecord temp = records[index];
 		records[index].makeTombstone();
 		return temp;
@@ -115,9 +124,8 @@ public class HashTable {
 		int index = hashSearch(id);
 		if (index > -1) {
 			return records[index];
-		}else {
-			return null;
 		}
+		return null;
 	}
 
 	/**
