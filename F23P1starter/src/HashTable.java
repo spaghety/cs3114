@@ -66,17 +66,18 @@ public class HashTable {
 	}
 
 	/**
-	 * Inserts new item into the hash table.
-	 * 
-	 * @param id  id of the item to be inserted.
-	 * @param sem Seminar object to be inserted.
-	 * @return true if successful, false if not.
-	 * @throws Exception
-	 */
-	public boolean insert(int id, int size, int index) {
-		// TO IMPLEMENT
-	    return false;
-	}
+     * Inserts new item into the hash table.
+     * 
+     * @param id  id of the item to be inserted.
+     * @param sem Seminar object to be inserted.
+     * @return true if successful, false if not.
+     * @throws Exception
+     */
+    public boolean insert(int id, int size, int index) {
+        SemRecord ref = new SemRecord(id, index, size);
+        records[hash(id)] = ref;
+        return true;
+    }
 
 	/**
 	 * Removes items from the hash table by id.
