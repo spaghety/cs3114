@@ -14,7 +14,6 @@ public class HashTable {
 // public static SemRecord TOMBSTONE = new SemRecord(0, 0, 0);
     private SemRecord[] records;
 // private FreeBlock[] freespace;
-    private int size;
     private int count;
     private MemManager mm;
 
@@ -30,7 +29,6 @@ public class HashTable {
     public HashTable(int hashsize, MemManager memMgr) {
         mm = memMgr;
         records = new SemRecord[hashsize];
-        size = hashsize;
         count = 0;
     }
 
@@ -39,12 +37,13 @@ public class HashTable {
      * Doubles the capacity in case maximum capacity is reached.
      */
     private void doubleCap() {
-        SemRecord[] tempArr = new SemRecord[records.length * 2];
-        size *= 2;
+        SemRecord[] tempArr = records;
+        records = new SemRecord[records.length * 2];
         for (int i = 0; i < records.length; i++) {
-            tempArr[records[i].getId() % tempArr.length] = records[i];
+        	if (tempArr[i] != null) {
+        		records[hash(tempArr[i].getId())] = tempArr[i];
+        	}
         }
-        records = tempArr;
         return;
     }
 
@@ -57,11 +56,11 @@ public class HashTable {
      * @return the hashed id to be used as an index.
      */
     private int hash(int id) {
-        int index = id % size;
-        int h2 = (((id / size) % (size / 2)) * 2) + 1;
+        int index = id % records.length;
+        int h2 = (((id / records.length) % (records.length / 2)) * 2) + 1;
         while (records[index] != null && !records[index].isTombstone()) {
             index += h2;
-            index %= size;
+            index %= records.length;
         }
         return index;
     }
@@ -85,7 +84,7 @@ public class HashTable {
         SemRecord ref = new SemRecord(id, index, size);
         records[hash(id)] = ref;
         count++;
-        if (count*2 == size) {
+        if (count*2 >= size) {
             doubleCap();
         }
         return true;
@@ -100,7 +99,7 @@ public class HashTable {
      * @return a reference to the data in the memory manager
      */
     public int remove(int id) {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < records.length; i++) {
             if (records[i] instanceof SemRecord) {
                 if (records[i].getId() == id) {
                     if (records[i].isTombstone()) {
@@ -124,7 +123,7 @@ public class HashTable {
      * @return Array index if item is found, -1 if not.
      */
     public int find(int id) {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < records.length; i++) {
             if (records[i] instanceof SemRecord) {
                 if (records[i].getId() == id) {
                     return i;
