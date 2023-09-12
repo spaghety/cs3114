@@ -20,19 +20,22 @@ public class MemManagerTest extends TestCase {
         SemRecord newRec = null;
         memManager.printFreeBlock();
         try {
-            System.out.printf("\nthe serialized object is %d long", semToInsert.serialize().length);
-        } catch(Exception e) {
-            fail("Could not serialize object");
-        }
-        try {
             newRec = memManager.insert(semToInsert.serialize(), 11);
         }
         catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
             fail("error with insertion");
         }
         assertNotNull(newRec);
+        assertEquals(0, newRec.getIndex());
+        //Try inserting a second record, should take an index in the buddy slot of the previous record
+        SemRecord newNewRec = null;
+        try {
+            newNewRec = memManager.insert(semToInsert.serialize(), 11);
+        } catch (Exception e) {
+            fail("error with inserting second seminar");
+        }
+        assertNotNull(newNewRec);
+        assertEquals(64, newNewRec.getIndex());
         memManager.printFreeBlock();
     }
 }
