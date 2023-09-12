@@ -57,6 +57,7 @@ public class MemManagerTest extends TestCase {
      * just inserted just from the handle
      */
     public void testFind() {
+        assertNull(memManager.find(null));
         String[] tags = new String[] { "tag 1" };
         Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90,
             (short)1, (short)2, 12, tags, "desc");
@@ -70,5 +71,24 @@ public class MemManagerTest extends TestCase {
         }
         assertTrue(semToInsert.toString().equals(memManager.find(record)
             .toString()));
+        assertNull(memManager.find(new SemRecord(15, 64, 12)));
+    }
+    
+    /**
+     * Tests remove method
+     */
+    public void testRemove() {
+        assertFalse(memManager.remove(null));
+        String[] tags = new String[] { "tag 1" };
+        Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90,
+            (short)1, (short)2, 12, tags, "desc");
+        SemRecord record = null;
+        try {
+            record = memManager.insert(semToInsert.serialize(), 11);
+        } catch (Exception e) {
+            fail("ERROR: Seminar failed to insert");
+        }
+        assertTrue(memManager.remove(record));
+        assertFalse(memManager.remove(record));
     }
 }
