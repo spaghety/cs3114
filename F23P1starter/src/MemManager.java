@@ -10,6 +10,15 @@ public class MemManager {
     private byte[] memory;
     private FreeBlock[] freespace;
 
+    public MemManager(int memsize) {
+        memory = new byte[memsize];
+        freespace = new FreeBlock[((int)Math.ceil(Math.log(memsize) / Math.log(
+            2)))]; // create array of linked lists with the length of the
+                   // highest power of two. Rounded up to be safe.
+        freespace[freespace.length - 1] = new FreeBlock(0);
+    }
+
+
     /**
      * This function finds a free space and copies the data of the serialized
      * object into it.
@@ -52,7 +61,7 @@ public class MemManager {
         if (slot == -1) {
             // Could not insert -- Out of room -- Expand byte array
         }
-        //arraycopy the seminar into the memory
+        // arraycopy the seminar into the memory
         if (slot != -1) {
             System.arraycopy(sem, 0, memory, slot, sem.length);
             return slot;
