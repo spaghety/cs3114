@@ -25,7 +25,7 @@ public class FreeBlockTest extends TestCase {
     }
     
     public void testSetters() {
-        FreeBlock next = new FreeBlock(index);
+        FreeBlock next = new FreeBlock(8);
         assertTrue(freeBlock.setNext(next));
         assertEquals(next, freeBlock.getNext());
         assertFalse(freeBlock.setNext(null));

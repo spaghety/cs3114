@@ -46,24 +46,19 @@ public class HashTable {
 
 	/**
 	 * Returns the hash destination.
-	 * 
-	 * @param id id of the object being entered in.
-	 * @return the hashed id to be used as an index.
-	 */
-	private int hash(int id, int objsize) {
-		// Rounds the object size up to the next power of two.
-		objsize = Integer.highestOneBit(objsize - 1) << 1;
-		int slots = size/objsize;
-		int index = id % slots;
-		int h2 = (((id / slots) % (slots / 2)) * 2) + 1;
-		while (records[index] != null && !records[index].isTombstone()) {
-			index += h2;
-			index %= slots;
-		}
-		// System.out.println("Length = " + size);
-		// System.out.println("Index = " + index);
-		return index;
-	}
+     * 
+     * @param id id of the object being entered in.
+     * @return the hashed id to be used as an index.
+     */
+    private int hash(int id) {
+        int index = id % size;
+        int h2 = (((id / size) % (size / 2)) * 2) + 1;
+        while (records[index] != null && !records[index].isTombstone()) {
+            index += h2;
+            index %= size;
+        }
+        return index;
+    }
 
 	/**
      * Inserts new item into the hash table.
