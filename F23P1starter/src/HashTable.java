@@ -39,7 +39,7 @@ public class HashTable {
     private void doubleCap() {
         SemRecord[] tempArr = records;
         records = new SemRecord[records.length * 2];
-        for (int i = 0; i < records.length; i++) {
+        for (int i = 0; i < tempArr.length; i++) {
         	if (tempArr[i] != null) {
         		records[hash(tempArr[i].getId())] = tempArr[i];
         	}
