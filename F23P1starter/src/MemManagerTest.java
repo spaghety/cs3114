@@ -8,7 +8,7 @@ public class MemManagerTest extends TestCase {
      * Sets up the tests that follow.
      */
     public void setUp() {
-        memManager = new MemManager(128);
+        memManager = new MemManager(256);
     }
     
     /**

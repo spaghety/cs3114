@@ -20,7 +20,7 @@ public class MemManager {
      */
     public MemManager(int memsize) {
         memory = new byte[memsize];
-        freespace = new FreeBlock[((int)Math.ceil(Math.log(memsize) / Math.log(
+        freespace = new FreeBlock[(1+(int)Math.ceil(Math.log(memsize) / Math.log(
             2)))]; // create array of linked lists with the length of the
                    // highest power of two. Rounded up to be safe.
         freespace[freespace.length - 1] = new FreeBlock(0);
@@ -37,6 +37,7 @@ public class MemManager {
      */
     public SemRecord insert(byte[] sem, int id) {
         int headIndex = (int)(Math.ceil(Math.log(sem.length) / Math.log(2)));
+        System.out.printf("\nsize index is %d out of %d\n", headIndex, freespace.length);
         // check if an exact match for the slot size is available
         FreeBlock curr = freespace[headIndex];
         int slot = -1;
@@ -151,5 +152,23 @@ public class MemManager {
         temp.setNext(curr);
         freespace[freeBlockIndex] = temp;
         return true;
+    }
+    /**
+     * This method prints out the free blocks' indices by size
+     */
+    public void printFreeBlock() {
+        for (int i=0;i<freespace.length;i++) {
+            if (freespace[i] != null) {
+                System.out.printf("\n%d: ");
+                FreeBlock curr = freespace[i];
+                while (curr != null) {
+                    System.out.print(curr.getIndex());
+                    if (curr.getNext() != null) {
+                        System.out.print(", ");
+                        curr = curr.getNext();
+                    }
+                }
+            }
+        }
     }
 }
