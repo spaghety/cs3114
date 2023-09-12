@@ -8,7 +8,7 @@ import student.TestCase;
 public class HashTableTest extends TestCase {
     private HashTable hashTable;
     private static int size = 16;
-    private byte[] compare;
+    private SemRecord[] compare;
     private Seminar sem;
 
     /**
@@ -16,8 +16,8 @@ public class HashTableTest extends TestCase {
      * @throws Exception 
      */
     public void setUp() throws Exception {
-        compare = new byte[size];
-        hashTable = new HashTable(size, size);
+        compare = new SemRecord[size];
+        hashTable = new HashTable(size);
         byte a = 0x1;
         byte b = 0x5;
         hashTable.insert(11, sem.serialize());
