@@ -11,6 +11,13 @@ public class MemManager {
     private byte[] memory;
     private FreeBlock[] freespace;
 
+    /**
+     * Constructor takes one argument memsize, creates a byte array, and creates
+     * a single freeblock array with a slot for all block sizes possible with
+     * one active freeblock spanning the entire byte array.
+     * 
+     * @param memsize
+     */
     public MemManager(int memsize) {
         memory = new byte[memsize];
         freespace = new FreeBlock[((int)Math.ceil(Math.log(memsize) / Math.log(
