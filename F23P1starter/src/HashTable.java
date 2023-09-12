@@ -40,7 +40,7 @@ public class HashTable {
     private boolean doubleCap() {
         SemRecord[] tempArr = new SemRecord[records.length * 2];
         for (int i = 0; i < records.length; i++) {
-            if (records[i] != null) {
+            if (records[i] != null && !records[i].isTombstone()) {
                 tempArr[records[i].getId() % tempArr.length] = records[i];
             }
         }
@@ -70,14 +70,15 @@ public class HashTable {
      * Inserts new item into the hash table.
      * 
      * @param id
-     *            id of the item to be inserted.
+     *            the id of the seminar used in the hash algorithm
      * @param size
-     *            Seminar object to be inserted.
+     *            the length of the array being inserted
      * @param index
-     * @return true if successful, false if not.
+     *            the index of the serialized seminar object in the memory
+     *            manager byte array
      */
     public boolean insert(int id, int size, int index) {
-        if (this.find(index) > -1) {
+        if (this.find(id) > -1) {
             return false;
         }
         SemRecord ref = new SemRecord(id, index, size);
@@ -95,9 +96,14 @@ public class HashTable {
      */
     public int remove(int id) {
         for (int i = 0; i < size; i++) {
-            if (records[i].getId() == id) {
-                records[i].makeTombstone();
-                return records[i].getIndex();
+            if (records[i] instanceof SemRecord) {
+                if (records[i].getId() == id) {
+                    if (records[i].isTombstone()) {
+                        return -1;
+                    }
+                    records[i].makeTombstone();
+                    return records[i].getIndex();
+                }
             }
         }
         return -1;
@@ -105,16 +111,16 @@ public class HashTable {
 
 
     /**
-     * Finds an item in the hash table by index.
+     * Finds an item in the hash table by id.
      * 
-     * @param index
-     *            index of the item to be found.
+     * @param id
+     *            id of the item to be found.
      * @return Array index if item is found, -1 if not.
      */
-    public int find(int index) {
+    public int find(int id) {
         for (int i = 0; i < size; i++) {
             if (records[i] instanceof SemRecord) {
-                if (records[i].getIndex() == index) {
+                if (records[i].getId() == id) {
                     return i;
                 }
             }
@@ -140,8 +146,7 @@ public class HashTable {
      * 
      * @param type
      *            true if printing out the hash table, false if printing out
-     *            free
-     *            memory blocks.
+     *            free memory blocks.
      * @return the string for the parser to print.
      */
     public String printout(boolean type) {

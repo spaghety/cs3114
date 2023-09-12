@@ -24,6 +24,7 @@ public class SemRecord {
      *            the length of the array being inserted
      */
     public SemRecord(int id, int index, int size) {
+        this.id = id;
         semIndex = index;
         semSize = size;
         stone = false;
@@ -91,12 +92,6 @@ public class SemRecord {
             return true;
         }
         SemRecord that = (SemRecord) other;
-        if (stone) {
-            return false;
-        }
-        if (that.isTombstone()) {
-            return false;
-        }
-        return this.getIndex() == that.getIndex();
+        return (this.getIndex() == that.getIndex() && stone == that.isTombstone());
     }
 }

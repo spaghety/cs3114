@@ -63,7 +63,9 @@ public class SemRecordTest extends TestCase {
         semRecord2.makeTombstone();
         assertFalse(semRecord.equals(semRecord2));
         assertFalse(semRecord2.equals(semRecord));
-        // Same object case again
-        assertEquals(semRecord2, semRecord2);
+        semRecord.makeTombstone();
+        assertEquals(semRecord, semRecord2);
+        semRecord3.makeTombstone();
+        assertFalse(semRecord3.equals(semRecord));
     }
 }
