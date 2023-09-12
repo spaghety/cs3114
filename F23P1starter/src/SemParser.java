@@ -116,8 +116,8 @@ public class SemParser {
 				break;
 			case "delete": // Execute to delete object from the hash table
 				id = sc.nextInt();
-				SemRecord rec = db.remove(id);
-				if (rec == null) {
+				SemRecord ref = db.remove(id);
+				if (ref == null) {
 					// COULD NOT FIND ID IN HASH TABLE
 				} else {
 					mm.remove(db.remove(id));
