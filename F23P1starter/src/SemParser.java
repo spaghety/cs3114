@@ -57,6 +57,9 @@ public class SemParser {
         String desc;
         while (sc.hasNextLine()) {
             String[] tags;
+            if (!sc.hasNext()) {
+                break;
+            }
             command = sc.next();
             switch (command) {
                 case "insert": // Execute to insert new seminar
@@ -74,7 +77,7 @@ public class SemParser {
                     try {
                         byte[] sem = (new Seminar(id, courseName, date, length,
                             x, y, cost, tags, desc)).serialize();
-                        //db.insert(id, sem);
+                        // db.insert(id, sem);
                         System.out.printf(
                             "Successfully inserted record with ID %d\n"
                                 + "ID: %d, Title: %s\n"
