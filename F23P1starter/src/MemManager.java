@@ -59,14 +59,29 @@ public class MemManager {
             }
             newIndex++;
         }
-        // if (slot == -1) {
-        // Could not insert -- Out of room -- Expand byte array
-        // }
-        // arraycopy the seminar into the memory
-        if (slot != -1) {
+        if (slot == -1) {
+            doubleSize();
+        }
+        else {
+            // arraycopy the seminar into the memory
             System.arraycopy(sem, 0, memory, slot, sem.length);
             return slot;
         }
         return 0;
+    }
+
+
+    /**
+     * This method is called when the size of the base byte array needs to be
+     * doubled
+     */
+    private void doubleSize() {
+        // expands the size of the byte array
+        byte[] newBytes = new byte[memory.length * 2];
+        System.arraycopy(memory, 0, newBytes, 0, memory.length);
+        // Adds new free space
+        FreeBlock newblock = new FreeBlock(memory.length);
+        freespace[freespace.length - 1] = newblock;
+        memory = newBytes;
     }
 }
