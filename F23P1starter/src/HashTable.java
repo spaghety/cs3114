@@ -45,6 +45,7 @@ public class HashTable {
 	}
 
 	/**
+	 * Returns the hash destination.
 	 * 
 	 * @param id id of the object being entered in.
 	 * @return the hashed id to be used as an index.
