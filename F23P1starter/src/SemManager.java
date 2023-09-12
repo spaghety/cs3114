@@ -49,8 +49,8 @@ public class SemManager {
         int memsize = Integer.parseInt(args[0]);
         int hashsize = Integer.parseInt(args[1]);
         String fname = args[2];
-        HashTable ht = new HashTable(hashsize);
-        byte[] db = new byte[memsize];
+        MemManager memoryManager = new MemManager(memsize);
+        HashTable ht = new HashTable(hashsize, memoryManager);
 //        FreeBlock[] freespace = new FreeBlock[];
         try {
             SemParser fileRead = new SemParser(fname, ht);

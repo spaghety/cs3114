@@ -28,19 +28,21 @@ public class MemManager {
      *            serialized seminar object
      * @return the index of the object in the byte array
      */
-    public int insert(byte[] sem) {
+    public SemRecord insert(byte[] sem, int id) {
         int headIndex = (int)(Math.ceil(Math.log(sem.length) / Math.log(2)));
         // check if an exact match for the slot size is available
         FreeBlock curr = freespace[headIndex];
         int slot = -1;
+        SemRecord handle = null;
         if (curr != null) {
             freespace[headIndex] = curr.getNext();
             slot = curr.getIndex();
+            handle = new SemRecord(id, curr.getIndex(), sem.length);
         }
         // If not, loop through greater sizes and to find an appropriate free
         // space and break it down
         int newIndex = headIndex + 1;
-        while (slot == -1 && newIndex < freespace.length) {
+        while (handle == null && newIndex < freespace.length) {
             if (curr != null) {
                 slot = curr.getIndex();
                 freespace[newIndex] = curr.getNext();
@@ -55,19 +57,19 @@ public class MemManager {
                 freespace[newIndex - 1] = temp;
                 // delete larger free block
                 freespace[headIndex] = curr.getNext();
-                slot = insert(sem); // recursive command
+                handle = insert(sem, id); // recursive command
             }
             newIndex++;
         }
-        if (slot == -1) {
+        if (handle == null) {
             doubleSize();
+            return insert(sem, id);
         }
         else {
             // arraycopy the seminar into the memory
             System.arraycopy(sem, 0, memory, slot, sem.length);
-            return slot;
+            return handle;
         }
-        return 0;
     }
 
 

@@ -11,11 +11,12 @@
  * This class sets up the hash table storing all the seminars.
  */
 public class HashTable {
-//    public static SemRecord TOMBSTONE = new SemRecord(0, 0, 0);
+// public static SemRecord TOMBSTONE = new SemRecord(0, 0, 0);
     private SemRecord[] records;
 // private FreeBlock[] freespace;
     private int size;
     private int count;
+    private MemManager mm;
 
     /**
      * Constructor
@@ -23,8 +24,11 @@ public class HashTable {
      * @param hashsize
      *            the number of slots to start with initially (may increase
      *            with time) will always be a power of 2.
+     * @param memMgr
+     *            the memory manager object to call commands from
      */
-    public HashTable(int hashsize) {
+    public HashTable(int hashsize, MemManager memMgr) {
+        mm = memMgr;
         records = new SemRecord[hashsize];
         size = hashsize;
         count = 0;

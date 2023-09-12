@@ -11,6 +11,7 @@ import static org.junit.Assert.assertArrayEquals;
 public class HashTableTest extends TestCase {
     private HashTable hashTable;
     private static int size = 16;
+    private static int memsize = 64;
     private SemRecord[] compare;
     private Seminar sem;
     private int a;
@@ -23,7 +24,7 @@ public class HashTableTest extends TestCase {
      */
     public void setUp() throws Exception {
         compare = new SemRecord[size];
-        hashTable = new HashTable(size);
+        hashTable = new HashTable(size, new MemManager(memsize));
         a = 5;
         b = 1;
         hashTable.insert(a, size, a);
@@ -81,7 +82,7 @@ public class HashTableTest extends TestCase {
 
 
     public void testDoubleCap() {
-        HashTable fullHashTable = new HashTable(size);
+        HashTable fullHashTable = new HashTable(size, new MemManager(memsize));
         int i;
         for (i = 0; i < size; i++) {
             fullHashTable.insert(i, size, i);
