@@ -34,6 +34,7 @@ import java.util.Scanner;
  * Parses the input file into Seminar objects
  */
 public class SemParser {
+	MemManager mm;
     /**
      * Parses the input file and store the data in a Seminar object
      * 
@@ -43,9 +44,10 @@ public class SemParser {
      *            The hash table to be passed in
      * @throws FileNotFoundException
      */
-    public SemParser(String fname, HashTable db) throws FileNotFoundException {
+    public SemParser(String fname, HashTable db, MemManager memMgr) throws FileNotFoundException {
         File infile = new File(fname);
         Scanner sc = new Scanner(infile);
+        mm = memMgr;
         String command;
         int id;
         String courseName;
@@ -77,7 +79,7 @@ public class SemParser {
                     try {
                         byte[] sem = (new Seminar(id, courseName, date, length,
                             x, y, cost, tags, desc)).serialize();
-                        // db.insert(id, sem);
+                        db.insert(mm.insert(sem, id));
                         System.out.printf(
                             "Successfully inserted record with ID %d\n"
                                 + "ID: %d, Title: %s\n"

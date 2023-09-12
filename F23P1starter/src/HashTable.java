@@ -39,7 +39,7 @@ public class HashTable {
     private void doubleCap() {
         SemRecord[] tempArr = records;
         records = new SemRecord[records.length * 2];
-        for (int i = 0; i < tempArr.length; i++) {
+        for (int i = 0; i < records.length; i++) {
         	if (tempArr[i] != null) {
         		records[hash(tempArr[i].getId())] = tempArr[i];
         	}
@@ -77,14 +77,13 @@ public class HashTable {
      *            the index of the serialized seminar object in the memory
      *            manager byte array
      */
-    public boolean insert(int id, int size, int index) {
-        if (this.find(id) > -1) {
+    public boolean insert(SemRecord ref) {
+        if (this.find(ref.getId()) > -1) {
             return false;
         }
-        SemRecord ref = new SemRecord(id, index, size);
-        records[hash(id)] = ref;
+        records[hash(ref.getId())] = ref;
         count++;
-        if (count*2 >= size) {
+        if (count*2 >= records.length) {
             doubleCap();
         }
         return true;

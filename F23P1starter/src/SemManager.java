@@ -53,7 +53,7 @@ public class SemManager {
         HashTable ht = new HashTable(hashsize, memoryManager);
 // FreeBlock[] freespace = new FreeBlock[];
         try {
-            SemParser fileRead = new SemParser(fname, ht);
+            SemParser fileRead = new SemParser(fname, ht, memoryManager);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
