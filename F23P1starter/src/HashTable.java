@@ -71,12 +71,15 @@ public class HashTable {
      * 
      * @param id
      *            id of the item to be inserted.
-     * @param sem
+     * @param size
      *            Seminar object to be inserted.
+     * @param index
      * @return true if successful, false if not.
-     * @throws Exception
      */
     public boolean insert(int id, int size, int index) {
+        if (this.find(index) > -1) {
+            return false;
+        }
         SemRecord ref = new SemRecord(id, index, size);
         records[hash(id)] = ref;
         return true;
@@ -102,16 +105,18 @@ public class HashTable {
 
 
     /**
-     * Finds an item in the hash table by id.
+     * Finds an item in the hash table by index.
      * 
-     * @param id
-     *            id of the item to be removed.
+     * @param index
+     *            index of the item to be found.
      * @return Array index if item is found, -1 if not.
      */
-    public int find(int id) {
+    public int find(int index) {
         for (int i = 0; i < size; i++) {
-            if (records[i].getId() == id) {
-                return i;
+            if (records[i] instanceof SemRecord) {
+                if (records[i].getIndex() == index) {
+                    return i;
+                }
             }
         }
         return -1;
