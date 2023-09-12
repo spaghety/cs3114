@@ -1,8 +1,10 @@
-import junit.framework.AssertionFailedError;
 import student.TestCase;
 
 /**
  * Unit tests for the SemRecord class
+ * 
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.09.11
  */
 
 public class SemRecordTest extends TestCase {
@@ -49,16 +51,21 @@ public class SemRecordTest extends TestCase {
     public void testEquals() {
         // Null case
         assertFalse(semRecord.equals(null));
+        
         // Wrong object class case
         assertFalse(semRecord.equals("Hello"));
+        
         // Same object case
         assertEquals(semRecord, semRecord);
+        
         // Sets up other SemRecord objects
         SemRecord semRecord2 = new SemRecord(id + 1, index, size);
         SemRecord semRecord3 = new SemRecord(id + 2, index + 1, size);
+        
         // Regular cases, no tombstone
         assertEquals(semRecord, semRecord2);
         assertFalse(semRecord.equals(semRecord3));
+        
         // Tombstone cases
         semRecord2.makeTombstone();
         assertFalse(semRecord.equals(semRecord2));

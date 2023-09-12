@@ -6,6 +6,7 @@ import static org.junit.Assert.assertArrayEquals;
  * Test class for HashTable
  * 
  * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.09.11
  */
 public class HashTableTest extends TestCase {
     private HashTable hashTable;

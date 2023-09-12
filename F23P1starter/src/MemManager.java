@@ -4,7 +4,8 @@
 
 /**
  * @author Phillip Jordan (alexj14)
- *
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.09.11
  */
 public class MemManager {
     private byte[] memory;
@@ -58,9 +59,9 @@ public class MemManager {
             }
             newIndex++;
         }
-        if (slot == -1) {
-            // Could not insert -- Out of room -- Expand byte array
-        }
+        // if (slot == -1) {
+        // Could not insert -- Out of room -- Expand byte array
+        // }
         // arraycopy the seminar into the memory
         if (slot != -1) {
             System.arraycopy(sem, 0, memory, slot, sem.length);
