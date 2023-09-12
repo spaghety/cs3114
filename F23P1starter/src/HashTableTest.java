@@ -12,6 +12,7 @@ public class HashTableTest extends TestCase {
 	private HashTable hashTable;
 	private static int size = 16;
 	private static int memsize = 64;
+	private MemManager mm;
 	private SemRecord[] compare;
 	private Seminar sem;
 	private int a;
@@ -24,7 +25,7 @@ public class HashTableTest extends TestCase {
 	 */
 	public void setUp() throws Exception {
 		compare = new SemRecord[size];
-		hashTable = new HashTable(size, new MemManager(memsize));
+		hashTable = new HashTable(size);
 		a = 5;
 		b = 1;
 		hashTable.insert(new SemRecord(a, a, size));
@@ -33,6 +34,7 @@ public class HashTableTest extends TestCase {
 		compare[b % size] = new SemRecord(b, b, size);
 		sem = new Seminar(11, "test", "9/6/2023", 10, (short) 2, (short) 6, 100,
 				new String[] { "example", "test", "other test string" }, "This is a test seminar for testing.");
+		mm = new MemManager(memsize);
 	}
 
 	/**
@@ -75,7 +77,7 @@ public class HashTableTest extends TestCase {
 	}
 
 	public void testDoubleCap() {
-		HashTable fullHashTable = new HashTable(size, new MemManager(memsize));
+		HashTable fullHashTable = new HashTable(size);
 		int i;
 		for (i = 0; i < size; i++) {
 			fullHashTable.insert(new SemRecord(i, i, size));
@@ -111,10 +113,6 @@ public class HashTableTest extends TestCase {
 	}
 
 	public void testPrintout() {
-		assertEquals("\n1\n5", hashTable.printout(true));
-		assertEquals("", hashTable.printout(false));
-		hashTable.remove(a);
-		assertEquals("\n1", hashTable.printout(true));
-		assertEquals("", hashTable.printout(false));
+		assertTrue(hashTable.printout(mm));
 	}
 }

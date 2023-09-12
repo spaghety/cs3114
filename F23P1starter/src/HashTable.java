@@ -15,17 +15,14 @@ public class HashTable {
 	private SemRecord[] records;
 // private FreeBlock[] freespace;
 	private int count;
-	private MemManager mm;
 
 	/**
 	 * Constructor
 	 * 
 	 * @param hashsize the number of slots to start with initially (may increase
 	 *                 with time) will always be a power of 2.
-	 * @param memMgr   the memory manager object to call commands from
 	 */
-	public HashTable(int hashsize, MemManager memMgr) {
-		mm = memMgr;
+	public HashTable(int hashsize) {
 		records = new SemRecord[hashsize];
 		count = 0;
 	}
@@ -131,20 +128,19 @@ public class HashTable {
 	 * Prints out either the free blocks of space in the memory or the contents of
 	 * the hash table by id and index.
 	 * 
-	 * @param type true if printing out the hash table, false if printing out free
-	 *             memory blocks.
-	 * @return the string for the parser to print.
+	 * @param memMgr reference to the memory manager to retrieve data
+	 * @return true if successful, false if not
 	 */
-	public String printout(boolean type) {
-		StringBuilder result = new StringBuilder();
-		if (type) {
-			for (int i = 0; i < records.length; i++) {
-				if (records[i] != null && !records[i].isTombstone()) {
-					result.append("\n" + i);
-				}
+	public boolean printout(MemManager memMgr) {
+		for (int i = 0; i < records.length; i++) {
+			if (records[i] != null && !records[i].isTombstone()) {
+				Seminar obj = memMgr.find(records[i]);
+				if (obj == null)
+					return false;
+				System.out.println(obj.toString());
 			}
 		}
-		return result.toString();
+		return true;
 	}
 
 }

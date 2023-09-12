@@ -50,7 +50,7 @@ public class SemManager {
         int hashsize = Integer.parseInt(args[1]);
         String fname = args[2];
         MemManager memoryManager = new MemManager(memsize);
-        HashTable ht = new HashTable(hashsize, memoryManager);
+        HashTable ht = new HashTable(hashsize);
 // FreeBlock[] freespace = new FreeBlock[];
         try {
             SemParser fileRead = new SemParser(fname, ht, memoryManager);

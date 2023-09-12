@@ -109,7 +109,11 @@ public class SemParser {
                 case "print": // Execute to print either hashtable data or
                               // freeblock data
                     courseName = sc.nextLine();
-                    db.printout((courseName.equals("hashtable")));
+                    if (courseName.equals("blocks")) {
+                    	mm.printFreeBlock();
+                    }else {
+                    	db.printout(mm);
+                    }
                     break;
                 case "delete": // Execute to delete object from the hash table
                     id = sc.nextInt();
