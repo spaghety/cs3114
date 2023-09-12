@@ -84,6 +84,9 @@ public class SemRecord {
         if (!other.getClass().equals(this.getClass())) {
             return false;
         }
+        if (other == this) {
+            return true;
+        }
         SemRecord that = (SemRecord) other;
         if (stone) {
             return false;

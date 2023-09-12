@@ -47,17 +47,21 @@ public class SemRecordTest extends TestCase {
      */
     @SuppressWarnings("unlikely-arg-type")
     public void testEquals() {
-        // Wrong object class
+        // Wrong object class case
         assertFalse(semRecord.equals("Hello"));
+        // Same object case
+        assertEquals(semRecord, semRecord);
         // Sets up other SemRecord objects
         SemRecord semRecord2 = new SemRecord(id + 1, index, size);
         SemRecord semRecord3 = new SemRecord(id + 2, index + 1, size);
         // Regular cases, no tombstone
         assertEquals(semRecord, semRecord2);
-        assertNotSame(semRecord, semRecord3);
+        assertFalse(semRecord.equals(semRecord3));
         // Tombstone cases
         semRecord2.makeTombstone();
-        assertNotSame(semRecord, semRecord2);
-        assertNotSame(semRecord2, semRecord);
-   }
+        assertFalse(semRecord.equals(semRecord2));
+        assertFalse(semRecord2.equals(semRecord));
+        // Same object case again
+        assertEquals(semRecord2, semRecord2);
+    }
 }
