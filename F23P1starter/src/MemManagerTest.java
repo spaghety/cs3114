@@ -1,5 +1,13 @@
+
 import student.TestCase;
 
+/**
+ * This class tests the methods and functionality of the MemManager class
+ * 
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
+ *
+ */
 public class MemManagerTest extends TestCase {
 
     private MemManager memManager;
@@ -10,13 +18,15 @@ public class MemManagerTest extends TestCase {
     public void setUp() {
         memManager = new MemManager(256);
     }
-    
+
+
     /**
      * Tests the insert method
      */
     public void testInsert() {
-        String[] tags = new String[] {"tag 1"};
-        Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90, (short) 1, (short) 2, 12, tags, "desc");
+        String[] tags = new String[] { "tag 1" };
+        Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90,
+            (short)1, (short)2, 12, tags, "desc");
         SemRecord newRec = null;
         memManager.printFreeBlock();
         try {
@@ -27,15 +37,38 @@ public class MemManagerTest extends TestCase {
         }
         assertNotNull(newRec);
         assertEquals(0, newRec.getIndex());
-        //Try inserting a second record, should take an index in the buddy slot of the previous record
+        // Try inserting a second record, should take an index in the buddy slot
+        // of the previous record
         SemRecord newNewRec = null;
         try {
             newNewRec = memManager.insert(semToInsert.serialize(), 11);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             fail("error with inserting second seminar");
         }
         assertNotNull(newNewRec);
         assertEquals(64, newNewRec.getIndex());
         memManager.printFreeBlock();
+    }
+
+
+    /**
+     * Checks if the find command can retrieve an identical seminar to the one
+     * just inserted just from the handle
+     */
+    public void testFind() {
+        String[] tags = new String[] { "tag 1" };
+        Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90,
+            (short)1, (short)2, 12, tags, "desc");
+        SemRecord record = null;
+        try {
+            record = memManager.insert(semToInsert.serialize(), 11);
+        }
+        catch (Exception e) {
+            System.out.println("ERROR: Seminar failed to serialize");
+            e.printStackTrace();
+        }
+        assertTrue(semToInsert.toString().equals(memManager.find(record)
+            .toString()));
     }
 }
