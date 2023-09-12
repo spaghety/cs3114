@@ -56,7 +56,6 @@ public class MemManager {
         if (slot != -1) {
             System.arraycopy(sem, 0, memory, slot, sem.length);
             return slot;
->>>>>>> branch 'main' of https://github.com/spaghety/cs3114
         }
         return 0;
     }
