@@ -103,6 +103,8 @@ public class SemParser {
                 case "search": // Execute to search for existing seminar
                     id = sc.nextInt();
                     sc.nextLine();
+                    mm.find(db.find(id));
+                    
                     break;
                 case "print": // Execute to print either hashtable data or
                               // freeblock data
