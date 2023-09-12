@@ -20,9 +20,12 @@ public class MemManager {
      */
     public MemManager(int memsize) {
         memory = new byte[memsize];
-        freespace = new FreeBlock[(1+(int)Math.ceil(Math.log(memsize) / Math.log(
-            2)))]; // create array of linked lists with the length of the
-                   // highest power of two. Rounded up to be safe.
+        int freeSpaceSize = (int)Math.ceil(Math.log(memsize) / Math.log(2)) + 1;
+        System.out.printf("\nfree space size: %d\n", freeSpaceSize);
+        freespace = new FreeBlock[freeSpaceSize]; // create array of linked
+                                                  // lists with the length of
+                                                  // the
+        // highest power of two. Rounded up to be safe.
         freespace[freespace.length - 1] = new FreeBlock(0);
     }
 
@@ -37,7 +40,8 @@ public class MemManager {
      */
     public SemRecord insert(byte[] sem, int id) {
         int headIndex = (int)(Math.ceil(Math.log(sem.length) / Math.log(2)));
-        System.out.printf("\nsize index is %d out of %d\n", headIndex, freespace.length);
+        System.out.printf("\nsize index is %d out of %d\n", headIndex,
+            freespace.length);
         // check if an exact match for the slot size is available
         FreeBlock curr = freespace[headIndex];
         int slot = -1;
@@ -46,36 +50,39 @@ public class MemManager {
             freespace[headIndex] = curr.getNext();
             slot = curr.getIndex();
             handle = new SemRecord(id, curr.getIndex(), sem.length);
+            // arraycopy the seminar into the memory
+            System.arraycopy(sem, 0, memory, slot, sem.length);
         }
-        // If not, loop through greater sizes and to find an appropriate free
-        // space and break it down
-        int newIndex = headIndex + 1;
-        while (handle == null && newIndex < freespace.length) {
-            if (curr != null) {
-                slot = curr.getIndex();
-                freespace[newIndex] = curr.getNext();
-                FreeBlock temp = new FreeBlock(slot);
-                // designate second "buddy" free block to be halfway through the
-                // old block
-                int secondSlot = slot + ((int)Math.pow(2, newIndex) / 2);
-                // combine the two temp slots into a linked list
-                temp.setNext(new FreeBlock(secondSlot));
-                // set the size category 1 lower to the temporary linked list
-                // (assumes the lower array element is null)
-                freespace[newIndex - 1] = temp;
-                // delete larger free block
-                freespace[headIndex] = curr.getNext();
-                handle = insert(sem, id); // recursive command
+        else {
+            headIndex++;
+            // If not, loop through greater sizes and to find an appropriate
+            // free
+            // space and break it down
+            while (headIndex < freespace.length) {
+                curr = freespace[headIndex];
+                if (curr != null) {
+                    //add two blocks to the size category below
+                    int ind = curr.getIndex();
+                    System.out.println("larger block index = "+curr.getIndex());
+                    FreeBlock newBlock = new FreeBlock(curr.getIndex());
+                    FreeBlock temp = new FreeBlock(curr.getIndex()+(int) Math.pow(2, headIndex-1));
+                    temp.setNext(freespace[headIndex-1]);
+                    newBlock.setNext(temp);
+                    freespace[headIndex-1] = newBlock;
+                    //delete old block
+                    freespace[headIndex] = freespace[headIndex].getNext();
+                    //recursive call to try inserting again
+                    handle = insert(sem, id);
+                    break;
+                }else {
+                    headIndex++;
+                }
             }
-            newIndex++;
         }
         if (handle == null) {
             doubleSize();
             return insert(sem, id);
-        }
-        else {
-            // arraycopy the seminar into the memory
-            System.arraycopy(sem, 0, memory, slot, sem.length);
+        }else {
             return handle;
         }
     }
@@ -153,20 +160,24 @@ public class MemManager {
         freespace[freeBlockIndex] = temp;
         return true;
     }
+
+
     /**
      * This method prints out the free blocks' indices by size
      */
     public void printFreeBlock() {
-        for (int i=0;i<freespace.length;i++) {
+        for (int i = 0; i < freespace.length; i++) {
             if (freespace[i] != null) {
-                System.out.printf("\n%d: ");
+                System.out.printf("%d: ", (int)Math.pow(2, i));
                 FreeBlock curr = freespace[i];
                 while (curr != null) {
                     System.out.print(curr.getIndex());
                     if (curr.getNext() != null) {
                         System.out.print(", ");
-                        curr = curr.getNext();
+                    }else {
+                        System.out.print("\n");
                     }
+                    curr = curr.getNext();
                 }
             }
         }

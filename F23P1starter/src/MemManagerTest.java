@@ -15,9 +15,10 @@ public class MemManagerTest extends TestCase {
      * Tests the insert method
      */
     public void testInsert() {
-        String[] tags = new String[] {"tag 1", "tag 2", "tag 3"};
-        Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90, (short) 1, (short) 2, 12, tags, "test description");
-        SemRecord newRec;
+        String[] tags = new String[] {"tag 1"};
+        Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90, (short) 1, (short) 2, 12, tags, "desc");
+        SemRecord newRec = null;
+        memManager.printFreeBlock();
         try {
             System.out.printf("\nthe serialized object is %d long", semToInsert.serialize().length);
         } catch(Exception e) {
@@ -31,5 +32,7 @@ public class MemManagerTest extends TestCase {
             e.printStackTrace();
             fail("error with insertion");
         }
+        assertNotNull(newRec);
+        memManager.printFreeBlock();
     }
 }
