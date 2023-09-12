@@ -42,7 +42,7 @@ public class HashTable {
 	}
 
 	/**
-	 * Returns the hash destination.
+	 * Searches for a free space in the hash table
 	 * 
 	 * @param id id of the object being entered in.
 	 * @return the hashed id to be used as an index.
@@ -77,25 +77,32 @@ public class HashTable {
 	}
 
 	/**
+	 * Searches for an existing record in the hash table
+	 * 
+	 * @param id id to hash
+	 * @return index of existing record with a matching id
+	 */
+	private int hashSearch(int id) { // TODO Create catch for infinite loop of searching when the id doesn't exist
+		int index = id % records.length;
+		int h2 = (((id / records.length) % (records.length / 2)) * 2) + 1;
+		while (records[index] == null || records[index].isTombstone()) {
+			index += h2;
+			index %= records.length;
+		}
+		return index;
+	}
+
+	/**
 	 * Removes items from the hash table by id.
 	 * 
 	 * @param id id of the item to be removed.
 	 * @return a reference to the data in the memory manager
 	 */
-	public int remove(int id) {
-		for (int i = 0; i < records.length; i++) {
-			if (records[i] instanceof SemRecord) {
-				if (records[i].getId() == id) {
-					if (records[i].isTombstone()) {
-						return -1;
-					}
-					records[i].makeTombstone();
-					count--;
-					return records[i].getIndex();
-				}
-			}
-		}
-		return -1;
+	public SemRecord remove(int id) {
+		int index = hashSearch(id);
+		SemRecord temp = records[index];
+		records[index].makeTombstone();
+		return temp;
 	}
 
 	/**
@@ -105,14 +112,12 @@ public class HashTable {
 	 * @return memory manager handle or null if it could not be found
 	 */
 	public SemRecord find(int id) {
-		for (int i = 0; i < records.length; i++) {
-			if (records[i] instanceof SemRecord) {
-				if (records[i].getId() == id) {
-					return records[i];
-				}
-			}
+		int index = hashSearch(id);
+		if (index > -1) {
+			return records[index];
+		}else {
+			return null;
 		}
-		return null;
 	}
 
 	/**
