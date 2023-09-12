@@ -110,6 +110,5 @@ public class SemParser {
                     break;
             }
         }
-        sc.close();
     }
 }
