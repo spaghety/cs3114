@@ -13,15 +13,13 @@
 public class HashTable {
     public static SemRecord TOMBSTONE = new SemRecord(0, 0, 0);
     private SemRecord[] records;
-    private FreeBlock[] freespace;
+// private FreeBlock[] freespace;
     private int size;
+    private int count;
 
     /**
      * Constructor
      * 
-     * @param memsize
-     *            the total size of memory to allocate with the byte array.
-     *            Will always be a power of 2.
      * @param hashsize
      *            the number of slots to start with initially (may increase
      *            with time) will always be a power of 2.
@@ -29,22 +27,21 @@ public class HashTable {
     public HashTable(int hashsize) {
         records = new SemRecord[hashsize];
         size = hashsize;
+        count = 0;
     }
 
 
     /**
      * Doubles the capacity in case maximum capacity is reached.
-     * 
-     * @return true if successful, false if not.
      */
-    private boolean doubleCap() {
+    private void doubleCap() {
         SemRecord[] tempArr = new SemRecord[records.length * 2];
+        size *= 2;
         for (int i = 0; i < records.length; i++) {
-            if (records[i] != null && !records[i].isTombstone()) {
-                tempArr[records[i].getId() % tempArr.length] = records[i];
-            }
+            tempArr[records[i].getId() % tempArr.length] = records[i];
         }
-        return true;
+        records = tempArr;
+        return;
     }
 
 
@@ -78,11 +75,15 @@ public class HashTable {
      *            manager byte array
      */
     public boolean insert(int id, int size, int index) {
+        if (count == size) {
+            doubleCap();
+        }
         if (this.find(id) > -1) {
             return false;
         }
         SemRecord ref = new SemRecord(id, index, size);
         records[hash(id)] = ref;
+        count++;
         return true;
     }
 
@@ -102,6 +103,7 @@ public class HashTable {
                         return -1;
                     }
                     records[i].makeTombstone();
+                    count--;
                     return records[i].getIndex();
                 }
             }

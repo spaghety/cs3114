@@ -66,7 +66,7 @@ public class HashTableTest extends TestCase {
     /**
      * Tests insert() when there's a collision
      */
-    public void testInsertWithCollision() throws Exception {
+    public void testInsertWithCollision() {
         int c = a + size;
         assertTrue(hashTable.insert(c, size, c));
         int h2 = (((c / size) % (size / 2)) * 2) + 1;
@@ -77,6 +77,16 @@ public class HashTableTest extends TestCase {
         }
         compare[index] = new SemRecord(c, c, size);
         assertArrayEquals(compare, hashTable.getArray());
+    }
+
+
+    public void testDoubleCap() {
+        HashTable fullHashTable = new HashTable(size);
+        int i;
+        for (i = 0; i < size; i++) {
+            fullHashTable.insert(i, size, i);
+        }
+        assertTrue(fullHashTable.insert(i, size, i));
     }
 
 
@@ -108,7 +118,7 @@ public class HashTableTest extends TestCase {
         assertArrayEquals(compare, hashTable.getArray());
     }
 
-    
+
     public void testPrintout() {
         assertEquals("\n1\n5", hashTable.printout(true));
         assertEquals("", hashTable.printout(false));
