@@ -79,15 +79,15 @@ public class HashTable {
      *            manager byte array
      */
     public boolean insert(int id, int size, int index) {
-        if (count == size) {
-            doubleCap();
-        }
         if (this.find(id) > -1) {
             return false;
         }
         SemRecord ref = new SemRecord(id, index, size);
         records[hash(id)] = ref;
         count++;
+        if (count*2 == size) {
+            doubleCap();
+        }
         return true;
     }
 
