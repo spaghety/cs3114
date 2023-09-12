@@ -32,6 +32,9 @@ import java.io.FileNotFoundException;
  * @version 1.0
  */
 public class SemManager {
+    private byte[] db;
+    private FreeBlock[] freespace;
+    private HashTable ht;
     /**
      * This is the main file for the program
      * Note: both memsize and hashsize are always a power of two
@@ -45,9 +48,11 @@ public class SemManager {
         int memsize = Integer.parseInt(args[0]);
         int hashsize = Integer.parseInt(args[1]);
         String fname = args[2];
-        HashTable db = new HashTable(memsize, hashsize);
+        ht = new HashTable(hashsize);
+        db = new byte[memsize];
+        freespace = new FreeBlock[];
         try {
-            SemParser fileRead = new SemParser(fname, db);
+            SemParser fileRead = new SemParser(fname, ht);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();

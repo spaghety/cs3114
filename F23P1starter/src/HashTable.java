@@ -49,15 +49,12 @@ public class HashTable {
 	 * @param id id of the object being entered in.
 	 * @return the hashed id to be used as an index.
 	 */
-	private int hash(int id, int objsize) {
-		// Rounds the object size up to the next power of two.
-		objsize = Integer.highestOneBit(objsize - 1) << 1;
-		int slots = size/objsize;
-		int index = id % slots;
-		int h2 = (((id / slots) % (slots / 2)) * 2) + 1;
+	private int hash(int id) {
+		int index = id % size;
+		int h2 = (((id / size) % (size / 2)) * 2) + 1;
 		while (records[index] != null && !records[index].isTombstone()) {
 			index += h2;
-			index %= slots;
+			index %= size;
 		}
 		// System.out.println("Length = " + size);
 		// System.out.println("Index = " + index);
@@ -73,24 +70,25 @@ public class HashTable {
 	 * @throws Exception
 	 */
 	public boolean insert(int id, int size, int index) {
-		// TO IMPLEMENT
-	    return false;
+		SemRecord ref = new SemRecord(id, index, size);
+		records[hash(id)] = ref;
+	    return true;
 	}
 
 	/**
 	 * Removes items from the hash table by id.
 	 * 
 	 * @param id id of the item to be removed.
-	 * @return true if item is found and removed, false if not.
+	 * @return a reference to the data in the memory manager
 	 */
-	public boolean remove(int id) {
+	public int remove(int id) {
 		for (int i = 0; i < size; i++) {
 			if (records[i].getId() == id) {
 				records[i].makeTombstone();
-				return true;
+				return records[i].getIndex();
 			}
 		}
-		return false;
+		return -1;
 	}
 
 	/**
