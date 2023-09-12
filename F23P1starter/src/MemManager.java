@@ -31,29 +31,40 @@ public class MemManager {
         int headIndex = (int)(Math.ceil(Math.log(sem.length) / Math.log(2)));
         // check if an exact match for the slot size is available
         FreeBlock curr = freespace[headIndex];
+        int slot = -1;
         if (curr != null) {
             freespace[headIndex] = curr.getNext();
-            return curr.getIndex();
+            slot = curr.getIndex();
         }
         // If not, loop through greater sizes and to find an appropriate free
         // space and break it down
         int newIndex = headIndex + 1;
-        int slot = -1;
-        while (newIndex < freespace.length) {
+        while (slot == -1 && newIndex < freespace.length) {
             if (curr != null) {
                 slot = curr.getIndex();
                 freespace[newIndex] = curr.getNext();
                 FreeBlock temp = new FreeBlock(slot);
-                int secondSlot = slot + ((int)Math.pow(2, newIndex) / 2); //designate second "buddy" free block to be halfway through the old block
-                temp.setNext(new FreeBlock(secondSlot)); //combine the two temp slots into a linked list
-                freespace[newIndex - 1] = temp; //set the size category 1 lower to the temporary linked list (assumes the lower array element is null)
-                freespace[headIndex] = curr.getNext(); //delete larger free block
-                return insert(sem); //recursive command
-            }
-            else if (newIndex == freespace.length - 1) {
-                // Cannot insert -- Out of room -- Expand byte array
+                // designate second "buddy" free block to be halfway through the
+                // old block
+                int secondSlot = slot + ((int)Math.pow(2, newIndex) / 2);
+                // combine the two temp slots into a linked list
+                temp.setNext(new FreeBlock(secondSlot));
+                // set the size category 1 lower to the temporary linked list
+                // (assumes the lower array element is null)
+                freespace[newIndex - 1] = temp;
+                // delete larger free block
+                freespace[headIndex] = curr.getNext();
+                slot = insert(sem); // recursive command
             }
             newIndex++;
+        }
+        if (slot == -1) {
+            // Could not insert -- Out of room -- Expand byte array
+        }
+        //arraycopy the seminar into the memory
+        if (slot != -1) {
+            System.arraycopy(sem, 0, memory, slot, sem.length);
+            return slot;
         }
         return 0;
     }
