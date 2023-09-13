@@ -95,6 +95,9 @@ public class HashTable {
      *         be found
      */
     private int hashSearch(int id) {
+        if (count == 0) {
+            return -1;
+        }
         int index = id % records.length;
         int h2 = (((id / records.length) % (records.length / 2)) * 2) + 1;
         while (records[index] != null && !records[index].isTombstone()) {

@@ -161,6 +161,17 @@ public class HashTableTest extends TestCase {
         assertArrayEquals(compare, hashTable.getArray());
         assertNull(hashTable.remove(6556));
     }
+    
+    /**
+     * Tests remove and find for empty
+     */
+    public void testRemoveFindEmpty() {
+        HashTable ht = new HashTable(2);
+        assertNull(ht.remove(a));
+        assertNull(ht.remove(b));
+        assertNull(ht.find(a));
+        assertNull(ht.find(b));
+    }
 
 
     /**
