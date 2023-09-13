@@ -1,3 +1,4 @@
+
 // On my honor:
 // - I have not used source code obtained from another current or
 // former student, or any other unauthorized source, either
@@ -26,10 +27,10 @@ import java.util.Scanner;
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.09.10
+ * @version 2023.09.12
  */
 public class SemParser {
-    MemManager mm;
+    private MemManager mm;
 
     /**
      * Parses the input file and store the data in a Seminar object
@@ -105,9 +106,13 @@ public class SemParser {
                         // ID NOT FOUND
                     }
                     else {
-                        System.out.println(mm.find(db.find(id)).toString());
+                        try {
+                            System.out.println(mm.find(db.find(id)).toString());
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-
                     break;
                 case "print": // Execute to print either hashtable data or
                               // freeblock data
