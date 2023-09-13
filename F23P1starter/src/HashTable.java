@@ -72,12 +72,6 @@ public class HashTable {
         if (ref == null) {
             return false;
         }
-        if (find(ref.getId()) != null) {
-            System.out.printf(
-                "Insert FAILED - There is already a record with ID %d\n", ref
-                    .getId());
-            return false;
-        }
         // System.out.printf("DIAGNOSTIC: ID = %d AND HASH = %d\n", ref.getId(),
         // hash(ref.getId()));
         records[hash(ref.getId())] = ref;

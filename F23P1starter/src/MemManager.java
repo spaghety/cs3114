@@ -182,12 +182,14 @@ public class MemManager {
      * This method prints out the free blocks' indices by size
      */
     public void printFreeBlock() {
-        for (int i = 0; i < freespace.length; i++) {
+        boolean found=false;
+    	for (int i = 0; i < freespace.length; i++) {
             if (freespace[i] != null) {
                 System.out.printf("%d: ", (int)Math.pow(2, i));
                 FreeBlock curr = freespace[i];
                 while (curr != null) {
                     System.out.print(curr.getIndex());
+                    found = true;
                     if (curr.getNext() != null) {
                         System.out.print(", ");
                     }
@@ -198,5 +200,8 @@ public class MemManager {
                 }
             }
         }
+    	if (!found) {
+    		System.out.println("There are no freeblocks in the memory pool");
+    	}
     }
 }

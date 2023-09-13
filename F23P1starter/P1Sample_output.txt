@@ -49,3 +49,20 @@ total records: 3
 Freeblock List:
 256: 256
 Delete FAILED -- There is no record with ID 6
+Memory pool expanded to 2048 bytes
+Successfully inserted record with ID 2
+ID: 2, Title: Much More Computational Biology and Bioinformatics in CS at Virginia Tech
+Date: 0610071600, Length: 60, X: 20, Y: 10, Cost: 30
+Description: Introduction to bioinformatics and lots of computation biology
+Keywords: Bioinformatics, computation_biology, Biology, Computer_Science, VT, Virginia_Tech
+Size: 260
+Record with ID 10 successfully deleted from the database
+Hashtable:
+1: 1
+2: 2
+3: 3
+5: TOMBSTONE
+total records: 3
+Freeblock List:
+256: 256 768
+512: 1536
