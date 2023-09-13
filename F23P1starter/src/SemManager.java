@@ -22,7 +22,11 @@
  * file.
  */
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * The class containing the main method.
@@ -58,6 +62,5 @@ public class SemManager {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Seminar dum = new Seminar();
     }
 }

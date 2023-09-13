@@ -173,7 +173,7 @@ public class HashTableTest extends TestCase {
         hashTable.remove(b);
         compare[b % size].makeTombstone();
         assertTrue(hashTable.printout());
-        assertEquals("5: 5\n", out.toString());
+        assertEquals("1: TOMBSTONE\n5: 5\ntotal records: 1\n", out.toString());
         assertArrayEquals(compare, hashTable.getArray());
     }
 }

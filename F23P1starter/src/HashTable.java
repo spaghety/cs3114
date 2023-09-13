@@ -39,7 +39,6 @@ public class HashTable {
         }
         System.out.printf("Hash table expanded to %d records\n",
             records.length);
-        return;
     }
 
 
@@ -79,7 +78,7 @@ public class HashTable {
         // System.out.printf("DIAGNOSTIC: ID = %d AND HASH = %d\n", ref.getId(),
         // hash(ref.getId()));
         records[hash(ref.getId())] = ref;
-        if (count * 2 > records.length) {
+        if (count * 2 >= records.length) {
             doubleCap();
         }
         count++;
@@ -107,16 +106,16 @@ public class HashTable {
         }
         // int iter = 0;
         // while ((records[index] == null || records[index].isTombstone())
-        //     && iter < records.length) {
-        //     index += h2;
-        //     index %= records.length;
-        //     iter++;
+        // && iter < records.length) {
+        // index += h2;
+        // index %= records.length;
+        // iter++;
         // }
         // if (records[index] == null) {
-        //     return -1;
+        // return -1;
         // }
         // if (records[index].getId() == id) {
-        //     return index;
+        // return index;
         // }
         return -1;
     }
@@ -137,6 +136,7 @@ public class HashTable {
         }
         SemRecord temp = records[index];
         records[index].makeTombstone();
+        count--;
         return temp;
     }
 
@@ -175,10 +175,16 @@ public class HashTable {
      */
     public boolean printout() {
         for (int i = 0; i < records.length; i++) {
-            if (records[i] != null && !records[i].isTombstone()) {
-                System.out.printf("%d: %d\n", i, records[i].getId());
+            if (records[i] != null) {
+                if (records[i].isTombstone()) {
+                    System.out.printf("%d: TOMBSTONE\n", i);
+                }
+                else {
+                    System.out.printf("%d: %d\n", i, records[i].getId());
+                }
             }
         }
+        System.out.printf("total records: %d\n", count);
         return true;
     }
 

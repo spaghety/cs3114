@@ -49,7 +49,7 @@ public class SemParser {
         File infile = new File(fname);
         Scanner sc = new Scanner(infile);
         mm = memMgr;
-        String command;
+        String[] command;
         int id;
         String courseName;
         String date;
@@ -63,11 +63,11 @@ public class SemParser {
             if (!sc.hasNext()) {
                 break;
             }
-            command = sc.next();
-            switch (command) {
+            command = sc.nextLine().trim().split("\\s+");
+            switch (command[0]) {
                 case "insert": // Execute to insert new seminar
-                    id = sc.nextInt();
-                    sc.nextLine();
+                    id = Integer.parseInt(command[1]);
+//                    sc.nextLine();
                     courseName = sc.nextLine();
                     date = sc.next();
                     length = sc.nextInt();
@@ -75,35 +75,25 @@ public class SemParser {
                     y = (short)sc.nextInt();
                     cost = sc.nextInt();
                     sc.nextLine();
-                    tags = sc.nextLine().split("\\\\s+");
+                    tags = sc.nextLine().trim().split("\\s+");
                     desc = sc.nextLine().trim();
                     try {
-                        byte[] sem = (new Seminar(id, courseName, date, length,
-                            x, y, cost, tags, desc)).serialize();
-                        db.insert(mm.insert(sem, id));
-                        System.out.printf(
-                            "Successfully inserted record with ID %d\n"
-                                + "ID: %d, Title: %s\n"
-                                + "Date: %s, Length: %d, X: %d, Y: %d, "
-                                + "Cost: %d\n" + "Description: %s\n"
-                                + "Keywords:", id, id, courseName, date, length,
-                            x, y, cost, desc);
-                        for (int i = 0; i < tags.length; i++) {
-                            if (!tags[i].equals("")) {
-                                System.out.printf(" %s", tags[i]);
-                                if (tags.length - 1 != i) {
-                                    System.out.print(",");
-                                }
-                            }
+                        Seminar seminar = new Seminar(id, courseName, date,
+                            length, x, y, cost, tags, desc);
+                        byte[] sem = (seminar).serialize();
+                        if (db.insert(mm.insert(sem, id))) {
+                            System.out.printf(
+                                "Successfully inserted record with ID %d\n"
+                                    + seminar.toString() + "\nSize: %d\n", id,
+                                sem.length);
                         }
-                        System.out.printf("\nSize: %d\n", sem.length);
                     }
                     catch (Exception e) {
                         e.printStackTrace();
                     }
                     break;
                 case "search": // Execute to search for existing seminar
-                    id = sc.nextInt();
+                    id = Integer.parseInt(command[1]);
                     sc.nextLine();
                     SemRecord rec = db.find(id);
                     if (rec == null) {
@@ -120,22 +110,24 @@ public class SemParser {
                     break;
                 case "print": // Execute to print either hashtable data or
                               // freeblock data
-                    courseName = sc.nextLine();
+                    courseName = command[1];
                     if (courseName.equals("blocks")) {
+                        System.out.println("Freeblock List:");
                         mm.printFreeBlock();
                     }
                     else {
+                        System.out.println("Hashtable:");
                         db.printout();
                     }
                     break;
                 case "delete": // Execute to delete object from the hash table
-                    id = sc.nextInt();
+                    id = Integer.parseInt(command[1]);
                     SemRecord ref = db.remove(id);
                     if (ref == null) {
                         // COULD NOT FIND ID IN HASH TABLE
                     }
                     else {
-                        mm.remove(db.remove(id));
+                        mm.remove(ref);
                     }
                     sc.nextLine();
                     break;
