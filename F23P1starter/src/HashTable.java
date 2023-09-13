@@ -168,6 +168,16 @@ public class HashTable {
 
 
     /**
+     * Gets the current count.
+     * 
+     * @return Current count
+     */
+    public int getCount() {
+        return count;
+    }
+
+
+    /**
      * Prints out either the free blocks of space in the memory or the contents
      * of the hash table by id and index.
      * 
