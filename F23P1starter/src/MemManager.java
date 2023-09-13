@@ -115,8 +115,13 @@ public class MemManager {
         byte[] newBytes = new byte[memory.length * 2];
         System.arraycopy(memory, 0, newBytes, 0, memory.length);
         // Adds new free space
-        FreeBlock newblock = new FreeBlock(memory.length);
-        freespace[freespace.length - 1] = newblock;
+        int newBlockSize = (int) Math.pow(2, freespace.length-1);
+        int newBlocks = (int) Math.floor(memory.length/newBlockSize);
+        //Add new freeblock objects to freespace using the remove command
+        for (int i=0; i<newBlocks; i++) {
+        	int index = memory.length+newBlockSize*i;
+        	remove(new SemRecord(0, index, newBlockSize));
+        }
         memory = newBytes;
         System.out.printf("Memory pool expanded to %d bytes\n", memory.length);
     }
