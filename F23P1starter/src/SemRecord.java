@@ -110,7 +110,8 @@ public class SemRecord {
         if (other == this) {
             return true;
         }
-        SemRecord that = (SemRecord) other;
-        return (this.getIndex() == that.getIndex() && stone == that.isTombstone());
+        SemRecord that = (SemRecord)other;
+        return (this.getIndex() == that.getIndex() && stone == that
+            .isTombstone());
     }
 }

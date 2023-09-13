@@ -20,11 +20,8 @@
 /**
  * This class represents unallocated free space in the memory block in the form
  * of a linked list.
- */
-
-/**
- * @author Phillip Jordan (alexj14)
  * 
+ * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.09.10
  */

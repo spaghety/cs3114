@@ -3,6 +3,7 @@ import student.TestCase;
 /**
  * Unit tests for the FreeBlock class
  * 
+ * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.09.11
  */

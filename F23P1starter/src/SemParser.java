@@ -1,4 +1,3 @@
-
 // On my honor:
 // - I have not used source code obtained from another current or
 // former student, or any other unauthorized source, either
