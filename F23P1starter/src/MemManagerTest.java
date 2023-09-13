@@ -42,7 +42,7 @@ public class MemManagerTest extends TestCase {
      * Tests the insert method
      * 
      * @throws Exception
-     *             if there is an error with insertion
+     *             from serialization
      */
     public void testInsert() throws Exception {
         String[] tags = new String[] { "tag 1" };
@@ -54,6 +54,7 @@ public class MemManagerTest extends TestCase {
             newRec = memManager.insert(semToInsert.serialize(), 11);
         }
         catch (Exception e) {
+            e.printStackTrace();
             fail("error with insertion");
         }
         assertNotNull(newRec);

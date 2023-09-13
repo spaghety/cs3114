@@ -129,10 +129,8 @@ public class MemManager {
      *            the record object referencing the location of the serialized
      *            object
      * @return the deserialized object
-     * @throws Exception
-     *             if the serialized object is not found
      */
-    public Seminar find(SemRecord key) throws Exception {
+    public Seminar find(SemRecord key) {
         if (key == null) {
             System.out.println("ERROR: hash table record null");
             return null;
