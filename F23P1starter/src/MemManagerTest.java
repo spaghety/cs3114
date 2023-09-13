@@ -22,8 +22,10 @@ public class MemManagerTest extends TestCase {
 
     /**
      * Tests the insert method
+     * 
+     * @throws Exception
      */
-    public void testInsert() {
+    public void testInsert() throws Exception {
         String[] tags = new String[] { "tag 1" };
         Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90,
             (short)1, (short)2, 12, tags, "desc");
@@ -40,12 +42,7 @@ public class MemManagerTest extends TestCase {
         // Try inserting a second record, should take an index in the buddy slot
         // of the previous record
         SemRecord newNewRec = null;
-        try {
-            newNewRec = memManager.insert(semToInsert.serialize(), 11);
-        }
-        catch (Exception e) {
-            fail("error with inserting second seminar");
-        }
+        newNewRec = memManager.insert(semToInsert.serialize(), 11);
         assertNotNull(newNewRec);
         assertEquals(64, newNewRec.getIndex());
         memManager.printFreeBlock();
@@ -73,22 +70,35 @@ public class MemManagerTest extends TestCase {
             .toString()));
         assertNull(memManager.find(new SemRecord(15, 64, 12)));
     }
-    
+
+
     /**
      * Tests remove method
+     * 
+     * @throws Exception
      */
-    public void testRemove() {
+    public void testRemove() throws Exception {
         assertFalse(memManager.remove(null));
         String[] tags = new String[] { "tag 1" };
         Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90,
             (short)1, (short)2, 12, tags, "desc");
-        SemRecord record = null;
-        try {
-            record = memManager.insert(semToInsert.serialize(), 11);
-        } catch (Exception e) {
-            fail("ERROR: Seminar failed to insert");
-        }
+        SemRecord record = memManager.insert(semToInsert.serialize(), 11);
+        SemRecord record1 = memManager.insert(semToInsert.serialize(), 2);
+        //Check printFreeBlock when there are multiple free spaces of the same size
         assertTrue(memManager.remove(record));
         assertFalse(memManager.remove(record));
+        assertTrue(memManager.remove(record1));
+        memManager.printFreeBlock();
+    }
+
+
+    public void testDoubleSize() throws Exception {
+        MemManager smallMem = new MemManager(128);
+        String[] tags = new String[] { "tag 1" };
+        Seminar demoSem = new Seminar(2, "test seminar", "3/1/23", 90, (short)1,
+            (short)2, 12, tags, "desc");
+        smallMem.insert(demoSem.serialize(), 2);
+        smallMem.insert(demoSem.serialize(), 2);
+        smallMem.insert(demoSem.serialize(), 4);
     }
 }

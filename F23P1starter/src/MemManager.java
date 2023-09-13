@@ -40,8 +40,6 @@ public class MemManager {
      */
     public SemRecord insert(byte[] sem, int id) {
         int headIndex = (int)(Math.ceil(Math.log(sem.length) / Math.log(2)));
-        System.out.printf("\nsize index is %d out of %d\n", headIndex,
-            freespace.length);
         // check if an exact match for the slot size is available
         FreeBlock curr = freespace[headIndex];
         int slot = -1;
@@ -61,20 +59,21 @@ public class MemManager {
             while (headIndex < freespace.length) {
                 curr = freespace[headIndex];
                 if (curr != null) {
-                    //add two blocks to the size category below
+                    // add two blocks to the size category below
                     int ind = curr.getIndex();
-                    System.out.println("larger block index = "+curr.getIndex());
                     FreeBlock newBlock = new FreeBlock(curr.getIndex());
-                    FreeBlock temp = new FreeBlock(curr.getIndex()+(int) Math.pow(2, headIndex-1));
-                    temp.setNext(freespace[headIndex-1]);
+                    FreeBlock temp = new FreeBlock(curr.getIndex() + (int)Math
+                        .pow(2, headIndex - 1));
+                    temp.setNext(freespace[headIndex - 1]);
                     newBlock.setNext(temp);
-                    freespace[headIndex-1] = newBlock;
-                    //delete old block
+                    freespace[headIndex - 1] = newBlock;
+                    // delete old block
                     freespace[headIndex] = freespace[headIndex].getNext();
-                    //recursive call to try inserting again
+                    // recursive call to try inserting again
                     handle = insert(sem, id);
                     break;
-                }else {
+                }
+                else {
                     headIndex++;
                 }
             }
@@ -82,7 +81,8 @@ public class MemManager {
         if (handle == null) {
             doubleSize();
             return insert(sem, id);
-        }else {
+        }
+        else {
             return handle;
         }
     }
@@ -155,8 +155,11 @@ public class MemManager {
             }
             curr = curr.getNext();
         }
+        /*System.out.printf(
+            "\nDIAGNOSTIC REMOVE:\nID = %d\nSIZE = %d\nINDEX = %d\n", key
+                .getId(), freeBlockIndex, key.getIndex());*/
         FreeBlock temp = new FreeBlock(key.getIndex());
-        temp.setNext(curr);
+        temp.setNext(freespace[freeBlockIndex]);
         freespace[freeBlockIndex] = temp;
         return true;
     }
@@ -174,7 +177,8 @@ public class MemManager {
                     System.out.print(curr.getIndex());
                     if (curr.getNext() != null) {
                         System.out.print(", ");
-                    }else {
+                    }
+                    else {
                         System.out.print("\n");
                     }
                     curr = curr.getNext();
