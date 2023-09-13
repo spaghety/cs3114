@@ -169,15 +169,26 @@ public class MemManager {
         int freeBlockIndex = (int)Math.ceil(Math.log(key.getSize()) / Math.log(
             2));
         FreeBlock curr = freespace[freeBlockIndex];
-        while (curr != null) {
+        FreeBlock prev = null;
+		FreeBlock temp = new FreeBlock(key.getIndex());
+        while (curr != null && curr.getIndex()<= key.getIndex()) {
             if (curr.getIndex() == key.getIndex()) {
                 System.out.println("ERROR: Record has already been removed");
                 return false;
             }
+            prev = curr;
             curr = curr.getNext();
         }
-        FreeBlock temp = new FreeBlock(key.getIndex());
-        temp.setNext(freespace[freeBlockIndex]);
+    	if (prev != null) {
+    		temp.setNext(curr);
+    		prev.setNext(temp);
+    		return true;
+    	}
+        if (curr == null) {
+        	freespace[freeBlockIndex] = temp;
+        	return true;
+        }
+        temp.setNext(curr);
         freespace[freeBlockIndex] = temp;
         return true;
     }
