@@ -134,8 +134,8 @@ public class SemParser {
                     else {
                         mm.remove(ref);
                         System.out.printf(
-                            "Record with ID %d successfully deleted from the database\n",
-                            id);
+                            "Record with ID %d successfully deleted "
+                                + "from the database\n", id);
                     }
                     sc.nextLine();
                     break;

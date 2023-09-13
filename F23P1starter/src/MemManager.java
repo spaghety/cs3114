@@ -41,8 +41,8 @@ public class MemManager {
         int freeSpaceSize = (int)Math.ceil(Math.log(memsize) / Math.log(2)) + 1;
         freespace = new FreeBlock[freeSpaceSize]; // create array of linked
                                                   // lists with the length of
-                                                  // the
-        // highest power of two. Rounded up to be safe.
+                                                  // the highest power of two.
+                                                  // Rounded up to be safe.
         freespace[freespace.length - 1] = new FreeBlock(0);
     }
 
@@ -142,9 +142,6 @@ public class MemManager {
             return Seminar.deserialize(ser);
         }
         catch (Exception e) {
-            System.out.printf(
-                "\nSearch FAILED -- There is no record with ID %d", key
-                    .getId());
             return null;
         }
     }
