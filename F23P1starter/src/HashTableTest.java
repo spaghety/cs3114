@@ -1,6 +1,8 @@
 import student.TestCase;
 import static org.junit.Assert.assertArrayEquals;
+import java.io.ByteArrayOutputStream;
 // import java.util.Arrays;
+import java.io.PrintStream;
 
 /**
  * Test class for HashTable
@@ -16,13 +18,16 @@ public class HashTableTest extends TestCase {
 // private Seminar sem;
     private int a;
     private int b;
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     /**
      * Sets up the tests that follow.
      * 
      * @throws Exception
+     *             from serialization
      */
     public void setUp() throws Exception {
+        System.setOut(new PrintStream(out));
         compare = new SemRecord[size];
         hashTable = new HashTable(size);
         a = 5;
@@ -53,6 +58,8 @@ public class HashTableTest extends TestCase {
         assertEquals(new SemRecord(a, a, size), hashTable.find(a));
         assertEquals(new SemRecord(b, b, size), hashTable.find(b));
         assertNull(hashTable.find(6));
+        hashTable.remove(a);
+        assertNull(hashTable.find(a));
     }
 
 
@@ -61,6 +68,7 @@ public class HashTableTest extends TestCase {
      */
     public void testInsertSame() {
         assertFalse(hashTable.insert(new SemRecord(a, a, size)));
+        assertArrayEquals(compare, hashTable.getArray());
     }
 
 
@@ -86,11 +94,27 @@ public class HashTableTest extends TestCase {
      */
     public void testDoubleCap() {
         HashTable fullHashTable = new HashTable(size);
+        compare = new SemRecord[size * 2];
         int i;
         for (i = 0; i < size; i++) {
-            fullHashTable.insert(new SemRecord(i, i, size));
+            assertTrue(fullHashTable.insert(new SemRecord(i, i, size)));
+            compare[i] = new SemRecord(i, i, size);
         }
-        assertTrue(fullHashTable.insert(new SemRecord(i, i, size)));
+        assertArrayEquals(compare, fullHashTable.getArray());
+        for (i = 0; i < size; i += 2) {
+            fullHashTable.remove(i);
+            compare[i] = null; // prepare for expansion: remove tombstones
+        }
+        SemRecord[] tempArr = new SemRecord[size * 4];
+        for (i = 0; i < size; i++) {
+            tempArr[i] = compare[i];
+        }
+        compare = tempArr;
+        for (i = size; i < size * 2; i++) {
+            assertTrue(fullHashTable.insert(new SemRecord(i, i, size)));
+            compare[i] = new SemRecord(i, i, size);
+        }
+        assertArrayEquals(compare, fullHashTable.getArray());
     }
 
 
@@ -108,6 +132,25 @@ public class HashTableTest extends TestCase {
         assertNull(hashTable.remove(b));
         compare[b % size].makeTombstone();
         assertArrayEquals(compare, hashTable.getArray());
+    }
+
+    /**
+     * Tests remove for mutations
+     */
+    public void testRemove2() {
+        compare = new SemRecord[size * 2];
+        for (int i = 0; i < size; i++) {
+            hashTable.insert(new SemRecord(i, i, size));
+            compare[i] = new SemRecord(i, i, size);
+        }
+        assertArrayEquals(compare, hashTable.getArray());
+        for (int i = 0; i < size; i += 2) {
+            compare[i].makeTombstone();
+            assertEquals(compare[i], hashTable.remove(i));
+            assertNull(hashTable.remove(i));
+        }
+        assertArrayEquals(compare, hashTable.getArray());
+        assertNull(hashTable.remove(6556));
     }
 
 
@@ -128,6 +171,9 @@ public class HashTableTest extends TestCase {
      */
     public void testPrintout() {
         hashTable.remove(b);
+        compare[b % size].makeTombstone();
         assertTrue(hashTable.printout());
+        assertEquals("5: 5\n", out.toString());
+        assertArrayEquals(compare, hashTable.getArray());
     }
 }

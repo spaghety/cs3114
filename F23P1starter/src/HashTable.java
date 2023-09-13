@@ -98,19 +98,26 @@ public class HashTable {
     private int hashSearch(int id) {
         int index = id % records.length;
         int h2 = (((id / records.length) % (records.length / 2)) * 2) + 1;
-        int iter = 0;
-        while ((records[index] == null || records[index].isTombstone())
-            && iter < records.length) {
+        while (records[index] != null && !records[index].isTombstone()) {
+            if (records[index].getId() == id) {
+                return index;
+            }
             index += h2;
             index %= records.length;
-            iter++;
         }
-        if (records[index] == null) {
-            return -1;
-        }
-        if (records[index].getId() == id) {
-            return index;
-        }
+        // int iter = 0;
+        // while ((records[index] == null || records[index].isTombstone())
+        //     && iter < records.length) {
+        //     index += h2;
+        //     index %= records.length;
+        //     iter++;
+        // }
+        // if (records[index] == null) {
+        //     return -1;
+        // }
+        // if (records[index].getId() == id) {
+        //     return index;
+        // }
         return -1;
     }
 
@@ -129,9 +136,6 @@ public class HashTable {
             return null;
         }
         SemRecord temp = records[index];
-        if (temp.isTombstone()) {
-            return null;
-        }
         records[index].makeTombstone();
         return temp;
     }
