@@ -42,6 +42,7 @@ public class MemManagerTest extends TestCase {
      * Tests the insert method
      * 
      * @throws Exception
+     *             if there is an error with insertion
      */
     public void testInsert() throws Exception {
         String[] tags = new String[] { "tag 1" };
@@ -70,8 +71,11 @@ public class MemManagerTest extends TestCase {
     /**
      * Checks if the find command can retrieve an identical seminar to the one
      * just inserted just from the handle
+     * 
+     * @throws Exception
+     *             from serialization
      */
-    public void testFind() {
+    public void testFind() throws Exception {
         assertNull(memManager.find(null));
         String[] tags = new String[] { "tag 1" };
         Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90,
@@ -94,6 +98,7 @@ public class MemManagerTest extends TestCase {
      * Tests remove method
      * 
      * @throws Exception
+     *             from serialization
      */
     public void testRemove() throws Exception {
         assertFalse(memManager.remove(null));
@@ -102,7 +107,8 @@ public class MemManagerTest extends TestCase {
             (short)1, (short)2, 12, tags, "desc");
         SemRecord record = memManager.insert(semToInsert.serialize(), 11);
         SemRecord record1 = memManager.insert(semToInsert.serialize(), 2);
-        //Check printFreeBlock when there are multiple free spaces of the same size
+        // Check printFreeBlock when there are multiple free spaces of the same
+        // size
         assertTrue(memManager.remove(record));
         assertFalse(memManager.remove(record));
         assertTrue(memManager.remove(record1));
@@ -110,6 +116,12 @@ public class MemManagerTest extends TestCase {
     }
 
 
+    /**
+     * Tests doubleSize when the memory pool needs an expansion
+     * 
+     * @throws Exception
+     *             from serialization
+     */
     public void testDoubleSize() throws Exception {
         MemManager smallMem = new MemManager(128);
         String[] tags = new String[] { "tag 1" };
