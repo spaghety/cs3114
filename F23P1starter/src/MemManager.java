@@ -38,7 +38,6 @@ public class MemManager {
     public MemManager(int memsize) {
         memory = new byte[memsize];
         int freeSpaceSize = (int)Math.ceil(Math.log(memsize) / Math.log(2)) + 1;
-        System.out.printf("\nfree space size: %d\n", freeSpaceSize);
         freespace = new FreeBlock[freeSpaceSize]; // create array of linked
                                                   // lists with the length of
                                                   // the
@@ -117,6 +116,7 @@ public class MemManager {
         FreeBlock newblock = new FreeBlock(memory.length);
         freespace[freespace.length - 1] = newblock;
         memory = newBytes;
+        System.out.printf("pool expanded to %d bytes\n", memory.length);
     }
 
 
