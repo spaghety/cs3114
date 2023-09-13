@@ -23,6 +23,7 @@
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.09.11
  */
 
 public class SemRecord {
@@ -111,7 +112,6 @@ public class SemRecord {
             return true;
         }
         SemRecord that = (SemRecord)other;
-        return (this.getIndex() == that.getIndex() && stone == that
-            .isTombstone());
+        return this.getId() == that.getId();
     }
 }

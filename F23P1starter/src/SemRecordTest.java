@@ -79,17 +79,14 @@ public class SemRecordTest extends TestCase {
         assertEquals(semRecord, semRecord);
 
         // Sets up other SemRecord objects
-        SemRecord semRecord2 = new SemRecord(id + 1, index, size);
-        SemRecord semRecord3 = new SemRecord(id + 2, index + 1, size);
+        SemRecord semRecord2 = new SemRecord(id, index + 1, size);
+        SemRecord semRecord3 = new SemRecord(id + 2, index + 2, size);
 
         // Regular cases, no tombstone
         assertEquals(semRecord, semRecord2);
-        assertFalse(semRecord.equals(semRecord3));
 
         // Tombstone cases
         semRecord2.makeTombstone();
-        assertFalse(semRecord.equals(semRecord2));
-        assertFalse(semRecord2.equals(semRecord));
         semRecord.makeTombstone();
         assertEquals(semRecord, semRecord2);
         semRecord3.makeTombstone();

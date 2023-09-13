@@ -3,7 +3,7 @@
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.09.05
+ * @version 2023.09.12
  */
 public class HashTable {
 // public static SemRecord TOMBSTONE = new SemRecord(0, 0, 0);
@@ -118,7 +118,8 @@ public class HashTable {
      * 
      * @param id
      *            id of the item to be removed.
-     * @return a reference to the data in the memory manager
+     * @return a reference to the data in the memory manager; returns null if
+     *         not found or is a tombstone
      */
     public SemRecord remove(int id) {
         int index = hashSearch(id);
@@ -126,6 +127,9 @@ public class HashTable {
             return null;
         }
         SemRecord temp = records[index];
+        if (temp.isTombstone()) {
+            return null;
+        }
         records[index].makeTombstone();
         return temp;
     }
