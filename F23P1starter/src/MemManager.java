@@ -185,19 +185,14 @@ public class MemManager {
         boolean found=false;
     	for (int i = 0; i < freespace.length; i++) {
             if (freespace[i] != null) {
-                System.out.printf("%d: ", (int)Math.pow(2, i));
+                System.out.printf("%d:", (int)Math.pow(2, i));
                 FreeBlock curr = freespace[i];
                 while (curr != null) {
-                    System.out.print(curr.getIndex());
+                    System.out.printf(" %d", curr.getIndex());
                     found = true;
-                    if (curr.getNext() != null) {
-                        System.out.print(", ");
-                    }
-                    else {
-                        System.out.print("\n");
-                    }
                     curr = curr.getNext();
                 }
+                System.out.print("\n");
             }
         }
     	if (!found) {
