@@ -28,6 +28,7 @@ public class FreeBlockTest extends TestCase {
         assertEquals(index, freeBlock.getIndex());
     }
 
+
     /**
      * Tests the setter methods
      */
