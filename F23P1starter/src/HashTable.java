@@ -1,17 +1,14 @@
-
-/**
- * @author Phillip Jordan (alexj14)
- * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.09.05
- */
-
 // import java.util.Arrays;
 
 /**
  * This class sets up the hash table storing all the seminars.
+ * 
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.09.05
  */
 public class HashTable {
-//    public static SemRecord TOMBSTONE = new SemRecord(0, 0, 0);
+// public static SemRecord TOMBSTONE = new SemRecord(0, 0, 0);
     private SemRecord[] records;
 // private FreeBlock[] freespace;
     private int size;

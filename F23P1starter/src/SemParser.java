@@ -1,3 +1,4 @@
+
 // On my honor:
 // - I have not used source code obtained from another current or
 // former student, or any other unauthorized source, either
@@ -16,6 +17,9 @@
 // anything during the discussion or modifies any computer file
 // during the discussion. I have violated neither the spirit nor
 // letter of this restriction.
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * This program serves the sole function of reading the command file and passing
@@ -24,14 +28,6 @@
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.09.10
- */
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-/**
- * Parses the input file into Seminar objects
  */
 public class SemParser {
     /**

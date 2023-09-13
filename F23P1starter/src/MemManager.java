@@ -11,6 +11,12 @@ public class MemManager {
     private byte[] memory;
     private FreeBlock[] freespace;
 
+    /**
+     * Constructor
+     * 
+     * @param memsize
+     *            Memory block size
+     */
     public MemManager(int memsize) {
         memory = new byte[memsize];
         freespace = new FreeBlock[((int)Math.ceil(Math.log(memsize) / Math.log(
