@@ -52,6 +52,8 @@ public class MemManager {
      * 
      * @param sem
      *            serialized seminar object
+     * @param id
+     *            the id of the seminar object
      * @return the index of the object in the byte array
      */
     public SemRecord insert(byte[] sem, int id) {
@@ -70,8 +72,7 @@ public class MemManager {
         else {
             headIndex++;
             // If not, loop through greater sizes and to find an appropriate
-            // free
-            // space and break it down
+            // free space and break it down
             while (headIndex < freespace.length) {
                 curr = freespace[headIndex];
                 if (curr != null) {
@@ -128,8 +129,10 @@ public class MemManager {
      *            the record object referencing the location of the serialized
      *            object
      * @return the deserialized object
+     * @throws Exception
+     *             if the serialized object is not found
      */
-    public Seminar find(SemRecord key) {
+    public Seminar find(SemRecord key) throws Exception {
         if (key == null) {
             System.out.println("ERROR: hash table record null");
             return null;
