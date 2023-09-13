@@ -20,6 +20,6 @@ public class SemManagerTest extends TestCase {
     public void testMInitx() {
         SemManager sem = new SemManager();
         assertNotNull(sem);
-        SemManager.main(new String[] { "64", "4", "P1Sample_input.txt" });
+        SemManager.main(new String[] { "512", "4", "P1Sample_input.txt" });
     }
 }

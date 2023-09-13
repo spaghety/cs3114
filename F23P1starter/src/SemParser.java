@@ -30,6 +30,8 @@ import java.util.Scanner;
  * @version 2023.09.10
  */
 public class SemParser {
+    MemManager mm;
+
     /**
      * Parses the input file and store the data in a Seminar object
      * 
@@ -39,9 +41,11 @@ public class SemParser {
      *            The hash table to be passed in
      * @throws FileNotFoundException
      */
-    public SemParser(String fname, HashTable db) throws FileNotFoundException {
+    public SemParser(String fname, HashTable db, MemManager memMgr)
+        throws FileNotFoundException {
         File infile = new File(fname);
         Scanner sc = new Scanner(infile);
+        mm = memMgr;
         String command;
         int id;
         String courseName;
@@ -68,12 +72,12 @@ public class SemParser {
                     y = (short)sc.nextInt();
                     cost = sc.nextInt();
                     sc.nextLine();
-                    tags = sc.nextLine().split(" ");
-                    desc = sc.nextLine();
+                    tags = sc.nextLine().split("\\\\s+");
+                    desc = sc.nextLine().trim();
                     try {
                         byte[] sem = (new Seminar(id, courseName, date, length,
                             x, y, cost, tags, desc)).serialize();
-                        // db.insert(id, sem);
+                        db.insert(mm.insert(sem, id));
                         System.out.printf(
                             "Successfully inserted record with ID %d\n"
                                 + "ID: %d, Title: %s\n"
@@ -97,14 +101,34 @@ public class SemParser {
                 case "search": // Execute to search for existing seminar
                     id = sc.nextInt();
                     sc.nextLine();
+                    SemRecord rec = db.find(id);
+                    if (rec == null) {
+                        // ID NOT FOUND
+                    }
+                    else {
+                        System.out.println(mm.find(db.find(id)).toString());
+                    }
+
                     break;
                 case "print": // Execute to print either hashtable data or
                               // freeblock data
                     courseName = sc.nextLine();
-                    db.printout((courseName.equals("hashtable")));
+                    if (courseName.equals("blocks")) {
+                        mm.printFreeBlock();
+                    }
+                    else {
+                        db.printout();
+                    }
                     break;
                 case "delete": // Execute to delete object from the hash table
                     id = sc.nextInt();
+                    SemRecord ref = db.remove(id);
+                    if (ref == null) {
+                        // COULD NOT FIND ID IN HASH TABLE
+                    }
+                    else {
+                        mm.remove(db.remove(id));
+                    }
                     sc.nextLine();
                     break;
             }

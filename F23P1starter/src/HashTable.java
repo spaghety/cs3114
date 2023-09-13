@@ -1,132 +1,138 @@
+
+/**
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.09.05
+ */
+
 // import java.util.Arrays;
 
 /**
  * This class sets up the hash table storing all the seminars.
- * 
- * @author Phillip Jordan (alexj14)
- * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.09.05
  */
 public class HashTable {
 // public static SemRecord TOMBSTONE = new SemRecord(0, 0, 0);
     private SemRecord[] records;
 // private FreeBlock[] freespace;
-    private int size;
     private int count;
 
     /**
      * Constructor
      * 
-     * @param hashsize
-     *            the number of slots to start with initially (may increase
-     *            with time) will always be a power of 2.
+     * @param hashsize the number of slots to start with initially (may increase
+     *                 with time) will always be a power of 2.
      */
     public HashTable(int hashsize) {
         records = new SemRecord[hashsize];
-        size = hashsize;
         count = 0;
     }
-
 
     /**
      * Doubles the capacity in case maximum capacity is reached.
      */
     private void doubleCap() {
-        SemRecord[] tempArr = new SemRecord[records.length * 2];
-        size *= 2;
-        for (int i = 0; i < records.length; i++) {
-            tempArr[records[i].getId() % tempArr.length] = records[i];
+        SemRecord[] tempArr = records;
+        records = new SemRecord[records.length * 2];
+        for (int i = 0; i < tempArr.length; i++) {
+            if (tempArr[i] != null) {
+                records[hash(tempArr[i].getId())] = tempArr[i];
+            }
         }
-        records = tempArr;
+        System.out.printf("Hash table expanded to %d records\n", records.length);
         return;
     }
 
-
     /**
-     * Returns the hash destination.
+     * Searches for a free space in the hash table
      * 
-     * @param id
-     *            id of the object being entered in.
+     * @param id id of the object being entered in.
      * @return the hashed id to be used as an index.
      */
     private int hash(int id) {
-        int index = id % size;
-        int h2 = (((id / size) % (size / 2)) * 2) + 1;
+        int index = id % records.length;
+        int h2 = (((id / records.length) % (records.length / 2)) * 2) + 1;
         while (records[index] != null && !records[index].isTombstone()) {
             index += h2;
-            index %= size;
+            index %= records.length;
         }
         return index;
     }
 
-
     /**
      * Inserts new item into the hash table.
      * 
-     * @param id
-     *            the id of the seminar used in the hash algorithm
-     * @param size
-     *            the length of the array being inserted
-     * @param index
-     *            the index of the serialized seminar object in the memory
-     *            manager byte array
+     * @param ref the handle to the location of the object in the memory manager
+     *            returned by the memory manager insert method
+     * @return true if successful, false if not
      */
-    public boolean insert(int id, int size, int index) {
-        if (count == size) {
-            doubleCap();
-        }
-        if (this.find(id) > -1) {
+    public boolean insert(SemRecord ref) {
+        if (find(ref.getId()) != null) {
+            System.out.printf("Insert FAILED - There is already a record with ID %d\n", ref.getId());
             return false;
         }
-        SemRecord ref = new SemRecord(id, index, size);
-        records[hash(id)] = ref;
+        //System.out.printf("DIAGNOSTIC: ID = %d AND HASH = %d\n", ref.getId(), hash(ref.getId()));
+        records[hash(ref.getId())] = ref;
         count++;
+        if (count * 2 >= records.length) {
+            doubleCap();
+        }
         return true;
     }
 
+    /**
+     * Searches for an existing record in the hash table
+     * 
+     * @param id id to hash
+     * @return index of existing record with a matching id or -1 if it could not be
+     *         found
+     */
+    private int hashSearch(int id) {
+        int index = id % records.length;
+        int h2 = (((id / records.length) % (records.length / 2)) * 2) + 1;
+        int iter = 0;
+        while ((records[index] == null || records[index].isTombstone()) && iter < records.length) {
+            index += h2;
+            index %= records.length;
+            iter++;
+        }
+        if (records[index] == null) {
+            return -1;
+        }
+        if (records[index].getId() == id) {
+            return index;
+        }
+        return -1;
+    }
 
     /**
      * Removes items from the hash table by id.
      * 
-     * @param id
-     *            id of the item to be removed.
+     * @param id id of the item to be removed.
      * @return a reference to the data in the memory manager
      */
-    public int remove(int id) {
-        for (int i = 0; i < size; i++) {
-            if (records[i] instanceof SemRecord) {
-                if (records[i].getId() == id) {
-                    if (records[i].isTombstone()) {
-                        return -1;
-                    }
-                    records[i].makeTombstone();
-                    count--;
-                    return records[i].getIndex();
-                }
-            }
+    public SemRecord remove(int id) {
+        int index = hashSearch(id);
+        if (index == -1) {
+            return null;
         }
-        return -1;
+        SemRecord temp = records[index];
+        records[index].makeTombstone();
+        return temp;
     }
-
 
     /**
      * Finds an item in the hash table by id.
      * 
-     * @param id
-     *            id of the item to be found.
-     * @return Array index if item is found, -1 if not.
+     * @param id id of the item to be found.
+     * @return memory manager handle or null if it could not be found
      */
-    public int find(int id) {
-        for (int i = 0; i < size; i++) {
-            if (records[i] instanceof SemRecord) {
-                if (records[i].getId() == id) {
-                    return i;
-                }
-            }
+    public SemRecord find(int id) {
+        int index = hashSearch(id);
+        if (index > -1) {
+            return records[index];
         }
-        return -1;
+        return null;
     }
-
 
     /**
      * Gets the underlying array.
@@ -137,27 +143,20 @@ public class HashTable {
         return records;
     }
 
-
     /**
-     * Prints out either the free blocks of space in the memory or the contents
-     * of
+     * Prints out either the free blocks of space in the memory or the contents of
      * the hash table by id and index.
      * 
-     * @param type
-     *            true if printing out the hash table, false if printing out
-     *            free memory blocks.
-     * @return the string for the parser to print.
+     * @param memMgr reference to the memory manager to retrieve data
+     * @return true if successful, false if not
      */
-    public String printout(boolean type) {
-        StringBuilder result = new StringBuilder();
-        if (type) {
-            for (int i = 0; i < records.length; i++) {
-                if (records[i] != null && !records[i].isTombstone()) {
-                    result.append("\n" + i);
-                }
+    public boolean printout() {
+        for (int i = 0; i < records.length; i++) {
+            if (records[i] != null && !records[i].isTombstone()) {
+                System.out.printf("%d: %d\n", i, records[i].getId());
             }
         }
-        return result.toString();
+        return true;
     }
 
 }
