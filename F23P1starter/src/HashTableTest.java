@@ -12,7 +12,6 @@ public class HashTableTest extends TestCase {
 	private HashTable hashTable;
 	private static int size = 16;
 	private static int memsize = 64;
-	private MemManager mm;
 	private SemRecord[] compare;
 	private Seminar sem;
 	private int a;
@@ -34,7 +33,6 @@ public class HashTableTest extends TestCase {
 		compare[b % size] = new SemRecord(b, b, size);
 		sem = new Seminar(11, "test", "9/6/2023", 10, (short) 2, (short) 6, 100,
 				new String[] { "example", "test", "other test string" }, "This is a test seminar for testing.");
-		mm = new MemManager(memsize);
 	}
 
 	/**
@@ -113,6 +111,6 @@ public class HashTableTest extends TestCase {
 	}
 
 	public void testPrintout() {
-		assertTrue(hashTable.printout(mm));
+		assertTrue(hashTable.printout());
 	}
 }

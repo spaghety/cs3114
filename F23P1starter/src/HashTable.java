@@ -66,9 +66,11 @@ public class HashTable {
 	 * @return true if successful, false if not
 	 */
 	public boolean insert(SemRecord ref) {
-		if (this.find(ref.getId()) != null) {
+		if (find(ref.getId()) != null) {
+		    System.out.printf("Insert FAILED - There is already a record with ID %d\n", ref.getId());
 			return false;
 		}
+		//System.out.printf("DIAGNOSTIC: ID = %d AND HASH = %d\n", ref.getId(), hash(ref.getId()));
 		records[hash(ref.getId())] = ref;
 		count++;
 		if (count * 2 >= records.length) {
@@ -93,10 +95,13 @@ public class HashTable {
 			index %= records.length;
 			iter++;
 		}
-		if (records[index] == null || records[index].isTombstone()) {
-			return -1;
+		if (records[index] == null) {
+		    return -1;
 		}
-		return index;
+		if (records[index].getId() == id) {
+			return index;
+		}
+		return -1;
 	}
 
 	/**
@@ -145,10 +150,10 @@ public class HashTable {
 	 * @param memMgr reference to the memory manager to retrieve data
 	 * @return true if successful, false if not
 	 */
-	public boolean printout(MemManager memMgr) {
+	public boolean printout() {
 		for (int i = 0; i < records.length; i++) {
 			if (records[i] != null && !records[i].isTombstone()) {
-				System.out.printf("%d: %d\n", records[i].getIndex(), records[i].getId());
+				System.out.printf("%d: %d\n", i, records[i].getId());
 			}
 		}
 		return true;
