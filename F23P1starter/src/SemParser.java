@@ -65,7 +65,6 @@ public class SemParser {
 			switch (command[0]) {
 			case "insert": // Execute to insert new seminar
 				id = Integer.parseInt(command[1]);
-// sc.nextLine();
 				courseName = sc.nextLine();
 				date = sc.next();
 				length = sc.nextInt();
@@ -120,13 +119,10 @@ public class SemParser {
 			case "delete": // Execute to delete object from the hash table
 				id = Integer.parseInt(command[1]);
 				SemRecord ref = db.remove(id);
-				if (ref == null) {
-					System.out.printf("Delete FAILED -- There is no record with ID %d\n", id);
-				} else {
+				if (ref != null) {
 					mm.remove(ref);
 					System.out.printf("Record with ID %d successfully deleted " + "from the database\n", id);
 				}
-				sc.nextLine();
 				break;
 			}
 		}
