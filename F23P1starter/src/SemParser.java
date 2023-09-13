@@ -74,7 +74,7 @@ public class SemParser {
 				cost = sc.nextInt();
 				sc.nextLine();
 				tags = sc.nextLine().split(" ");
-				desc = sc.nextLine();
+				desc = sc.nextLine().trim();
 				try {
 					byte[] sem = (new Seminar(id, courseName, date, length, x, y, cost, tags, desc)).serialize();
 					db.insert(mm.insert(sem, id));

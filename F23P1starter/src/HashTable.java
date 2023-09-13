@@ -130,15 +130,6 @@ public class HashTable {
 	}
 
 	/**
-	 * Gets the underlying array.
-	 * 
-	 * @return The underlying array
-	 */
-	public SemRecord[] getArray() {
-		return records;
-	}
-
-	/**
 	 * Prints out either the free blocks of space in the memory or the contents of
 	 * the hash table by id and index.
 	 * 
@@ -148,10 +139,7 @@ public class HashTable {
 	public boolean printout(MemManager memMgr) {
 		for (int i = 0; i < records.length; i++) {
 			if (records[i] != null && !records[i].isTombstone()) {
-				Seminar obj = memMgr.find(records[i]);
-				if (obj == null)
-					return false;
-				System.out.println(obj.toString());
+				System.out.printf("%d: %d\n", records[i].getIndex(), records[i].getId());
 			}
 		}
 		return true;

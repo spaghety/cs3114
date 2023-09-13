@@ -116,7 +116,7 @@ public class MemManager {
         FreeBlock newblock = new FreeBlock(memory.length);
         freespace[freespace.length - 1] = newblock;
         memory = newBytes;
-        System.out.printf("pool expanded to %d bytes\n", memory.length);
+        System.out.printf("Memory pool expanded to %d bytes\n", memory.length);
     }
 
 
