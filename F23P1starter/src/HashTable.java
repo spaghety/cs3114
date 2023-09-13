@@ -130,6 +130,15 @@ public class HashTable {
 	}
 
 	/**
+	 * Gets the underlying array.
+	 * 
+	 * @return The underlying array
+	 */
+	public SemRecord[] getArray() {
+		return records;
+	}
+
+	/**
 	 * Prints out either the free blocks of space in the memory or the contents of
 	 * the hash table by id and index.
 	 * 
