@@ -53,6 +53,13 @@ public class HashTableTest extends TestCase {
 
 
     /**
+     * Tests insert null
+     */
+    public void testInsertNull() {
+        assertFalse(hashTable.insert(null));
+    }
+    
+    /**
      * Tests the find method
      */
     public void testFind() {

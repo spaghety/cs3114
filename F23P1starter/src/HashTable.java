@@ -69,6 +69,9 @@ public class HashTable {
      * @return true if successful, false if not
      */
     public boolean insert(SemRecord ref) {
+        if (ref == null) {
+            return false;
+        }
         if (find(ref.getId()) != null) {
             System.out.printf(
                 "Insert FAILED - There is already a record with ID %d\n", ref

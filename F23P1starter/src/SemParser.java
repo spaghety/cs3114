@@ -64,6 +64,9 @@ public class SemParser {
                 break;
             }
             command = sc.nextLine().trim().split("\\s+");
+            if (command.length < 2) {
+                continue;
+            }
             switch (command[0]) {
                 case "insert": // Execute to insert new seminar
                     id = Integer.parseInt(command[1]);
