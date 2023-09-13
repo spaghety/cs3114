@@ -17,6 +17,8 @@
 // during the discussion. I have violated neither the spirit nor
 // letter of this restriction.
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import student.TestCase;
 
 /**
@@ -29,6 +31,7 @@ import student.TestCase;
 public class MemManagerTest extends TestCase {
 
     private MemManager memManager;
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     /**
      * Sets up the tests that follow.
@@ -58,6 +61,7 @@ public class MemManagerTest extends TestCase {
             fail("error with insertion");
         }
         assertNotNull(newRec);
+        assertEquals(new SemRecord(11, 0, 64), newRec);
         assertEquals(0, newRec.getIndex());
         // Try inserting a second record, should take an index in the buddy slot
         // of the previous record
@@ -93,7 +97,7 @@ public class MemManagerTest extends TestCase {
 
 
     /**
-     * Tests remove method
+     * Tests remove method and the print out after remove happens
      * 
      * @throws Exception
      *             from serialization
@@ -110,7 +114,9 @@ public class MemManagerTest extends TestCase {
         assertTrue(memManager.remove(record));
         assertFalse(memManager.remove(record));
         assertTrue(memManager.remove(record1));
+        System.setOut(new PrintStream(out));
         memManager.printFreeBlock();
+        assertEquals("64: 64, 0\n128: 128\n", out.toString());
     }
 
 
@@ -128,5 +134,14 @@ public class MemManagerTest extends TestCase {
         smallMem.insert(demoSem.serialize(), 2);
         smallMem.insert(demoSem.serialize(), 2);
         smallMem.insert(demoSem.serialize(), 4);
+    }
+
+    /**
+     * Tests printFreeBlock in the most basic sense
+     */
+    public void testPrint() {
+        System.setOut(new PrintStream(out));
+        memManager.printFreeBlock();
+        assertEquals("256: 0\n", out.toString());
     }
 }
