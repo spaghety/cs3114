@@ -67,7 +67,7 @@ public class SemParser {
             switch (command[0]) {
                 case "insert": // Execute to insert new seminar
                     id = Integer.parseInt(command[1]);
-//                    sc.nextLine();
+// sc.nextLine();
                     courseName = sc.nextLine();
                     date = sc.next();
                     length = sc.nextInt();
@@ -97,10 +97,13 @@ public class SemParser {
                     sc.nextLine();
                     SemRecord rec = db.find(id);
                     if (rec == null) {
-                        // ID NOT FOUND
+                        System.out.printf(
+                            "Search FAILED -- There is no record with ID %d\n",
+                            id);
                     }
                     else {
                         try {
+                            System.out.printf("Found record with ID %d:\n", id);
                             System.out.println(mm.find(db.find(id)).toString());
                         }
                         catch (Exception e) {
@@ -124,10 +127,15 @@ public class SemParser {
                     id = Integer.parseInt(command[1]);
                     SemRecord ref = db.remove(id);
                     if (ref == null) {
-                        // COULD NOT FIND ID IN HASH TABLE
+                        System.out.printf(
+                            "Delete FAILED -- There is no record with ID %d\n",
+                            id);
                     }
                     else {
                         mm.remove(ref);
+                        System.out.printf(
+                            "Record with ID %d successfully deleted from the database\n",
+                            id);
                     }
                     sc.nextLine();
                     break;
