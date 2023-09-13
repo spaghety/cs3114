@@ -39,7 +39,10 @@ public class SemParser {
      *            File name
      * @param db
      *            The hash table to be passed in
+     * @param memMgr
+     *            The memory manager to be passed in
      * @throws FileNotFoundException
+     *             if file is not found
      */
     public SemParser(String fname, HashTable db, MemManager memMgr)
         throws FileNotFoundException {
@@ -81,9 +84,10 @@ public class SemParser {
                         System.out.printf(
                             "Successfully inserted record with ID %d\n"
                                 + "ID: %d, Title: %s\n"
-                                + "Date: %s, Length: %d, X: %d, Y: %d, Cost: %d\n"
-                                + "Description: %s\n" + "Keywords:", id, id,
-                            courseName, date, length, x, y, cost, desc);
+                                + "Date: %s, Length: %d, X: %d, Y: %d, "
+                                + "Cost: %d\n" + "Description: %s\n"
+                                + "Keywords:", id, id, courseName, date, length,
+                            x, y, cost, desc);
                         for (int i = 0; i < tags.length; i++) {
                             if (!tags[i].equals("")) {
                                 System.out.printf(" %s", tags[i]);

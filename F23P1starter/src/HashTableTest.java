@@ -81,6 +81,9 @@ public class HashTableTest extends TestCase {
     }
 
 
+    /**
+     * Tests doubleCap
+     */
     public void testDoubleCap() {
         HashTable fullHashTable = new HashTable(size);
         int i;
@@ -93,8 +96,7 @@ public class HashTableTest extends TestCase {
 
     /**
      * Tests removing an entry and make sure there is a tombstone.
-     * Will not
-     * remove a tombstone
+     * Will not remove a tombstone
      */
     public void testRemove() {
         assertNull(hashTable.remove(6));
@@ -121,6 +123,9 @@ public class HashTableTest extends TestCase {
     }
 
 
+    /**
+     * Tests the printout
+     */
     public void testPrintout() {
         hashTable.remove(b);
         assertTrue(hashTable.printout());

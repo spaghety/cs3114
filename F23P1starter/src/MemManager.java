@@ -34,6 +34,7 @@ public class MemManager {
      * one active freeblock spanning the entire byte array.
      * 
      * @param memsize
+     *            Memory size
      */
     public MemManager(int memsize) {
         memory = new byte[memsize];
