@@ -71,11 +71,8 @@ public class MemManagerTest extends TestCase {
     /**
      * Checks if the find command can retrieve an identical seminar to the one
      * just inserted just from the handle
-     * 
-     * @throws Exception
-     *             from serialization
      */
-    public void testFind() throws Exception {
+    public void testFind() {
         assertNull(memManager.find(null));
         String[] tags = new String[] { "tag 1" };
         Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90,
