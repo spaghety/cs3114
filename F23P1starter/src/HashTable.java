@@ -32,7 +32,9 @@ public class HashTable {
         records = new SemRecord[records.length * 2];
         for (int i = 0; i < tempArr.length; i++) {
             if (tempArr[i] != null) {
-                records[hash(tempArr[i].getId())] = tempArr[i];
+                if (!tempArr[i].isTombstone()) {
+                    records[hash(tempArr[i].getId())] = tempArr[i];
+                }
             }
         }
         System.out.printf("Hash table expanded to %d records\n",
@@ -77,10 +79,10 @@ public class HashTable {
         // System.out.printf("DIAGNOSTIC: ID = %d AND HASH = %d\n", ref.getId(),
         // hash(ref.getId()));
         records[hash(ref.getId())] = ref;
-        count++;
-        if (count * 2 >= records.length) {
+        if (count * 2 > records.length) {
             doubleCap();
         }
+        count++;
         return true;
     }
 
