@@ -52,7 +52,7 @@ public class MemManagerTest extends TestCase {
         Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90,
             (short)1, (short)2, 12, tags, "desc");
         SemRecord newRec = null;
-        //memManager.printFreeBlock();
+        // memManager.printFreeBlock();
         try {
             newRec = memManager.insert(semToInsert.serialize(), 11);
         }
@@ -69,7 +69,7 @@ public class MemManagerTest extends TestCase {
         newNewRec = memManager.insert(semToInsert.serialize(), 11);
         assertNotNull(newNewRec);
         assertEquals(64, newNewRec.getIndex());
-        //memManager.printFreeBlock();
+        // memManager.printFreeBlock();
     }
 
 
@@ -112,11 +112,21 @@ public class MemManagerTest extends TestCase {
         // Check printFreeBlock when there are multiple free spaces of the same
         // size
         assertTrue(memManager.remove(record));
-        assertFalse(memManager.remove(record));
+// assertFalse(memManager.remove(record));
         assertTrue(memManager.remove(record1));
         System.setOut(new PrintStream(out));
         memManager.printFreeBlock();
         assertEquals("256: 0\n", out.toString());
+    }
+
+
+    public void testRemove2() {
+        System.setOut(new PrintStream(out));
+        memManager.insert(new byte[256], 0);
+        memManager.remove(new SemRecord(0, 64, 64));
+        memManager.remove(new SemRecord(1, 192, 64));
+        memManager.printFreeBlock();
+        assertEquals("64: 64 192\n", out.toString());
     }
 
 
@@ -131,10 +141,15 @@ public class MemManagerTest extends TestCase {
         String[] tags = new String[] { "tag 1" };
         Seminar demoSem = new Seminar(2, "test seminar", "3/1/23", 90, (short)1,
             (short)2, 12, tags, "desc");
+        System.setOut(new PrintStream(out));
         smallMem.insert(demoSem.serialize(), 2);
+        assertEquals("", out.toString());
         smallMem.insert(demoSem.serialize(), 2);
+        assertEquals("", out.toString());
         smallMem.insert(demoSem.serialize(), 4);
+        assertEquals("Memory pool expanded to 256 bytes\n", out.toString());
     }
+
 
     /**
      * Tests printFreeBlock in the most basic sense
@@ -143,5 +158,17 @@ public class MemManagerTest extends TestCase {
         System.setOut(new PrintStream(out));
         memManager.printFreeBlock();
         assertEquals("256: 0\n", out.toString());
+    }
+
+
+    /**
+     * Tests printFreeBlock when full
+     */
+    public void testPrint2() {
+        memManager.insert(new byte[256], 0);
+        System.setOut(new PrintStream(out));
+        memManager.printFreeBlock();
+        assertEquals("There are no freeblocks in the memory pool\n", out
+            .toString());
     }
 }

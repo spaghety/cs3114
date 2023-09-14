@@ -77,7 +77,8 @@ public class MemManager {
                 }
             }
         }
-        if (handle == null) {
+        if (handle == null) { // todo: why is handle null if it needs to double
+                              // the size?
             doubleSize();
             return insert(sem, id);
         }
@@ -130,8 +131,7 @@ public class MemManager {
 
     /**
      * Removes memory from the byte array by allocating it as free space in the
-     * free
-     * block.
+     * free block.
      * 
      * @param key
      *            object referencing the location of the serialized object being
@@ -139,29 +139,36 @@ public class MemManager {
      * @return true if successful, false if not
      */
     public boolean remove(SemRecord key) {
+        if (key == null) { // null protection
+            return false;
+        }
         int freeBlockIndex = (int)Math.ceil(Math.log(key.getSize()) / Math.log(
             2));
         FreeBlock curr = freespace[freeBlockIndex];
         FreeBlock prev = null;
         FreeBlock temp = new FreeBlock(key.getIndex());
+        // Traversing on the linked list
         while (curr != null && curr.getIndex() <= key.getIndex()) {
             prev = curr;
             curr = curr.getNext();
         }
-        if (prev != null) {
+        if (prev != null) { // Inserting a FreeBlock to the linked list
             temp.setNext(curr);
             prev.setNext(temp);
             clean(freeBlockIndex);
             return true;
         }
-        if (curr == null) {
+        if (curr == null) { // Reaches the end of the linked list
             freespace[freeBlockIndex] = temp;
             return true;
         }
+        // Inserting a FreeBLock to the head position
         temp.setNext(curr);
         freespace[freeBlockIndex] = temp;
         clean(freeBlockIndex);
         return true;
+        // todo: Is there a case it returns false?
+        // Like removing a duplicate record should return false, I suppose?
     }
 
 
@@ -177,12 +184,12 @@ public class MemManager {
         int currSize = (int)Math.pow(2, si);
         FreeBlock curr = freespace[si].getNext();
         FreeBlock prev = freespace[si];
-        FreeBlock prev2 = null;
+        // FreeBlock prev2 = null;
         if (prev.getIndex() + currSize == curr.getIndex()) {
             freespace[si] = null;
             remove(new SemRecord(0, prev.getIndex(), currSize * 2));
         }
-        prev2 = prev;
+        // prev2 = prev;
         prev = curr;
         curr = curr.getNext();
     }
