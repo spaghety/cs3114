@@ -69,8 +69,9 @@ public class HashTable {
      * @return true if successful, false if not
      */
     public boolean insert(SemRecord ref) {
-        if (ref == null)
+        if (ref == null) {
             return false;
+        }
         records[hash(ref.getId())] = ref;
         if (count * 2 >= records.length) {
             doubleCap();
