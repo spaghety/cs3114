@@ -1,6 +1,5 @@
-import java.io.FileNotFoundException;
+import java.io.*;
 import student.TestCase;
-import org.junit.Test;
 
 /**
  * This class is almost identical to SemManagerTest but uses a specific file for
@@ -34,5 +33,4 @@ public class SemParserTest extends TestCase {
             e.printStackTrace();
         }
     }
-
 }
