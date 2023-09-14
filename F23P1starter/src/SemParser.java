@@ -41,6 +41,7 @@ public class SemParser {
      * @param memMgr
      *            The memory manager to be passed in
      * @throws Exception
+     *             Parsing error from incorrect input
      */
     public SemParser(String fname, HashTable db, MemManager memMgr)
         throws Exception {
@@ -81,18 +82,21 @@ public class SemParser {
                         Seminar seminar = new Seminar(id, courseName, date,
                             length, x, y, cost, tags, desc);
                         byte[] sem = (seminar).serialize();
-                        //if (db.insert(mm.insert(sem, id))) {
+                        try {
                             db.insert(mm.insert(sem, id));
                             System.out.printf(
                                 "Successfully inserted record with ID %d\n"
                                     + seminar.toString() + "\nSize: %d\n", id,
                                 sem.length);
-                        //}
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                     else {
                         System.out.printf(
-                            "Insert FAILED - There is already a record with ID %d\n",
-                            id);
+                            "Insert FAILED - There is already a record with"
+                                + " ID %d\n", id);
                     }
                     break;
                 case "search": // Execute to search for existing seminar
