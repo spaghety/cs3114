@@ -58,7 +58,8 @@ public class HashTableTest extends TestCase {
     public void testInsertNull() {
         assertFalse(hashTable.insert(null));
     }
-    
+
+
     /**
      * Tests the find method
      */
@@ -130,6 +131,16 @@ public class HashTableTest extends TestCase {
 
 
     /**
+     * Tests h2 arithmetic operations
+     */
+    public void testH2() {
+        assertEquals(1, hashTable.h2Func(5, 16));
+        assertEquals(3, hashTable.h2Func(17, 16));
+        assertEquals(5, hashTable.h2Func(17, 8));
+    }
+
+
+    /**
      * Tests removing an entry and make sure there is a tombstone.
      * Will not remove a tombstone
      */
@@ -168,7 +179,8 @@ public class HashTableTest extends TestCase {
         assertArrayEquals(compare, hashTable.getArray());
         assertNull(hashTable.remove(6556));
     }
-    
+
+
     /**
      * Tests remove and find for empty
      */
