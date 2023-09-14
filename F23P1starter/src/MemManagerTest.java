@@ -120,6 +120,9 @@ public class MemManagerTest extends TestCase {
     }
 
 
+    /**
+     * Tests remove at different index
+     */
     public void testRemove2() {
         System.setOut(new PrintStream(out));
         memManager.insert(new byte[256], 0);
@@ -127,6 +130,19 @@ public class MemManagerTest extends TestCase {
         memManager.remove(new SemRecord(1, 192, 64));
         memManager.printFreeBlock();
         assertEquals("64: 64 192\n", out.toString());
+    }
+
+
+    /**
+     * Tests remove at different index and different size
+     */
+    public void testRemove3() {
+        System.setOut(new PrintStream(out));
+        memManager.insert(new byte[256], 0);
+        memManager.remove(new SemRecord(0, 128, 32));
+        memManager.remove(new SemRecord(1, 192, 64));
+        memManager.printFreeBlock();
+        assertEquals("32: 128\n64: 192\n", out.toString());
     }
 
 
