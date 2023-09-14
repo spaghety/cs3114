@@ -81,12 +81,13 @@ public class SemParser {
                         Seminar seminar = new Seminar(id, courseName, date,
                             length, x, y, cost, tags, desc);
                         byte[] sem = (seminar).serialize();
-                        if (db.insert(mm.insert(sem, id))) {
+                        //if (db.insert(mm.insert(sem, id))) {
+                            db.insert(mm.insert(sem, id));
                             System.out.printf(
                                 "Successfully inserted record with ID %d\n"
                                     + seminar.toString() + "\nSize: %d\n", id,
                                 sem.length);
-                        }
+                        //}
                     }
                     else {
                         System.out.printf(
@@ -131,5 +132,6 @@ public class SemParser {
                     break;
             }
         }
+        sc.close();
     }
 }
