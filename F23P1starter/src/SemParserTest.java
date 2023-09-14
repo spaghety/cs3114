@@ -1,12 +1,14 @@
 import java.io.FileNotFoundException;
 import student.TestCase;
+import org.junit.Test;
 
 /**
+ * This class is almost identical to SemManagerTest but uses a specific file for testing all of the parsable commands
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.09.05
  */
-public class SemManagerTest extends TestCase {
+public class SemParserTest extends TestCase {
     /**
      * Sets up the tests that follow. In general, used for initialization
      */
@@ -23,10 +25,11 @@ public class SemManagerTest extends TestCase {
         SemManager sem = new SemManager();
         assertNotNull(sem);
         try {
-            SemManager.main(new String[] { "64", "4", "custom_test1.txt" });
+            SemManager.main(new String[] { "64", "4", "parseTester.txt" });
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
+
 }

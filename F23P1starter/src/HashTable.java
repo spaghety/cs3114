@@ -69,9 +69,6 @@ public class HashTable {
      * @return true if successful, false if not
      */
     public boolean insert(SemRecord ref) {
-        if (ref == null) {
-            return false;
-        }
         records[hash(ref.getId())] = ref;
         if (count * 2 >= records.length) {
             doubleCap();
@@ -158,7 +155,7 @@ public class HashTable {
 
 
     /**
-     * Gets the underlying array.
+     * Gets the underlying array. Used in test cases.
      * 
      * @return The underlying array
      */
@@ -168,7 +165,7 @@ public class HashTable {
 
 
     /**
-     * Gets the current count.
+     * Gets the current count. Used in test cases
      * 
      * @return Current count
      */

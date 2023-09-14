@@ -158,20 +158,12 @@ public class MemManager {
      * @return true if successful, false if not
      */
     public boolean remove(SemRecord key) {
-        if (key == null) {
-            System.out.println("ERROR: hash table record null");
-            return false;
-        }
         int freeBlockIndex = (int)Math.ceil(Math.log(key.getSize()) / Math.log(
             2));
         FreeBlock curr = freespace[freeBlockIndex];
         FreeBlock prev = null;
         FreeBlock temp = new FreeBlock(key.getIndex());
         while (curr != null && curr.getIndex() <= key.getIndex()) {
-            if (curr.getIndex() == key.getIndex()) {
-                System.out.println("ERROR: Record has already been removed");
-                return false;
-            }
             prev = curr;
             curr = curr.getNext();
         }

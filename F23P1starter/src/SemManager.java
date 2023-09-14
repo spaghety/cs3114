@@ -23,7 +23,6 @@
  */
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -46,21 +45,15 @@ public class SemManager {
      * 
      * @param args
      *            Command line parameters
-     * @throws FileNotFoundException
-     *             if file is not found
+     * @throws Exception 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         int memsize = Integer.parseInt(args[0]);
         int hashsize = Integer.parseInt(args[1]);
         String fname = args[2];
         MemManager memoryManager = new MemManager(memsize);
         HashTable ht = new HashTable(hashsize);
 // FreeBlock[] freespace = new FreeBlock[];
-        try {
-            SemParser fileRead = new SemParser(fname, ht, memoryManager);
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        SemParser fileRead = new SemParser(fname, ht, memoryManager);
     }
 }
