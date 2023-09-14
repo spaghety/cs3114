@@ -212,7 +212,7 @@ public class MemManager {
      */
     public void printFreeBlock() {
         boolean found = false;
-        int maxIndex = (int)(Math.log(memory.length) / Math.log(2))+1;
+        int maxIndex = (int)(Math.log(memory.length) / Math.log(2)) + 1;
         for (int i = 0; i < maxIndex; i++) {
             if (freespace[i] != null) {
                 System.out.printf("%d:", (int)Math.pow(2, i));

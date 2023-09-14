@@ -3,7 +3,9 @@ import student.TestCase;
 import org.junit.Test;
 
 /**
- * This class is almost identical to SemManagerTest but uses a specific file for testing all of the parsable commands
+ * This class is almost identical to SemManagerTest but uses a specific file for
+ * testing all of the parsable commands
+ * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.09.05
@@ -19,7 +21,8 @@ public class SemParserTest extends TestCase {
 
     /**
      * Get code coverage of the class declaration.
-     * @throws Exception 
+     * 
+     * @throws Exception
      */
     public void testMInitx() throws Exception {
         SemManager sem = new SemManager();

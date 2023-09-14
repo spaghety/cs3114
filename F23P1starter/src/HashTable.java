@@ -69,6 +69,8 @@ public class HashTable {
      * @return true if successful, false if not
      */
     public boolean insert(SemRecord ref) {
+        if (ref == null)
+            return false;
         records[hash(ref.getId())] = ref;
         if (count * 2 >= records.length) {
             doubleCap();
@@ -94,26 +96,27 @@ public class HashTable {
         int h2 = (((id / records.length) % (records.length / 2)) * 2) + 1;
         int iter = 0;
         while (iter < records.length) {
-        	if (records[index] != null && !records[index].isTombstone()) {
-	            if (records[index].getId() == id) {
-	                return index;
-	            }
-        	}
+            if (records[index] != null && !records[index].isTombstone()) {
+                if (records[index].getId() == id) {
+                    return index;
+                }
+            }
             index += h2;
             index %= records.length;
             iter++;
         }
         return -1;
-        
+
         /*
-        while (records[index] != null && !records[index].isTombstone()) {
-            if (records[index].getId() == id) {
-                return index;
-            }
-            index += h2;
-            index %= records.length;
-        }
-        return -1;*/
+         * while (records[index] != null && !records[index].isTombstone()) {
+         * if (records[index].getId() == id) {
+         * return index;
+         * }
+         * index += h2;
+         * index %= records.length;
+         * }
+         * return -1;
+         */
     }
 
 
@@ -128,7 +131,8 @@ public class HashTable {
     public SemRecord remove(int id) {
         int index = hashSearch(id);
         if (index == -1) {
-        	System.out.printf("Delete FAILED -- There is no record with ID %d\n", id);
+            System.out.printf(
+                "Delete FAILED -- There is no record with ID %d\n", id);
             return null;
         }
         SemRecord temp = records[index];

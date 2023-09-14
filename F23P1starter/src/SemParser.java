@@ -40,7 +40,7 @@ public class SemParser {
      *            The hash table to be passed in
      * @param memMgr
      *            The memory manager to be passed in
-     * @throws Exception 
+     * @throws Exception
      */
     public SemParser(String fname, HashTable db, MemManager memMgr)
         throws Exception {
