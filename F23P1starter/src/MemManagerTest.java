@@ -52,7 +52,7 @@ public class MemManagerTest extends TestCase {
         Seminar semToInsert = new Seminar(11, "test seminar", "9/10/23", 90,
             (short)1, (short)2, 12, tags, "desc");
         SemRecord newRec = null;
-        memManager.printFreeBlock();
+        //memManager.printFreeBlock();
         try {
             newRec = memManager.insert(semToInsert.serialize(), 11);
         }
@@ -69,7 +69,7 @@ public class MemManagerTest extends TestCase {
         newNewRec = memManager.insert(semToInsert.serialize(), 11);
         assertNotNull(newNewRec);
         assertEquals(64, newNewRec.getIndex());
-        memManager.printFreeBlock();
+        //memManager.printFreeBlock();
     }
 
 
@@ -97,7 +97,7 @@ public class MemManagerTest extends TestCase {
 
 
     /**
-     * Tests remove method and the print out after remove happens
+     * Tests remove and clean methods and the print out after remove happens
      * 
      * @throws Exception
      *             from serialization
@@ -116,7 +116,7 @@ public class MemManagerTest extends TestCase {
         assertTrue(memManager.remove(record1));
         System.setOut(new PrintStream(out));
         memManager.printFreeBlock();
-        assertEquals("64: 64, 0\n128: 128\n", out.toString());
+        assertEquals("256: 0\n", out.toString());
     }
 
 
