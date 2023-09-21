@@ -39,6 +39,14 @@ public class FreeBlock {
         next = null;
         index = i;
     }
+    
+    /**
+     * empty constructor (for head nodes)
+     */
+    public FreeBlock() {
+    	next = null;
+    	index = -1;
+    }
 
 
     /**
@@ -64,6 +72,18 @@ public class FreeBlock {
         }
         next = n;
         return true;
+    }
+    
+    public void clean(int size) {
+    	if (next == null) {
+    		return;
+    	}else if (next.getNext() == null) {
+    		return;
+    	}else if (next.getIndex()+size == next.getNext().getIndex()) {
+    		next = next.getNext().getNext();
+    	}
+    	next.clean(size);
+    	return;
     }
 
 

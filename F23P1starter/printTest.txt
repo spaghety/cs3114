@@ -1,3 +1,0 @@
-
-print hashtable
-print blocks

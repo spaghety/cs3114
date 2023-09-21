@@ -1,35 +1,12 @@
-// On my honor:
-// - I have not used source code obtained from another current or
-// former student, or any other unauthorized source, either
-// modified or unmodified.
-//
-// - All source code and documentation used in my program is
-// either my original work, or was derived by me from the
-// source code published in the textbook for this course.
-//
-// - I have not discussed coding details about this project with
-// anyone other than my partner (in the case of a joint
-// submission), instructor, ACM/UPE tutors or the TAs assigned
-// to this course. I understand that I may discuss the concepts
-// of this program with other students, and that another student
-// may help me debug my program so long as neither of us writes
-// anything during the discussion or modifies any computer file
-// during the discussion. I have violated neither the spirit nor
-// letter of this restriction.
-
-import java.io.*;
-
 /**
- * Seminar class with serialization/deserialization support. You should use this
- * class in your project without making any changes to this code, because the
- * Web-CAT reference tests rely on your serialized Seminar objects being of
- * exactly the right length.
+ * Seminar class with getter methods for key fields. There is probably no
+ * good reason why you would want to modify this class for your project.
  *
  * @author CS3114/CS5040 staff
- * @version July 2023, updated August 2023
+ * @version July 2023, last updated September 2023
  */
 
-public class Seminar implements Serializable {
+public class Seminar {
     private String title; // Semianar title
     private String date; // Seminar date
     private int length; // Seminar length
@@ -48,39 +25,21 @@ public class Seminar implements Serializable {
         // Nothing here
     }
 
-
     /**
      * Create a new Seminar object from the field data
      *
-     * @param tin
-     *            input title
-     * @param datein
-     *            input date
-     * @param lin
-     *            input length
-     * @param kin
-     *            input keywords
-     * @param xin
-     *            input x coord
-     * @param yin
-     *            input y coord
-     * @param descin
-     *            input description
-     * @param cin
-     *            input cost
-     * @param idin
-     *            input ID
+     * @param tin    input title
+     * @param datein input date
+     * @param lin    input length
+     * @param kin    input keywords
+     * @param xin    input x coord
+     * @param yin    input y coord
+     * @param descin input description
+     * @param cin    input cost
+     * @param idin   input ID
      */
-    public Seminar(
-        int idin,
-        String tin,
-        String datein,
-        int lin,
-        short xin,
-        short yin,
-        int cin,
-        String[] kin,
-        String descin) {
+    public Seminar(int idin, String tin, String datein, int lin, short xin,
+        short yin, int cin, String[] kin, String descin) {
         id = idin;
         title = tin;
         date = datein;
@@ -92,74 +51,64 @@ public class Seminar implements Serializable {
         desc = descin;
     }
 
+
     // ----------------------------------------------------------
-
-
     /**
-     * Return a Seminar object made by deserializing a byte array
-     *
-     * @param inputbytes
-     *            A serialized Seminar object stored in a byte array
-     * @return the deserialized Seminar
-     * @throws Exception
-     *             from byte stream
+     * Returns the seminar ID field
+     * @return the ID field for the seminar
      */
-
-    public static Seminar deserialize(byte[] inputbytes) throws Exception {
-        ByteArrayInputStream bis = new ByteArrayInputStream(inputbytes);
-        try (ObjectInputStream inputStream = new ObjectInputStream(bis)) {
-            int id = inputStream.readInt();
-            String title = inputStream.readUTF();
-            String date = inputStream.readUTF();
-            int length = inputStream.readInt();
-            short x = inputStream.readShort();
-            short y = inputStream.readShort();
-            int cost = inputStream.readInt();
-
-            int numKeywords = inputStream.readInt();
-            String[] keywords = new String[numKeywords];
-            for (int i = 0; i < numKeywords; i++) {
-                keywords[i] = inputStream.readUTF();
-            }
-
-            String desc = inputStream.readUTF();
-
-            return new Seminar(id, title, date, length, x, y, cost, keywords,
-                desc);
-        }
+    public int id() {
+        return id;
     }
 
 
     // ----------------------------------------------------------
     /**
-     * Return the cannonical serialized form (as a byte array) for this seminar
-     * object
-     *
-     * @return the byte array that is the serialization of this
-     * @throws Exception
-     *             from serialization
+     * Return the seminar date
+     * @return the date field for the seminar
      */
+    public String date() {
+        return date;
+    }
 
-    public byte[] serialize() throws Exception {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(out)) {
-            outputStream.writeInt(id);
-            outputStream.writeUTF(title);
-            outputStream.writeUTF(date);
-            outputStream.writeInt(length);
-            outputStream.writeShort(x);
-            outputStream.writeShort(y);
-            outputStream.writeInt(cost);
 
-            // Write the number of keywords and then each keyword
-            outputStream.writeInt(keywords.length);
-            for (String keyword : keywords) {
-                outputStream.writeUTF(keyword);
-            }
+    // ----------------------------------------------------------
+    /**
+     * Return the seminar date
+     * @return the date field for the seminar
+     */
+    public int cost() {
+        return cost;
+    }
 
-            outputStream.writeUTF(desc);
-        }
-        return out.toByteArray();
+
+    // ----------------------------------------------------------
+    /**
+     * Return the seminar keywords
+     * @return the keywords field for the seminar
+     */
+    public String[] keywords() {
+        return keywords;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Return the seminar x coordinate
+     * @return the x coordinate field for the seminar
+     */
+    public int x() {
+        return x;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Return the seminar y coordinate
+     * @return the y coordinate field for the seminar
+     */
+    public int y() {
+        return y;
     }
 
 
@@ -174,8 +123,8 @@ public class Seminar implements Serializable {
             if (i != keywords.length - 1)
                 mykeys += ", ";
         }
-        return "ID: " + id + ", Title: " + title + "\nDate: " + date
-            + ", Length: " + length + ", X: " + x + ", Y: " + y + ", Cost: "
-            + cost + "\nDescription: " + desc + "\nKeywords: " + mykeys;
+        return "ID: " + id + ", Title: " + title + "\nDate: " + date +
+            ", Length: " + length + ", X: " + x + ", Y: " + y + ", Cost: " +
+            cost + "\nDescription: " + desc + "\nKeywords: " + mykeys;
     }
 }
