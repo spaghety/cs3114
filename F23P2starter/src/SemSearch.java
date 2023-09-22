@@ -3,6 +3,10 @@
  * {Project Description Here}
  */
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  * The class containing the main method.
  *
@@ -34,9 +38,57 @@ public class SemSearch {
     /**
      * @param args
      *     Command line parameters
+     * @throws FileNotFoundException 
      */
-    public static void main(String[] args) {
-        // This is the main file for the program.
-        Seminar dum = new Seminar();
+    public static void main(String[] args) throws FileNotFoundException {
+        int worldSize = Integer.parseInt(args[0]);
+        String commandFile = args[1];
+        System.out.printf("FileName: %s\nWorld Size: %d\n", commandFile, worldSize);
+        File infile = new File(commandFile);
+        Scanner sc = new Scanner(infile);
+        //BinTree implementation
+        String[] command;
+        int id;
+        String coursename;
+        String date;
+        int length;
+        short x;
+        short y;
+        int cost;
+        String desc;
+        while (!sc.hasNextLine()) {
+            String[] tags;
+            command = sc.nextLine().trim().split("\\s+");
+            if (command.length < 2) {
+                continue;
+            }
+            switch(command[0]) {
+                case "insert":
+                    //insert command implementation
+                    break;
+                case "print":
+                    //print implementation
+                    break;
+                case "search":
+                    //all possible second arguments for search command
+                    switch(command[1]) {
+                        case "cost":
+                            //cost search implementation
+                            break;
+                        case "date":
+                            //date search implementation
+                            break;
+                        case "keyword":
+                            //keyword search implementation
+                            break;
+                        case "location":
+                            //location search implementation
+                            break;
+                    }
+                    break;
+                case "delete":
+                    //delete implementation
+            }
+        }
     }
 }

@@ -1,7 +1,8 @@
 import student.TestCase;
 
 /**
- * @author {Your Name Here}
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
  * @version {Put Something Here}
  */
 public class SemSearchTest extends TestCase {
