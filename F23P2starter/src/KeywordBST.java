@@ -14,7 +14,7 @@ public class KeywordBST {
     int size;
     private KeywordBST leftChild;
     private KeywordBST rightChild;
-    String keyword;
+    private String keyword;
 
     /**
      * Constructor takes only the seminar object, leaving the children to be set
@@ -63,7 +63,7 @@ public class KeywordBST {
             return false;
         }
         else {
-            sems[size] = newSem;
+            sems[size - 1] = newSem;
             size++;
             if (size == sems.length)
                 doubleSize();
@@ -111,5 +111,15 @@ public class KeywordBST {
      */
     public KeywordBST getRight() {
         return rightChild;
+    }
+
+
+    /**
+     * Gets the size
+     * 
+     * @return size
+     */
+    public int getSize() {
+        return size;
     }
 }
