@@ -1,8 +1,4 @@
 /**
- * 
- */
-
-/**
  * This class defines a Binary Search Tree for seminar dates
  * 
  * @author Phillip Jordan (alexj14)
