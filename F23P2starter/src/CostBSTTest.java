@@ -8,11 +8,11 @@ import student.TestCase;
  * @version 2023.09.24
  */
 public class CostBSTTest extends TestCase {
-    CostBST root;
-    CostBST second;
-    String[] tags;
-    Seminar sem;
-    Seminar secondSem;
+    private CostBST root;
+    private CostBST second;
+    private String[] tags;
+    private Seminar sem;
+    private Seminar secondSem;
 
     /**
      * Set up variables for test cases
