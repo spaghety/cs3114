@@ -1,5 +1,7 @@
 /**
- * This class defines the BinTree data structure used to find x and y coordinates in ranges
+ * This class defines the BinTree data structure used to find x and y
+ * coordinates in ranges
+ * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  */
@@ -10,6 +12,12 @@ public class CoordBTree {
     private int wSize;
     private boolean isLeaf;
 
+    /**
+     * Constructor
+     * 
+     * @param worldSize
+     *            The size of the world
+     */
     public CoordBTree(int worldSize) {
         leftChild = null;
         rightChild = null;
@@ -19,14 +27,22 @@ public class CoordBTree {
     }
 
 
+    /**
+     * Insert X
+     * 
+     * @param newSem
+     *            New Seminar object
+     * @param owSize
+     *            Some size
+     */
     public void insertX(Seminar newSem, int owSize) {
         if (newSem == null) {
             return;
         }
         if (sem == null && isLeaf == true) {
             sem = newSem;
-            leftChild = new CoordBTree(owSize/2);
-            rightChild = new CoordBTree(owSize/2);
+            leftChild = new CoordBTree(owSize / 2);
+            rightChild = new CoordBTree(owSize / 2);
             return;
         }
         else {
@@ -40,6 +56,14 @@ public class CoordBTree {
     }
 
 
+    /**
+     * Insert Y
+     * 
+     * @param newSem
+     *            New Seminar object
+     * @param owSize
+     *            Some size
+     */
     public void insertY(Seminar newSem, int owSize) {
         if (newSem == null) {
             return;

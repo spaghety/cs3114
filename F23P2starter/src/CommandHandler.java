@@ -10,7 +10,13 @@
  * @version 2023.09.24
  */
 public class CommandHandler {
+    /**
+     * javadoc for public field variable
+     */
     public static IdBST ID;
+    /**
+     * javadoc for public field variable
+     */
     public static DateBST DATE;
     // TODO - Store all Binary Search Trees and coordinate Bintree here
 
@@ -61,6 +67,7 @@ public class CommandHandler {
      * @return the seminar object found
      */
     public Seminar search(DateBST root, String low, String high) {
-        return null; //TODO IMPLEMENT ALONG WITH ALL OTHER OVERLOADED SEARCH METHODS
+        return null; // TODO IMPLEMENT ALONG WITH ALL OTHER OVERLOADED SEARCH
+                     // METHODS
     }
 }
