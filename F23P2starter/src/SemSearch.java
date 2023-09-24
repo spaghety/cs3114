@@ -1,8 +1,3 @@
-
-/**
- * {Project Description Here}
- */
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -10,8 +5,9 @@ import java.util.Scanner;
 /**
  * The class containing the main method.
  *
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.09.24
  */
 
 // On my honor:
@@ -47,6 +43,7 @@ public class SemSearch {
         File infile = new File(commandFile);
         Scanner sc = new Scanner(infile);
         //BinTree implementation
+        CommandHandler handler = new CommandHandler();
         String[] command;
         int id;
         String coursename;
@@ -72,11 +69,14 @@ public class SemSearch {
                 case "search":
                     //all possible second arguments for search command
                     switch(command[1]) {
+                        case "id":
+                            handler.search(handler.ID, Integer.parseInt(command[2]));
+                            break;
                         case "cost":
                             //cost search implementation
                             break;
                         case "date":
-                            //date search implementation
+                            handler.search(handler.DATE, command[2], command[3]);
                             break;
                         case "keyword":
                             //keyword search implementation
