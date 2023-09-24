@@ -10,9 +10,11 @@
  * @version 2023.09.24
  */
 public class KeywordBST {
-    private Seminar sem;
+    private Seminar[] sems;
+    int size;
     private KeywordBST leftChild;
     private KeywordBST rightChild;
+    String keyword;
 
     /**
      * Constructor takes only the seminar object, leaving the children to be set
@@ -21,30 +23,52 @@ public class KeywordBST {
      * @param newSem
      *            new Seminar object
      */
-    public KeywordBST(Seminar newSem) {
-        sem = newSem;
+    public KeywordBST(String kword, Seminar newSem) {
+        sems = new Seminar[4];
+        size = 1;
+        sems[0] = newSem;
+        keyword = kword;
         leftChild = null;
         rightChild = null;
     }
 
 
     /**
-     * Gets the keywords of the stored seminar
-     * 
-     * @return the keywords of the seminar
+     * Helper method doubles the size of the seminar array
      */
-    public String[] getKeyword() {
-        return sem.keywords();
+    private void doubleSize() {
+        Seminar[] newArr = new Seminar[sems.length * 2];
+        for (int i = 0; i < sems.length; i++) {
+            newArr[i] = sems[i];
+        }
     }
 
 
     /**
-     * Gets the stored seminar object
+     * Adds a new seminar to this BST object
      * 
-     * @return the stored seminar object
+     * @param newSem
+     *            new seminar object to add
+     * @return true if successful, false if not
      */
-    public Seminar getSem() {
-        return sem;
+    public boolean add(Seminar newSem) {
+        boolean found = false;
+        String[] kw = newSem.keywords();
+        for (int i = 0; i < kw.length; i++) {
+            if (kw[i].equals(keyword)) {
+                found = true;
+            }
+        }
+        if (!found) {
+            return false;
+        }
+        else {
+            sems[size] = newSem;
+            size++;
+            if (size == sems.length)
+                doubleSize();
+            return true;
+        }
     }
 
 
