@@ -4,6 +4,7 @@
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.09.24
  */
 public class CoordBTree {
     private CoordBTree leftChild;
@@ -34,16 +35,18 @@ public class CoordBTree {
      *            New Seminar object
      * @param owSize
      *            Some size
+     * @return true if success, false if not
+     * 
      */
-    public void insertX(Seminar newSem, int owSize) {
+    public boolean insertX(Seminar newSem, int owSize) {
         if (newSem == null) {
-            return;
+            return false;
         }
         if (sem == null && isLeaf == true) {
             sem = newSem;
             leftChild = new CoordBTree(owSize / 2);
             rightChild = new CoordBTree(owSize / 2);
-            return;
+            return true;
         }
         else {
             if (newSem.x() % (owSize * 2) < owSize) {
@@ -52,6 +55,7 @@ public class CoordBTree {
             else {
                 rightChild.insertY(newSem, wSize);
             }
+            return true;
         }
     }
 
@@ -63,13 +67,15 @@ public class CoordBTree {
      *            New Seminar object
      * @param owSize
      *            Some size
+     * @return true if success, false if not
      */
-    public void insertY(Seminar newSem, int owSize) {
+    public boolean insertY(Seminar newSem, int owSize) {
         if (newSem == null) {
-            return;
+            return false;
         }
         if (sem == null && isLeaf == true) {
             sem = newSem;
+            return true;
         }
         else {
             if (newSem.x() % (owSize * 2) < owSize) {
@@ -78,6 +84,7 @@ public class CoordBTree {
             else {
                 rightChild.insertX(newSem, wSize);
             }
+            return true;
         }
     }
 }

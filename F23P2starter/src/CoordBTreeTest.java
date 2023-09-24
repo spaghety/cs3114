@@ -29,9 +29,9 @@ public class CoordBTreeTest extends TestCase {
      * Tests insertX
      */
     public void testInsertX() {
-        coordBTree.insertX(null, wSize);
-        coordBTree.insertX(sem, wSize);
-        coordBTree.insertX(sem, wSize);
+        assertFalse(coordBTree.insertX(null, wSize));
+        assertTrue(coordBTree.insertX(sem, wSize));
+        assertTrue(coordBTree.insertX(sem, wSize));
     }
 
 
@@ -39,7 +39,7 @@ public class CoordBTreeTest extends TestCase {
      * Tests insertY
      */
     public void testInsertY() {
-        coordBTree.insertY(null, wSize);
-        coordBTree.insertY(sem, wSize * 8);
+        assertFalse(coordBTree.insertY(null, wSize));
+        assertTrue(coordBTree.insertY(sem, wSize * 8));
     }
 }
