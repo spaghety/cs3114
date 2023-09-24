@@ -2,6 +2,8 @@ import java.io.FileNotFoundException;
 import student.TestCase;
 
 /**
+ * Tests SemSearch class
+ * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.09.24
@@ -23,6 +25,6 @@ public class SemSearchTest extends TestCase {
     public void testMInitx() throws FileNotFoundException {
         SemSearch sem = new SemSearch();
         assertNotNull(sem);
-//        SemSearch.main(null);
+// SemSearch.main(null);
     }
 }

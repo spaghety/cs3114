@@ -1,8 +1,11 @@
 import student.TestCase;
 
 /**
+ * Tests IdBST class
+ * 
  * @author Phillip Jordan (alexj14)
- *
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.09.24
  */
 public class IdBSTTest extends TestCase {
     Seminar testSem;
@@ -30,7 +33,7 @@ public class IdBSTTest extends TestCase {
     public void testGetId() {
         assertEquals(0, root.getId());
         assertEquals(1, second.getId());
-        
+
     }
 
 
