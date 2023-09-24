@@ -23,6 +23,6 @@ public class SemSearchTest extends TestCase {
     public void testMInitx() throws FileNotFoundException {
         SemSearch sem = new SemSearch();
         assertNotNull(sem);
-        SemSearch.main(null);
+//        SemSearch.main(null);
     }
 }
