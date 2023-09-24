@@ -17,13 +17,12 @@ public class SemSearchTest extends TestCase {
 
     /**
      * Get code coverage of the class declaration.
-     * @throws FileNotFoundException 
+     * 
+     * @throws FileNotFoundException
      */
-    public void testMInitx() throws FileNotFoundException
-    {
+    public void testMInitx() throws FileNotFoundException {
         SemSearch sem = new SemSearch();
         assertNotNull(sem);
         SemSearch.main(null);
     }
 }
-
