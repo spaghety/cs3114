@@ -18,7 +18,7 @@ public class CommandHandler {
      * javadoc for public field variable
      */
     public static DateBST DATE;
-    // TODO - Store all Binary Search Trees and coordinate Bintree here
+    //  - Store all Binary Search Trees and coordinate Bintree here
 
     /**
      * Empty constructor
@@ -67,7 +67,7 @@ public class CommandHandler {
      * @return the seminar object found
      */
     public Seminar search(DateBST root, String low, String high) {
-        return null; // TODO IMPLEMENT ALONG WITH ALL OTHER OVERLOADED SEARCH
+        return null; //  IMPLEMENT ALONG WITH ALL OTHER OVERLOADED SEARCH
                      // METHODS
     }
 }

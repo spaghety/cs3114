@@ -1,0 +1,7 @@
+print ID
+print date
+                print                   keyword
+                
+print cost
+
+  print location

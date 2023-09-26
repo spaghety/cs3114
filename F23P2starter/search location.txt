@@ -1,0 +1,6 @@
+search location -1 0 1
+search location -1 0 2000
+
+search location 10 10 0
+search location 11 11 0
+search location 10 10 20

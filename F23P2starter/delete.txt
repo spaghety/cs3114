@@ -1,0 +1,4 @@
+delete
+delete 1
+delete 3
+delete 1
