@@ -8,10 +8,10 @@ import student.TestCase;
  * @version 2023.09.24
  */
 public class IdBSTTest extends TestCase {
-    Seminar testSem;
-    Seminar testSems;
-    IdBST root;
-    IdBST second;
+    private Seminar testSem;
+    private Seminar testSems;
+    private IdBST root;
+    private IdBST second;
 
     /**
      * Sets up the objects used throughout the test cases
