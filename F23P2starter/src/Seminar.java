@@ -125,6 +125,6 @@ public class Seminar {
         }
         return "ID: " + id + ", Title: " + title + "\nDate: " + date +
             ", Length: " + length + ", X: " + x + ", Y: " + y + ", Cost: " +
-            cost + "\nDescription: " + desc + "\nKeywords: " + mykeys + "\n";
+            cost + "\nDescription: " + desc + "\nKeywords: " + mykeys;
     }
 }
