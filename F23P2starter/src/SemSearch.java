@@ -55,7 +55,7 @@ public class SemSearch {
         String desc;
         while (sc.hasNextLine()) {
             String[] tags;
-            command = sc.nextLine().trim().split("\\s+");
+            command = sc.nextLine().toLowerCase().trim().split("\\s+");
             if (command.length < 2) {
                 continue;
             }
@@ -78,7 +78,7 @@ public class SemSearch {
                             handler.insert(sem);
                             System.out.printf(
                                 "Successfully inserted record with ID %d\n"
-                                    + sem.toString(), id);
+                                    + sem.toString() + "\n", id);
                         }
                         catch (Exception e) {
                             e.printStackTrace();
