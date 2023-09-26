@@ -1,18 +1,15 @@
 /**
- * 
- */
-
-/**
  * This class defines a Binary Search Tree for seminar costs
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.09.24
+ * @version 2023.09.25
  */
 public class CostBST {
     private Seminar sem;
     private CostBST leftChild;
     private CostBST rightChild;
+    private boolean leaf;
 
     /**
      * Constructor takes only the seminar object, leaving the children to be set
@@ -25,6 +22,7 @@ public class CostBST {
         sem = newSem;
         leftChild = null;
         rightChild = null;
+        checkLeaf();
     }
 
 
@@ -56,6 +54,7 @@ public class CostBST {
      */
     public void setLeft(CostBST left) {
         leftChild = left;
+        checkLeaf();
     }
 
 
@@ -67,6 +66,20 @@ public class CostBST {
      */
     public void setRight(CostBST right) {
         rightChild = right;
+        checkLeaf();
+    }
+
+
+    /**
+     * Checks if this node is a leaf
+     */
+    private void checkLeaf() {
+        if (leftChild == null && rightChild == null) {
+            leaf = true;
+        }
+        else {
+            leaf = false;
+        }
     }
 
 
@@ -87,5 +100,39 @@ public class CostBST {
      */
     public CostBST getRight() {
         return rightChild;
+    }
+
+
+    /**
+     * Gets if this node is a leaf or not
+     * 
+     * @return true if this is a leaf, false otherwise
+     */
+    public boolean isLeaf() {
+        return leaf;
+    }
+
+
+    /**
+     * Inserts a new Seminar object into this BST
+     * 
+     * @param newSem
+     *            The new Seminar object to be inserted
+     */
+    public void insert(Seminar newSem) {
+        if (newSem.cost() > getCost()) {
+            if (rightChild == null) {
+                setRight(new CostBST(newSem));
+                return;
+            }
+            rightChild.insert(newSem);
+        }
+        else {
+            if (leftChild == null) {
+                setLeft(new CostBST(newSem));
+                return;
+            }
+            leftChild.insert(newSem);
+        }
     }
 }

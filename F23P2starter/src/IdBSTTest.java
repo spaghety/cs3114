@@ -51,6 +51,7 @@ public class IdBSTTest extends TestCase {
     public void testGetSetLeft() {
         root.setLeft(second);
         assertTrue(testSems.equals(root.getLeft().getSem()));
+        assertFalse(root.isLeaf());
     }
 
 
@@ -60,5 +61,14 @@ public class IdBSTTest extends TestCase {
     public void testGetSetRight() {
         root.setRight(second);
         assertTrue(testSems.equals(root.getRight().getSem()));
+        assertFalse(root.isLeaf());
+    }
+
+
+    /**
+     * Tests isLeaf
+     */
+    public void testIsLeaf() {
+        assertTrue(root.isLeaf());
     }
 }

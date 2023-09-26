@@ -50,12 +50,25 @@ public class CostBSTTest extends TestCase {
     public void testSetGetLeft() {
         root.setLeft(second);
         assertTrue(secondSem.equals(root.getLeft().getSem()));
+        assertFalse(root.isLeaf());
     }
 
 
+    /**
+     * Test right child setter and getter
+     */
     public void testSetGetRight() {
         root.setRight(second);
         assertTrue(secondSem.equals(root.getRight().getSem()));
+        assertFalse(root.isLeaf());
+    }
+
+
+    /**
+     * Tests isLeaf
+     */
+    public void testIsLeaf() {
+        assertTrue(root.isLeaf());
     }
 
 }

@@ -45,35 +45,48 @@ public class CommandHandlerTest extends TestCase {
     }
 
 
-    
-    
+    /**
+     * Tests insert
+     */
     public void testInsert() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
-        Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4, (short)9, 15,
-            tags, "test description");
-        Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short)4, (short)9, 20,
-            tags, "test description");
-        Seminar s3 = new Seminar(7, "test", "0309271600", 13, (short)4, (short)9, 25,
-            tags, "test description");
-//        Seminar s4 = new Seminar(0, "test", "0309201600", 13, (short)4, (short)9, 5,
-//            tags, "test description");
-        handler.insert(s2);
+        Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
+            (short)9, 15, tags, "test description");
+        Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short)4,
+            (short)9, 20, tags, "test description");
+        Seminar s3 = new Seminar(7, "test", "0309271600", 13, (short)4,
+            (short)9, 10, tags, "test description");
+        Seminar s4 = new Seminar(0, "test", "0309201600", 13, (short)4,
+            (short)9, 0, tags, "test description");
+        Seminar s5 = new Seminar(2, "test", "0309221600", 13, (short)4,
+            (short)9, 25, tags, "test description");
         handler.insert(s1);
+        handler.insert(s2);
         handler.insert(s3);
-//        handler.insert(s4);
-        
-        assertEquals(s2, CommandHandler.idBST.getSem());
-        assertEquals(s1, CommandHandler.idBST.getLeft().getSem());
-        assertEquals(s3, CommandHandler.idBST.getRight().getSem());
+        handler.insert(s4);
+        handler.insert(s5);
+        assertEquals(5, handler.getCount());
 
-        assertEquals(s2, CommandHandler.costBST.getSem());
-        assertEquals(s1, CommandHandler.costBST.getLeft().getSem());
-        assertEquals(s3, CommandHandler.costBST.getRight().getSem());
-        
-        assertEquals(s2, CommandHandler.dateBST.getSem());
-        assertEquals(s1, CommandHandler.dateBST.getLeft().getSem());
-        assertEquals(s3, CommandHandler.dateBST.getRight().getSem());
+        assertEquals(s1, CommandHandler.idBST.getSem());
+        assertEquals(s4, CommandHandler.idBST.getLeft().getSem());
+        assertEquals(s5, CommandHandler.idBST.getLeft().getRight().getSem());
+        assertEquals(s2, CommandHandler.idBST.getRight().getSem());
+        assertEquals(s3, CommandHandler.idBST.getRight().getRight().getSem());
+
+        assertEquals(s1, CommandHandler.costBST.getSem());
+        assertEquals(s2, CommandHandler.costBST.getRight().getSem());
+        assertEquals(s3, CommandHandler.costBST.getLeft().getSem());
+        assertEquals(s4, CommandHandler.costBST.getLeft().getLeft().getSem());
+        assertEquals(s5, CommandHandler.costBST.getRight().getRight().getSem());
+
+        assertEquals(s1, CommandHandler.dateBST.getSem());
+        assertEquals(s2, CommandHandler.dateBST.getRight().getSem());
+        assertEquals(s3, CommandHandler.dateBST.getRight().getRight().getSem());
+        assertEquals(s4, CommandHandler.dateBST.getLeft().getSem());
+        assertEquals(s5, CommandHandler.dateBST.getLeft().getRight().getSem());
     }
+
+
     /**
      * Tests search(IdBST, int)
      */
@@ -85,21 +98,24 @@ public class CommandHandlerTest extends TestCase {
         root.setLeft(left);
         assertEquals(sem2, handler.searchId(root, 1));
     }
-    
+
+
     /**
      * Tests searchCost
      */
     public void testSearch2() {
         assertNull(handler.searchCost(null, "1", "10"));
     }
-    
+
+
     /**
      * Tests searchDate
      */
     public void testSearch3() {
         assertNull(handler.searchDate(null, "1", "10"));
     }
-    
+
+
     /**
      * Tests searchKeyword
      */

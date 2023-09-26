@@ -53,7 +53,7 @@ public class SemSearch {
         short y;
         int cost;
         String desc;
-        while (!sc.hasNextLine()) {
+        while (sc.hasNextLine()) {
             String[] tags;
             command = sc.nextLine().trim().split("\\s+");
             if (command.length < 2) {
@@ -78,7 +78,7 @@ public class SemSearch {
                             handler.insert(sem);
                             System.out.printf(
                                 "Successfully inserted record with ID %d\n"
-                                    + sem.toString());
+                                    + sem.toString(), id);
                         }
                         catch (Exception e) {
                             e.printStackTrace();
@@ -121,6 +121,6 @@ public class SemSearch {
                     // delete implementation
             }
         }
-        sc.close();
+       
     }
 }

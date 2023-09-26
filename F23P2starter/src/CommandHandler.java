@@ -29,11 +29,22 @@ public class CommandHandler {
      * Empty constructor
      */
     public CommandHandler() {
+        count = 0;
         idBST = null;
         costBST = null;
         dateBST = null;
         keywordBST = null;
 // location
+    }
+
+
+    /**
+     * Gets current count of Seminar objects
+     * 
+     * @return current count
+     */
+    public int getCount() {
+        return count;
     }
 
 
@@ -53,28 +64,11 @@ public class CommandHandler {
             return;
         }
 
-        if (sem.id() > idBST.getId()) {
-            idBST.setRight(new IdBST(sem));
-        }
-        else {
-            idBST.setLeft(new IdBST(sem));
-        }
+        idBST.insert(sem);
+        costBST.insert(sem);
+        dateBST.insert(sem);
+// keywordBST.insert(sem);
 
-        if (sem.cost() > costBST.getCost()) {
-            costBST.setRight(new CostBST(sem));
-        }
-        else {
-            costBST.setLeft(new CostBST(sem));
-        }
-
-        if (Integer.parseInt(sem.date()) > Integer.parseInt(dateBST
-            .getDate())) {
-            dateBST.setRight(new DateBST(sem));
-        }
-        else {
-            dateBST.setLeft(new DateBST(sem));
-        }
-        
         count++;
     }
 

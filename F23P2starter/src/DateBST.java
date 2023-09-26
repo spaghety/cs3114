@@ -3,12 +3,13 @@
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.09.24
+ * @version 2023.09.25
  */
 public class DateBST {
     private Seminar sem;
     private DateBST leftChild;
     private DateBST rightChild;
+    private boolean leaf;
 
     /**
      * Constructor takes only the seminar object, leaving the children to be set
@@ -21,6 +22,7 @@ public class DateBST {
         sem = newSem;
         leftChild = null;
         rightChild = null;
+        checkLeaf();
     }
 
 
@@ -52,6 +54,7 @@ public class DateBST {
      */
     public void setLeft(DateBST left) {
         leftChild = left;
+        checkLeaf();
     }
 
 
@@ -63,6 +66,20 @@ public class DateBST {
      */
     public void setRight(DateBST right) {
         rightChild = right;
+        checkLeaf();
+    }
+
+
+    /**
+     * Checks if this node is a leaf
+     */
+    private void checkLeaf() {
+        if (leftChild == null && rightChild == null) {
+            leaf = true;
+        }
+        else {
+            leaf = false;
+        }
     }
 
 
@@ -83,5 +100,39 @@ public class DateBST {
      */
     public DateBST getRight() {
         return rightChild;
+    }
+
+
+    /**
+     * Gets if this node is a leaf or not
+     * 
+     * @return true if this is a leaf, false otherwise
+     */
+    public boolean isLeaf() {
+        return leaf;
+    }
+
+
+    /**
+     * Inserts a new Seminar object into this BST
+     * 
+     * @param newSem
+     *            The new Seminar object to be inserted
+     */
+    public void insert(Seminar newSem) {
+        if (newSem.date().compareTo(getDate()) > 0) {
+            if (rightChild == null) {
+                setRight(new DateBST(newSem));
+                return;
+            }
+            rightChild.insert(newSem);
+        }
+        else {
+            if (leftChild == null) {
+                setLeft(new DateBST(newSem));
+                return;
+            }
+            leftChild.insert(newSem);
+        }
     }
 }
