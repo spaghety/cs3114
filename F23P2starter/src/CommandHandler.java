@@ -6,7 +6,7 @@
  * @version 2023.09.25
  */
 public class CommandHandler {
-    
+
     private int count;
     /**
      * The IdBST
@@ -37,18 +37,48 @@ public class CommandHandler {
     }
 
 
+    /**
+     * Inserts a new Seminar into all BSTs
+     * 
+     * @param sem
+     *            The Seminar object to be inserted
+     */
     public void insert(Seminar sem) {
         if (count <= 0) {
             idBST = new IdBST(sem);
             costBST = new CostBST(sem);
             dateBST = new DateBST(sem);
             keywordBST = new KeywordBST(null, sem);
+            count++;
             return;
         }
+
+        if (sem.id() > idBST.getId()) {
+            idBST.setRight(new IdBST(sem));
+        }
+        else {
+            idBST.setLeft(new IdBST(sem));
+        }
+
+        if (sem.cost() > costBST.getCost()) {
+            costBST.setRight(new CostBST(sem));
+        }
+        else {
+            costBST.setLeft(new CostBST(sem));
+        }
+
+        if (Integer.parseInt(sem.date()) > Integer.parseInt(dateBST
+            .getDate())) {
+            dateBST.setRight(new DateBST(sem));
+        }
+        else {
+            dateBST.setLeft(new DateBST(sem));
+        }
         
+        count++;
     }
-    
-    
+
+
     /**
      * ID search overloaded with all other search methods
      * 

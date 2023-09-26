@@ -45,6 +45,35 @@ public class CommandHandlerTest extends TestCase {
     }
 
 
+    
+    
+    public void testInsert() {
+        String[] tags = new String[] { "tag1", "tag2", "tag3" };
+        Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short)4, (short)9, 20,
+            tags, "test description");
+        Seminar s3 = new Seminar(7, "test", "0309271600", 13, (short)4, (short)9, 25,
+            tags, "test description");
+//        Seminar s4 = new Seminar(0, "test", "0309201600", 13, (short)4, (short)9, 5,
+//            tags, "test description");
+        handler.insert(s2);
+        handler.insert(s1);
+        handler.insert(s3);
+//        handler.insert(s4);
+        
+        assertEquals(s2, CommandHandler.idBST.getSem());
+        assertEquals(s1, CommandHandler.idBST.getLeft().getSem());
+        assertEquals(s3, CommandHandler.idBST.getRight().getSem());
+
+        assertEquals(s2, CommandHandler.costBST.getSem());
+        assertEquals(s1, CommandHandler.costBST.getLeft().getSem());
+        assertEquals(s3, CommandHandler.costBST.getRight().getSem());
+        
+        assertEquals(s2, CommandHandler.dateBST.getSem());
+        assertEquals(s1, CommandHandler.dateBST.getLeft().getSem());
+        assertEquals(s3, CommandHandler.dateBST.getRight().getSem());
+    }
     /**
      * Tests search(IdBST, int)
      */
