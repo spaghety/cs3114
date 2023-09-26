@@ -20,6 +20,8 @@ public class KeywordBST {
      * Constructor takes only the seminar object, leaving the children to be set
      * later
      * 
+     * @param kword keyword
+     * 
      * @param newSem
      *            new Seminar object
      */

@@ -1,64 +1,84 @@
 /**
- * 
- */
-
-/**
- * Thic class handles all of the commands called by the parser
+ * This class handles all of the commands called by the parser
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.09.24
+ * @version 2023.09.25
  */
 public class CommandHandler {
+    
+    private int count;
     /**
-     * javadoc for public field variable
+     * The IdBST
      */
-    public static IdBST ID;
+    public static IdBST idBST;
     /**
-     * javadoc for public field variable
+     * The CostBST
      */
-    public static DateBST DATE;
-    //  - Store all Binary Search Trees and coordinate Bintree here
+    public static CostBST costBST;
+    /**
+     * The DateBST
+     */
+    public static DateBST dateBST;
+    /**
+     * The KeywordBST
+     */
+    public static KeywordBST keywordBST;
 
     /**
      * Empty constructor
      */
     public CommandHandler() {
-        ID = null;
-        DATE = null;
+        idBST = null;
+        costBST = null;
+        dateBST = null;
+        keywordBST = null;
+// location
     }
 
 
+    public void insert(Seminar sem) {
+        if (count <= 0) {
+            idBST = new IdBST(sem);
+            costBST = new CostBST(sem);
+            dateBST = new DateBST(sem);
+            keywordBST = new KeywordBST(null, sem);
+            return;
+        }
+        
+    }
+    
+    
     /**
      * ID search overloaded with all other search methods
      * 
      * @param root
-     *            always takes the public static ID BST as an argument from the
+     *            always takes the public static IdBST as an argument from the
      *            parser but is also recursive
      * @param id
      *            id being searched for
      * @return the seminar object being searched for or null if not found
      */
-    public Seminar search(IdBST root, int id) {
+    public Seminar searchId(IdBST root, int id) {
         if (root == null) {
             return null;
         }
         if (root.getId() == id) {
             return root.getSem();
         }
-        Seminar leftSearch = search(root.getLeft(), id);
+        Seminar leftSearch = searchId(root.getLeft(), id);
         if (leftSearch == null) {
-            return search(root.getRight(), id);
+            return searchId(root.getRight(), id);
         }
         return leftSearch;
     }
 
 
     /**
-     * Date search overloaded with all other search methods
+     * Cost search overloaded with all other search methods
      * 
      * @param root
-     *            always takes the public static Date BST when called from
+     *            always takes the public static DateBST when called from
      *            parser but not when called recursively
      * @param low
      *            lower bound of date being searched for
@@ -66,8 +86,43 @@ public class CommandHandler {
      *            upper bound of date being searched for
      * @return the seminar object found
      */
-    public Seminar search(DateBST root, String low, String high) {
-        return null; //  IMPLEMENT ALONG WITH ALL OTHER OVERLOADED SEARCH
+    public Seminar searchCost(CostBST root, String low, String high) {
+        return null; // IMPLEMENT ALONG WITH ALL OTHER OVERLOADED SEARCH
                      // METHODS
+    }
+
+
+    /**
+     * Date search overloaded with all other search methods
+     * 
+     * @param root
+     *            always takes the public static DateBST when called from
+     *            parser but not when called recursively
+     * @param low
+     *            lower bound of date being searched for
+     * @param high
+     *            upper bound of date being searched for
+     * @return the seminar object found
+     */
+    public Seminar searchDate(DateBST root, String low, String high) {
+        return null; // IMPLEMENT ALONG WITH ALL OTHER OVERLOADED SEARCH
+                     // METHODS
+    }
+
+
+    /**
+     * Keyword search overloaded with all other search methods
+     * 
+     * @param root
+     *            always takes the public static KeywordBST as an argument from
+     *            the
+     *            parser but is also recursive
+     * @param id
+     *            id being searched for
+     * @return the seminar object being searched for or null if not found
+     */
+    public Seminar searchKeyword(KeywordBST root, String keyword) {
+        return null; // IMPLEMENT ALONG WITH ALL OTHER OVERLOADED SEARCH
+        // METHODS
     }
 }

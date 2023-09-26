@@ -38,8 +38,10 @@ public class CommandHandlerTest extends TestCase {
      * Tests the constructor
      */
     public void testConstructor() {
-        assertNull(CommandHandler.ID);
-        assertNull(CommandHandler.DATE);
+        assertNull(CommandHandler.idBST);
+        assertNull(CommandHandler.costBST);
+        assertNull(CommandHandler.dateBST);
+        assertNull(CommandHandler.keywordBST);
     }
 
 
@@ -47,20 +49,32 @@ public class CommandHandlerTest extends TestCase {
      * Tests search(IdBST, int)
      */
     public void testSearch1() {
-        assertNull(handler.search(null, 0));
-        assertEquals(sem, handler.search(root, 0));
+        assertNull(handler.searchId(null, 0));
+        assertEquals(sem, handler.searchId(root, 0));
         root.setRight(right);
-        assertEquals(sem3, handler.search(root, 1));
+        assertEquals(sem3, handler.searchId(root, 1));
         root.setLeft(left);
-        assertEquals(sem2, handler.search(root, 1));
+        assertEquals(sem2, handler.searchId(root, 1));
     }
-    
     
     /**
-     * Tests search(DateBST, String, String)
+     * Tests searchCost
      */
     public void testSearch2() {
-        assertNull(handler.search(null, "1", "10"));
+        assertNull(handler.searchCost(null, "1", "10"));
     }
-
+    
+    /**
+     * Tests searchDate
+     */
+    public void testSearch3() {
+        assertNull(handler.searchDate(null, "1", "10"));
+    }
+    
+    /**
+     * Tests searchKeyword
+     */
+    public void testSearchKeyword() {
+        assertNull(handler.searchKeyword(null, "key1"));
+    }
 }

@@ -46,7 +46,7 @@ public class SemSearch {
         CommandHandler handler = new CommandHandler();
         String[] command;
         int id;
-        String coursename;
+        String courseName;
         String date;
         int length;
         short x;
@@ -60,8 +60,35 @@ public class SemSearch {
                 continue;
             }
             switch (command[0]) {
-                case "insert":
-                    // insert command implementation
+                case "insert":// Execute to insert new seminar
+                    id = Integer.parseInt(command[1]);
+                    courseName = sc.nextLine();
+                    date = sc.next();
+                    length = sc.nextInt();
+                    x = (short)sc.nextInt();
+                    y = (short)sc.nextInt();
+                    cost = sc.nextInt();
+                    sc.nextLine();
+                    tags = sc.nextLine().trim().split("\\s+");
+                    desc = sc.nextLine().trim();
+                    if (handler.searchId(CommandHandler.idBST, id) == null) {
+                        Seminar sem = new Seminar(id, courseName, date, length,
+                            x, y, cost, tags, desc);
+                        try {
+                            handler.insert(sem);
+                            System.out.printf(
+                                "Successfully inserted record with ID %d\n"
+                                    + sem.toString());
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else {
+                        System.out.printf(
+                            "Insert FAILED - There is already a record with"
+                                + " ID %d\n", id);
+                    }
                     break;
                 case "print":
                     // print implementation
@@ -70,18 +97,20 @@ public class SemSearch {
                     // all possible second arguments for search command
                     switch (command[1]) {
                         case "id":
-                            handler.search(handler.ID, Integer.parseInt(
-                                command[2]));
+                            handler.searchId(CommandHandler.idBST, Integer
+                                .parseInt(command[2]));
                             break;
                         case "cost":
-                            // cost search implementation
+                            handler.searchCost(CommandHandler.costBST,
+                                command[2], command[3]);
                             break;
                         case "date":
-                            handler.search(handler.DATE, command[2],
-                                command[3]);
+                            handler.searchDate(CommandHandler.dateBST,
+                                command[2], command[3]);
                             break;
                         case "keyword":
-                            // keyword search implementation
+                            handler.searchKeyword(CommandHandler.keywordBST,
+                                command[2]);
                             break;
                         case "location":
                             // location search implementation
@@ -92,5 +121,6 @@ public class SemSearch {
                     // delete implementation
             }
         }
+        sc.close();
     }
 }
