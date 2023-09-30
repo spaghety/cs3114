@@ -71,7 +71,7 @@ public class SemSearch {
                     sc.nextLine();
                     tags = sc.nextLine().trim().split("\\s+");
                     desc = sc.nextLine().trim();
-                    if (handler.searchId(CommandHandler.idBST, id) == null) {
+                    if (handler.searchId(handler.idBST, id) == null) {
                         Seminar sem = new Seminar(id, courseName, date, length,
                             x, y, cost, tags, desc);
                         try {
@@ -97,19 +97,19 @@ public class SemSearch {
                     // all possible second arguments for search command
                     switch (command[1]) {
                         case "id":
-                            handler.searchId(CommandHandler.idBST, Integer
+                            handler.searchId(handler.idBST, Integer
                                 .parseInt(command[2]));
                             break;
                         case "cost":
-                            handler.searchCost(CommandHandler.costBST,
+                            handler.searchCost(handler.costBST,
                                 Integer.parseInt(command[2]), Integer.parseInt(command[3]));
                             break;
                         case "date":
-                            handler.searchDate(CommandHandler.dateBST,
+                            handler.searchDate(handler.dateBST,
                                 command[2], command[3]);
                             break;
                         case "keyword":
-                            handler.searchKeyword(CommandHandler.keywordBST,
+                            handler.searchKeyword(handler.keywordBST,
                                 command[2]);
                             break;
                         case "location":

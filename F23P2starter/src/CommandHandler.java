@@ -11,19 +11,19 @@ public class CommandHandler {
     /**
      * The IdBST
      */
-    public static IdBST idBST;
+    public IdBST idBST;
     /**
      * The CostBST
      */
-    public static CostBST costBST;
+    public CostBST costBST;
     /**
      * The DateBST
      */
-    public static DateBST dateBST;
+    public DateBST dateBST;
     /**
      * The KeywordBST
      */
-    public static KeywordBST keywordBST;
+    public KeywordBST keywordBST;
 
     /**
      * Empty constructor

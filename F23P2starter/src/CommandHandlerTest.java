@@ -38,10 +38,10 @@ public class CommandHandlerTest extends TestCase {
      * Tests the constructor
      */
     public void testConstructor() {
-        assertNull(CommandHandler.idBST);
-        assertNull(CommandHandler.costBST);
-        assertNull(CommandHandler.dateBST);
-        assertNull(CommandHandler.keywordBST);
+        assertNull(handler.idBST);
+        assertNull(handler.costBST);
+        assertNull(handler.dateBST);
+        assertNull(handler.keywordBST);
     }
 
 
@@ -67,23 +67,23 @@ public class CommandHandlerTest extends TestCase {
         handler.insert(s5);
         assertEquals(5, handler.getCount());
 
-        assertEquals(s1, CommandHandler.idBST.getSem());
-        assertEquals(s4, CommandHandler.idBST.getLeft().getSem());
-        assertEquals(s5, CommandHandler.idBST.getLeft().getRight().getSem());
-        assertEquals(s2, CommandHandler.idBST.getRight().getSem());
-        assertEquals(s3, CommandHandler.idBST.getRight().getRight().getSem());
+        assertEquals(s1, handler.idBST.getSem());
+        assertEquals(s4, handler.idBST.getLeft().getSem());
+        assertEquals(s5, handler.idBST.getLeft().getRight().getSem());
+        assertEquals(s2, handler.idBST.getRight().getSem());
+        assertEquals(s3, handler.idBST.getRight().getRight().getSem());
 
-        assertEquals(s1, CommandHandler.costBST.getSem());
-        assertEquals(s2, CommandHandler.costBST.getRight().getSem());
-        assertEquals(s3, CommandHandler.costBST.getLeft().getSem());
-        assertEquals(s4, CommandHandler.costBST.getLeft().getLeft().getSem());
-        assertEquals(s5, CommandHandler.costBST.getRight().getRight().getSem());
+        assertEquals(s1, handler.costBST.getSem());
+        assertEquals(s2, handler.costBST.getRight().getSem());
+        assertEquals(s3, handler.costBST.getLeft().getSem());
+        assertEquals(s4, handler.costBST.getLeft().getLeft().getSem());
+        assertEquals(s5, handler.costBST.getRight().getRight().getSem());
 
-        assertEquals(s1, CommandHandler.dateBST.getSem());
-        assertEquals(s2, CommandHandler.dateBST.getRight().getSem());
-        assertEquals(s3, CommandHandler.dateBST.getRight().getRight().getSem());
-        assertEquals(s4, CommandHandler.dateBST.getLeft().getSem());
-        assertEquals(s5, CommandHandler.dateBST.getLeft().getRight().getSem());
+        assertEquals(s1, handler.dateBST.getSem());
+        assertEquals(s2, handler.dateBST.getRight().getSem());
+        assertEquals(s3, handler.dateBST.getRight().getRight().getSem());
+        assertEquals(s4, handler.dateBST.getLeft().getSem());
+        assertEquals(s5, handler.dateBST.getLeft().getRight().getSem());
     }
 
 
@@ -114,8 +114,8 @@ public class CommandHandlerTest extends TestCase {
         Seminar s3 = new Seminar(5, "test", "0309251600", 13, (short)4,
             (short)9, 5, tags, "test description");
         handler.insert(s3);
-        assertTrue((s1.toString()+"\n").equals(handler.searchCost(CommandHandler.costBST,10 , 20)));
-        System.out.println(handler.searchCost(CommandHandler.costBST, 10, 20));
+        assertTrue((s1.toString()+"\n").equals(handler.searchCost(handler.costBST,10 , 20)));
+        System.out.println(handler.searchCost(handler.costBST, 10, 20));
     }
 
 
@@ -133,7 +133,7 @@ public class CommandHandlerTest extends TestCase {
         Seminar s3 = new Seminar(5, "test", "0309250500", 13, (short)4,
             (short)9, 5, tags, "test description"); //low date
         handler.insert(s3);
-        System.out.println(handler.searchDate(CommandHandler.dateBST, "0", "1"));
+        System.out.println(handler.searchDate(handler.dateBST, "0", "1"));
     }
 
 
@@ -141,6 +141,18 @@ public class CommandHandlerTest extends TestCase {
      * Tests searchKeyword
      */
     public void testSearchKeyword() {
-        assertNull(handler.searchKeyword(null, "key1"));
+        String[] tags = new String[] { "tag1", "tag2", "tag3" };
+        Seminar s1 = new Seminar(5, "test", "0312251600", 13, (short)4,
+            (short)9, 15, tags, "test description"); //high date
+        handler.insert(s1);
+        String[] tags1 = new String[] { "tag4", "tag5", "tag6" };
+        Seminar s2 = new Seminar(6, "test", "0309282000", 13, (short)4,
+            (short)9, 21, tags, "test description"); //middle date
+        handler.insert(s2);
+        String[] tags2 = new String[] { "tag1", "tag10", "tag3" };
+        Seminar s3 = new Seminar(5, "test", "0309250500", 13, (short)4,
+            (short)9, 5, tags, "test description"); //low date
+        handler.insert(s3);
+        assertNull(handler.searchKeyword(handler.keywordBST, "key1"));
     }
 }
