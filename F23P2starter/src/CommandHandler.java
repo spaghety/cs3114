@@ -131,11 +131,13 @@ public class CommandHandler {
         Seminar newSem) {
         if (rt == null)
             return new KeywordBST(kword, newSem);
-        if (kword.compareTo(rt.getKeyword()) <= 0) {
+        if (kword.compareTo(rt.getKeyword()) < 0) {
             rt.setLeft(insertKeyword(rt.getLeft(), kword, newSem));
         }
-        else {
+        else if (kword.compareTo(rt.getKeyword()) > 0) {
             rt.setRight(insertKeyword(rt.getRight(), kword, newSem));
+        }else {
+            rt.add(newSem);
         }
         return rt;
     }

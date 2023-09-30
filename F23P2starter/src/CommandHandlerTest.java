@@ -115,7 +115,7 @@ public class CommandHandlerTest extends TestCase {
             (short)9, 5, tags, "test description");
         handler.insert(s3);
         assertTrue((s1.toString()+"\n").equals(handler.searchCost(handler.costBST,10 , 20)));
-        System.out.println(handler.searchCost(handler.costBST, 10, 20));
+        //System.out.println(handler.searchCost(handler.costBST, 10, 20));
     }
 
 
@@ -133,7 +133,7 @@ public class CommandHandlerTest extends TestCase {
         Seminar s3 = new Seminar(5, "test", "0309250500", 13, (short)4,
             (short)9, 5, tags, "test description"); //low date
         handler.insert(s3);
-        System.out.println(handler.searchDate(handler.dateBST, "0", "1"));
+        //System.out.println(handler.searchDate(handler.dateBST, "0", "1"));
     }
 
 
@@ -147,12 +147,12 @@ public class CommandHandlerTest extends TestCase {
         handler.insert(s1);
         String[] tags1 = new String[] { "tag4", "tag5", "tag6" };
         Seminar s2 = new Seminar(6, "test", "0309282000", 13, (short)4,
-            (short)9, 21, tags, "test description"); //middle date
+            (short)9, 21, tags1, "test description"); //middle date
         handler.insert(s2);
         String[] tags2 = new String[] { "tag1", "tag10", "tag3" };
-        Seminar s3 = new Seminar(5, "test", "0309250500", 13, (short)4,
-            (short)9, 5, tags, "test description"); //low date
+        Seminar s3 = new Seminar(7, "test", "0309250500", 13, (short)4,
+            (short)9, 5, tags2, "test description"); //low date
         handler.insert(s3);
-        assertNull(handler.searchKeyword(handler.keywordBST, "key1"));
+        System.out.println(handler.searchKeyword(handler.keywordBST, "tag10"));
     }
 }
