@@ -43,6 +43,7 @@ public class KeywordBST {
         for (int i = 0; i < sems.length; i++) {
             newArr[i] = sems[i];
         }
+        sems = newArr;
     }
 
 
