@@ -110,9 +110,20 @@ public class CommandHandler {
      *            upper bound of date being searched for
      * @return the seminar object found
      */
-    public Seminar searchCost(CostBST root, String low, String high) {
-        return null; // IMPLEMENT ALONG WITH ALL OTHER OVERLOADED SEARCH
-                     // METHODS
+    public String searchCost(CostBST root, int low, int high) {
+        if (root == null) {
+            return "";
+        }
+        if (root.getCost() > high) {
+            return searchCost(root.getLeft(), low, high);
+        }else if (root.getCost() < low) {
+            return searchCost(root.getRight(), low, high);
+        }else {
+            String result = searchCost(root.getLeft(), low, high);
+            result+=root.getSem().toString()+"\n";
+            result+=searchCost(root.getRight(), low, high);
+            return result;
+        }
     }
 
 
@@ -128,9 +139,22 @@ public class CommandHandler {
      *            upper bound of date being searched for
      * @return the seminar object found
      */
-    public Seminar searchDate(DateBST root, String low, String high) {
-        return null; // IMPLEMENT ALONG WITH ALL OTHER OVERLOADED SEARCH
-                     // METHODS
+    public String searchDate(DateBST root, String low, String high) {
+        if (root == null) {
+            return "";
+        }
+        int lowComp = low.compareTo(root.getDate());
+        int highComp = high.compareTo(root.getDate());
+        if ( lowComp <= 0) {
+            return searchDate(root.getRight(), low, high);
+        }else if (highComp >= 0) {
+            return searchDate(root.getLeft(), low, high);
+        }else {
+            String result = searchDate(root.getLeft(), low, high);
+            result+=root.getSem()+"\n";
+            result+=searchDate(root.getRight(), low, high);
+            return result;
+        }
     }
 
 

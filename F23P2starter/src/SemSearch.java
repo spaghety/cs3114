@@ -102,7 +102,7 @@ public class SemSearch {
                             break;
                         case "cost":
                             handler.searchCost(CommandHandler.costBST,
-                                command[2], command[3]);
+                                Integer.parseInt(command[2]), Integer.parseInt(command[3]));
                             break;
                         case "date":
                             handler.searchDate(CommandHandler.dateBST,
