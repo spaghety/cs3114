@@ -103,6 +103,13 @@ public class CommandHandler {
         return rt;
     }
 
+    /**
+     * Recursive helper method for inserting into the keyword BST
+     * @param rt root node
+     * @param kword specific keyword to insert with
+     * @param newSem the Seminar object being added
+     * @return the new node object after insertion
+     */
     private KeywordBST insertKeyword(KeywordBST rt, String  kword, Seminar newSem) {
         if (rt == null) return new KeywordBST(kword, newSem);
         if (kword.compareTo(rt.getKeyword()) <= 0) {
