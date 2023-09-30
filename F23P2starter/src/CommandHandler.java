@@ -69,10 +69,14 @@ public class CommandHandler {
         return rt;
     }
 
+
     /**
      * Recursive helper method for inserting into the Cost BST
-     * @param rt root node
-     * @param newSem seminar object being inserted
+     * 
+     * @param rt
+     *            root node
+     * @param newSem
+     *            seminar object being inserted
      * @return the new node object after insertion
      */
     private CostBST insertCost(CostBST rt, Seminar newSem) {
@@ -86,39 +90,56 @@ public class CommandHandler {
         }
         return rt;
     }
-    
+
+
     /**
      * Recursive helper method for inserting into the IdBST
-     * @param rt root node
-     * @param newSem seminar object being inserted
+     * 
+     * @param rt
+     *            root node
+     * @param newSem
+     *            seminar object being inserted
      * @return the new node object after insertion
      */
     private DateBST insertDate(DateBST rt, Seminar newSem) {
-        if (rt == null) return new DateBST(newSem);
+        if (rt == null)
+            return new DateBST(newSem);
         if (newSem.date().compareTo(rt.getDate()) <= 0) {
             rt.setLeft(insertDate(rt.getLeft(), newSem));
-        }else {
+        }
+        else {
             rt.setRight(insertDate(rt.getRight(), newSem));
         }
         return rt;
     }
 
+
     /**
      * Recursive helper method for inserting into the keyword BST
-     * @param rt root node
-     * @param kword specific keyword to insert with
-     * @param newSem the Seminar object being added
+     * 
+     * @param rt
+     *            root node
+     * @param kword
+     *            specific keyword to insert with
+     * @param newSem
+     *            the Seminar object being added
      * @return the new node object after insertion
      */
-    private KeywordBST insertKeyword(KeywordBST rt, String  kword, Seminar newSem) {
-        if (rt == null) return new KeywordBST(kword, newSem);
+    private KeywordBST insertKeyword(
+        KeywordBST rt,
+        String kword,
+        Seminar newSem) {
+        if (rt == null)
+            return new KeywordBST(kword, newSem);
         if (kword.compareTo(rt.getKeyword()) <= 0) {
             rt.setLeft(insertKeyword(rt.getLeft(), kword, newSem));
-        }else {
+        }
+        else {
             rt.setRight(insertKeyword(rt.getRight(), kword, newSem));
         }
         return rt;
     }
+
 
     /**
      * Inserts a new Seminar into all BSTs
@@ -131,7 +152,7 @@ public class CommandHandler {
         costBST = insertCost(costBST, sem);
         dateBST = insertDate(dateBST, sem);
         String[] kw = sem.keywords();
-        for (int i=0; i< kw.length;i++) {
+        for (int i = 0; i < kw.length; i++) {
             keywordBST = insertKeyword(keywordBST, kw[i], sem);
         }
         count++;
@@ -139,7 +160,7 @@ public class CommandHandler {
 
 
     /**
-     * ID search overloaded with all other search methods
+     * ID search method
      * 
      * @param root
      *            always takes the public static IdBST as an argument from the
@@ -164,7 +185,7 @@ public class CommandHandler {
 
 
     /**
-     * Cost search overloaded with all other search methods
+     * Cost search method
      * 
      * @param root
      *            always takes the public static DateBST when called from
@@ -173,7 +194,7 @@ public class CommandHandler {
      *            lower bound of date being searched for
      * @param high
      *            upper bound of date being searched for
-     * @return the seminar object found
+     * @return the string to print
      */
     public String searchCost(CostBST root, int low, int high) {
         if (root == null) {
@@ -195,7 +216,7 @@ public class CommandHandler {
 
 
     /**
-     * Date search overloaded with all other search methods
+     * Date search method
      * 
      * @param root
      *            always takes the public static DateBST when called from
@@ -204,7 +225,7 @@ public class CommandHandler {
      *            lower bound of date being searched for
      * @param high
      *            upper bound of date being searched for
-     * @return the seminar object found
+     * @return the string to print
      */
     public String searchDate(DateBST root, String low, String high) {
         if (root == null) {
@@ -228,18 +249,27 @@ public class CommandHandler {
 
 
     /**
-     * Keyword search overloaded with all other search methods
+     * Keyword search method
      * 
      * @param root
      *            always takes the public static KeywordBST as an argument from
      *            the
      *            parser but is also recursive
      * @param id
-     *            id being searched for
-     * @return the seminar object being searched for or null if not found
+     *            keyword being searched for
+     * @return the string to print
      */
-    public Seminar searchKeyword(KeywordBST root, String keyword) {
-        return null; // IMPLEMENT ALONG WITH ALL OTHER OVERLOADED SEARCH
-        // METHODS
+    public String searchKeyword(KeywordBST root, String keyword) {
+        if (root == null) {
+            return "";
+        }
+        int strComp = keyword.compareTo(root.getKeyword());
+        if (strComp < 0) {
+            return searchKeyword(root.getLeft(), keyword);
+        }else if (strComp > 0) {
+            return searchKeyword(root.getRight(), keyword);
+        }else {
+            return root.printSems();
+        }
     }
 }

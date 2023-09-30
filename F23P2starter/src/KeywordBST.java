@@ -11,7 +11,7 @@
  */
 public class KeywordBST {
     private Seminar[] sems;
-    int count;
+    private int count;
     private KeywordBST leftChild;
     private KeywordBST rightChild;
     private String keyword;
@@ -133,5 +133,12 @@ public class KeywordBST {
      */
     public String getKeyword() {
         return keyword;
+    }
+    public String printSems() {
+        String result = "";
+        for (int i=0;i<count;i++) {
+            result+=sems[i].toString()+"\n";
+        }
+        return result;
     }
 }
