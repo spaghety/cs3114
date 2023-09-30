@@ -11,7 +11,7 @@
  */
 public class KeywordBST {
     private Seminar[] sems;
-    int size;
+    int count;
     private KeywordBST leftChild;
     private KeywordBST rightChild;
     private String keyword;
@@ -20,20 +20,20 @@ public class KeywordBST {
      * Constructor takes only the seminar object, leaving the children to be set
      * later
      * 
-     * @param kword keyword
+     * @param kword
+     *            keyword
      * 
      * @param newSem
      *            new Seminar object
      */
     public KeywordBST(String kword, Seminar newSem) {
         sems = new Seminar[4];
-        size = 1;
+        count = 1;
         sems[0] = newSem;
         keyword = kword;
         leftChild = null;
         rightChild = null;
     }
-
 
     /**
      * Helper method doubles the size of the seminar array
@@ -65,9 +65,9 @@ public class KeywordBST {
             return false;
         }
         else {
-            sems[size - 1] = newSem;
-            size++;
-            if (size == sems.length)
+            sems[count] = newSem;
+            count++;
+            if (count == sems.length)
                 doubleSize();
             return true;
         }
@@ -122,6 +122,16 @@ public class KeywordBST {
      * @return size
      */
     public int getSize() {
-        return size;
+        return count;
+    }
+
+
+    /**
+     * Gets the keyword of the node
+     * 
+     * @return the keyword
+     */
+    public String getKeyword() {
+        return keyword;
     }
 }

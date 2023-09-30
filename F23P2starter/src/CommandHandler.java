@@ -49,26 +49,84 @@ public class CommandHandler {
 
 
     /**
+     * Recursive helper method for inserting into the Id BST
+     * 
+     * @param rt
+     *            root node
+     * @param newSem
+     *            seminar object being inserted
+     * @return the new node object after insertion
+     */
+    private IdBST insertId(IdBST rt, Seminar newSem) {
+        if (rt == null)
+            return new IdBST(newSem);
+        if (newSem.id() < rt.getId()) {
+            rt.setLeft(insertId(rt.getLeft(), newSem));
+        }
+        else {
+            rt.setRight(insertId(rt.getRight(), newSem));
+        }
+        return rt;
+    }
+
+    /**
+     * Recursive helper method for inserting into the Cost BST
+     * @param rt root node
+     * @param newSem seminar object being inserted
+     * @return the new node object after insertion
+     */
+    private CostBST insertCost(CostBST rt, Seminar newSem) {
+        if (rt == null)
+            return new CostBST(newSem);
+        if (newSem.cost() <= rt.getCost()) {
+            rt.setLeft(insertCost(rt.getLeft(), newSem));
+        }
+        else {
+            rt.setRight(insertCost(rt.getRight(), newSem));
+        }
+        return rt;
+    }
+    
+    /**
+     * Recursive helper method for inserting into the IdBST
+     * @param rt root node
+     * @param newSem seminar object being inserted
+     * @return the new node object after insertion
+     */
+    private DateBST insertDate(DateBST rt, Seminar newSem) {
+        if (rt == null) return new DateBST(newSem);
+        if (newSem.date().compareTo(rt.getDate()) <= 0) {
+            rt.setLeft(insertDate(rt.getLeft(), newSem));
+        }else {
+            rt.setRight(insertDate(rt.getRight(), newSem));
+        }
+        return rt;
+    }
+
+    private KeywordBST insertKeyword(KeywordBST rt, String  kword, Seminar newSem) {
+        if (rt == null) return new KeywordBST(kword, newSem);
+        if (kword.compareTo(rt.getKeyword()) <= 0) {
+            rt.setLeft(insertKeyword(rt.getLeft(), kword, newSem));
+        }else {
+            rt.setRight(insertKeyword(rt.getRight(), kword, newSem));
+        }
+        return rt;
+    }
+
+    /**
      * Inserts a new Seminar into all BSTs
      * 
      * @param sem
      *            The Seminar object to be inserted
      */
     public void insert(Seminar sem) {
-        if (count <= 0) {
-            idBST = new IdBST(sem);
-            costBST = new CostBST(sem);
-            dateBST = new DateBST(sem);
-            keywordBST = new KeywordBST(null, sem);
-            count++;
-            return;
+        idBST = insertId(idBST, sem);
+        costBST = insertCost(costBST, sem);
+        dateBST = insertDate(dateBST, sem);
+        String[] kw = sem.keywords();
+        for (int i=0; i< kw.length;i++) {
+            keywordBST = insertKeyword(keywordBST, kw[i], sem);
         }
-
-        idBST.insert(sem);
-        costBST.insert(sem);
-        dateBST.insert(sem);
-// keywordBST.insert(sem);
-
         count++;
     }
 
@@ -116,12 +174,14 @@ public class CommandHandler {
         }
         if (root.getCost() > high) {
             return searchCost(root.getLeft(), low, high);
-        }else if (root.getCost() < low) {
+        }
+        else if (root.getCost() < low) {
             return searchCost(root.getRight(), low, high);
-        }else {
+        }
+        else {
             String result = searchCost(root.getLeft(), low, high);
-            result+=root.getSem().toString()+"\n";
-            result+=searchCost(root.getRight(), low, high);
+            result += root.getSem().toString() + "\n";
+            result += searchCost(root.getRight(), low, high);
             return result;
         }
     }
@@ -145,14 +205,16 @@ public class CommandHandler {
         }
         int lowComp = low.compareTo(root.getDate());
         int highComp = high.compareTo(root.getDate());
-        if ( lowComp <= 0) {
+        if (lowComp <= 0) {
             return searchDate(root.getRight(), low, high);
-        }else if (highComp >= 0) {
+        }
+        else if (highComp >= 0) {
             return searchDate(root.getLeft(), low, high);
-        }else {
+        }
+        else {
             String result = searchDate(root.getLeft(), low, high);
-            result+=root.getSem()+"\n";
-            result+=searchDate(root.getRight(), low, high);
+            result += root.getSem() + "\n";
+            result += searchDate(root.getRight(), low, high);
             return result;
         }
     }

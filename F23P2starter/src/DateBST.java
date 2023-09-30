@@ -111,28 +111,4 @@ public class DateBST {
     public boolean isLeaf() {
         return leaf;
     }
-
-
-    /**
-     * Inserts a new Seminar object into this BST
-     * 
-     * @param newSem
-     *            The new Seminar object to be inserted
-     */
-    public void insert(Seminar newSem) {
-        if (newSem.date().compareTo(getDate()) > 0) {
-            if (rightChild == null) {
-                setRight(new DateBST(newSem));
-                return;
-            }
-            rightChild.insert(newSem);
-        }
-        else {
-            if (leftChild == null) {
-                setLeft(new DateBST(newSem));
-                return;
-            }
-            leftChild.insert(newSem);
-        }
-    }
 }

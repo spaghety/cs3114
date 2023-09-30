@@ -111,28 +111,4 @@ public class CostBST {
     public boolean isLeaf() {
         return leaf;
     }
-
-
-    /**
-     * Inserts a new Seminar object into this BST
-     * 
-     * @param newSem
-     *            The new Seminar object to be inserted
-     */
-    public void insert(Seminar newSem) {
-        if (newSem.cost() > getCost()) {
-            if (rightChild == null) {
-                setRight(new CostBST(newSem));
-                return;
-            }
-            rightChild.insert(newSem);
-        }
-        else {
-            if (leftChild == null) {
-                setLeft(new CostBST(newSem));
-                return;
-            }
-            leftChild.insert(newSem);
-        }
-    }
 }

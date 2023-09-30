@@ -101,7 +101,7 @@ public class CommandHandlerTest extends TestCase {
 
 
     /**
-     * Tests searchCost
+     * Tests searchCost(CostBST, low, high)
      */
     public void testSearch2() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
@@ -114,13 +114,13 @@ public class CommandHandlerTest extends TestCase {
         Seminar s3 = new Seminar(5, "test", "0309251600", 13, (short)4,
             (short)9, 5, tags, "test description");
         handler.insert(s3);
-        assertTrue((s1.toString()+"\n").equals(handler.searchCost(handler.costBST,10 , 20)));
-        System.out.println(handler.searchCost(handler.costBST, 10, 20));
+        assertTrue((s1.toString()+"\n").equals(handler.searchCost(CommandHandler.costBST,10 , 20)));
+        System.out.println(handler.searchCost(CommandHandler.costBST, 10, 20));
     }
 
 
     /**
-     * Tests searchDate
+     * Tests searchDate(DateBST, low, high)
      */
     public void testSearch3() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
@@ -133,7 +133,7 @@ public class CommandHandlerTest extends TestCase {
         Seminar s3 = new Seminar(5, "test", "0309250500", 13, (short)4,
             (short)9, 5, tags, "test description"); //low date
         handler.insert(s3);
-        System.out.println(handler.searchDate(handler.dateBST, "0309261600", "0312201600"));
+        System.out.println(handler.searchDate(CommandHandler.dateBST, "0", "1"));
     }
 
 

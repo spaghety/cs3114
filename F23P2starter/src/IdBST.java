@@ -111,28 +111,4 @@ public class IdBST {
     public boolean isLeaf() {
         return leaf;
     }
-
-
-    /**
-     * Inserts a new Seminar object into this BST
-     * 
-     * @param newSem
-     *            The new Seminar object to be inserted
-     */
-    public void insert(Seminar newSem) {
-        if (newSem.id() > getId()) {
-            if (rightChild == null) {
-                setRight(new IdBST(newSem));
-                return;
-            }
-            rightChild.insert(newSem);
-        }
-        else {
-            if (leftChild == null) {
-                setLeft(new IdBST(newSem));
-                return;
-            }
-            leftChild.insert(newSem);
-        }
-    }
 }
