@@ -97,23 +97,55 @@ public class SemSearch {
                     // all possible second arguments for search command
                     switch (command[1]) {
                         case "id":
-                            handler.searchId(handler.idBST, Integer
-                                .parseInt(command[2]));
+                            int num = Integer.parseInt(command[2]);
+                            Seminar result = handler.searchId(handler.idBST,
+                                num);
+                            if (result == null) {
+                                System.out.printf(
+                                    "Search FAILED -- There is no record with "
+                                        + "ID %d\n", num);
+                            }
+                            else {
+                                System.out.printf("Found record with ID %d: \n",
+                                    num);
+                                System.out.println(result.toString());
+                            }
+                            handler.resetCount();
                             break;
                         case "cost":
-                            handler.searchCost(handler.costBST,
-                                Integer.parseInt(command[2]), Integer.parseInt(command[3]));
+                            int low = Integer.parseInt(command[2]);
+                            int high = Integer.parseInt(command[3]);
+                            String costResult = handler.searchCost(
+                                handler.costBST, low, high);
+                            System.out.printf(
+                                "Seminars with costs in range %d to %d:\n"
+                                    + costResult, low, high);
+                            System.out.printf(
+                                "%d nodes visited in this search\n", handler
+                                    .getCount());
+                            handler.resetCount();
                             break;
                         case "date":
-                            handler.searchDate(handler.dateBST,
-                                command[2], command[3]);
+                            String l = command[2];
+                            String h = command[3];
+                            String dateResult = handler.searchDate(
+                                handler.dateBST, l, h);
+                            System.out.printf(
+                                "Seminars with dates in range %s to %s:\n"
+                                    + dateResult, l, h);
+                            System.out.printf(
+                                "%d nodes visited in this search\n", handler
+                                    .getCount());
+                            handler.resetCount();
                             break;
                         case "keyword":
                             handler.searchKeyword(handler.keywordBST,
                                 command[2]);
+                            handler.resetCount();
                             break;
                         case "location":
                             // location search implementation
+                            handler.resetCount();
                             break;
                     }
                     break;
@@ -121,6 +153,6 @@ public class SemSearch {
                     // delete implementation
             }
         }
-       
+
     }
 }
