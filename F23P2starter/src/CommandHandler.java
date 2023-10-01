@@ -267,7 +267,7 @@ public class CommandHandler {
      *            always takes the public static KeywordBST as an argument from
      *            the
      *            parser but is also recursive
-     * @param id
+     * @param keyword
      *            keyword being searched for
      * @return the string to print
      */
