@@ -7,7 +7,7 @@
  */
 public class CommandHandler {
 
-    private int count;
+    private int count; // Visited nodes
     /**
      * The IdBST
      */
@@ -39,12 +39,20 @@ public class CommandHandler {
 
 
     /**
-     * Gets current count of Seminar objects
+     * Gets current count of nodes
      * 
      * @return current count
      */
     public int getCount() {
         return count;
+    }
+
+
+    /**
+     * Resets count of nodes
+     */
+    public void resetCount() {
+        count = 0;
     }
 
 
@@ -136,7 +144,8 @@ public class CommandHandler {
         }
         else if (kword.compareTo(rt.getKeyword()) > 0) {
             rt.setRight(insertKeyword(rt.getRight(), kword, newSem));
-        }else {
+        }
+        else {
             rt.add(newSem);
         }
         return rt;
@@ -157,7 +166,6 @@ public class CommandHandler {
         for (int i = 0; i < kw.length; i++) {
             keywordBST = insertKeyword(keywordBST, kw[i], sem);
         }
-        count++;
     }
 
 
@@ -199,6 +207,7 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchCost(CostBST root, int low, int high) {
+        count++;
         if (root == null) {
             return "";
         }
@@ -230,6 +239,7 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchDate(DateBST root, String low, String high) {
+        count++;
         if (root == null) {
             return "";
         }
@@ -268,9 +278,11 @@ public class CommandHandler {
         int strComp = keyword.compareTo(root.getKeyword());
         if (strComp < 0) {
             return searchKeyword(root.getLeft(), keyword);
-        }else if (strComp > 0) {
+        }
+        else if (strComp > 0) {
             return searchKeyword(root.getRight(), keyword);
-        }else {
+        }
+        else {
             return root.printSems();
         }
     }

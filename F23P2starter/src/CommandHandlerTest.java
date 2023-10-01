@@ -64,7 +64,6 @@ public class CommandHandlerTest extends TestCase {
         handler.insert(s3);
         handler.insert(s4);
         handler.insert(s5);
-        assertEquals(5, handler.getCount());
 
         assertEquals(s1, handler.idBST.getSem());
         assertEquals(s4, handler.idBST.getLeft().getSem());
