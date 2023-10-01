@@ -3,7 +3,7 @@
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.09.25
+ * @version 2023.10.01
  */
 public class CommandHandler {
 
@@ -235,10 +235,10 @@ public class CommandHandler {
         }
         int lowComp = low.compareTo(root.getDate());
         int highComp = high.compareTo(root.getDate());
-        if (lowComp <= 0) {
+        if (lowComp > 0) {
             return searchDate(root.getRight(), low, high);
         }
-        else if (highComp >= 0) {
+        else if (highComp < 0) {
             return searchDate(root.getLeft(), low, high);
         }
         else {

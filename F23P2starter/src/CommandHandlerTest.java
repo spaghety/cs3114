@@ -49,17 +49,16 @@ public class CommandHandlerTest extends TestCase {
      * Tests insert
      */
     public void testInsert() {
-        String[] tags = new String[] { "tag1", "tag2", "tag3" };
         Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
-            (short)9, 15, tags, "test description");
+            (short)9, 15, new String[] { "tag1" }, "test description");
         Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short)4,
-            (short)9, 20, tags, "test description");
+            (short)9, 20, new String[] { "tag2" }, "test description");
         Seminar s3 = new Seminar(7, "test", "0309271600", 13, (short)4,
-            (short)9, 10, tags, "test description");
+            (short)9, 10, new String[] { "tag3" }, "test description");
         Seminar s4 = new Seminar(0, "test", "0309201600", 13, (short)4,
-            (short)9, 0, tags, "test description");
+            (short)9, 0, new String[] { "biscuit" }, "test description");
         Seminar s5 = new Seminar(2, "test", "0309221600", 13, (short)4,
-            (short)9, 25, tags, "test description");
+            (short)9, 25, new String[] { "tag1", "tag4" }, "test description");
         handler.insert(s1);
         handler.insert(s2);
         handler.insert(s3);
@@ -84,13 +83,24 @@ public class CommandHandlerTest extends TestCase {
         assertEquals(s3, handler.dateBST.getRight().getRight().getSem());
         assertEquals(s4, handler.dateBST.getLeft().getSem());
         assertEquals(s5, handler.dateBST.getLeft().getRight().getSem());
+
+        assertFuzzyEquals(s1.toString() + "\n" + s5.toString() + "\n",
+            handler.keywordBST.printSems());
+        assertFuzzyEquals(s2.toString() + "\n", handler.keywordBST.getRight()
+            .printSems());
+        assertFuzzyEquals(s3.toString() + "\n", handler.keywordBST.getRight()
+            .getRight().printSems());
+        assertFuzzyEquals(s4.toString() + "\n", handler.keywordBST.getLeft()
+            .printSems());
+        assertFuzzyEquals(s5.toString() + "\n", handler.keywordBST.getRight()
+            .getRight().getRight().printSems());
     }
 
 
     /**
-     * Tests search(IdBST, int)
+     * Tests searchID(IdBST, int)
      */
-    public void testSearch1() {
+    public void testSearchID() {
         assertNull(handler.searchId(null, 0));
         assertEquals(sem, handler.searchId(root, 0));
         root.setRight(right);
@@ -103,7 +113,7 @@ public class CommandHandlerTest extends TestCase {
     /**
      * Tests searchCost(CostBST, low, high)
      */
-    public void testSearch2() {
+    public void testSearchCost() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
         Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
             (short)9, 15, tags, "test description");
@@ -114,26 +124,53 @@ public class CommandHandlerTest extends TestCase {
         Seminar s3 = new Seminar(5, "test", "0309251600", 13, (short)4,
             (short)9, 5, tags, "test description");
         handler.insert(s3);
-        assertTrue((s1.toString()+"\n").equals(handler.searchCost(handler.costBST,10 , 20)));
-        //System.out.println(handler.searchCost(handler.costBST, 10, 20));
+        assertEquals((s1.toString() + "\n"), (handler.searchCost(
+            handler.costBST, 10, 20)));
+        assertEquals((s1.toString() + "\n"), (handler.searchCost(
+            handler.costBST, 15, 15)));
+        assertEquals((s2.toString() + "\n"), (handler.searchCost(
+            handler.costBST, 20, 21)));
+        assertEquals((s3.toString() + "\n"), (handler.searchCost(
+            handler.costBST, 5, 10)));
+        assertEquals((s3.toString() + "\n" + s1.toString() + "\n"), (handler
+            .searchCost(handler.costBST, 5, 15)));
+        assertEquals((s1.toString() + "\n" + s2.toString() + "\n"), (handler
+            .searchCost(handler.costBST, 15, 21)));
+        assertEquals((s3.toString() + "\n" + s1.toString() + "\n" + s2
+            .toString() + "\n"), (handler.searchCost(handler.costBST, 5, 21)));
     }
 
 
     /**
      * Tests searchDate(DateBST, low, high)
      */
-    public void testSearch3() {
+    public void testSearchDate() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
         Seminar s1 = new Seminar(5, "test", "0312251600", 13, (short)4,
-            (short)9, 15, tags, "test description"); //high date
+            (short)9, 15, tags, "test description"); // high date
         handler.insert(s1);
         Seminar s2 = new Seminar(6, "test", "0309282000", 13, (short)4,
-            (short)9, 21, tags, "test description"); //middle date
+            (short)9, 21, tags, "test description"); // middle date
         handler.insert(s2);
         Seminar s3 = new Seminar(5, "test", "0309250500", 13, (short)4,
-            (short)9, 5, tags, "test description"); //low date
+            (short)9, 5, tags, "test description"); // low date
         handler.insert(s3);
-        //System.out.println(handler.searchDate(handler.dateBST, "0", "1"));
+        assertEquals("", (handler.searchDate(handler.dateBST, "04", "1")));
+        assertFuzzyEquals((s1.toString() + "\n"), (handler.searchDate(
+            handler.dateBST, "0312251600", "0312251600")));
+        assertFuzzyEquals((s1.toString() + "\n"), (handler.searchDate(
+            handler.dateBST, "031", "032")));
+        assertFuzzyEquals((s2.toString() + "\n"), (handler.searchDate(
+            handler.dateBST, "030928", "030929")));
+        assertFuzzyEquals((s3.toString() + "\n"), (handler.searchDate(
+            handler.dateBST, "030925", "030927")));
+        assertFuzzyEquals((s2.toString() + "\n" + s1.toString() + "\n"),
+            (handler.searchDate(handler.dateBST, "030928", "032")));
+        assertFuzzyEquals((s3.toString() + "\n" + s2.toString() + "\n"),
+            (handler.searchDate(handler.dateBST, "030", "031")));
+        assertFuzzyEquals((s3.toString() + "\n" + s2.toString() + "\n" + s1
+            .toString() + "\n"), (handler.searchDate(handler.dateBST, "0",
+                "1")));
     }
 
 
@@ -141,18 +178,35 @@ public class CommandHandlerTest extends TestCase {
      * Tests searchKeyword
      */
     public void testSearchKeyword() {
-        String[] tags = new String[] { "tag1", "tag2", "tag3" };
+        String[] tags1 = new String[] { "tag1", "tag2", "tag3" };
         Seminar s1 = new Seminar(5, "test", "0312251600", 13, (short)4,
-            (short)9, 15, tags, "test description"); //high date
+            (short)9, 15, tags1, "test description"); // high date
         handler.insert(s1);
-        String[] tags1 = new String[] { "tag4", "tag5", "tag6" };
+        String[] tags2 = new String[] { "tag4", "tag5", "tag6" };
         Seminar s2 = new Seminar(6, "test", "0309282000", 13, (short)4,
-            (short)9, 21, tags1, "test description"); //middle date
+            (short)9, 21, tags2, "test description"); // middle date
         handler.insert(s2);
-        String[] tags2 = new String[] { "tag1", "tag10", "tag3" };
+        String[] tags3 = new String[] { "tag1", "tag10", "tag3" };
         Seminar s3 = new Seminar(7, "test", "0309250500", 13, (short)4,
-            (short)9, 5, tags2, "test description"); //low date
+            (short)9, 5, tags3, "test description"); // low date
         handler.insert(s3);
         System.out.println(handler.searchKeyword(handler.keywordBST, "tag10"));
+        assertFuzzyEquals(s1.toString() + "\n" + s3.toString() + "\n", handler
+            .searchKeyword(handler.keywordBST, "tag1"));
+        assertFuzzyEquals(s1.toString() + "\n", handler.searchKeyword(
+            handler.keywordBST, "tag2"));
+        assertFuzzyEquals(s1.toString() + "\n" + s3.toString() + "\n", handler
+            .searchKeyword(handler.keywordBST, "tag3"));
+        assertFuzzyEquals(s2.toString() + "\n", handler.searchKeyword(
+            handler.keywordBST, "tag4"));
+        assertFuzzyEquals(s2.toString() + "\n", handler.searchKeyword(
+            handler.keywordBST, "tag5"));
+        assertFuzzyEquals(s2.toString() + "\n", handler.searchKeyword(
+            handler.keywordBST, "tag6"));
+        assertFuzzyEquals("", handler.searchKeyword(handler.keywordBST,
+            "tag7"));
+        assertFuzzyEquals(s3.toString() + "\n", handler.searchKeyword(
+            handler.keywordBST, "tag10"));
+
     }
 }

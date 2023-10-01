@@ -35,6 +35,7 @@ public class KeywordBST {
         rightChild = null;
     }
 
+
     /**
      * Helper method doubles the size of the seminar array
      */
@@ -135,10 +136,17 @@ public class KeywordBST {
     public String getKeyword() {
         return keyword;
     }
+
+    
+    /**
+     * Prints Seminar
+     * 
+     * @return String result
+     */
     public String printSems() {
         String result = "";
-        for (int i=0;i<count;i++) {
-            result+=sems[i].toString()+"\n";
+        for (int i = 0; i < count; i++) {
+            result += sems[i].toString() + "\n";
         }
         return result;
     }

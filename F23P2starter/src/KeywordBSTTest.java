@@ -20,7 +20,7 @@ public class KeywordBSTTest extends TestCase {
      */
     public void setUp() {
         tags1 = new String[] { "tag1", "tag2", "tag3" };
-        tags2 = new String[] { "tag4", "tag5", "tag6" };
+        tags2 = new String[] { "tag4", "tag5", "tag1" };
 
         sem1 = new Seminar(1, "example", "Oct30", 90, (short)2, (short)14, 23,
             tags1, "Test description");
@@ -41,19 +41,41 @@ public class KeywordBSTTest extends TestCase {
 
 
     /**
+     * Tests getKeyword method
+     */
+    public void testGetKeyword() {
+        assertEquals("tag1", root.getKeyword());
+        assertEquals("tag4", second.getKeyword());
+    }
+
+
+    public void testPrintSems() {
+        assertFuzzyEquals(sem1.toString() + "\n", root.printSems());
+        root.add(sem2);
+        assertFuzzyEquals(sem1.toString() + "\n" + sem2.toString() + "\n", root
+            .printSems());
+
+    }
+
+
+    /**
      * Tests add method
      */
     public void testAdd() {
         assertTrue(root.add(sem1));
         assertEquals(2, root.getSize());
-        assertFalse(root.add(sem2));
-        assertEquals(2, root.getSize());
-        assertTrue(root.add(sem1));
+        assertTrue(root.add(sem2));
         assertEquals(3, root.getSize());
         assertTrue(root.add(sem1));
         assertEquals(4, root.getSize());
         assertTrue(root.add(sem1));
         assertEquals(5, root.getSize());
+        assertTrue(root.add(sem1));
+        assertEquals(6, root.getSize());
+        assertFalse(second.add(sem1));
+        assertEquals(1, second.getSize());
+        assertTrue(second.add(sem2));
+        assertEquals(2, second.getSize());
     }
 
 
