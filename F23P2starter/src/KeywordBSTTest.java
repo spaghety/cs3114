@@ -49,6 +49,9 @@ public class KeywordBSTTest extends TestCase {
     }
 
 
+    /**
+     * Tests printSems method
+     */
     public void testPrintSems() {
         assertFuzzyEquals(sem1.toString() + "\n", root.printSems());
         root.add(sem2);
