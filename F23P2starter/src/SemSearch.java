@@ -69,6 +69,12 @@ public class SemSearch {
                     length = sc.nextInt();
                     x = (short)sc.nextInt();
                     y = (short)sc.nextInt();
+                    // Bad x, y coordinates
+                    if (x < 0 || y < 0 || x >= worldSize || y >= worldSize) {
+                        System.out.printf("Insert FAILED - Bad x, y coordinates"
+                            + ": %d, %d\n", x, y);
+                        break;
+                    }
                     cost = sc.nextInt();
                     sc.nextLine();
                     tags = sc.nextLine().trim().split("\\s+");
