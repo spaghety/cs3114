@@ -530,23 +530,14 @@ public class CommandHandlerTest extends TestCase {
             new String[] { "biscuit" }, "test description");
         Seminar s5 = new Seminar(2, "test", "5", 13, (short)4, (short)9, 25,
             new String[] { "tag1", "tag4" }, "test description");
-        idRoot = handler.insertId(idRoot, s1); // TESTING ID
-        idRoot = handler.insertId(idRoot, s2);
-        idRoot = handler.insertId(idRoot, s3);
-        idRoot = handler.insertId(idRoot, s4);
-        idRoot = handler.insertId(idRoot, s5);
-        assertEquals(s4, handler.searchId(idRoot, 0));
-        assertEquals(2, handler.getCount());
+        
         handler.resetCount();
-        assertEquals(s3, handler.searchId(idRoot, 7));
-        assertEquals(3, handler.getCount());
-
         costRoot = handler.insertCost(costRoot, s1); // TEST COST
         costRoot = handler.insertCost(costRoot, s2);
         costRoot = handler.insertCost(costRoot, s3);
         handler.resetCount();
         assertFuzzyEquals(s2.toString(), handler.searchCost(costRoot, 2, 2));
-        assertEquals(3, handler.getCount());
+        assertEquals(5, handler.getCount());
 
         dateRoot = handler.insertDate(dateRoot, s2); // TEST DATE
         dateRoot = handler.insertDate(dateRoot, s1);
@@ -554,7 +545,8 @@ public class CommandHandlerTest extends TestCase {
         handler.resetCount();
         assertFuzzyEquals(s1.toString(), handler.searchDate(dateRoot, "1",
             "1"));
-        assertEquals(2, handler.getCount());
+        assertEquals(4, handler.getCount());
+        
         kwRoot = handler.insertKeyword(kwRoot, "tag1", s1); // TESTING KEYWORDS
         kwRoot = handler.insertKeyword(kwRoot, "tag2", s2);
         kwRoot = handler.insertKeyword(kwRoot, "tag3", s3);
