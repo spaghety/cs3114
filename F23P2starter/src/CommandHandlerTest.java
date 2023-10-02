@@ -365,6 +365,42 @@ public class CommandHandlerTest extends TestCase {
     }
 
 
+    public void testDeleteId() {
+        assertNull(handler.deleteId(null, 0));
+        String[] tags = new String[] { "tag1", "tag2", "tag3" };
+        Seminar s1 = new Seminar(3, "test", "0309251600", 13, (short)4,
+            (short)9, 15, tags, "test description");
+        Seminar s2 = new Seminar(5, "test", "0309251600", 13, (short)4,
+            (short)9, 15, tags, "test description");
+        Seminar s3 = new Seminar(9, "test", "0309251600", 13, (short)4,
+            (short)9, 15, tags, "test description");
+        Seminar s4 = new Seminar(15, "test", "0309251600", 13, (short)4,
+            (short)9, 15, tags, "test description");
+        Seminar s5 = new Seminar(18, "test", "0309251600", 13, (short)4,
+            (short)9, 15, tags, "test description");
+        Seminar s6 = new Seminar(4, "test", "0309251600", 13, (short)4,
+            (short)9, 15, tags, "test description");
+        idRoot = handler.insertId(idRoot, s3);
+        idRoot = handler.insertId(idRoot, s4);
+        idRoot = handler.insertId(idRoot, s1);
+        idRoot = handler.insertId(idRoot, s2);
+        idRoot = handler.insertId(idRoot, s5);
+        idRoot = handler.insertId(idRoot, s6);
+        System.out.println(handler.printID(idRoot, ""));
+        idRoot = handler.deleteId(idRoot, 5);
+        idRoot = handler.deleteId(idRoot, 3);
+        idRoot = handler.insertId(idRoot, s1);
+        idRoot = handler.insertId(idRoot, s2);
+        idRoot = handler.deleteId(idRoot, 4);
+        idRoot = handler.deleteId(idRoot, 9);
+        /*handler.deleteId(idRoot, 9);
+        handler.deleteId(idRoot, 0);
+        handler.deleteId(idRoot, 18);
+        handler.deleteId(idRoot, 4);*/
+        System.out.println(handler.printID(idRoot, ""));
+    }
+
+
     /**
      * Test delete from cost BST
      */
@@ -391,7 +427,8 @@ public class CommandHandlerTest extends TestCase {
         costRoot = handler.insertCost(costRoot, s3);
         costRoot = handler.insertCost(costRoot, s4);
         costRoot = handler.deleteCost(costRoot, 15, 5);
-        System.out.println(handler.printCost(costRoot, ""));
+        assertEquals("    null\n  21\n    null\n12\n    null\n  5\n    null",
+            handler.printCost(costRoot, ""));
 
     }
 
