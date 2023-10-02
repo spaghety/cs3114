@@ -323,7 +323,7 @@ public class CommandHandlerTest extends TestCase {
 
 
     /**
-     * Test prntDate method
+     * Test printDate method
      */
     public void testPrintDate() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
@@ -526,10 +526,10 @@ public class CommandHandlerTest extends TestCase {
             new String[] { "tag2" }, "test description");
         Seminar s3 = new Seminar(7, "test", "3", 13, (short)4, (short)9, 3,
             new String[] { "tag3" }, "test description");
-        Seminar s4 = new Seminar(0, "test", "4", 13, (short)4, (short)9, 0,
-            new String[] { "biscuit" }, "test description");
-        Seminar s5 = new Seminar(2, "test", "5", 13, (short)4, (short)9, 25,
-            new String[] { "tag1", "tag4" }, "test description");
+//        Seminar s4 = new Seminar(0, "test", "4", 13, (short)4, (short)9, 0,
+//            new String[] { "biscuit" }, "test description");
+//        Seminar s5 = new Seminar(2, "test", "5", 13, (short)4, (short)9, 25,
+//            new String[] { "tag1", "tag4" }, "test description");
         
         handler.resetCount();
         costRoot = handler.insertCost(costRoot, s1); // TEST COST
