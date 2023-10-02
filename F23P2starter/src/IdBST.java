@@ -37,6 +37,17 @@ public class IdBST {
 
 
     /**
+     * Changes the seminar object
+     * 
+     * @param newSem
+     *            new Seminar object
+     */
+    public void setSem(Seminar newSem) {
+        sem = newSem;
+    }
+
+
+    /**
      * gets the seminar object itself
      * 
      * @return the Seminar object

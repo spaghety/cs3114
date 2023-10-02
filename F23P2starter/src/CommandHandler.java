@@ -119,14 +119,11 @@ public class CommandHandler {
         Seminar newSem) {
         if (rt == null)
             return new KeywordBST(kword, newSem);
-        if (kword.compareTo(rt.getKeyword()) < 0) {
+        if (kword.compareTo(rt.getKeyword()) <= 0) {
             rt.setLeft(insertKeyword(rt.getLeft(), kword, newSem));
         }
         else if (kword.compareTo(rt.getKeyword()) > 0) {
             rt.setRight(insertKeyword(rt.getRight(), kword, newSem));
-        }
-        else {
-            rt.add(newSem);
         }
         return rt;
     }
@@ -246,7 +243,232 @@ public class CommandHandler {
             return searchKeyword(root.getRight(), keyword);
         }
         else {
-            return root.printSems();
+            return root.printSem();
         }
+    }
+
+
+    /**
+     * Recursive helper node finds the node with the greatest ID
+     * 
+     * @param rt
+     *            node to begin search
+     * @return node with the greatest value
+     */
+    private IdBST getMaxId(IdBST rt) {
+        if (rt.getRight() == null)
+            return rt;
+        return getMaxId(rt.getRight());
+    }
+
+
+    /**
+     * Recursive helper node removes the node with the greatest ID
+     * 
+     * @param rt
+     *            node to begin search
+     * @return object to replace the current node with
+     */
+    private IdBST removeMaxId(IdBST rt) {
+        if (rt.getRight() == null)
+            return rt.getLeft();
+        rt.setRight(removeMaxId(rt.getRight()));
+        return rt;
+    }
+
+
+    /**
+     * This method deletes a node with a specific ID from the ID BST
+     * 
+     * @param rt
+     *            node to begin search
+     * @param ID
+     *            id being searched for
+     * @return the new BST node
+     */
+    public IdBST deleteId(IdBST rt, int ID) {
+        if (rt == null)
+            return null;
+        if (ID < rt.getId()) {
+            rt.setLeft(deleteId(rt.getLeft(), ID));
+        }
+        else if (ID > rt.getId()) {
+            rt.setRight(deleteId(rt.getRight(), ID));
+        }
+        else {
+            if (rt.getLeft() == null)
+                return rt.getRight();
+            else if (rt.getRight() == null)
+                return rt.getLeft();
+            else {
+                IdBST temp = getMaxId(rt.getLeft());
+                rt.setSem(temp.getSem());
+                rt.setLeft(removeMaxId(rt.getLeft()));
+            }
+        }
+        return rt;
+    }
+
+
+    /**
+     * Recursive helper node finds the node with the greatest cost
+     * 
+     * @param rt
+     *            node to begin search
+     * @return node with the greatest value
+     */
+    private CostBST getMaxCost(CostBST rt) {
+        if (rt.getRight() == null)
+            return rt;
+        return getMaxCost(rt.getRight());
+    }
+
+
+    /**
+     * Recursive helper node removes the node with the greatest cost
+     * 
+     * @param rt
+     *            node to begin search
+     * @return object to replace the current node with
+     */
+    private CostBST removeMaxCost(CostBST rt) {
+        if (rt.getRight() == null)
+            return rt.getLeft();
+        rt.setRight(removeMaxCost(rt.getRight()));
+        return rt;
+    }
+
+
+    /**
+     * This helper method deletes a node with the same seminar object from the
+     * cost BST, using the exact cost to find it faster
+     * 
+     * @param rt
+     *            node to begin search
+     * @param cost
+     *            cost being searched for
+     * @param ID
+     *            ID used to verify it's the correct seminar object
+     * @return the new BST node
+     */
+    public CostBST deleteCost(CostBST rt, int cost, int ID) {
+        if (rt == null)
+            return null;
+        if (cost > rt.getCost()) {
+            rt.setRight(deleteCost(rt.getRight(), cost, ID));
+        }
+        else if (ID == rt.getSem().id()) {
+            CostBST temp = getMaxCost(rt.getLeft());
+            rt.setSem(temp.getSem());
+            rt.setLeft(removeMaxCost(rt.getLeft()));
+        }
+        else {
+            rt.setLeft(deleteCost(rt.getLeft(), cost, ID));
+        }
+        return rt;
+    }
+
+
+    /**
+     * Helper method finds the node with the greatest date
+     * 
+     * @param rt
+     *            node to s tart search
+     * @return node with greatest date
+     */
+    private DateBST getMaxDate(DateBST rt) {
+        if (rt.getRight() == null)
+            return rt;
+        return getMaxDate(rt.getRight());
+    }
+
+
+    /**
+     * Helper method removes the node with the greatest date
+     * 
+     * @param rt
+     * @return
+     */
+    private DateBST removeMaxDate(DateBST rt) {
+        if (rt.getRight() == null)
+            return rt.getLeft();
+        rt.setRight(removeMaxDate(rt.getRight()));
+        return rt;
+    }
+
+
+    /**
+     * Delete node from the DateBST tree
+     * 
+     * @param rt
+     *            node to begin search
+     * @param date
+     *            date used to improve search efficiency
+     * @param ID
+     *            ID used to verify the correct node
+     * @return new BST to replace node
+     */
+    public DateBST deleteDate(DateBST rt, String date, int ID) {
+        if (rt == null)
+            return null;
+        if (date.compareTo(rt.getDate()) > 0) {
+            rt.setRight(deleteDate(rt.getRight(), date, ID));
+        }
+        else if (rt.getSem().id() == ID) {
+            DateBST temp = getMaxDate(rt.getLeft());
+            rt.setSem(temp.getSem());
+            rt.setLeft(removeMaxDate(rt.getLeft()));
+        }
+        else {
+            rt.setLeft(deleteDate(rt.getLeft(), date, ID));
+        }
+        return rt;
+    }
+
+
+    /**
+     * Helper method finds node with greatest keyword value
+     * 
+     * @param rt
+     *            node to begin search
+     * @return node with greatest keyword value
+     */
+    private KeywordBST getMaxKeyword(KeywordBST rt) {
+        if (rt.getRight() == null)
+            return rt;
+        return getMaxKeyword(rt.getRight());
+    }
+
+
+    /**
+     * Helper method removes node with greatest keyword value
+     * 
+     * @param rt
+     *            node to begin search
+     * @return new node to replace with
+     */
+    private KeywordBST removeMaxKeyword(KeywordBST rt) {
+        if (rt.getRight() == null)
+            return rt.getLeft();
+        rt.setRight(removeMaxKeyword(rt.getRight()));
+        return rt;
+    }
+
+
+    public KeywordBST deleteKeyword(KeywordBST rt, String kw, int ID) {
+        if (rt == null)
+            return null;
+        if (kw.compareTo(rt.getKeyword()) > 0) {
+            rt.setRight(deleteKeyword(rt.getRight(), kw, ID));
+        }
+        else if (rt.getSem().id() == ID) {
+            KeywordBST temp = getMaxKeyword(rt.getLeft());
+            rt.change(temp.getSem(), temp.getKeyword());
+            rt.setLeft(removeMaxKeyword(rt.getLeft()));
+        }
+        else {
+            rt.setLeft(deleteKeyword(rt.getLeft(), kw, ID));
+        }
+        return rt;
     }
 }

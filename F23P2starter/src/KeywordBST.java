@@ -10,7 +10,7 @@
  * @version 2023.09.24
  */
 public class KeywordBST {
-    private Seminar[] sems;
+    private Seminar sem;
     private int count;
     private KeywordBST leftChild;
     private KeywordBST rightChild;
@@ -27,9 +27,7 @@ public class KeywordBST {
      *            new Seminar object
      */
     public KeywordBST(String kword, Seminar newSem) {
-        sems = new Seminar[4];
-        count = 1;
-        sems[0] = newSem;
+        sem = newSem;
         keyword = kword;
         leftChild = null;
         rightChild = null;
@@ -37,42 +35,25 @@ public class KeywordBST {
 
 
     /**
-     * Helper method doubles the size of the seminar array
-     */
-    private void doubleSize() {
-        Seminar[] newArr = new Seminar[sems.length * 2];
-        for (int i = 0; i < sems.length; i++) {
-            newArr[i] = sems[i];
-        }
-        sems = newArr;
-    }
-
-
-    /**
-     * Adds a new seminar to this BST object
+     * Changes the seminar and keyword of the node
      * 
      * @param newSem
      *            new seminar object to add
      * @return true if successful, false if not
      */
-    public boolean add(Seminar newSem) {
-        boolean found = false;
-        String[] kw = newSem.keywords();
-        for (int i = 0; i < kw.length; i++) {
-            if (kw[i].equals(keyword)) {
-                found = true;
-            }
-        }
-        if (!found) {
-            return false;
-        }
-        else {
-            sems[count] = newSem;
-            count++;
-            if (count == sems.length)
-                doubleSize();
-            return true;
-        }
+    public void change(Seminar newSem, String kword) {
+        sem = newSem;
+        keyword = kword;
+    }
+
+
+    /**
+     * Returns the Seminar object
+     * 
+     * @return Seminar object stored in the node
+     */
+    public Seminar getSem() {
+        return sem;
     }
 
 
@@ -137,17 +118,13 @@ public class KeywordBST {
         return keyword;
     }
 
-    
+
     /**
      * Prints Seminar
      * 
      * @return String result
      */
-    public String printSems() {
-        String result = "";
-        for (int i = 0; i < count; i++) {
-            result += sems[i].toString() + "\n";
-        }
-        return result;
+    public String printSem() {
+        return sem.toString();
     }
 }

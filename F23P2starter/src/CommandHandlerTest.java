@@ -139,13 +139,13 @@ public class CommandHandlerTest extends TestCase {
         kwRoot = handler.insertKeyword(kwRoot, "tag4", s5);
 
         assertFuzzyEquals(s1.toString() + "\n" + s5.toString() + "\n", kwRoot
-            .printSems());
-        assertFuzzyEquals(s2.toString() + "\n", kwRoot.getRight().printSems());
+            .printSem());
+        assertFuzzyEquals(s2.toString() + "\n", kwRoot.getRight().printSem());
         assertFuzzyEquals(s3.toString() + "\n", kwRoot.getRight().getRight()
-            .printSems());
-        assertFuzzyEquals(s4.toString() + "\n", kwRoot.getLeft().printSems());
+            .printSem());
+        assertFuzzyEquals(s4.toString() + "\n", kwRoot.getLeft().printSem());
         assertFuzzyEquals(s5.toString() + "\n", kwRoot.getRight().getRight()
-            .getRight().printSems());
+            .getRight().printSem());
     }
 
 

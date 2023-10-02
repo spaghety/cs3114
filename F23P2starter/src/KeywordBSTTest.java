@@ -52,35 +52,10 @@ public class KeywordBSTTest extends TestCase {
     /**
      * Tests printSems method
      */
-    public void testPrintSems() {
-        assertFuzzyEquals(sem1.toString() + "\n", root.printSems());
-        root.add(sem2);
-        assertFuzzyEquals(sem1.toString() + "\n" + sem2.toString() + "\n", root
-            .printSems());
+    public void testPrintSem() {
+        assertFuzzyEquals(sem1.toString() + "\n", root.printSem());
 
     }
-
-
-    /**
-     * Tests add method
-     */
-    public void testAdd() {
-        assertTrue(root.add(sem1));
-        assertEquals(2, root.getSize());
-        assertTrue(root.add(sem2));
-        assertEquals(3, root.getSize());
-        assertTrue(root.add(sem1));
-        assertEquals(4, root.getSize());
-        assertTrue(root.add(sem1));
-        assertEquals(5, root.getSize());
-        assertTrue(root.add(sem1));
-        assertEquals(6, root.getSize());
-        assertFalse(second.add(sem1));
-        assertEquals(1, second.getSize());
-        assertTrue(second.add(sem2));
-        assertEquals(2, second.getSize());
-    }
-
 
     /**
      * Test left child setter and getter

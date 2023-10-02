@@ -37,6 +37,17 @@ public class DateBST {
 
 
     /**
+     * Changes the seminar object
+     * 
+     * @param newSem
+     *            new Seminar object
+     */
+    public void setSem(Seminar newSem) {
+        sem = newSem;
+    }
+
+
+    /**
      * Gets the stored seminar object
      * 
      * @return the stored seminar object

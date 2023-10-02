@@ -37,6 +37,16 @@ public class CostBST {
 
 
     /**
+     * Changes the node's Seminar object
+     * 
+     * @param newSem
+     */
+    public void setSem(Seminar newSem) {
+        sem = newSem;
+    }
+
+
+    /**
      * Gets the stored seminar object
      * 
      * @return the stored seminar object
