@@ -159,10 +159,15 @@ public class SemSearch {
                     }
                     break;
                 case "delete":
-                    int did  = Integer.parseInt(command[1]);
+                    int did = Integer.parseInt(command[1]);
                     Seminar temp = handler.searchId(idRoot, did);
                     handler.deleteId(idRoot, did);
                     handler.deleteCost(costRoot, temp.cost(), did);
+                    handler.deleteDate(dateRoot, temp.date(), did);
+                    String[] kw = temp.keywords();
+                    for (int i = 0; i < kw.length; i++) {
+                        handler.deleteKeyword(kwRoot, kw[i], did);
+                    }
             }
         }
 

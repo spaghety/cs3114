@@ -455,6 +455,17 @@ public class CommandHandler {
     }
 
 
+    /**
+     * Deletes a keyword node from the BST
+     * 
+     * @param rt
+     *            node to begin search
+     * @param kw
+     *            keyword being searched for
+     * @param ID
+     *            ID used to verify it's the correct seminar
+     * @return new BST to replace child node with
+     */
     public KeywordBST deleteKeyword(KeywordBST rt, String kw, int ID) {
         if (rt == null)
             return null;
