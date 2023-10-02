@@ -545,8 +545,17 @@ public class CommandHandler {
         result += printKeyword(rt.getLeft(), nextIndent);
         return result;
     }
-    
 
+
+    /**
+     * Get the BST printout for the cost tree
+     * 
+     * @param rt
+     *            root node
+     * @param indent
+     *            indent for the next call
+     * @return string to print
+     */
     public String printCost(CostBST rt, String indent) {
         if (rt == null)
             return indent + "null";
