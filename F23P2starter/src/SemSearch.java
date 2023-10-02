@@ -174,6 +174,9 @@ public class SemSearch {
                 case "delete":
                     int did = Integer.parseInt(command[1]);
                     Seminar temp = handler.searchId(idRoot, did);
+                    if (temp == null) {
+                        break;
+                    }
                     handler.deleteId(idRoot, did);
                     handler.deleteCost(costRoot, temp.cost(), did);
                     handler.deleteDate(dateRoot, temp.date(), did);
@@ -181,6 +184,9 @@ public class SemSearch {
                     for (int i = 0; i < kw.length; i++) {
                         handler.deleteKeyword(kwRoot, kw[i], did);
                     }
+                    System.out.printf("Record with ID %d successfully deleted "
+                        + "from the database\n", did);
+                    break;
             }
         }
         sc.close();

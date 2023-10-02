@@ -143,7 +143,6 @@ public class CommandHandler {
         if (root == null) {
             return null;
         }
-        count++;
         if (root.getId() == id) {
             return root.getSem();
         }
@@ -169,10 +168,10 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchCost(CostBST root, int low, int high) {
+        count++;
         if (root == null) {
             return "";
         }
-        count++;
         if (root.getCost() > high) {
             return searchCost(root.getLeft(), low, high);
         }
@@ -201,10 +200,10 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchDate(DateBST root, String low, String high) {
+        count++;
         if (root == null) {
             return "";
         }
-        count++;
         int lowComp = low.compareTo(root.getDate());
         int highComp = high.compareTo(root.getDate());
         if (lowComp > 0) {

@@ -81,7 +81,7 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: print.txt\nWorld Size: 128\n";
+        String content = "FileName: print.txt\nWorld Size: 128\nnull\n";
         assertEquals(content, out.toString());
         System.setOut(stdout);
     }
@@ -189,8 +189,7 @@ public class SemSearchTest extends TestCase {
             + "Description: Seminar about the      Computing systems research "
             + "at      VT\n"
             + "Keywords: high_performance_computing, grids, VT, computer, "
-            + "science\n"
-            + "8 nodes visited in this search\n";
+            + "science\n" + "8 nodes visited in this search\n";
         assertEquals(content, out.toString());
         System.setOut(stdout);
     }
@@ -297,12 +296,11 @@ public class SemSearchTest extends TestCase {
 
 
     /**
-     * Tests delete
+     * Tests delete empty
      * 
      * @throws FileNotFoundException
      */
-    public void testdelete() throws FileNotFoundException {
-// SemSearch.main(new String[] { "128", "delete.txt" });
+    public void testDeleteEmpty() throws FileNotFoundException {
         System.setOut(new PrintStream(out));
         try {
             SemSearch.main(new String[] { "128", "delete.txt" });
@@ -312,6 +310,32 @@ public class SemSearchTest extends TestCase {
         }
         String content = "FileName: delete.txt\nWorld Size: 128\n";
         assertEquals(content, out.toString());
+        System.setOut(stdout);
+    }
+
+
+    /**
+     * Tests delete non-empty
+     * 
+     * @throws FileNotFoundException
+     */
+    public void testDelete() throws FileNotFoundException {
+        System.setOut(new PrintStream(out));
+        try {
+            SemSearch.main(new String[] { "128", "delete 1.txt" });
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String content = "FileName: delete 1.txt\n" + "World Size: 128\n"
+            + "Successfully inserted record with ID 1\n"
+            + "ID: 1, Title: Overview of HCI Research at VT\n"
+            + "Date: 0610051600, Length: 90, X: 10, Y: 10, Cost: 45\n"
+            + "Description: This seminar will present an overview of HCI "
+            + "research at VT\n"
+            + "Keywords: HCI, Computer_Science, VT, Virginia_Tech\n"
+            + "Record with ID 1 successfully deleted from the database" + "\n";
+        assertFuzzyEquals(content, out.toString());
         System.setOut(stdout);
     }
 }
