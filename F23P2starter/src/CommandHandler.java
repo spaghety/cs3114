@@ -482,14 +482,79 @@ public class CommandHandler {
         }
         return rt;
     }
-    
+
+
+    /**
+     * Get the BST printout for the ID tree
+     * 
+     * @param rt
+     *            root node
+     * @param indent
+     *            indent for the next call
+     * @return string to print
+     */
     public String printID(IdBST rt, String indent) {
-        if (rt == null) return indent+"null";
+        if (rt == null)
+            return indent + "null";
         String result = "";
-        String nextIndent = indent+"  ";
-        result+=printID(rt.getRight(), nextIndent)+"\n";
-        result+=indent+rt.getId()+"\n";
-        result+=printID(rt.getLeft(), nextIndent);
+        String nextIndent = indent + "  ";
+        result += printID(rt.getRight(), nextIndent) + "\n";
+        result += indent + rt.getId() + "\n";
+        result += printID(rt.getLeft(), nextIndent);
+        return result;
+    }
+
+
+    /**
+     * Get the BST printout for the Date tree
+     * 
+     * @param rt
+     *            root node
+     * @param indent
+     *            indent for the next call
+     * @return string to print
+     */
+    public String printDate(DateBST rt, String indent) {
+        if (rt == null)
+            return indent + "null";
+        String result = "";
+        String nextIndent = indent + "  ";
+        result += printDate(rt.getRight(), nextIndent) + "\n";
+        result += indent + rt.getDate() + "\n";
+        result += printDate(rt.getLeft(), nextIndent);
+        return result;
+    }
+
+
+    /**
+     * Get the BST printout for the Keyword tree
+     * 
+     * @param rt
+     *            root node
+     * @param indent
+     *            indent for the next call
+     * @return string to print
+     */
+    public String printKeyword(KeywordBST rt, String indent) {
+        if (rt == null)
+            return indent + "null\n";
+        String result = "";
+        String nextIndent = indent + "  ";
+        result += printKeyword(rt.getRight(), nextIndent);
+        result += indent + rt.getKeyword() + "\n";
+        result += printKeyword(rt.getLeft(), nextIndent);
+        return result;
+    }
+    
+
+    public String printCost(CostBST rt, String indent) {
+        if (rt == null)
+            return indent + "null";
+        String result = "";
+        String nextIndent = indent + "  ";
+        result += printCost(rt.getRight(), nextIndent) + "\n";
+        result += indent + rt.getCost() + "\n";
+        result += printCost(rt.getLeft(), nextIndent);
         return result;
     }
 }

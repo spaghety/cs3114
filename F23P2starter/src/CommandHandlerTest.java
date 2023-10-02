@@ -249,7 +249,6 @@ public class CommandHandlerTest extends TestCase {
         kwRoot = handler.insertKeyword(kwRoot, "tag10", s3);
         kwRoot = handler.insertKeyword(kwRoot, "tag3", s3);
         kwRoot = handler.insertKeyword(kwRoot, "tag1", s3);
-        System.out.println(handler.searchKeyword(kwRoot, "tag10"));
         assertFuzzyEquals(s1.toString() + "\n" + s3.toString() + "\n", handler
             .searchKeyword(kwRoot, "tag1"));
         assertFuzzyEquals(s1.toString() + "\n", handler.searchKeyword(kwRoot,
@@ -267,6 +266,11 @@ public class CommandHandlerTest extends TestCase {
             "tag10"));
 
     }
+
+
+    /**
+     * Tests the printID method
+     */
     public void testPrintID() {
         Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
             (short)9, 15, new String[] { "tag1" }, "test description");
@@ -283,16 +287,76 @@ public class CommandHandlerTest extends TestCase {
         idRoot = handler.insertId(idRoot, s3);
         idRoot = handler.insertId(idRoot, s4);
         idRoot = handler.insertId(idRoot, s5);
-        assertFuzzyEquals("      null\n"
-            + "    7\n"
-            + "      null\n"
-            + "  6\n"
-            + "    null\n"
-            + "5\n"
-            + "      null\n"
-            + "    2\n"
-            + "      null\n"
-            + "  0\n"
-            + "    null\n", handler.printID(idRoot, ""));
+        assertFuzzyEquals("      null\n" + "    7\n" + "      null\n" + "  6\n"
+            + "    null\n" + "5\n" + "      null\n" + "    2\n" + "      null\n"
+            + "  0\n" + "    null\n", handler.printID(idRoot, ""));
+    }
+
+
+    /**
+     * Tests the printKeyword method
+     */
+    public void testPrintKeyword() {
+        String[] tags1 = new String[] { "tag1", "tag2", "tag3" };
+        Seminar s1 = new Seminar(5, "test", "0312251600", 13, (short)4,
+            (short)9, 15, tags1, "test description"); // high date
+        kwRoot = handler.insertKeyword(kwRoot, "tag1", s1);
+        kwRoot = handler.insertKeyword(kwRoot, "tag2", s1);
+        kwRoot = handler.insertKeyword(kwRoot, "tag3", s1);
+        String[] tags2 = new String[] { "tag4", "tag5", "tag6" };
+        Seminar s2 = new Seminar(6, "test", "0309282000", 13, (short)4,
+            (short)9, 21, tags2, "test description"); // middle date
+        kwRoot = handler.insertKeyword(kwRoot, "tag4", s2);
+        kwRoot = handler.insertKeyword(kwRoot, "tag5", s2);
+        kwRoot = handler.insertKeyword(kwRoot, "tag6", s2);
+        String[] tags3 = new String[] { "tag1", "tag10", "tag3" };
+        Seminar s3 = new Seminar(7, "test", "0309250500", 13, (short)4,
+            (short)9, 5, tags3, "test description"); // low date
+        kwRoot = handler.insertKeyword(kwRoot, "tag10", s3);
+        kwRoot = handler.insertKeyword(kwRoot, "tag3", s3);
+        kwRoot = handler.insertKeyword(kwRoot, "tag1", s3);
+        assertFuzzyEquals("            null\n" + "          tag6\n"
+            + "            null\n" + "        tag5\n" + "          null\n"
+            + "      tag4\n" + "        null\n" + "    tag3\n        null\n"
+            + "      tag3\n" + "        null\n" + "  tag2\n" + "      null\n"
+            + "    tag10\n" + "      null\n" + "tag1\n    null\n" + "  tag1\n"
+            + "    null", handler.printKeyword(kwRoot, ""));
+    }
+
+
+    /**
+     * Test prntDate method
+     */
+    public void testPrintDate() {
+        String[] tags = new String[] { "tag1", "tag2", "tag3" };
+        Seminar s1 = new Seminar(5, "test", "0312251600", 13, (short)4,
+            (short)9, 15, tags, "test description"); // high date
+        dateRoot = handler.insertDate(dateRoot, s1);
+        Seminar s2 = new Seminar(6, "test", "0309282000", 13, (short)4,
+            (short)9, 21, tags, "test description"); // middle date
+        dateRoot = handler.insertDate(dateRoot, s2);
+        Seminar s3 = new Seminar(5, "test", "0309250500", 13, (short)4,
+            (short)9, 5, tags, "test description"); // low date
+        dateRoot = handler.insertDate(dateRoot, s3);
+        assertFuzzyEquals(
+            "  null\n0312251600\n    null\n  0309282000\n      null\n    0309250500\n      null",
+            handler.printDate(dateRoot, ""));
+    }
+
+
+    public void testPrintCost() {
+        String[] tags = new String[] { "tag1", "tag2", "tag3" };
+        Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
+            (short)9, 15, tags, "test description");
+        costRoot = handler.insertCost(costRoot, s1);
+        Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short)4,
+            (short)9, 21, tags, "test description");
+        costRoot = handler.insertCost(costRoot, s2);
+        Seminar s3 = new Seminar(5, "test", "0309251600", 13, (short)4,
+            (short)9, 5, tags, "test description");
+        costRoot = handler.insertCost(costRoot, s3);
+        assertFuzzyEquals(
+            "    null\n  21\n    null\n15\n    null\n  5\n    null", handler
+                .printCost(costRoot, ""));
     }
 }

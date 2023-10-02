@@ -106,6 +106,7 @@ public class SemSearch {
                         case "date":
                             break;
                         case "keyword":
+                            System.out.print(handler.printKeyword(kwRoot, ""));
                             break;
                         case "location":
                             break;
