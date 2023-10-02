@@ -33,14 +33,6 @@ public class KeywordBSTTest extends TestCase {
 
 
     /**
-     * Tests getSize method
-     */
-    public void testGetSize() {
-        assertEquals(1, root.getSize());
-    }
-
-
-    /**
      * Tests getKeyword method
      */
     public void testGetKeyword() {
@@ -56,6 +48,7 @@ public class KeywordBSTTest extends TestCase {
         assertFuzzyEquals(sem1.toString() + "\n", root.printSem());
 
     }
+
 
     /**
      * Test left child setter and getter

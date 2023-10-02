@@ -11,7 +11,6 @@
  */
 public class KeywordBST {
     private Seminar sem;
-    private int count;
     private KeywordBST leftChild;
     private KeywordBST rightChild;
     private String keyword;
@@ -96,16 +95,6 @@ public class KeywordBST {
      */
     public KeywordBST getRight() {
         return rightChild;
-    }
-
-
-    /**
-     * Gets the size
-     * 
-     * @return size
-     */
-    public int getSize() {
-        return count;
     }
 
 
