@@ -112,11 +112,13 @@ public class SemSearch {
                             System.out.println("Date Tree:");
                             treeString = handler.printDate(dateRoot, "");
                             switch (treeString) {
-                                case "null": 
+                                case "null":
                                     System.out.print("This tree is empty");
                                     break;
                                 default:
                                     System.out.print(treeString);
+                                    System.out.printf("\nNumber of records: %d",
+                                        handler.getNodeCount());
                             }
                             System.out.println();
                             break;
@@ -124,11 +126,13 @@ public class SemSearch {
                             System.out.println("Keyword Tree:");
                             treeString = handler.printKeyword(kwRoot, "");
                             switch (treeString) {
-                                case "null\n": 
+                                case "null\n":
                                     System.out.print("This tree is empty\n");
                                     break;
                                 default:
                                     System.out.print(treeString);
+                                    System.out.printf("Number of records: %d\n",
+                                        handler.getKeywordCount());
                             }
                             break;
                         case "location":
@@ -140,11 +144,13 @@ public class SemSearch {
                             System.out.println("Cost Tree:");
                             treeString = handler.printCost(costRoot, "");
                             switch (treeString) {
-                                case "null": 
+                                case "null":
                                     System.out.print("This tree is empty");
                                     break;
                                 default:
                                     System.out.print(treeString);
+                                    System.out.printf("\nNumber of records: %d",
+                                        handler.getNodeCount());
                             }
                             System.out.println();
                             break;
@@ -152,11 +158,13 @@ public class SemSearch {
                             System.out.println("ID Tree:");
                             treeString = handler.printID(idRoot, "");
                             switch (treeString) {
-                                case "null": 
+                                case "null":
                                     System.out.print("This tree is empty");
                                     break;
                                 default:
                                     System.out.print(treeString);
+                                    System.out.printf("\nNumber of records: %d",
+                                        handler.getNodeCount());
                             }
                             System.out.println();
                             break;

@@ -68,8 +68,10 @@ public class CommandHandler {
      * @return the new node object after insertion
      */
     public IdBST insertId(IdBST rt, Seminar newSem) {
-        if (rt == null)
+        nodeCount++;
+        if (rt == null) {
             return new IdBST(newSem);
+        }
         if (newSem.id() < rt.getId()) {
             rt.setLeft(insertId(rt.getLeft(), newSem));
         }
@@ -139,8 +141,10 @@ public class CommandHandler {
         KeywordBST rt,
         String kword,
         Seminar newSem) {
-        if (rt == null)
+        keywordCount++;
+        if (rt == null) {
             return new KeywordBST(kword, newSem);
+        }
         if (kword.compareTo(rt.getKeyword()) <= 0) {
             rt.setLeft(insertKeyword(rt.getLeft(), kword, newSem));
         }
