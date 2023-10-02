@@ -59,11 +59,11 @@ public class SemSearch {
         String desc;
         while (sc.hasNextLine()) {
             String[] tags;
-            command = sc.nextLine().toLowerCase().trim().split("\\s+");
+            command = sc.nextLine().trim().split("\\s+");
             if (command.length < 2) {
                 continue;
             }
-            switch (command[0]) {
+            switch (command[0].toLowerCase()) {
                 case "insert":// Execute to insert new seminar
                     id = Integer.parseInt(command[1]);
                     courseName = sc.nextLine();
@@ -102,7 +102,7 @@ public class SemSearch {
                     }
                     break;
                 case "print":
-                    switch (command[1]) {
+                    switch (command[1].toLowerCase()) {
                         case "date":
                             break;
                         case "keyword":
@@ -112,14 +112,14 @@ public class SemSearch {
                             break;
                         case "cost":
                             break;
-                        case "ID":
+                        case "id":
                             System.out.print(handler.printID(idRoot, ""));
                             break;
                     }
                     break;
                 case "search":
                     // all possible second arguments for search command
-                    switch (command[1]) {
+                    switch (command[1].toLowerCase()) {
                         case "id":
                             int num = Integer.parseInt(command[2]);
                             Seminar result = handler.searchId(idRoot, num);
@@ -162,6 +162,8 @@ public class SemSearch {
                             handler.resetCount();
                             break;
                         case "keyword":
+                            System.out.printf("Seminars matching keyword %s:\n",
+                                command[2]);
                             handler.searchKeyword(kwRoot, command[2]);
                             handler.resetCount();
                             break;
@@ -175,6 +177,8 @@ public class SemSearch {
                     int did = Integer.parseInt(command[1]);
                     Seminar temp = handler.searchId(idRoot, did);
                     if (temp == null) {
+                        System.out.printf("Delete FAILED -- There is no record "
+                            + "with ID %d\n", did);
                         break;
                     }
                     handler.deleteId(idRoot, did);

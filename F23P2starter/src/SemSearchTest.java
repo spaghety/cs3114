@@ -81,7 +81,7 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: print.txt\nWorld Size: 128\nnull\n";
+        String content = "FileName: print.txt\nWorld Size: 128\nnullnull\n";
         assertEquals(content, out.toString());
         System.setOut(stdout);
     }
@@ -120,7 +120,8 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: search keyword.txt\nWorld Size: 128\n";
+        String content = "FileName: search keyword.txt\nWorld Size: 128\n"
+            + "Seminars matching keyword VT:\n";
         assertEquals(content, out.toString());
         System.setOut(stdout);
     }
@@ -308,7 +309,10 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: delete.txt\nWorld Size: 128\n";
+        String content = "FileName: delete.txt\nWorld Size: 128\n"
+            + "Delete FAILED -- There is no record with ID 1\n"
+            + "Delete FAILED -- There is no record with ID 3\n"
+            + "Delete FAILED -- There is no record with ID 1\n";
         assertEquals(content, out.toString());
         System.setOut(stdout);
     }
