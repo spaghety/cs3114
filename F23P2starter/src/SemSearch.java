@@ -102,7 +102,19 @@ public class SemSearch {
                     }
                     break;
                 case "print":
-                    // print implementation
+                    switch (command[1]) {
+                        case "date":
+                            break;
+                        case "keyword":
+                            break;
+                        case "location":
+                            break;
+                        case "cost":
+                            break;
+                        case "ID":
+                            System.out.print(handler.printID(idRoot, ""));
+                            break;
+                    }
                     break;
                 case "search":
                     // all possible second arguments for search command
@@ -170,6 +182,7 @@ public class SemSearch {
                     }
             }
         }
+        sc.close();
 
     }
 }

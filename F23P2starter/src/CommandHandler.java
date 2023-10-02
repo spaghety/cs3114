@@ -482,4 +482,14 @@ public class CommandHandler {
         }
         return rt;
     }
+    
+    public String printID(IdBST rt, String indent) {
+        if (rt == null) return indent+"null";
+        String result = "";
+        String nextIndent = indent+"  ";
+        result+=printID(rt.getRight(), nextIndent)+"\n";
+        result+=indent+rt.getId()+"\n";
+        result+=printID(rt.getLeft(), nextIndent);
+        return result;
+    }
 }

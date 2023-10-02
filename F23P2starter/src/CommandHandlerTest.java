@@ -267,4 +267,32 @@ public class CommandHandlerTest extends TestCase {
             "tag10"));
 
     }
+    public void testPrintID() {
+        Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
+            (short)9, 15, new String[] { "tag1" }, "test description");
+        Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short)4,
+            (short)9, 20, new String[] { "tag2" }, "test description");
+        Seminar s3 = new Seminar(7, "test", "0309271600", 13, (short)4,
+            (short)9, 10, new String[] { "tag3" }, "test description");
+        Seminar s4 = new Seminar(0, "test", "0309201600", 13, (short)4,
+            (short)9, 0, new String[] { "biscuit" }, "test description");
+        Seminar s5 = new Seminar(2, "test", "0309221600", 13, (short)4,
+            (short)9, 25, new String[] { "tag1", "tag4" }, "test description");
+        idRoot = handler.insertId(idRoot, s1);
+        idRoot = handler.insertId(idRoot, s2);
+        idRoot = handler.insertId(idRoot, s3);
+        idRoot = handler.insertId(idRoot, s4);
+        idRoot = handler.insertId(idRoot, s5);
+        assertFuzzyEquals("      null\n"
+            + "    7\n"
+            + "      null\n"
+            + "  6\n"
+            + "    null\n"
+            + "5\n"
+            + "      null\n"
+            + "    2\n"
+            + "      null\n"
+            + "  0\n"
+            + "    null\n", handler.printID(idRoot, ""));
+    }
 }
