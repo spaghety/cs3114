@@ -386,18 +386,14 @@ public class CommandHandlerTest extends TestCase {
         idRoot = handler.insertId(idRoot, s2);
         idRoot = handler.insertId(idRoot, s5);
         idRoot = handler.insertId(idRoot, s6);
-        System.out.println(handler.printID(idRoot, ""));
         idRoot = handler.deleteId(idRoot, 5);
         idRoot = handler.deleteId(idRoot, 3);
         idRoot = handler.insertId(idRoot, s1);
         idRoot = handler.insertId(idRoot, s2);
         idRoot = handler.deleteId(idRoot, 4);
         idRoot = handler.deleteId(idRoot, 9);
-        /*handler.deleteId(idRoot, 9);
-        handler.deleteId(idRoot, 0);
-        handler.deleteId(idRoot, 18);
-        handler.deleteId(idRoot, 4);*/
-        System.out.println(handler.printID(idRoot, ""));
+        assertEquals(
+            "      null\n    18\n      null\n  15\n    null\n5\n    null\n  3\n    null", handler.printID(idRoot, ""));
     }
 
 
@@ -430,6 +426,36 @@ public class CommandHandlerTest extends TestCase {
         assertEquals("    null\n  21\n    null\n12\n    null\n  5\n    null",
             handler.printCost(costRoot, ""));
 
+    }
+
+
+    public void testDeleteDate() {
+        String[] tags = new String[] { "tag1", "tag2", "tag3" };
+        Seminar s1 = new Seminar(3, "test", "0", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        Seminar s2 = new Seminar(5, "test", "1", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        Seminar s3 = new Seminar(9, "test", "2", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        Seminar s4 = new Seminar(15, "test", "3", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        Seminar s5 = new Seminar(18, "test", "4", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        Seminar s6 = new Seminar(4, "test", "5", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        dateRoot = handler.insertDate(dateRoot, s4);
+        dateRoot = handler.insertDate(dateRoot, s5);
+        dateRoot = handler.insertDate(dateRoot, s6);
+        dateRoot = handler.insertDate(dateRoot, s1);
+        dateRoot = handler.insertDate(dateRoot, s2);
+        dateRoot = handler.insertDate(dateRoot, s3);
+        dateRoot = handler.deleteDate(dateRoot, "1", 5);
+        dateRoot = handler.deleteDate(dateRoot, "4", 18);
+        dateRoot = handler.deleteDate(dateRoot, "3", 15);
+        System.out.println(handler.printDate(dateRoot,""));
+        dateRoot = handler.insertDate(dateRoot, s5);
+        dateRoot = handler.deleteDate(dateRoot, "5", 4);
+        System.out.println(handler.printDate(dateRoot,""));
     }
 
 
