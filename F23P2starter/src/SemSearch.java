@@ -45,6 +45,10 @@ public class SemSearch {
         // BinTree implementation
         CommandHandler handler = new CommandHandler();
         String[] command;
+        IdBST idRoot = null;
+        CostBST costRoot = null;
+        KeywordBST kwRoot = null;
+        DateBST dateRoot = null;
         int id;
         String courseName;
         String date;
@@ -71,11 +75,18 @@ public class SemSearch {
                     sc.nextLine();
                     tags = sc.nextLine().trim().split("\\s+");
                     desc = sc.nextLine().trim();
-                    if (handler.searchId(handler.idBST, id) == null) {
+                    if (handler.searchId(idRoot, id) == null) {
                         Seminar sem = new Seminar(id, courseName, date, length,
                             x, y, cost, tags, desc);
                         try {
-                            handler.insert(sem);
+                            idRoot = handler.insertId(idRoot, sem);
+                            costRoot = handler.insertCost(costRoot, sem);
+                            dateRoot = handler.insertDate(dateRoot, sem);
+                            String[] kw = sem.keywords();
+                            for (int i = 0; i < kw.length; i++) {
+                                kwRoot = handler.insertKeyword(kwRoot, kw[i],
+                                    sem);
+                            }
                             System.out.printf(
                                 "Successfully inserted record with ID %d\n"
                                     + sem.toString() + "\n", id);
@@ -98,8 +109,7 @@ public class SemSearch {
                     switch (command[1]) {
                         case "id":
                             int num = Integer.parseInt(command[2]);
-                            Seminar result = handler.searchId(handler.idBST,
-                                num);
+                            Seminar result = handler.searchId(idRoot, num);
                             if (result == null) {
                                 System.out.printf(
                                     "Search FAILED -- There is no record with "
@@ -115,8 +125,8 @@ public class SemSearch {
                         case "cost":
                             int low = Integer.parseInt(command[2]);
                             int high = Integer.parseInt(command[3]);
-                            String costResult = handler.searchCost(
-                                handler.costBST, low, high);
+                            String costResult = handler.searchCost(costRoot,
+                                low, high);
                             System.out.printf(
                                 "Seminars with costs in range %d to %d:\n"
                                     + costResult, low, high);
@@ -128,8 +138,8 @@ public class SemSearch {
                         case "date":
                             String l = command[2];
                             String h = command[3];
-                            String dateResult = handler.searchDate(
-                                handler.dateBST, l, h);
+                            String dateResult = handler.searchDate(dateRoot, l,
+                                h);
                             System.out.printf(
                                 "Seminars with dates in range %s to %s:\n"
                                     + dateResult, l, h);
@@ -139,8 +149,7 @@ public class SemSearch {
                             handler.resetCount();
                             break;
                         case "keyword":
-                            handler.searchKeyword(handler.keywordBST,
-                                command[2]);
+                            handler.searchKeyword(kwRoot, command[2]);
                             handler.resetCount();
                             break;
                         case "location":

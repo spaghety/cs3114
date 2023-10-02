@@ -8,32 +8,12 @@
 public class CommandHandler {
 
     private int count; // Visited nodes
-    /**
-     * The IdBST
-     */
-    public IdBST idBST;
-    /**
-     * The CostBST
-     */
-    public CostBST costBST;
-    /**
-     * The DateBST
-     */
-    public DateBST dateBST;
-    /**
-     * The KeywordBST
-     */
-    public KeywordBST keywordBST;
 
     /**
      * Empty constructor
      */
     public CommandHandler() {
         count = 0;
-        idBST = null;
-        costBST = null;
-        dateBST = null;
-        keywordBST = null;
 // location
     }
 
@@ -65,7 +45,7 @@ public class CommandHandler {
      *            seminar object being inserted
      * @return the new node object after insertion
      */
-    private IdBST insertId(IdBST rt, Seminar newSem) {
+    public IdBST insertId(IdBST rt, Seminar newSem) {
         if (rt == null)
             return new IdBST(newSem);
         if (newSem.id() < rt.getId()) {
@@ -87,7 +67,7 @@ public class CommandHandler {
      *            seminar object being inserted
      * @return the new node object after insertion
      */
-    private CostBST insertCost(CostBST rt, Seminar newSem) {
+    public CostBST insertCost(CostBST rt, Seminar newSem) {
         if (rt == null)
             return new CostBST(newSem);
         if (newSem.cost() <= rt.getCost()) {
@@ -109,7 +89,7 @@ public class CommandHandler {
      *            seminar object being inserted
      * @return the new node object after insertion
      */
-    private DateBST insertDate(DateBST rt, Seminar newSem) {
+    public DateBST insertDate(DateBST rt, Seminar newSem) {
         if (rt == null)
             return new DateBST(newSem);
         if (newSem.date().compareTo(rt.getDate()) <= 0) {
@@ -133,7 +113,7 @@ public class CommandHandler {
      *            the Seminar object being added
      * @return the new node object after insertion
      */
-    private KeywordBST insertKeyword(
+    public KeywordBST insertKeyword(
         KeywordBST rt,
         String kword,
         Seminar newSem) {
@@ -149,23 +129,6 @@ public class CommandHandler {
             rt.add(newSem);
         }
         return rt;
-    }
-
-
-    /**
-     * Inserts a new Seminar into all BSTs
-     * 
-     * @param sem
-     *            The Seminar object to be inserted
-     */
-    public void insert(Seminar sem) {
-        idBST = insertId(idBST, sem);
-        costBST = insertCost(costBST, sem);
-        dateBST = insertDate(dateBST, sem);
-        String[] kw = sem.keywords();
-        for (int i = 0; i < kw.length; i++) {
-            keywordBST = insertKeyword(keywordBST, kw[i], sem);
-        }
     }
 
 
