@@ -243,7 +243,10 @@ public class CommandHandler {
             return searchKeyword(root.getRight(), keyword);
         }
         else {
-            return root.printSem();
+            String result = searchKeyword(root.getLeft(), keyword);
+            result+=root.printSem()+"\n";
+            result+=searchKeyword(root.getRight(), keyword);
+            return result;
         }
     }
 
