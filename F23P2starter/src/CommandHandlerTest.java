@@ -337,7 +337,8 @@ public class CommandHandlerTest extends TestCase {
             (short)9, 5, tags, "test description"); // low date
         dateRoot = handler.insertDate(dateRoot, s3);
         assertFuzzyEquals(
-            "  null\n0312251600\n    null\n  0309282000\n      null\n    0309250500\n      null",
+            "  null\n0312251600\n    null\n  0309282000\n      null\n"
+            + "    0309250500\n      null",
             handler.printDate(dateRoot, ""));
     }
 

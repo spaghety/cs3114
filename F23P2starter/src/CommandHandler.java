@@ -314,18 +314,18 @@ public class CommandHandler {
      * 
      * @param rt
      *            node to begin search
-     * @param ID
+     * @param id
      *            id being searched for
      * @return the new BST node
      */
-    public IdBST deleteId(IdBST rt, int ID) {
+    public IdBST deleteId(IdBST rt, int id) {
         if (rt == null)
             return null;
-        if (ID < rt.getId()) {
-            rt.setLeft(deleteId(rt.getLeft(), ID));
+        if (id < rt.getId()) {
+            rt.setLeft(deleteId(rt.getLeft(), id));
         }
-        else if (ID > rt.getId()) {
-            rt.setRight(deleteId(rt.getRight(), ID));
+        else if (id > rt.getId()) {
+            rt.setRight(deleteId(rt.getRight(), id));
         }
         else {
             if (rt.getLeft() == null)
@@ -377,17 +377,17 @@ public class CommandHandler {
      *            node to begin search
      * @param cost
      *            cost being searched for
-     * @param ID
+     * @param id
      *            ID used to verify it's the correct seminar object
      * @return the new BST node
      */
-    public CostBST deleteCost(CostBST rt, int cost, int ID) {
+    public CostBST deleteCost(CostBST rt, int cost, int id) {
         if (rt == null)
             return null;
         if (cost > rt.getCost()) {
-            rt.setRight(deleteCost(rt.getRight(), cost, ID));
+            rt.setRight(deleteCost(rt.getRight(), cost, id));
         }
-        else if (ID == rt.getSem().id()) {
+        else if (id == rt.getSem().id()) {
             if (rt.getLeft() == null)
                 return rt.getRight();
             else {
@@ -397,7 +397,7 @@ public class CommandHandler {
             }
         }
         else {
-            rt.setLeft(deleteCost(rt.getLeft(), cost, ID));
+            rt.setLeft(deleteCost(rt.getLeft(), cost, id));
         }
         return rt;
     }
@@ -438,17 +438,17 @@ public class CommandHandler {
      *            node to begin search
      * @param date
      *            date used to improve search efficiency
-     * @param ID
+     * @param id
      *            ID used to verify the correct node
      * @return new BST to replace node
      */
-    public DateBST deleteDate(DateBST rt, String date, int ID) {
+    public DateBST deleteDate(DateBST rt, String date, int id) {
         if (rt == null)
             return null;
         if (date.compareTo(rt.getDate()) > 0) {
-            rt.setRight(deleteDate(rt.getRight(), date, ID));
+            rt.setRight(deleteDate(rt.getRight(), date, id));
         }
-        else if (rt.getSem().id() == ID) {
+        else if (rt.getSem().id() == id) {
             if (rt.getLeft() == null)
                 return rt.getRight();
             else {
@@ -458,7 +458,7 @@ public class CommandHandler {
             }
         }
         else {
-            rt.setLeft(deleteDate(rt.getLeft(), date, ID));
+            rt.setLeft(deleteDate(rt.getLeft(), date, id));
         }
         return rt;
     }
@@ -500,17 +500,17 @@ public class CommandHandler {
      *            node to begin search
      * @param kw
      *            keyword being searched for
-     * @param ID
+     * @param id
      *            ID used to verify it's the correct seminar
      * @return new BST to replace child node with
      */
-    public KeywordBST deleteKeyword(KeywordBST rt, String kw, int ID) {
+    public KeywordBST deleteKeyword(KeywordBST rt, String kw, int id) {
         if (rt == null)
             return null;
         if (kw.compareTo(rt.getKeyword()) > 0) {
-            rt.setRight(deleteKeyword(rt.getRight(), kw, ID));
+            rt.setRight(deleteKeyword(rt.getRight(), kw, id));
         }
-        else if (rt.getSem().id() == ID) {
+        else if (rt.getSem().id() == id) {
             if (rt.getLeft() == null)
                 return rt.getRight();
             else {
@@ -520,7 +520,7 @@ public class CommandHandler {
             }
         }
         else {
-            rt.setLeft(deleteKeyword(rt.getLeft(), kw, ID));
+            rt.setLeft(deleteKeyword(rt.getLeft(), kw, id));
         }
         return rt;
     }

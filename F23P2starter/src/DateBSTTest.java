@@ -8,10 +8,10 @@ import student.TestCase;
  * @version 2023.09.24
  */
 public class DateBSTTest extends TestCase {
-    Seminar testSem;
-    Seminar testSems;
-    DateBST root;
-    DateBST second;
+    private Seminar testSem;
+    private Seminar testSems;
+    private DateBST root;
+    private DateBST second;
 
     /**
      * Sets up the objects used throughout the test cases

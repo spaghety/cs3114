@@ -38,7 +38,8 @@ public class KeywordBST {
      * 
      * @param newSem
      *            new seminar object to add
-     * @return true if successful, false if not
+     * @param kword
+     *            new keyword to be changed
      */
     public void change(Seminar newSem, String kword) {
         sem = newSem;
