@@ -16,6 +16,8 @@ public class CommandHandler {
      */
     public CommandHandler() {
         visitCount = 0;
+        nodeCount = 0;
+        keywordCount = 0;
 // location
     }
 
