@@ -365,67 +365,34 @@ public class CommandHandlerTest extends TestCase {
     }
 
 
-    public void testDelete() {
+    /**
+     * Test delete from cost BST
+     */
+    public void testDeleteCost() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
         Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
             (short)9, 15, tags, "test description");
-        String[] tags3 = new String[] { "tag1", "tag2", "tag03" };
-        Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short)2,
-            (short)9, 21, tags3, "test description");
-        String[] tags2 = new String[] { "tag4", "tag23", "tag0" };
-        Seminar s3 = new Seminar(2, "test", "0309251600", 13, (short)4,
-            (short)9, 5, tags2, "test description");
-        // FULLY INSERT s1
-        idRoot = handler.insertId(idRoot, s1);
         costRoot = handler.insertCost(costRoot, s1);
-        dateRoot = handler.insertDate(dateRoot, s1);
-        kwRoot = handler.insertKeyword(kwRoot, "tag1", s1);
-        kwRoot = handler.insertKeyword(kwRoot, "tag2", s1);
-        kwRoot = handler.insertKeyword(kwRoot, "tag3", s1);
-        // FULLY INSERT s2
-        idRoot = handler.insertId(idRoot, s2);
+        Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short)4,
+            (short)9, 21, tags, "test description");
         costRoot = handler.insertCost(costRoot, s2);
-        dateRoot = handler.insertDate(dateRoot, s2);
-        kwRoot = handler.insertKeyword(kwRoot, "tag1", s2);
-        kwRoot = handler.insertKeyword(kwRoot, "tag2", s2);
-        kwRoot = handler.insertKeyword(kwRoot, "tag03", s2);
-        // PRINT BSTs
-        System.out.println(handler.printID(idRoot, ""));
-        System.out.println(handler.printCost(costRoot, ""));
-        System.out.println(handler.printDate(dateRoot, ""));
-        System.out.println(handler.printKeyword(kwRoot, ""));
-        // DELETE ID 6
-        Seminar deletedNode = handler.searchId(idRoot, 6);
-        idRoot = handler.deleteId(idRoot, 6);
-        costRoot = handler.deleteCost(costRoot, deletedNode.cost(), 6);
-        dateRoot = handler.deleteDate(dateRoot, deletedNode.date(), 6);
-        String[] kwArr = deletedNode.keywords();
-        for (int i = kwArr.length-1; i >=0; i--) {
-            kwRoot = handler.deleteKeyword(kwRoot, kwArr[i], 6);
-        }
-        // PRINT BSTs
-        System.out.println(handler.printID(idRoot, ""));
-        System.out.println(handler.printCost(costRoot, ""));
-        System.out.println(handler.printDate(dateRoot, ""));
-        System.out.println(handler.printKeyword(kwRoot, ""));
-        // INSERT s2
-        idRoot = handler.insertId(idRoot, s2);
-        costRoot = handler.insertCost(costRoot, s2);
-        dateRoot = handler.insertDate(dateRoot, s2);
-        kwRoot = handler.insertKeyword(kwRoot, "tag1", s2);
-        kwRoot = handler.insertKeyword(kwRoot, "tag2", s2);
-        kwRoot = handler.insertKeyword(kwRoot, "tag03", s2);
-        // INSERT s3
-        idRoot = handler.insertId(idRoot, s3);
+        Seminar s3 = new Seminar(2, "test", "0309251600", 13, (short)4,
+            (short)9, 5, tags, "test description");
+        Seminar s4 = new Seminar(3, "test", "0309251600", 13, (short)4,
+            (short)9, 12, tags, "test description");
         costRoot = handler.insertCost(costRoot, s3);
-        dateRoot = handler.insertDate(dateRoot, s3);
-        kwRoot = handler.insertKeyword(kwRoot, "tag4", s3);
-        kwRoot = handler.insertKeyword(kwRoot, "tag23", s3);
-        kwRoot = handler.insertKeyword(kwRoot, "tag0", s3);
-        System.out.println(handler.printID(idRoot, ""));
+        costRoot = handler.deleteCost(costRoot, 15, 5);
+        costRoot = handler.insertCost(costRoot, s1);
+        costRoot = handler.deleteCost(costRoot, 21, 6);
+        costRoot = handler.insertCost(costRoot, s4);
+        costRoot = handler.deleteCost(costRoot, 12, 3);
+        costRoot = handler.insertCost(costRoot, s2);
+        costRoot = handler.deleteCost(costRoot, 5, 2);
+        costRoot = handler.insertCost(costRoot, s3);
+        costRoot = handler.insertCost(costRoot, s4);
+        costRoot = handler.deleteCost(costRoot, 15, 5);
         System.out.println(handler.printCost(costRoot, ""));
-        System.out.println(handler.printDate(dateRoot, ""));
-        System.out.println(handler.printKeyword(kwRoot, ""));
+
     }
 
 
@@ -452,7 +419,7 @@ public class CommandHandlerTest extends TestCase {
         handler.resetCount();
         assertEquals(s3, handler.searchId(idRoot, 7));
         assertEquals(3, handler.getCount());
-        
+
         assertNull(handler.deleteId(null, 0));
         assertNull(handler.deleteCost(null, 0, 0));
         assertNull(handler.deleteDate(null, "", 0));
