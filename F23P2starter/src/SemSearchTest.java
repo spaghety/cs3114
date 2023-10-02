@@ -1,6 +1,6 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+// import java.nio.file.Files;
+// import java.nio.file.Paths;
 import student.TestCase;
 
 /**
@@ -83,8 +83,7 @@ public class SemSearchTest extends TestCase {
         String content = "ID Tree:\nThis tree is empty\n"
             + "Date Tree:\nThis tree is empty\n"
             + "Keyword Tree:\nThis tree is empty\n"
-            + "Cost Tree:\nThis tree is empty\n"
-            + "Location Tree:\n\n";
+            + "Cost Tree:\nThis tree is empty\n" + "Location Tree:\n\n";
         assertEquals(content, out.toString());
         System.setOut(stdout);
     }
