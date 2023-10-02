@@ -457,6 +457,34 @@ public class CommandHandlerTest extends TestCase {
         dateRoot = handler.deleteDate(dateRoot, "5", 4);
         System.out.println(handler.printDate(dateRoot,""));
     }
+    
+    public void testDeleteKeyword() {
+        Seminar s1 = new Seminar(3, "test", "0", 13, (short)4, (short)9, 15,
+            new String[] { "tag0"}, "test description");
+        Seminar s2 = new Seminar(5, "test", "1", 13, (short)4, (short)9, 15,
+            new String[] { "tag1"}, "test description");
+        Seminar s3 = new Seminar(9, "test", "2", 13, (short)4, (short)9, 15,
+            new String[] { "tag2"}, "test description");
+        Seminar s4 = new Seminar(15, "test", "3", 13, (short)4, (short)9, 15,
+            new String[] { "tag3"}, "test description");
+        Seminar s5 = new Seminar(18, "test", "4", 13, (short)4, (short)9, 15,
+            new String[] { "tag4"}, "test description");
+        Seminar s6 = new Seminar(4, "test", "5", 13, (short)4, (short)9, 15,
+            new String[] { "tag5"}, "test description");
+        kwRoot = handler.insertKeyword(kwRoot, "tag3", s4);
+        kwRoot = handler.insertKeyword(kwRoot, "tag4", s5);
+        kwRoot = handler.insertKeyword(kwRoot, "tag5", s6);
+        kwRoot = handler.insertKeyword(kwRoot, "tag0", s1);
+        kwRoot = handler.insertKeyword(kwRoot, "tag1", s2);
+        kwRoot = handler.insertKeyword(kwRoot, "tag2", s3);
+        kwRoot = handler.deleteKeyword(kwRoot, "tag1", 5);
+        kwRoot = handler.deleteKeyword(kwRoot, "tag4", 18);
+        kwRoot = handler.deleteKeyword(kwRoot, "tag3", 15);
+        System.out.println(handler.printKeyword(kwRoot,""));
+        kwRoot = handler.insertKeyword(kwRoot, "tag4", s5);
+        kwRoot = handler.deleteKeyword(kwRoot, "tag5", 4);
+        System.out.println(handler.printKeyword(kwRoot,""));
+    }
 
 
     public void testCounter() {
