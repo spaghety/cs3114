@@ -26,7 +26,7 @@ import java.util.Scanner;
  *
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.09.24
+ * @version 2023.10.02
  */
 
 public class SemSearch {
