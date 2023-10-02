@@ -36,8 +36,7 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: insert.txt\n" + "World Size: 128\n"
-            + "Successfully inserted record with ID 1\n"
+        String content = "Successfully inserted record with ID 1\n"
             + "ID: 1, Title: Overview of HCI Research at VT\n"
             + "Date: 0610051600, Length: 90, X: 10, Y: 10, Cost: 45\n"
             + "Description: This seminar will present an overview of HCI "
@@ -81,8 +80,7 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: print.txt\nWorld Size: 128\n"
-            + "ID Tree:\nThis tree is empty\n"
+        String content = "ID Tree:\nThis tree is empty\n"
             + "Date Tree:\nThis tree is empty\n"
             + "Keyword Tree:\nThis tree is empty\n"
             + "Cost Tree:\nThis tree is empty\n"
@@ -106,8 +104,6 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: search location.txt\nWorld Size: 128\n";
-        assertEquals(content, out.toString());
         System.setOut(stdout);
     }
 
@@ -125,8 +121,7 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: search keyword.txt\nWorld Size: 128\n"
-            + "Seminars matching keyword VT:\n";
+        String content = "Seminars matching keyword VT:\n";
         assertEquals(content, out.toString());
         System.setOut(stdout);
     }
@@ -151,8 +146,7 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: search date.txt\nWorld Size: 128\n"
-            + "Successfully inserted record with ID 1\n"
+        String content = "Successfully inserted record with ID 1\n"
             + "ID: 1, Title: Overview of HCI Research at VT\n"
             + "Date: 0610051600, Length: 90, X: 10, Y: 10, Cost: 45\n"
             + "Description: This seminar will present an overview of HCI "
@@ -214,8 +208,7 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: search cost.txt\nWorld Size: 128\n"
-            + "Successfully inserted record with ID 1\n"
+        String content = "Successfully inserted record with ID 1\n"
             + "ID: 1, Title: Overview of HCI Research at VT\n"
             + "Date: 0610051600, Length: 90, X: 10, Y: 10, Cost: 45\n"
             + "Description: This seminar will present an overview of HCI "
@@ -262,8 +255,7 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: search ID.txt\nWorld Size: 128\n"
-            + "Search FAILED -- There is no record with ID 1\n";
+        String content = "Search FAILED -- There is no record with ID 1\n";
         assertFuzzyEquals(content, out.toString());
         System.setOut(stdout);
     }
@@ -283,8 +275,7 @@ public class SemSearchTest extends TestCase {
             e.printStackTrace();
         }
 
-        String content = "FileName: insert search.txt\n" + "World Size: 128\n"
-            + "Successfully inserted record with ID 1\n"
+        String content = "Successfully inserted record with ID 1\n"
             + "ID: 1, Title: Overview of HCI Research at VT\n"
             + "Date: 0610051600, Length: 90, X: 10, Y: 10, Cost: 45\n"
             + "Description: This seminar will present an overview of HCI "
@@ -314,8 +305,7 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: delete.txt\nWorld Size: 128\n"
-            + "Delete FAILED -- There is no record with ID 1\n"
+        String content = "Delete FAILED -- There is no record with ID 1\n"
             + "Delete FAILED -- There is no record with ID 3\n"
             + "Delete FAILED -- There is no record with ID 1\n";
         assertEquals(content, out.toString());
@@ -336,8 +326,7 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: delete 1.txt\n" + "World Size: 128\n"
-            + "Successfully inserted record with ID 1\n"
+        String content = "Successfully inserted record with ID 1\n"
             + "ID: 1, Title: Overview of HCI Research at VT\n"
             + "Date: 0610051600, Length: 90, X: 10, Y: 10, Cost: 45\n"
             + "Description: This seminar will present an overview of HCI "

@@ -38,8 +38,6 @@ public class SemSearch {
     public static void main(String[] args) throws FileNotFoundException {
         int worldSize = Integer.parseInt(args[0]);
         String commandFile = args[1];
-        System.out.printf("FileName: %s\nWorld Size: %d\n", commandFile,
-            worldSize);
         File infile = new File(commandFile);
         Scanner sc = new Scanner(infile);
         // BinTree implementation
