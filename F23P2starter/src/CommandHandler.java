@@ -7,32 +7,32 @@
  */
 public class CommandHandler {
 
-    private int count; // Visited nodes
+    private int visitCount; // Visited nodes
 
     /**
      * Empty constructor
      */
     public CommandHandler() {
-        count = 0;
+        visitCount = 0;
 // location
     }
 
 
     /**
-     * Gets current count of nodes
+     * Gets current count of visited nodes 
      * 
      * @return current count
      */
     public int getCount() {
-        return count;
+        return visitCount;
     }
 
 
     /**
-     * Resets count of nodes
+     * Resets count of visited nodes
      */
     public void resetCount() {
-        count = 0;
+        visitCount = 0;
     }
 
 
@@ -168,7 +168,7 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchCost(CostBST root, int low, int high) {
-        count++;
+        visitCount++;
         if (root == null) {
             return "";
         }
@@ -200,7 +200,7 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchDate(DateBST root, String low, String high) {
-        count++;
+        visitCount++;
         if (root == null) {
             return "";
         }
@@ -236,7 +236,7 @@ public class CommandHandler {
         if (root == null) {
             return "";
         }
-        count++;
+        visitCount++;
         int strComp = keyword.compareTo(root.getKeyword());
         if (strComp < 0) {
             return searchKeyword(root.getLeft(), keyword);
