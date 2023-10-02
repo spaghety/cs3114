@@ -217,7 +217,7 @@ public class SemSearch {
                         case "keyword":
                             System.out.printf("Seminars matching keyword %s:\n",
                                 command[2]);
-                            handler.searchKeyword(kwRoot, command[2]);
+                            System.out.print(handler.searchKeyword(kwRoot, command[2]));
                             handler.resetCount();
                             break;
                         case "location":
