@@ -121,6 +121,9 @@ public class CommandHandlerTest extends TestCase {
     }
 
 
+    /**
+     * Tests insertKeyword
+     */
     public void testInsertKeyword() {
         Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
             (short)9, 15, new String[] { "tag1" }, "test description");
@@ -141,15 +144,6 @@ public class CommandHandlerTest extends TestCase {
 
         assertFuzzyEquals(s1.toString(), kwRoot.printSem());
         assertFuzzyEquals(s2.toString(), kwRoot.getRight().printSem());
-        /*
-         * assertFuzzyEquals(s2.toString() + "\n",
-         * kwRoot.getRight().printSem());
-         * assertFuzzyEquals(s3.toString() + "\n", kwRoot.getRight().getRight()
-         * .printSem());
-         * assertFuzzyEquals(s4.toString() + "\n", kwRoot.getLeft().printSem());
-         * assertFuzzyEquals(s5.toString() + "\n", kwRoot.getRight().getRight()
-         * .getRight().printSem());
-         */
     }
 
 
@@ -348,6 +342,9 @@ public class CommandHandlerTest extends TestCase {
     }
 
 
+    /**
+     * Tests printCost method
+     */
     public void testPrintCost() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
         Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
@@ -365,6 +362,9 @@ public class CommandHandlerTest extends TestCase {
     }
 
 
+    /**
+     * Tests deleteId method
+     */
     public void testDeleteId() {
         assertNull(handler.deleteId(null, 0));
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
@@ -445,6 +445,9 @@ public class CommandHandlerTest extends TestCase {
     }
 
 
+    /**
+     * Tests delete date method
+     */
     public void testDeleteDate() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
         Seminar s1 = new Seminar(3, "test", "0", 13, (short)4, (short)9, 15,
@@ -476,6 +479,9 @@ public class CommandHandlerTest extends TestCase {
     }
 
 
+    /**
+     * Tests delete keyword method
+     */
     public void testDeleteKeyword() {
         Seminar s1 = new Seminar(3, "test", "0", 13, (short)4, (short)9, 15,
             new String[] { "tag0" }, "test description");
@@ -508,6 +514,9 @@ public class CommandHandlerTest extends TestCase {
     }
 
 
+    /**
+     * Tests the counter variable and methods for all BST searches
+     */
     public void testCounter() {
         handler.resetCount();
         assertEquals(0, handler.getCount());
@@ -536,7 +545,7 @@ public class CommandHandlerTest extends TestCase {
         costRoot = handler.insertCost(costRoot, s2);
         costRoot = handler.insertCost(costRoot, s3);
         handler.resetCount();
-        assertFuzzyEquals(s2.toString(), handler.searchCost(costRoot,2, 2));
+        assertFuzzyEquals(s2.toString(), handler.searchCost(costRoot, 2, 2));
         assertEquals(3, handler.getCount());
 
         dateRoot = handler.insertDate(dateRoot, s2); // TEST DATE
