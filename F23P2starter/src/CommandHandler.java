@@ -122,7 +122,7 @@ public class CommandHandler {
         if (kword.compareTo(rt.getKeyword()) <= 0) {
             rt.setLeft(insertKeyword(rt.getLeft(), kword, newSem));
         }
-        else if (kword.compareTo(rt.getKeyword()) > 0) {
+        else {
             rt.setRight(insertKeyword(rt.getRight(), kword, newSem));
         }
         return rt;
@@ -143,14 +143,16 @@ public class CommandHandler {
         if (root == null) {
             return null;
         }
+        count++;
         if (root.getId() == id) {
             return root.getSem();
         }
-        Seminar leftSearch = searchId(root.getLeft(), id);
-        if (leftSearch == null) {
+        else if (id < root.getId()) {
+            return searchId(root.getLeft(), id);
+        }
+        else {
             return searchId(root.getRight(), id);
         }
-        return leftSearch;
     }
 
 
@@ -232,6 +234,7 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchKeyword(KeywordBST root, String keyword) {
+        count++;
         if (root == null) {
             return "";
         }
@@ -244,8 +247,8 @@ public class CommandHandler {
         }
         else {
             String result = searchKeyword(root.getLeft(), keyword);
-            result+=root.printSem()+"\n";
-            result+=searchKeyword(root.getRight(), keyword);
+            result += root.printSem() + "\n";
+            result += searchKeyword(root.getRight(), keyword);
             return result;
         }
     }
@@ -361,9 +364,15 @@ public class CommandHandler {
             rt.setRight(deleteCost(rt.getRight(), cost, ID));
         }
         else if (ID == rt.getSem().id()) {
-            CostBST temp = getMaxCost(rt.getLeft());
-            rt.setSem(temp.getSem());
-            rt.setLeft(removeMaxCost(rt.getLeft()));
+            if (rt.getLeft() == null)
+                return rt.getRight();
+            else if (rt.getRight() == null)
+                return rt.getLeft();
+            else {
+                CostBST temp = getMaxCost(rt.getLeft());
+                rt.setSem(temp.getSem());
+                rt.setLeft(removeMaxCost(rt.getLeft()));
+            }
         }
         else {
             rt.setLeft(deleteCost(rt.getLeft(), cost, ID));
@@ -418,9 +427,15 @@ public class CommandHandler {
             rt.setRight(deleteDate(rt.getRight(), date, ID));
         }
         else if (rt.getSem().id() == ID) {
-            DateBST temp = getMaxDate(rt.getLeft());
-            rt.setSem(temp.getSem());
-            rt.setLeft(removeMaxDate(rt.getLeft()));
+            if (rt.getLeft() == null)
+                return rt.getRight();
+            else if (rt.getRight() == null)
+                return rt.getLeft();
+            else {
+                DateBST temp = getMaxDate(rt.getLeft());
+                rt.setSem(temp.getSem());
+                rt.setLeft(removeMaxDate(rt.getLeft()));
+            }
         }
         else {
             rt.setLeft(deleteDate(rt.getLeft(), date, ID));
@@ -476,9 +491,15 @@ public class CommandHandler {
             rt.setRight(deleteKeyword(rt.getRight(), kw, ID));
         }
         else if (rt.getSem().id() == ID) {
-            KeywordBST temp = getMaxKeyword(rt.getLeft());
-            rt.change(temp.getSem(), temp.getKeyword());
-            rt.setLeft(removeMaxKeyword(rt.getLeft()));
+            if (rt.getRight() == null)
+                return rt.getLeft();
+            else if (rt.getLeft() == null)
+                return rt.getRight();
+            else {
+                KeywordBST temp = getMaxKeyword(rt.getLeft());
+                rt.change(temp.getSem(), temp.getKeyword());
+                rt.setLeft(removeMaxKeyword(rt.getLeft()));
+            }
         }
         else {
             rt.setLeft(deleteKeyword(rt.getLeft(), kw, ID));
