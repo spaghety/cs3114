@@ -169,10 +169,10 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchCost(CostBST root, int low, int high) {
-        count++;
         if (root == null) {
             return "";
         }
+        count++;
         if (root.getCost() > high) {
             return searchCost(root.getLeft(), low, high);
         }
@@ -201,10 +201,10 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchDate(DateBST root, String low, String high) {
-        count++;
         if (root == null) {
             return "";
         }
+        count++;
         int lowComp = low.compareTo(root.getDate());
         int highComp = high.compareTo(root.getDate());
         if (lowComp > 0) {
@@ -234,10 +234,10 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchKeyword(KeywordBST root, String keyword) {
-        count++;
         if (root == null) {
             return "";
         }
+        count++;
         int strComp = keyword.compareTo(root.getKeyword());
         if (strComp < 0) {
             return searchKeyword(root.getLeft(), keyword);
@@ -248,7 +248,6 @@ public class CommandHandler {
         else {
             String result = searchKeyword(root.getLeft(), keyword);
             result += root.printSem() + "\n";
-            result += searchKeyword(root.getRight(), keyword);
             return result;
         }
     }
@@ -304,8 +303,6 @@ public class CommandHandler {
         else {
             if (rt.getLeft() == null)
                 return rt.getRight();
-            else if (rt.getRight() == null)
-                return rt.getLeft();
             else {
                 IdBST temp = getMaxId(rt.getLeft());
                 rt.setSem(temp.getSem());
@@ -366,8 +363,6 @@ public class CommandHandler {
         else if (ID == rt.getSem().id()) {
             if (rt.getLeft() == null)
                 return rt.getRight();
-            else if (rt.getRight() == null)
-                return rt.getLeft();
             else {
                 CostBST temp = getMaxCost(rt.getLeft());
                 rt.setSem(temp.getSem());
@@ -429,8 +424,6 @@ public class CommandHandler {
         else if (rt.getSem().id() == ID) {
             if (rt.getLeft() == null)
                 return rt.getRight();
-            else if (rt.getRight() == null)
-                return rt.getLeft();
             else {
                 DateBST temp = getMaxDate(rt.getLeft());
                 rt.setSem(temp.getSem());
@@ -491,9 +484,7 @@ public class CommandHandler {
             rt.setRight(deleteKeyword(rt.getRight(), kw, ID));
         }
         else if (rt.getSem().id() == ID) {
-            if (rt.getRight() == null)
-                return rt.getLeft();
-            else if (rt.getLeft() == null)
+            if (rt.getLeft() == null)
                 return rt.getRight();
             else {
                 KeywordBST temp = getMaxKeyword(rt.getLeft());
