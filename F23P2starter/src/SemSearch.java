@@ -217,7 +217,8 @@ public class SemSearch {
                         case "keyword":
                             System.out.printf("Seminars matching keyword %s:\n",
                                 command[2]);
-                            System.out.print(handler.searchKeyword(kwRoot, command[2]));
+                            System.out.print(handler.searchKeyword(kwRoot,
+                                command[2]));
                             handler.resetCount();
                             break;
                         case "location":
@@ -234,12 +235,12 @@ public class SemSearch {
                             + "with ID %d\n", did);
                         break;
                     }
-                    handler.deleteId(idRoot, did);
-                    handler.deleteCost(costRoot, temp.cost(), did);
-                    handler.deleteDate(dateRoot, temp.date(), did);
+                    idRoot = handler.deleteId(idRoot, did);
+                    costRoot = handler.deleteCost(costRoot, temp.cost(), did);
+                    dateRoot = handler.deleteDate(dateRoot, temp.date(), did);
                     String[] kw = temp.keywords();
                     for (int i = 0; i < kw.length; i++) {
-                        handler.deleteKeyword(kwRoot, kw[i], did);
+                        kwRoot = handler.deleteKeyword(kwRoot, kw[i], did);
                     }
                     System.out.printf("Record with ID %d successfully deleted "
                         + "from the database\n", did);

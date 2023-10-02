@@ -35,6 +35,10 @@ public class CommandHandler {
     /**
      * Gets current count of nodes in ID, Cost, Date BSTs
      * 
+     * Important note: This counter only increments when adding to IdBST, but
+     * the number of nodes is the same across the 3 BSTs, and the add methods
+     * operate simultaneously in the CommandHandler.
+     * 
      * @return current count
      */
     public int getNodeCount() {
