@@ -102,18 +102,63 @@ public class SemSearch {
                     }
                     break;
                 case "print":
+                    String treeString = "";
                     switch (command[1].toLowerCase()) {
                         case "date":
+                            System.out.println("Date Tree:");
+                            treeString = handler.printDate(dateRoot, "");
+                            switch (treeString) {
+                                case "null": {
+                                    System.out.print("This tree is empty");
+                                    break;
+                                }
+                                default:
+                                    System.out.print(treeString);
+                            }
+                            System.out.println();
                             break;
                         case "keyword":
-                            System.out.print(handler.printKeyword(kwRoot, ""));
+                            System.out.println("Keyword Tree:");
+                            treeString = handler.printKeyword(kwRoot, "");
+                            switch (treeString) {
+                                case "null\n": {
+                                    System.out.print("This tree is empty\n");
+                                    break;
+                                }
+                                default:
+                                    System.out.print(treeString);
+                            }
                             break;
                         case "location":
+                            System.out.println("Location Tree:");
+                            // implementation
+                            System.out.println();
                             break;
                         case "cost":
+                            System.out.println("Cost Tree:");
+                            treeString = handler.printCost(costRoot, "");
+                            switch (treeString) {
+                                case "null": {
+                                    System.out.print("This tree is empty");
+                                    break;
+                                }
+                                default:
+                                    System.out.print(treeString);
+                            }
+                            System.out.println();
                             break;
                         case "id":
-                            System.out.print(handler.printID(idRoot, ""));
+                            System.out.println("ID Tree:");
+                            treeString = handler.printID(idRoot, "");
+                            switch (treeString) {
+                                case "null": {
+                                    System.out.print("This tree is empty");
+                                    break;
+                                }
+                                default:
+                                    System.out.print(treeString);
+                            }
+                            System.out.println();
                             break;
                     }
                     break;

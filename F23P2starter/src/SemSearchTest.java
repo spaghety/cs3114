@@ -81,7 +81,12 @@ public class SemSearchTest extends TestCase {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String content = "FileName: print.txt\nWorld Size: 128\nnullnull\n";
+        String content = "FileName: print.txt\nWorld Size: 128\n"
+            + "ID Tree:\nThis tree is empty\n"
+            + "Date Tree:\nThis tree is empty\n"
+            + "Keyword Tree:\nThis tree is empty\n"
+            + "Cost Tree:\nThis tree is empty\n"
+            + "Location Tree:\n\n";
         assertEquals(content, out.toString());
         System.setOut(stdout);
     }
