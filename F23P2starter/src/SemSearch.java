@@ -58,9 +58,8 @@ public class SemSearch {
         while (sc.hasNextLine()) {
             String[] tags;
             command = sc.nextLine().trim().split("\\s+");
-            if (command.length < 2) {
+            if (command.length < 2) // Invalid command
                 continue;
-            }
             switch (command[0].toLowerCase()) {
                 case "insert":// Execute to insert new seminar
                     id = Integer.parseInt(command[1]);
@@ -86,9 +85,8 @@ public class SemSearch {
                             idRoot = handler.insertId(idRoot, sem);
                             costRoot = handler.insertCost(costRoot, sem);
                             dateRoot = handler.insertDate(dateRoot, sem);
-                            String[] kw = sem.keywords();
-                            for (int i = 0; i < kw.length; i++) {
-                                kwRoot = handler.insertKeyword(kwRoot, kw[i],
+                            for (String key : sem.keywords()) {
+                                kwRoot = handler.insertKeyword(kwRoot, key,
                                     sem);
                             }
                             System.out.printf(
@@ -100,9 +98,8 @@ public class SemSearch {
                         }
                     }
                     else {
-                        System.out.printf(
-                            "Insert FAILED - There is already a record with"
-                                + " ID %d\n", id);
+                        System.out.printf("Insert FAILED - There is already a "
+                            + "record with ID %d\n", id);
                     }
                     break;
                 case "print":
@@ -238,9 +235,8 @@ public class SemSearch {
                     idRoot = handler.deleteId(idRoot, did);
                     costRoot = handler.deleteCost(costRoot, temp.cost(), did);
                     dateRoot = handler.deleteDate(dateRoot, temp.date(), did);
-                    String[] kw = temp.keywords();
-                    for (int i = 0; i < kw.length; i++) {
-                        kwRoot = handler.deleteKeyword(kwRoot, kw[i], did);
+                    for (String key : temp.keywords()) {
+                        kwRoot = handler.deleteKeyword(kwRoot, key, did);
                     }
                     System.out.printf("Record with ID %d successfully deleted "
                         + "from the database\n", did);
