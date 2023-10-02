@@ -172,9 +172,8 @@ public class CommandHandler {
      * @return the seminar object being searched for or null if not found
      */
     public Seminar searchId(IdBST root, int id) {
-        if (root == null) {
+        if (root == null)
             return null;
-        }
         if (root.getId() == id) {
             return root.getSem();
         }
@@ -201,9 +200,8 @@ public class CommandHandler {
      */
     public String searchCost(CostBST root, int low, int high) {
         visitCount++;
-        if (root == null) {
+        if (root == null)
             return "";
-        }
         if (root.getCost() > high) {
             return searchCost(root.getLeft(), low, high);
         }
@@ -233,9 +231,8 @@ public class CommandHandler {
      */
     public String searchDate(DateBST root, String low, String high) {
         visitCount++;
-        if (root == null) {
+        if (root == null)
             return "";
-        }
         int lowComp = low.compareTo(root.getDate());
         int highComp = high.compareTo(root.getDate());
         if (lowComp > 0) {
@@ -265,10 +262,8 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchKeyword(KeywordBST root, String keyword) {
-        if (root == null) {
+        if (root == null)
             return "";
-        }
-        visitCount++;
         int strComp = keyword.compareTo(root.getKeyword());
         if (strComp < 0) {
             return searchKeyword(root.getLeft(), keyword);
