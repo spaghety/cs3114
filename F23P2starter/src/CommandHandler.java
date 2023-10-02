@@ -8,6 +8,8 @@
 public class CommandHandler {
 
     private int visitCount; // Visited nodes
+    private int nodeCount; // Nodes in ID, Cost, Date BSTs
+    private int keywordCount; // Nodes in KeywordBST
 
     /**
      * Empty constructor
@@ -19,12 +21,32 @@ public class CommandHandler {
 
 
     /**
-     * Gets current count of visited nodes 
+     * Gets current count of visited nodes
      * 
      * @return current count
      */
     public int getCount() {
         return visitCount;
+    }
+
+
+    /**
+     * Gets current count of nodes in ID, Cost, Date BSTs
+     * 
+     * @return current count
+     */
+    public int getNodeCount() {
+        return nodeCount;
+    }
+
+
+    /**
+     * Gets current count of nodes in KeywordBST
+     * 
+     * @return current count
+     */
+    public int getKeywordCount() {
+        return keywordCount;
     }
 
 
