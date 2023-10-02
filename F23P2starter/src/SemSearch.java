@@ -47,37 +47,37 @@ public class SemSearch {
         CostBST costRoot = null;
         KeywordBST kwRoot = null;
         DateBST dateRoot = null;
-        int id;
-        String courseName;
-        String date;
-        int length;
-        short x;
-        short y;
-        int cost;
-        String desc;
+//        int id;
+//        String courseName;
+//        String date;
+//        int length;
+//        short x;
+//        short y;
+//        int cost;
+//        String desc;
         while (sc.hasNextLine()) {
-            String[] tags;
+//            String[] tags;
             command = sc.nextLine().trim().split("\\s+");
             if (command.length < 2) // Invalid command
                 continue;
             switch (command[0].toLowerCase()) {
                 case "insert":// Execute to insert new seminar
-                    id = Integer.parseInt(command[1]);
-                    courseName = sc.nextLine();
-                    date = sc.next();
-                    length = sc.nextInt();
-                    x = (short)sc.nextInt();
-                    y = (short)sc.nextInt();
+                    int id = Integer.parseInt(command[1]);
+                    String courseName = sc.nextLine();
+                    String date = sc.next();
+                    int length = sc.nextInt();
+                    short x = (short)sc.nextInt();
+                    short y = (short)sc.nextInt();
                     // Bad x, y coordinates
                     if (x < 0 || y < 0 || x >= worldSize || y >= worldSize) {
                         System.out.printf("Insert FAILED - Bad x, y coordinates"
                             + ": %d, %d\n", x, y);
                         break;
                     }
-                    cost = sc.nextInt();
+                    int cost = sc.nextInt();
                     sc.nextLine();
-                    tags = sc.nextLine().trim().split("\\s+");
-                    desc = sc.nextLine().trim();
+                    String[] tags = sc.nextLine().trim().split("\\s+");
+                    String desc = sc.nextLine().trim();
                     if (handler.searchId(idRoot, id) == null) {
                         Seminar sem = new Seminar(id, courseName, date, length,
                             x, y, cost, tags, desc);
