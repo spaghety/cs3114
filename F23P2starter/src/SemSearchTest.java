@@ -68,6 +68,26 @@ public class SemSearchTest extends TestCase {
 
 
     /**
+     * Tests insert when coordinates are bad
+     */
+    public void testInsertBadCoord() {
+        System.setOut(new PrintStream(out));
+        try {
+            SemSearch.main(new String[] { "128", "insert bad coord.txt" });
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String content = "Insert FAILED - Bad x, y coordinates: -10, 10\n"
+            + "Insert FAILED - Bad x, y coordinates: 10, -10\n"
+            + "Insert FAILED - Bad x, y coordinates: 128, 10\n"
+            + "Insert FAILED - Bad x, y coordinates: 10, 128\n";
+        assertEquals(content, out.toString());
+        System.setOut(stdout);
+    }
+
+
+    /**
      * Tests print
      * 
      * @throws FileNotFoundException
