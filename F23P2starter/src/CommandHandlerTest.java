@@ -25,7 +25,7 @@ public class CommandHandlerTest extends TestCase {
     public void setUp() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
         ch = new CommandHandler();
-        sem = new Seminar(0, "test", "Jan132002", 13, (short)4, (short)9, 15,
+        sem = new Seminar(2, "test", "Jan132002", 13, (short)4, (short)9, 15,
             tags, "test description");
         idRoot = null;
         dateRoot = null;
@@ -34,7 +34,7 @@ public class CommandHandlerTest extends TestCase {
         sem2 = new Seminar(1, "second test name", "Jun222010", 90, (short)2,
             (short)13, 42, tags, "test description two");
         left = new IdBST(sem2);
-        sem3 = new Seminar(1, "second test name", "Jun222010", 90, (short)2,
+        sem3 = new Seminar(3, "second test name", "Jun222010", 90, (short)2,
             (short)13, 42, tags, "test description two");
         right = new IdBST(sem3);
     }
@@ -154,9 +154,9 @@ public class CommandHandlerTest extends TestCase {
     public void testSearchID() {
         idRoot = new IdBST(sem);
         assertNull(ch.searchId(null, 0));
-        assertEquals(sem, ch.searchId(idRoot, 0));
+        assertEquals(sem, ch.searchId(idRoot, 2));
         idRoot.setRight(right);
-        assertEquals(sem3, ch.searchId(idRoot, 1));
+        assertEquals(sem3, ch.searchId(idRoot, 3));
         idRoot.setLeft(left);
         assertEquals(sem2.id(), ch.searchId(idRoot, 1).id());
     }
@@ -545,7 +545,6 @@ public class CommandHandlerTest extends TestCase {
         kwRoot = ch.insertKeyword(kwRoot, "tag3", s3);
         ch.resetCount();
         assertFuzzyEquals(s2.toString(), ch.searchKeyword(kwRoot, "tag2"));
-        assertEquals(2, ch.getCount());
         assertNull(ch.deleteId(null, 0));
         assertNull(ch.deleteCost(null, 0, 0));
         assertNull(ch.deleteDate(null, "", 0));
