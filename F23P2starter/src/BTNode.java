@@ -1,6 +1,9 @@
 /**
+ * The node class for Bintree
+ * 
  * @author Phillip Jordan (alexj14)
- *
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.10.05
  */
 public class BTNode {
     private int spanRadius;
