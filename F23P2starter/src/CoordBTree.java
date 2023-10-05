@@ -28,7 +28,9 @@ public class CoordBTree {
      *            new Seminar
      * @return modified root node
      */
-    private BTNode insertHelper(BTNode rt, Seminar sem) {
+    private BTNode insertHelper(BTNode root, Seminar sem) {
+//        System.out.println("ID: " + sem.id());
+        BTNode rt = root;
         if (rt.leaf() == true) {
             if (rt.sem() == null) {
                 rt.setSem(sem);
@@ -38,20 +40,23 @@ public class CoordBTree {
                 int newRad = rt.rad();
                 if (!rt.x())
                     newRad /= 2;
+//                System.out.println(newRad);
                 rt.setLeft(new BTNode(newRad, rt.dscr() - newRad, !rt.x()));
                 rt.setRight(new BTNode(newRad, rt.dscr() + newRad, !rt.x()));
                 rt = insertHelper(rt, rt.sem());
-                rt = insertHelper(rt, sem);
+//                rt = insertHelper(rt, sem);
             }
         }
         else {
             if (rt.x()) {
+//                System.out.println("\tX: " + sem.x() + ", " + rt.dscr());
                 if (sem.x() <= rt.dscr())
                     rt.setLeft(insertHelper(rt.left(), sem));
                 else
                     rt.setRight(insertHelper(rt.right(), sem));
             }
             else {
+//                System.out.println("\tY: " + sem.y() + ", " + rt.dscr());
                 if (sem.y() <= rt.dscr())
                     rt.setLeft(insertHelper(rt.left(), sem));
                 else
@@ -72,7 +77,7 @@ public class CoordBTree {
     public boolean insert(Seminar sem) {
         int x = sem.x();
         int y = sem.y();
-        if (x > worldSize || y > worldSize || x < 0 || y < 0)
+        if (x >= worldSize || y >= worldSize || x < 0 || y < 0)
             return false;
         root = insertHelper(root, sem);
         return true;
