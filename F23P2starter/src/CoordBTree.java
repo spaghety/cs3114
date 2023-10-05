@@ -7,78 +7,74 @@
  * @version 2023.10.03
  */
 public class CoordBTree {
-    private CoordBTree leftChild;
-    private CoordBTree rightChild;
-    private Seminar sem;
-    private int wSize;
-    private boolean isLeaf;
+    private BTNode root;
+    private int count;
+    private int worldSize;
 
-    /**
-     * Constructor
-     * 
-     * @param worldSize
-     *            The size of the world
-     */
-    public CoordBTree(int worldSize) {
-        leftChild = null;
-        rightChild = null;
-        sem = null;
-        wSize = worldSize;
-        isLeaf = true;
+    public CoordBTree(int size) {
+        worldSize = size;
+        int worldRad = (int)size / 2;
+        root = new BTNode(worldRad, worldRad, true);
+        count = 0;
     }
 
 
     /**
-     * Insert X
+     * recursive insert helper method to insert new seminars by coordinates
      * 
-     * @param newSem
-     *            New Seminar object
-     * @param owSize
-     *            Some size
+     * @param rt
+     *            root node
+     * @param sem
+     *            new Seminar
+     * @return modified root node
      */
-    public void insertX(Seminar newSem, int owSize) {
-        if (newSem == null) {
-            return;
-        }
-        if (sem == null && isLeaf == true) {
-            sem = newSem;
-            leftChild = new CoordBTree(owSize / 2);
-            rightChild = new CoordBTree(owSize / 2);
-            return;
-        }
-        else {
-            if (newSem.x() % (owSize * 2) < owSize) {
-                leftChild.insertY(newSem, wSize);
+    private BTNode insertHelper(BTNode rt, Seminar sem) {
+        if (rt.leaf() == true) {
+            if (rt.sem() == null) {
+                rt.setSem(sem);
             }
             else {
-                rightChild.insertY(newSem, wSize);
+                rt.toggleLeaf();
+                int newRad = rt.rad();
+                if (!rt.x())
+                    newRad /= 2;
+                rt.setLeft(new BTNode(newRad, rt.dscr() - newRad, !rt.x()));
+                rt.setRight(new BTNode(newRad, rt.dscr() + newRad, !rt.x()));
+                rt = insertHelper(rt, rt.sem());
+                rt = insertHelper(rt, sem);
             }
         }
+        else {
+            if (rt.x()) {
+                if (sem.x() <= rt.dscr())
+                    rt.setLeft(insertHelper(rt.left(), sem));
+                else
+                    rt.setRight(insertHelper(rt.right(), sem));
+            }
+            else {
+                if (sem.y() <= rt.dscr())
+                    rt.setLeft(insertHelper(rt.left(), sem));
+                else
+                    rt.setRight(insertHelper(rt.right(), sem));
+            }
+        }
+        return rt;
     }
 
 
     /**
-     * Insert Y
+     * Public insert method used by the parser
      * 
-     * @param newSem
-     *            New Seminar object
-     * @param owSize
-     *            Some size
+     * @param sem
+     *            new Seminar object to insert
+     * @return true if successful, false if not
      */
-    public void insertY(Seminar newSem, int owSize) {
-        if (newSem == null) {
-            return;
-        }
-        if (sem == null && isLeaf == true) {
-            sem = newSem;
-        }
-        else {
-            if (newSem.x() % (owSize * 2) < owSize) {
-                leftChild.insertX(newSem, wSize);
-            }
-            else {
-                rightChild.insertX(newSem, wSize);
-            }
-        }
+    public boolean insert(Seminar sem) {
+        int x = sem.x();
+        int y = sem.y();
+        if (x > worldSize || y > worldSize || x < 0 || y < 0)
+            return false;
+        root = insertHelper(root, sem);
+        return true;
     }
 }

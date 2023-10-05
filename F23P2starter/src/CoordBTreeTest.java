@@ -8,7 +8,7 @@ import student.TestCase;
  * @version 2023.10.03
  */
 public class CoordBTreeTest extends TestCase {
-    private CoordBTree coordBTree;
+    private CoordBTree bt;
     private Seminar sem;
     private int wSize;
 
@@ -16,30 +16,41 @@ public class CoordBTreeTest extends TestCase {
      * Sets up the tests following
      */
     public void setUp() {
-        wSize = 2;
-        coordBTree = new CoordBTree(wSize);
+        wSize = 8;
+        bt = new CoordBTree(wSize);
 
         String[] tags1 = new String[] { "tag1", "tag2", "tag3" };
-        sem = new Seminar(1, "example", "Oct30", 90, (short)2, (short)14, 23,
+        sem = new Seminar(1, "example", "Oct30", 90, (short)2, (short)6, 23,
             tags1, "Test description");
     }
 
 
-    /**
-     * Tests insertX
-     */
-    public void testInsertX() {
-        coordBTree.insertX(null, wSize);
-        coordBTree.insertX(sem, wSize);
-        coordBTree.insertX(sem, wSize);
-    }
-
-
-    /**
-     * Tests insertY
-     */
-    public void testInsertY() {
-        coordBTree.insertY(null, wSize);
-        coordBTree.insertY(sem, wSize * 8);
+    public void testInsert() {
+        String[] tags = new String[] { "tag1", "tag2", "tag3" };
+        Seminar falseSem = new Seminar(1, "test", "0", 10, (short)-1, (short)4,
+            12, tags, "desc");
+        Seminar falseSem2 = new Seminar(1, "test", "0", 10, (short)30000,
+            (short)6, 12, tags, "desc");
+        Seminar falseSem3 = new Seminar(1, "test", "0", 10, (short)2, (short)-1,
+            12, tags, "desc");
+        Seminar falseSem4 = new Seminar(1, "test", "0", 10, (short)2,
+            (short)30000, 12, tags, "desc");
+        assertFalse(bt.insert(falseSem));
+        assertFalse(bt.insert(falseSem2));
+        assertFalse(bt.insert(falseSem3));
+        assertFalse(bt.insert(falseSem4));
+        Seminar trueSem = new Seminar(1, "example", "Oct30", 90, (short)2,
+            (short)2, 2, tags, "Test description");
+        Seminar trueSem2 = new Seminar(1, "example", "Oct30", 90, (short)2,
+            (short)1, 2, tags, "Test description");
+        Seminar trueSem3 = new Seminar(1, "example", "Oct30", 90, (short)6,
+            (short)1, 2, tags, "Test description");
+        Seminar trueSem4 = new Seminar(1, "example", "Oct30", 90, (short)6,
+            (short)1, 7, tags, "Test description");
+        assertTrue(bt.insert(sem));
+        assertTrue(bt.insert(trueSem));
+        //assertTrue(bt.insert(trueSem2));
+        //assertTrue(bt.insert(trueSem3));
+        //assertTrue(bt.insert(trueSem4));
     }
 }
