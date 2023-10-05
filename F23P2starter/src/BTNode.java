@@ -26,6 +26,7 @@ public class BTNode {
      */
     public BTNode(int rad, int dscr, boolean X) {
         spanRadius = rad;
+        disc = dscr;
         isX = X;
         sem = null;
         leftChild = null;
