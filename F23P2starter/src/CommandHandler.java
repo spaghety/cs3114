@@ -41,9 +41,8 @@ public class CommandHandler {
      * 
      * @return current count
      */
-    public int getNodeCount() {
+    public int getNodeCount() 
         return nodeCount;
-    }
 
 
     /**
@@ -151,12 +150,10 @@ public class CommandHandler {
             keywordCount++;
             return new KeywordBST(kword, newSem);
         }
-        if (kword.compareTo(rt.getKeyword()) <= 0) {
+        if (kword.compareTo(rt.getKeyword()) <= 0)
             rt.setLeft(insertKeyword(rt.getLeft(), kword, newSem));
-        }
-        else {
+        else
             rt.setRight(insertKeyword(rt.getRight(), kword, newSem));
-        }
         return rt;
     }
 
@@ -174,15 +171,12 @@ public class CommandHandler {
     public Seminar searchId(IdBST root, int id) {
         if (root == null)
             return null;
-        if (root.getId() == id) {
+        if (root.getId() == id)
             return root.getSem();
-        }
-        else if (id < root.getId()) {
+        else if (id < root.getId())
             return searchId(root.getLeft(), id);
-        }
-        else {
+        else
             return searchId(root.getRight(), id);
-        }
     }
 
 
@@ -202,12 +196,10 @@ public class CommandHandler {
         visitCount++;
         if (root == null)
             return "";
-        if (root.getCost() > high) {
+        if (root.getCost() > high)
             return searchCost(root.getLeft(), low, high);
-        }
-        else if (root.getCost() < low) {
+        else if (root.getCost() < low)
             return searchCost(root.getRight(), low, high);
-        }
         else {
             String result = searchCost(root.getLeft(), low, high);
             result += root.getSem().toString() + "\n";
@@ -235,12 +227,10 @@ public class CommandHandler {
             return "";
         int lowComp = low.compareTo(root.getDate());
         int highComp = high.compareTo(root.getDate());
-        if (lowComp > 0) {
+        if (lowComp > 0)
             return searchDate(root.getRight(), low, high);
-        }
-        else if (highComp < 0) {
+        else if (highComp < 0)
             return searchDate(root.getLeft(), low, high);
-        }
         else {
             String result = searchDate(root.getLeft(), low, high);
             result += root.getSem() + "\n";
@@ -265,12 +255,10 @@ public class CommandHandler {
         if (root == null)
             return "";
         int strComp = keyword.compareTo(root.getKeyword());
-        if (strComp < 0) {
+        if (strComp < 0)
             return searchKeyword(root.getLeft(), keyword);
-        }
-        else if (strComp > 0) {
+        else if (strComp > 0)
             return searchKeyword(root.getRight(), keyword);
-        }
         else {
             String result = searchKeyword(root.getLeft(), keyword);
             result += root.printSem() + "\n";
@@ -320,12 +308,10 @@ public class CommandHandler {
     public IdBST deleteId(IdBST rt, int id) {
         if (rt == null)
             return null;
-        if (id < rt.getId()) {
+        if (id < rt.getId())
             rt.setLeft(deleteId(rt.getLeft(), id));
-        }
-        else if (id > rt.getId()) {
+        else if (id > rt.getId())
             rt.setRight(deleteId(rt.getRight(), id));
-        }
         else {
             if (rt.getLeft() == null)
                 return rt.getRight();
@@ -383,9 +369,8 @@ public class CommandHandler {
     public CostBST deleteCost(CostBST rt, int cost, int id) {
         if (rt == null)
             return null;
-        if (cost > rt.getCost()) {
+        if (cost > rt.getCost())
             rt.setRight(deleteCost(rt.getRight(), cost, id));
-        }
         else if (id == rt.getSem().id()) {
             if (rt.getLeft() == null)
                 return rt.getRight();
@@ -395,9 +380,8 @@ public class CommandHandler {
                 rt.setLeft(removeMaxCost(rt.getLeft()));
             }
         }
-        else {
+        else
             rt.setLeft(deleteCost(rt.getLeft(), cost, id));
-        }
         return rt;
     }
 
@@ -444,9 +428,8 @@ public class CommandHandler {
     public DateBST deleteDate(DateBST rt, String date, int id) {
         if (rt == null)
             return null;
-        if (date.compareTo(rt.getDate()) > 0) {
+        if (date.compareTo(rt.getDate()) > 0)
             rt.setRight(deleteDate(rt.getRight(), date, id));
-        }
         else if (rt.getSem().id() == id) {
             if (rt.getLeft() == null)
                 return rt.getRight();
@@ -456,9 +439,8 @@ public class CommandHandler {
                 rt.setLeft(removeMaxDate(rt.getLeft()));
             }
         }
-        else {
+        else
             rt.setLeft(deleteDate(rt.getLeft(), date, id));
-        }
         return rt;
     }
 
@@ -506,9 +488,8 @@ public class CommandHandler {
     public KeywordBST deleteKeyword(KeywordBST rt, String kw, int id) {
         if (rt == null)
             return null;
-        if (kw.compareTo(rt.getKeyword()) > 0) {
+        if (kw.compareTo(rt.getKeyword()) > 0)
             rt.setRight(deleteKeyword(rt.getRight(), kw, id));
-        }
         else if (rt.getSem().id() == id) {
             if (rt.getLeft() == null)
                 return rt.getRight();
@@ -518,9 +499,8 @@ public class CommandHandler {
                 rt.setLeft(removeMaxKeyword(rt.getLeft()));
             }
         }
-        else {
+        else
             rt.setLeft(deleteKeyword(rt.getLeft(), kw, id));
-        }
         return rt;
     }
 
