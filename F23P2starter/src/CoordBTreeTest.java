@@ -47,10 +47,13 @@ public class CoordBTreeTest extends TestCase {
             (short)1, 2, tags, "Test description");
         Seminar trueSem4 = new Seminar(4, "example", "Oct30", 90, (short)6,
             (short)1, 7, tags, "Test description");
+        Seminar trueSem5 = new Seminar(4, "example", "Oct30", 90, (short)6,
+            (short)7, 7, tags, "Test description");
         assertTrue(bt.insert(sem));
         assertTrue(bt.insert(trueSem));
         assertTrue(bt.insert(trueSem2));
         assertTrue(bt.insert(trueSem3));
         assertTrue(bt.insert(trueSem4));
+        assertTrue(bt.insert(trueSem5));
     }
 }

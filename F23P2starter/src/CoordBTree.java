@@ -20,6 +20,32 @@ public class CoordBTree {
 
 
     /**
+     * Gets the root node
+     * 
+     * @return root
+     */
+    public BTNode getRoot() {
+        return root;
+    }
+
+    
+    /**
+     * Get the Bintree printout
+     * 
+     * @param rt
+     *            root node
+     * @param indent
+     *            indent for the next call
+     * @return string to print
+     */
+    public String print(String indent) {
+        String result = "";
+        String nextIndent = indent + "  ";
+
+        return result;
+    }
+
+    /**
      * recursive insert helper method to insert new seminars by coordinates
      * 
      * @param rt
@@ -29,7 +55,7 @@ public class CoordBTree {
      * @return modified root node
      */
     private BTNode insertHelper(BTNode root, Seminar sem) {
-//        System.out.println("ID: " + sem.id());
+        System.out.println("ID: " + sem.id());
         BTNode rt = root;
         if (rt.leaf() == true) {
             if (rt.sem() == null) {
@@ -40,23 +66,24 @@ public class CoordBTree {
                 int newRad = rt.rad();
                 if (!rt.x())
                     newRad /= 2;
-//                System.out.println(newRad);
+                System.out.println("Radius: " + newRad);
                 rt.setLeft(new BTNode(newRad, rt.dscr() - newRad, !rt.x()));
                 rt.setRight(new BTNode(newRad, rt.dscr() + newRad, !rt.x()));
-                rt = insertHelper(rt, rt.sem());
-//                rt = insertHelper(rt, sem);
+                BTNode temp = insertHelper(rt, rt.sem());
+                if (rt != temp)
+                    rt = insertHelper(temp, sem);
             }
         }
         else {
             if (rt.x()) {
-//                System.out.println("\tX: " + sem.x() + ", " + rt.dscr());
+                System.out.println("\tX: " + sem.x() + ", " + rt.dscr());
                 if (sem.x() <= rt.dscr())
                     rt.setLeft(insertHelper(rt.left(), sem));
                 else
                     rt.setRight(insertHelper(rt.right(), sem));
             }
             else {
-//                System.out.println("\tY: " + sem.y() + ", " + rt.dscr());
+                System.out.println("\tY: " + sem.y() + ", " + rt.dscr());
                 if (sem.y() <= rt.dscr())
                     rt.setLeft(insertHelper(rt.left(), sem));
                 else
@@ -81,5 +108,10 @@ public class CoordBTree {
             return false;
         root = insertHelper(root, sem);
         return true;
+    }
+
+
+    public void search(int x, int y, int r) {
+
     }
 }
