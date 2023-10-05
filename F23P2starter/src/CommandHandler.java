@@ -41,8 +41,9 @@ public class CommandHandler {
      * 
      * @return current count
      */
-    public int getNodeCount() 
+    public int getNodeCount() {
         return nodeCount;
+    }
 
 
     /**
@@ -77,12 +78,10 @@ public class CommandHandler {
             nodeCount++;
             return new IdBST(newSem);
         }
-        if (newSem.id() < rt.getId()) {
+        if (newSem.id() < rt.getId())
             rt.setLeft(insertId(rt.getLeft(), newSem));
-        }
-        else {
+        else
             rt.setRight(insertId(rt.getRight(), newSem));
-        }
         return rt;
     }
 
@@ -99,12 +98,10 @@ public class CommandHandler {
     public CostBST insertCost(CostBST rt, Seminar newSem) {
         if (rt == null)
             return new CostBST(newSem);
-        if (newSem.cost() <= rt.getCost()) {
+        if (newSem.cost() <= rt.getCost())
             rt.setLeft(insertCost(rt.getLeft(), newSem));
-        }
-        else {
+        else
             rt.setRight(insertCost(rt.getRight(), newSem));
-        }
         return rt;
     }
 
@@ -121,12 +118,10 @@ public class CommandHandler {
     public DateBST insertDate(DateBST rt, Seminar newSem) {
         if (rt == null)
             return new DateBST(newSem);
-        if (newSem.date().compareTo(rt.getDate()) <= 0) {
+        if (newSem.date().compareTo(rt.getDate()) <= 0)
             rt.setLeft(insertDate(rt.getLeft(), newSem));
-        }
-        else {
+        else
             rt.setRight(insertDate(rt.getRight(), newSem));
-        }
         return rt;
     }
 
