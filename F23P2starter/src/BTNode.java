@@ -81,6 +81,16 @@ public class BTNode {
 
 
     /**
+     * Sets a node as internal node
+     */
+    public void setInternal() {
+        storedX = -1;
+        storedY = -1;
+        semList = null;
+    }
+
+
+    /**
      * Sets the seminar object
      * 
      * @param newSem
@@ -232,7 +242,6 @@ public class BTNode {
     public IdBST getList() {
         return semList;
     }
-
 
 
     /**
