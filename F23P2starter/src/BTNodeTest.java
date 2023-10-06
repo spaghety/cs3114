@@ -34,6 +34,7 @@ public class BTNodeTest extends TestCase {
         assertTrue(flyWeight.leaf());
         assertEquals(-1, flyWeight.getX());
         assertEquals(-1, flyWeight.getY());
+        assertEquals(0, flyWeight.getCount());
     }
 
 

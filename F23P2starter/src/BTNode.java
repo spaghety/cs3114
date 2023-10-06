@@ -76,6 +76,7 @@ public class BTNode {
         isLeaf = true;
         storedX = -1;
         storedY = -1;
+        count = 0;
     }
 
 
