@@ -47,6 +47,7 @@ public class SemSearch {
         CostBST costRoot = null;
         KeywordBST kwRoot = null;
         DateBST dateRoot = null;
+        CoordBTree locBT = new CoordBTree(worldSize);
 //        int id;
 //        String courseName;
 //        String date;
@@ -89,6 +90,7 @@ public class SemSearch {
                                 kwRoot = handler.insertKeyword(kwRoot, key,
                                     sem);
                             }
+//                            locBT.insert(sem);
                             System.out.printf(
                                 "Successfully inserted record with ID %d\n"
                                     + sem.toString() + "\n", id);
@@ -134,8 +136,7 @@ public class SemSearch {
                             break;
                         case "location":
                             System.out.println("Location Tree:");
-                            // implementation
-                            System.out.println();
+                            System.out.print(locBT.toString());
                             break;
                         case "cost":
                             System.out.println("Cost Tree:");
