@@ -19,7 +19,7 @@ public class BTNode {
     private int count;
 
     /**
-     * Constructor creates new
+     * Initializer changes node from a flywheel to a functional leaf node
      * 
      * @param rad
      *            half the size of the span of the node
@@ -30,7 +30,7 @@ public class BTNode {
      * @param xAxis
      *            true if discriminator is on x-axis, false if not
      */
-    public BTNode(int rad, int dscrX, int dscrY, boolean xAxis) {
+    public void initialize(int rad, int dscrX, int dscrY, boolean xAxis) {
         spanRadius = rad;
         discX = dscrX;
         discY = dscrY;
@@ -42,6 +42,40 @@ public class BTNode {
         storedX = -1;
         storedY = -1;
         count = 0;
+    }
+
+
+    /**
+     * Constructor initializes node with values
+     * 
+     * @param rad
+     *            half the size of the span of the node
+     * @param dscrX
+     *            x coordinate discriminator for this node
+     * @param dscrY
+     *            y coordinate discriminator for this node
+     * @param xAxis
+     *            true if discriminator is on x-axis, false if not
+     */
+    public BTNode(int rad, int dscrX, int dscrY, boolean xAxis) {
+        initialize(rad, dscrX, dscrY, xAxis);
+    }
+
+
+    /**
+     * Constructor initializes the node object as a flywheel
+     */
+    public BTNode() {
+        spanRadius = -1;
+        discX = -1;
+        discY = -1;
+        isX = false;
+        semList = null;
+        leftChild = null;
+        rightChild = null;
+        isLeaf = true;
+        storedX = -1;
+        storedY = -1;
     }
 
 
