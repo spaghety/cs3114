@@ -245,6 +245,7 @@ public class SemSearch {
                     for (String key : temp.keywords()) {
                         kwRoot = handler.deleteKeyword(kwRoot, key, did);
                     }
+                    locBT.remove(temp.x(), temp.y(), did);
                     System.out.printf("Record with ID %d successfully deleted "
                         + "from the database\n", did);
                     break;

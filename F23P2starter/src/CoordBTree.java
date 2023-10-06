@@ -328,4 +328,19 @@ public class CoordBTree {
         System.out.printf("%d nodes visited in this search\n", visit);
         visit = 0;
     }
+
+
+    /**
+     * Deletes a Seminar object from the bintree
+     * 
+     * @param x
+     *            x-coordinate
+     * @param y
+     *            y-coordinate
+     * @param did
+     *            ID of seminar
+     */
+    public void remove(int x, int y, int did) {
+        
+    }
 }
