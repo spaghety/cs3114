@@ -30,23 +30,6 @@ public class CoordBTree {
 
 
     /**
-     * Get the Bintree printout
-     * 
-     * @param rt
-     *            root node
-     * @param indent
-     *            indent for the next call
-     * @return string to print
-     */
-    public String print(String indent) {
-        String result = "";
-        String nextIndent = indent + "  ";
-
-        return result;
-    }
-
-
-    /**
      * recursive insert helper method to insert new seminars by coordinates
      * 
      * @param rt
