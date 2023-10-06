@@ -77,6 +77,7 @@ public class CoordBTree {
         if (rt == FLYWEIGHT) {
             rt = new BTNode();
             rt.add(sem);
+            return rt;
         }
 
         if (rt.leaf()) {
@@ -85,6 +86,7 @@ public class CoordBTree {
             }
             else {
                 IdBST curr = rt.getList();
+                rt.setInternal();
                 rt.toggleLeaf();
                 rt.setLeft(FLYWEIGHT);
                 rt.setRight(FLYWEIGHT);
