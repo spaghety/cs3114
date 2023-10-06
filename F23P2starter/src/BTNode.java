@@ -34,7 +34,7 @@ public class BTNode {
         spanRadius = rad;
         discX = dscrX;
         discY = dscrY;
-        isX = X;
+        isX = xAxis;
         semList = null;
         leftChild = null;
         rightChild = null;
