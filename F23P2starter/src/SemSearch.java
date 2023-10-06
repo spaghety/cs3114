@@ -227,7 +227,7 @@ public class SemSearch {
                             System.out.printf(
                                 "Seminars within %d units of %d, %d:\n", radius,
                                 ex, why);
-                            locBT.search(ex, why, radius);
+                            System.out.print(locBT.search(ex, why, radius));
                             break;
                     }
                     break;

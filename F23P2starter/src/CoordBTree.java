@@ -321,12 +321,14 @@ public class CoordBTree {
      * @param r
      *            radius
      */
-    public void search(int x, int y, int r) {
+    public String search(int x, int y, int r) {
 // System.out.println(worldSize);
         String result = searchHelp(root, x, y, r, worldSize, worldSize, 0, 0);
-        System.out.print(result);
-        System.out.printf("%d nodes visited in this search\n", visit);
+//        System.out.print(result);
+//        System.out.printf("%d nodes visited in this search\n", visit);
+        result += visit + " nodes visited in this search\n";
         visit = 0;
+        return result;
     }
 
 
@@ -341,6 +343,6 @@ public class CoordBTree {
      *            ID of seminar
      */
     public void remove(int x, int y, int did) {
-        
+        String searchResult = searchHelp(root, x, y, 0, worldSize, worldSize, 0, 0);
     }
 }
