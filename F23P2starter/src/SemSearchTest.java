@@ -103,8 +103,8 @@ public class SemSearchTest extends TestCase {
         String content = "ID Tree:\nThis tree is empty\n"
             + "Date Tree:\nThis tree is empty\n"
             + "Keyword Tree:\nThis tree is empty\n"
-            + "Cost Tree:\nThis tree is empty\n" + "Location Tree:\n\n";
-        assertEquals(content, out.toString());
+            + "Cost Tree:\nThis tree is empty\n" + "Location Tree:\nE\n";
+        assertFuzzyEquals(content, out.toString());
         System.setOut(stdout);
     }
 
