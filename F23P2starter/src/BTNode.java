@@ -15,7 +15,7 @@ public class BTNode {
     private BTNode leftChild;
     private BTNode rightChild;
     private boolean isLeaf;
-    private IdBST semList;
+    private IdBST semList; // Used as a linked list
     private int count;
 
     /**

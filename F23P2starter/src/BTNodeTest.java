@@ -39,12 +39,7 @@ public class BTNodeTest extends TestCase {
         assertTrue(left.x());
         assertEquals(32, left.rad());
         assertEquals(1, left.dscrX());
-<<<<<<< HEAD
-
-=======
         assertEquals(2, left.dscrY());
-        
->>>>>>> branch 'Project2' of https://github.com/spaghety/cs3114.git
         assertTrue(right.x());
         assertEquals(32, right.rad());
         assertEquals(6, right.dscrX());
