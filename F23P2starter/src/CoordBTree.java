@@ -114,6 +114,15 @@ public class CoordBTree {
     }
 
 
+    /**
+     * Helps print out the bintree recursively
+     * 
+     * @param rt
+     *            root node
+     * @param indent
+     *            indent size
+     * @return the print out
+     */
     private String toStringHelper(BTNode rt, String indent) {
         if (rt == null)
             return "";
@@ -136,11 +145,26 @@ public class CoordBTree {
     }
 
 
+    /**
+     * Prints out the bintree
+     * 
+     * @return the print output
+     */
     public String toString() {
         return toStringHelper(root, "");
     }
 
 
+    /**
+     * Search method
+     * 
+     * @param x
+     *            x-coordinate
+     * @param y
+     *            y-coordinate
+     * @param r
+     *            radius
+     */
     public void search(int x, int y, int r) {
 
     }
