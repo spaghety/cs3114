@@ -20,16 +20,18 @@ public class BTNode {
      * 
      * @param rad
      *            half the size of the span of the node
-     * @param dscr
-     *            coordinate discriminator for this node
-     * @param X
+     * @param dscrX
+     *            x coordinate discriminator for this node
+     * @param dscrY
+     *            y coordinate discriminator for this node
+     * @param xAxis
      *            true if discriminator is on x-axis, false if not
      */
-    public BTNode(int rad, int dscrX, int dscrY, boolean X) {
+    public BTNode(int rad, int dscrX, int dscrY, boolean xAxis) {
         spanRadius = rad;
         discX = dscrX;
         discY = dscrY;
-        isX = X;
+        isX = xAxis;
         sem = null;
         leftChild = null;
         rightChild = null;
@@ -111,13 +113,20 @@ public class BTNode {
 
 
     /**
-     * Gets the discriminator value
+     * Gets the x discriminator value
      * 
      * @return the value on the x or y axis to divide subsequent nodes by
      */
     public int dscrX() {
         return discX;
     }
+
+
+    /**
+     * Gets the y discriminator value
+     * 
+     * @return the value on the x or y axis to divide subsequent nodes by
+     */
     public int dscrY() {
         return discY;
     }

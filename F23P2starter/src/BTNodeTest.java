@@ -29,20 +29,22 @@ public class BTNodeTest extends TestCase {
         assertNull(node.right());
         assertNull(node.sem());
 
-        BTNode left = new BTNode(32, 1, 1, true);
+        BTNode left = new BTNode(32, 1, 2, true);
         node.setLeft(left);
         assertEquals(left, node.left());
-        BTNode right = new BTNode(32, 6, 6, true);
+        BTNode right = new BTNode(32, 6, 3, true);
         node.setRight(right);
         assertEquals(right, node.right());
 
         assertTrue(left.x());
         assertEquals(32, left.rad());
         assertEquals(1, left.dscrX());
+        assertEquals(2, left.dscrY());
         
         assertTrue(right.x());
         assertEquals(32, right.rad());
         assertEquals(6, right.dscrX());
+        assertEquals(3, right.dscrY());
     }
 
 
