@@ -324,8 +324,8 @@ public class CoordBTree {
     public String search(int x, int y, int r) {
 // System.out.println(worldSize);
         String result = searchHelp(root, x, y, r, worldSize, worldSize, 0, 0);
-//        System.out.print(result);
-//        System.out.printf("%d nodes visited in this search\n", visit);
+// System.out.print(result);
+// System.out.printf("%d nodes visited in this search\n", visit);
         result += visit + " nodes visited in this search\n";
         visit = 0;
         return result;
@@ -341,8 +341,15 @@ public class CoordBTree {
      *            y-coordinate
      * @param did
      *            ID of seminar
+     * @retrun true if successfully found and removed, false if not
      */
-    public void remove(int x, int y, int did) {
-        String searchResult = searchHelp(root, x, y, 0, worldSize, worldSize, 0, 0);
+    public boolean remove(int x, int y, int did) {
+        String searchResult = search(x, y, 0);
+        String needle = "Found a record with key value " + did;
+        if (searchResult.contains(needle)) {
+            // implement remove
+            return true;
+        }
+        return false;
     }
 }
