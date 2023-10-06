@@ -48,16 +48,16 @@ public class SemSearch {
         KeywordBST kwRoot = null;
         DateBST dateRoot = null;
         CoordBTree locBT = new CoordBTree(worldSize);
-//        int id;
-//        String courseName;
-//        String date;
-//        int length;
-//        short x;
-//        short y;
-//        int cost;
-//        String desc;
+// int id;
+// String courseName;
+// String date;
+// int length;
+// short x;
+// short y;
+// int cost;
+// String desc;
         while (sc.hasNextLine()) {
-//            String[] tags;
+// String[] tags;
             command = sc.nextLine().trim().split("\\s+");
             if (command.length < 2) // Invalid command
                 continue;
@@ -220,8 +220,14 @@ public class SemSearch {
                             handler.resetCount();
                             break;
                         case "location":
-                            // location search implementation
-                            handler.resetCount();
+                            // pardon the variable names since we're running out
+                            int radius = Integer.parseInt(command[4]);
+                            int ex = Integer.parseInt(command[2]);
+                            int why = Integer.parseInt(command[3]);
+                            System.out.printf(
+                                "Seminars within %d units of %d, %d:\n", radius,
+                                ex, why);
+                            locBT.search(ex, why, radius);
                             break;
                     }
                     break;
