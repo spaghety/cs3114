@@ -213,6 +213,14 @@ public class CoordBTree {
     }
 
 
+    
+    public BTNode searchHelp(BTNode rt, int x, int y, int r) {
+        if (rt == null)
+            return null;
+        
+        return null;
+    }
+    
     /**
      * Search method
      * 
@@ -224,6 +232,6 @@ public class CoordBTree {
      *            radius
      */
     public void search(int x, int y, int r) {
-
+        
     }
 }
