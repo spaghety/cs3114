@@ -118,62 +118,6 @@ public class CoordBTree {
 
 
     /**
-     * recursive insert helper method to insert new seminars by coordinates
-     * 
-     * @param rt
-     *            root node
-     * @param sem
-     *            new Seminar
-     * @return modified root node
-     */
-    private BTNode insertHelper(BTNode rt, Seminar sem) {
-        if (rt.leaf()) {
-            if (rt.isEmpty() || (rt.getX() == sem.x() && rt.getY() == sem
-                .y())) {
-                rt.add(sem);
-            }
-            else {
-                rt.toggleLeaf();
-                int newRad = (int)rt.rad() / 2;
-                if (rt.x()) {
-                    rt.setLeft(new BTNode(rt.rad(), rt.dscrX() - newRad, rt
-                        .dscrY(), false));
-                    rt.setRight(new BTNode(rt.rad(), rt.dscrX() + newRad, rt
-                        .dscrY(), false));
-                }
-                else {
-                    rt.setLeft(new BTNode(newRad, rt.dscrX(), rt.dscrY()
-                        - newRad, true));
-                    rt.setRight(new BTNode(newRad, rt.dscrX(), rt.dscrY()
-                        + newRad, true));
-                }
-                rt = insertHelper(rt, sem);
-                IdBST curr = rt.getList();
-                while (curr != null) {
-                    rt = insertHelper(rt, curr.getSem());
-                    curr = curr.getLeft();
-                }
-            }
-        }
-        else {
-            if (rt.x()) {
-                if (sem.x() <= rt.dscrX())
-                    rt.setLeft(insertHelper(rt.left(), sem));
-                else
-                    rt.setRight(insertHelper(rt.right(), sem));
-            }
-            else {
-                if (sem.y() <= rt.dscrY())
-                    rt.setLeft(insertHelper(rt.left(), sem));
-                else
-                    rt.setRight(insertHelper(rt.right(), sem));
-            }
-        }
-        return rt;
-    }
-
-
-    /**
      * Public insert method used by the parser
      * 
      * @param sem
@@ -256,7 +200,8 @@ public class CoordBTree {
      * @return The result
      */
     public int minDistToBox2(int px, int py, int l, int r, int u, int d) {
-        int dx = 0, dy = 0;
+        int dx = 0;
+        int dy = 0;
         if (px <= l)
             dx = l - px;
         else if (px > r)
@@ -375,7 +320,7 @@ public class CoordBTree {
      *            radius
      */
     public void search(int x, int y, int r) {
-//        System.out.println(worldSize);
+// System.out.println(worldSize);
         String result = searchHelp(root, x, y, r, worldSize, worldSize, 0, 0);
         System.out.print(result);
         System.out.printf("%d nodes visited in this search\n", visit);
