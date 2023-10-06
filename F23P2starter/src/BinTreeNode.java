@@ -4,7 +4,7 @@
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- *
+ * @version 2023.10.05
  */
 public interface BinTreeNode {
 
@@ -55,7 +55,7 @@ public interface BinTreeNode {
     /**
      * This method checks if the list of seminars is empty
      * 
-     * @return
+     * @return true if empty, false if not
      */
     public boolean isEmpty();
 
