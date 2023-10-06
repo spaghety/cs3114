@@ -234,6 +234,7 @@ public class BTNode {
     }
 
 
+
     /**
      * Gets the number of seminar objects stored in this node
      * 

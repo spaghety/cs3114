@@ -76,126 +76,28 @@ public class CoordBTree {
 
         if (rt == FLYWEIGHT) {
             rt = new BTNode();
+            rt.add(sem);
         }
 
         if (rt.leaf()) {
-            if (rt.getX() == sem.x() && rt.getY() == sem.y() || rt.isEmpty()) {
+            if (rt.getX() == sem.x() && rt.getY() == sem.y()) {
                 rt.add(sem);
             }
             else {
                 IdBST curr = rt.getList();
-                Seminar oldSem = curr.getSem();
                 rt.toggleLeaf();
                 rt.setLeft(FLYWEIGHT);
                 rt.setRight(FLYWEIGHT);
-                if (sizeX == sizeY) {
-                    if (oldSem.x() <= dcx) {
-                        rt.setLeft(new BTNode());
-                        rt.left().setList(curr);
-                    }
-                    else {
-                        rt.setRight(new BTNode());
-                        rt.right().setList(curr);
-                    }
-
-                    if (sem.x() <= dcx) {
-                        rt = insertHelper2(rt.left(), sem, sizeX / 2, sizeY, l,
-                            u);
-                    }
-                    else {
-                        rt = insertHelper2(rt.right(), sem, sizeX / 2, sizeY,
-                            dcx, u);
-                    }
+                while (curr != null) {
+                    rt = insertHelper2(rt, curr.getSem(), sizeX, sizeY, l, u);
+                    curr = curr.getLeft();
                 }
-                else {
-                    if (oldSem.x() <= dcy) {
-                        rt.setLeft(new BTNode());
-                        rt.left().setList(curr);
-                    }
-                    else {
-                        rt.setRight(new BTNode());
-                        rt.right().setList(curr);
-                    }
-                    if (sem.y() <= dcy) {
-                        rt = insertHelper2(rt.left(), sem, sizeX / 2, sizeY, l,
-                            u);
-                    }
-                    else {
-                        rt = insertHelper2(rt.right(), sem, sizeX / 2, sizeY,
-                            dcx, u);
-                    }
-                }
-                // if (curr.getSem().x() <= dcx) {
-                // rt.setLeft(insertHelper2(rt.left(), curr.getSem(), sizeX
-                // / 2, sizeY, l, u));
-                // rt = insertHelper2(rt.left(), sem, sizeX / 2, sizeY, l,
-                // u);
-                // }
-                // else {
-                // rt.setLeft(new BTNode());
-                // rt.left().add(sem);
-                // rt.setRight(new BTNode());
-                // rt.right().setList(curr);
-                // return rt.left();
-                // }
-                // if (curr.getSem().x() <= dcx) {
-                // rt.setRight(new BTNode());
-                // rt.right().add(sem);
-                // rt.setLeft(rt);
-                // rt.left().setList(curr);
-                // return rt.right();
-                // }
-                // else {
-                // rt.setRight(insertHelper2(rt.right(), curr.getSem(),
-                // sizeX / 2, sizeY, dcx, u));
-                // rt = insertHelper2(rt.right(), sem, sizeX / 2, sizeY,
-                // dcx, u);
-                // }
-                // }
+                rt = insertHelper2(rt, sem, sizeX, sizeY, l, u);
             }
-
-// else {
-// if (sem.y() <= dcy) {
-// if (curr.getSem().y() <= dcy) {
-// rt.setLeft(insertHelper2(rt.left(), curr.getSem(), sizeX,
-// sizeY / 2, l, u));
-// rt = insertHelper2(rt.left(), sem, sizeX, sizeY / 2, l, u);
-// }
-// else {
-// rt.setLeft(new BTNode());
-// rt.left().add(sem);
-// rt.setRight(new BTNode());
-// rt.right().setList(curr);
-// }
-// }
-// else {
-// if (curr.getSem().y() <= dcy) {
-// rt.setRight(new BTNode());
-// rt.right().add(sem);
-// rt.setLeft(rt);
-// rt.left().setList(curr);
-// }
-// else {
-// rt.setRight(insertHelper2(rt.right(), curr.getSem(), sizeX,
-// sizeY / 2, l, dcy));
-// rt = insertHelper2(rt.right(), sem, sizeX, sizeY / 2, l,
-// dcy);
-// }
-// }
-
-// rt = insertHelper2(rt, sem);
-// IdBST curr = rt.getList();
-// while (curr != null) {
-// rt = insertHelper(rt, curr.getSem());
-// curr = curr.getLeft();
-// }
-
         }
-        else
-
-        {
+        else {
             if (sizeX == sizeY) {
-                if (sem.x() <= dcx)
+                if (sem.x() < dcx)
                     rt.setLeft(insertHelper2(rt.left(), sem, sizeX / 2, sizeY,
                         l, u));
                 else
@@ -203,7 +105,7 @@ public class CoordBTree {
                         dcx, u));
             }
             else {
-                if (sem.y() <= dcy)
+                if (sem.y() < dcy)
                     rt.setLeft(insertHelper2(rt.left(), sem, sizeX, sizeY / 2,
                         l, u));
                 else
@@ -416,13 +318,10 @@ public class CoordBTree {
         int l,
         int u) {
         visit++;
-// if (rt == null)
-// return ""; // in theory this shouldn't happen but always guard it
         String result = "";
-
         if (rt.leaf()) {
             if (rt.isEmpty())
-                return "";
+                return result += "";
             int distance2 = dist2(rt.getX(), sx, rt.getY(), sy);
             if (distance2 <= rad * rad) {
                 IdBST curr = rt.getList();
@@ -439,33 +338,26 @@ public class CoordBTree {
             int d = u + sizeY;
             int dcx = (r + l) / 2;
             int dcy = (u + d) / 2;
+            int minDist = Integer.MAX_VALUE;
             if (sizeX == sizeY) {
-                if (sx <= dcx) {
-                    int minDist = minDistToBox2(sx, sy, l, dcx, u, d);
-                    if (minDist <= rad * rad)
-                        result += searchHelp(rt.left(), sx, sy, rad, sizeX / 2,
-                            sizeY, l, u);
-                }
-                else {
-                    int minDist = minDistToBox2(sx, sy, dcx, r, u, d);
-                    if (minDist <= rad * rad)
-                        result += searchHelp(rt.right(), sx, sy, rad, sizeX / 2,
-                            sizeY, dcx, u);
-                }
+                minDist = minDistToBox2(sx, sy, l, dcx, u, d);
+                if (minDist <= rad * rad)
+                    result += searchHelp(rt.left(), sx, sy, rad, sizeX / 2,
+                        sizeY, l, u);
+                minDist = minDistToBox2(sx, sy, dcx, r, u, d);
+                if (minDist <= rad * rad)
+                    result += searchHelp(rt.right(), sx, sy, rad, sizeX / 2,
+                        sizeY, dcx, u);
             }
             else {
-                if (sy <= dcy) {
-                    int minDist = minDistToBox2(sx, sy, l, r, u, dcy);
-                    if (minDist <= rad * rad)
-                        result += searchHelp(rt.left(), sx, sy, rad, sizeX,
-                            sizeY / 2, l, u);
-                }
-                else {
-                    int minDist = minDistToBox2(sx, sy, l, r, dcy, d);
-                    if (minDist <= rad * rad)
-                        result += searchHelp(rt.right(), sx, sy, rad, sizeX,
-                            sizeY / 2, l, dcy);
-                }
+                minDist = minDistToBox2(sx, sy, l, r, u, dcy);
+                if (minDist <= rad * rad)
+                    result += searchHelp(rt.left(), sx, sy, rad, sizeX, sizeY
+                        / 2, l, u);
+                minDist = minDistToBox2(sx, sy, l, r, dcy, d);
+                if (minDist <= rad * rad)
+                    result += searchHelp(rt.right(), sx, sy, rad, sizeX, sizeY
+                        / 2, l, dcy);
             }
         }
         return result;
@@ -483,6 +375,7 @@ public class CoordBTree {
      *            radius
      */
     public void search(int x, int y, int r) {
+//        System.out.println(worldSize);
         String result = searchHelp(root, x, y, r, worldSize, worldSize, 0, 0);
         System.out.print(result);
         System.out.printf("%d nodes visited in this search\n", visit);
