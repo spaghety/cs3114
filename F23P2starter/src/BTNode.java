@@ -88,6 +88,7 @@ public class BTNode {
     public void add(Seminar newSem) {
         storedX = newSem.x();
         storedY = newSem.y();
+        count++;
         if (semList == null)
             semList = new IdBST(newSem);
         else {
@@ -107,9 +108,8 @@ public class BTNode {
                 }
                 curr = curr.getLeft();
             }
-            curr.setSem(newSem);
+            curr.setLeft(new IdBST(newSem));
         }
-        count++;
     }
 
 
