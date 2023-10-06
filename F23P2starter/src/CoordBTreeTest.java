@@ -31,6 +31,14 @@ public class CoordBTreeTest extends TestCase {
 
 
     /**
+     * Tests getRoot
+     */
+    public void testGetRoot() {
+        assertEquals(CoordBTree.FLYWEIGHT, bt.getRoot());
+    }
+
+
+    /**
      * Tests insert false conditions
      */
     public void testInsertFalse() {
@@ -105,8 +113,7 @@ public class CoordBTreeTest extends TestCase {
         assertFuzzyEquals(content, out.toString());
         stream.flush();
         System.setOut(stdout);
-        
-        
+
         System.setOut(stream);
         bt.search(6, 6, 1);
         content += "Found a record with key value 4 at 6, 7\n"
