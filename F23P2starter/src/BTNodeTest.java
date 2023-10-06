@@ -14,7 +14,7 @@ public class BTNodeTest extends TestCase {
      * Sets up the tests
      */
     public void setUp() {
-        node = new BTNode(64, 0, false);
+        node = new BTNode(64, 0, 0, false);
     }
 
 
@@ -23,26 +23,26 @@ public class BTNodeTest extends TestCase {
      */
     public void testSetterGetter() {
         assertEquals(64, node.rad());
-        assertEquals(0, node.dscr());
+        assertEquals(0, node.dscrX());
         assertFalse(node.x());
         assertNull(node.left());
         assertNull(node.right());
         assertNull(node.sem());
 
-        BTNode left = new BTNode(32, 1, true);
+        BTNode left = new BTNode(32, 1, 1, true);
         node.setLeft(left);
         assertEquals(left, node.left());
-        BTNode right = new BTNode(32, 6, true);
+        BTNode right = new BTNode(32, 6, 6, true);
         node.setRight(right);
         assertEquals(right, node.right());
 
         assertTrue(left.x());
         assertEquals(32, left.rad());
-        assertEquals(1, left.dscr());
+        assertEquals(1, left.dscrX());
         
         assertTrue(right.x());
         assertEquals(32, right.rad());
-        assertEquals(6, right.dscr());
+        assertEquals(6, right.dscrX());
     }
 
 

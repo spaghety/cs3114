@@ -7,7 +7,8 @@
  */
 public class BTNode {
     private int spanRadius;
-    private int disc;
+    private int discX;
+    private int discY;
     private boolean isX;
     private Seminar sem;
     private BTNode leftChild;
@@ -24,9 +25,10 @@ public class BTNode {
      * @param X
      *            true if discriminator is on x-axis, false if not
      */
-    public BTNode(int rad, int dscr, boolean X) {
+    public BTNode(int rad, int dscrX, int dscrY, boolean X) {
         spanRadius = rad;
-        disc = dscr;
+        discX = dscrX;
+        discY = dscrY;
         isX = X;
         sem = null;
         leftChild = null;
@@ -113,8 +115,11 @@ public class BTNode {
      * 
      * @return the value on the x or y axis to divide subsequent nodes by
      */
-    public int dscr() {
-        return disc;
+    public int dscrX() {
+        return discX;
+    }
+    public int dscrY() {
+        return discY;
     }
 
 

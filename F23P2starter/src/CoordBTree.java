@@ -14,7 +14,7 @@ public class CoordBTree {
     public CoordBTree(int size) {
         worldSize = size;
         int worldRad = (int)size / 2;
-        root = new BTNode(worldRad, worldRad, true);
+        root = new BTNode(worldRad, worldRad, worldRad, true);
         count = 0;
     }
 
@@ -28,7 +28,7 @@ public class CoordBTree {
         return root;
     }
 
-    
+
     /**
      * Get the Bintree printout
      * 
@@ -45,6 +45,7 @@ public class CoordBTree {
         return result;
     }
 
+
     /**
      * recursive insert helper method to insert new seminars by coordinates
      * 
@@ -54,37 +55,39 @@ public class CoordBTree {
      *            new Seminar
      * @return modified root node
      */
-    private BTNode insertHelper(BTNode root, Seminar sem) {
-        System.out.println("ID: " + sem.id());
-        BTNode rt = root;
-        if (rt.leaf() == true) {
+    private BTNode insertHelper(BTNode rt, Seminar sem) {
+        if (rt.leaf()) {
             if (rt.sem() == null) {
                 rt.setSem(sem);
             }
             else {
                 rt.toggleLeaf();
-                int newRad = rt.rad();
-                if (!rt.x())
-                    newRad /= 2;
-                System.out.println("Radius: " + newRad);
-                rt.setLeft(new BTNode(newRad, rt.dscr() - newRad, !rt.x()));
-                rt.setRight(new BTNode(newRad, rt.dscr() + newRad, !rt.x()));
-                BTNode temp = insertHelper(rt, rt.sem());
-                if (rt != temp)
-                    rt = insertHelper(temp, sem);
+                int newRad = (int)rt.rad() / 2;
+                if (rt.x()) {
+                    rt.setLeft(new BTNode(rt.rad(), rt.dscrX() - newRad, rt
+                        .dscrY(), false));
+                    rt.setRight(new BTNode(rt.rad(), rt.dscrX() + newRad, rt
+                        .dscrY(), false));
+                }
+                else {
+                    rt.setLeft(new BTNode(newRad, rt.dscrX(), rt.dscrY()
+                        - newRad, true));
+                    rt.setRight(new BTNode(newRad, rt.dscrX(), rt.dscrY()
+                        + newRad, true));
+                }
+                rt = insertHelper(rt, sem);
+                rt = insertHelper(rt, rt.sem());
             }
         }
         else {
             if (rt.x()) {
-                System.out.println("\tX: " + sem.x() + ", " + rt.dscr());
-                if (sem.x() <= rt.dscr())
+                if (sem.x() <= rt.dscrX())
                     rt.setLeft(insertHelper(rt.left(), sem));
                 else
                     rt.setRight(insertHelper(rt.right(), sem));
             }
             else {
-                System.out.println("\tY: " + sem.y() + ", " + rt.dscr());
-                if (sem.y() <= rt.dscr())
+                if (sem.y() <= rt.dscrY())
                     rt.setLeft(insertHelper(rt.left(), sem));
                 else
                     rt.setRight(insertHelper(rt.right(), sem));
@@ -108,6 +111,33 @@ public class CoordBTree {
             return false;
         root = insertHelper(root, sem);
         return true;
+    }
+
+
+    private String toStringHelper(BTNode rt, String indent) {
+        if (rt == null)
+            return "";
+        String result = "";
+        String newIndent = indent += "  ";
+        result += toStringHelper(rt.right(), newIndent);
+        if (rt.leaf()) {
+            if (rt.sem() == null)
+                result += indent + "E\n";
+            else {
+                result += indent + "Leaf with 1 objects: " + rt.sem().id()
+                    + "\n";
+            }
+        }
+        else
+            result += indent + "I\n";
+        result += toStringHelper(rt.left(), newIndent);
+        return result;
+
+    }
+
+
+    public String toString() {
+        return toStringHelper(root, "");
     }
 
 
