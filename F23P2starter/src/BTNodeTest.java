@@ -27,7 +27,7 @@ public class BTNodeTest extends TestCase {
         assertFalse(node.x());
         assertNull(node.left());
         assertNull(node.right());
-        assertNull(node.sem());
+        assertNull(node.getList());
 
         BTNode left = new BTNode(32, 1, 1, true);
         node.setLeft(left);
@@ -39,7 +39,7 @@ public class BTNodeTest extends TestCase {
         assertTrue(left.x());
         assertEquals(32, left.rad());
         assertEquals(1, left.dscrX());
-        
+
         assertTrue(right.x());
         assertEquals(32, right.rad());
         assertEquals(6, right.dscrX());
@@ -62,9 +62,9 @@ public class BTNodeTest extends TestCase {
      * Tests seminar-related methods
      */
     public void testSem() {
-        assertNull(node.sem());
+        assertTrue(node.isEmpty());
         Seminar sem = new Seminar();
-        node.setSem(sem);
-        assertEquals(sem, node.sem());
+        node.add(sem);
+        assertEquals(sem, node.getList().getSem());
     }
 }
