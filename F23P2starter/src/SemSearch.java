@@ -90,7 +90,7 @@ public class SemSearch {
                                 kwRoot = handler.insertKeyword(kwRoot, key,
                                     sem);
                             }
-//                            locBT.insert(sem);
+                            locBT.insert(sem);
                             System.out.printf(
                                 "Successfully inserted record with ID %d\n"
                                     + sem.toString() + "\n", id);
