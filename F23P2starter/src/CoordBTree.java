@@ -149,7 +149,7 @@ public class CoordBTree {
         if (rt == null)
             return "";
         String result = "";
-        String newIndent = indent += "  ";
+        String newIndent = indent + "  ";
         result += toStringHelper(rt.right(), newIndent);
         if (rt.leaf()) {
             if (rt.isEmpty())
@@ -268,7 +268,7 @@ public class CoordBTree {
         String result = "";
         if (rt.leaf()) {
             if (rt.isEmpty())
-                return result += "";
+                return result + "";
             int distance2 = dist2(rt.getX(), sx, rt.getY(), sy);
             if (distance2 <= rad * rad) {
                 IdBST curr = rt.getList();
