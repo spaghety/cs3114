@@ -9,11 +9,14 @@ public class BTNode {
     private int spanRadius;
     private int discX;
     private int discY;
+    private int storedX;
+    private int storedY;
     private boolean isX;
-    private Seminar sem;
     private BTNode leftChild;
     private BTNode rightChild;
     private boolean isLeaf;
+    private IdBST semList;
+    private int count;
 
     /**
      * Constructor creates new
@@ -31,11 +34,14 @@ public class BTNode {
         spanRadius = rad;
         discX = dscrX;
         discY = dscrY;
-        isX = xAxis;
-        sem = null;
+        isX = X;
+        semList = null;
         leftChild = null;
         rightChild = null;
         isLeaf = true;
+        storedX = -1;
+        storedY = -1;
+        count = 0;
     }
 
 
@@ -45,8 +51,31 @@ public class BTNode {
      * @param newSem
      *            new Seminar object
      */
-    public void setSem(Seminar newSem) {
-        sem = newSem;
+    public void add(Seminar newSem) {
+        storedX = newSem.x();
+        storedY = newSem.y();
+        if (semList == null)
+            semList = new IdBST(newSem);
+        else {
+            if (semList.getId() >= newSem.id()) {
+                IdBST temp = semList;
+                semList = new IdBST(newSem);
+                semList.setLeft(temp);
+                return;
+            }
+            IdBST curr = semList;
+            while (curr.getLeft() != null) {
+                if (curr.getLeft().getId() >= newSem.id()) {
+                    IdBST temp = curr.getLeft();
+                    curr.setLeft(new IdBST(newSem));
+                    curr.getLeft().setLeft(temp);
+                    return;
+                }
+                curr = curr.getLeft();
+            }
+            curr.setSem(newSem);
+        }
+        count++;
     }
 
 
@@ -55,8 +84,8 @@ public class BTNode {
      * 
      * @return the seminar
      */
-    public Seminar sem() {
-        return sem;
+    public boolean isEmpty() {
+        return (semList == null);
     }
 
 
@@ -113,9 +142,9 @@ public class BTNode {
 
 
     /**
-     * Gets the x discriminator value
+     * Gets the X-axis discriminator value
      * 
-     * @return the value on the x or y axis to divide subsequent nodes by
+     * @return the value on the x axis to divide subsequent nodes by
      */
     public int dscrX() {
         return discX;
@@ -123,9 +152,9 @@ public class BTNode {
 
 
     /**
-     * Gets the y discriminator value
+     * Gets the Y-axis discriminator
      * 
-     * @return the value on the x or y axis to divide subsequent nodes by
+     * @return y discriminator
      */
     public int dscrY() {
         return discY;
@@ -157,5 +186,45 @@ public class BTNode {
      */
     public boolean leaf() {
         return isLeaf;
+    }
+
+
+    /**
+     * Gets the list of seminars stored in this node
+     * 
+     * @return seminar list
+     */
+    public IdBST getList() {
+        return semList;
+    }
+
+
+    /**
+     * Gets the number of seminar objects stored in this node
+     * 
+     * @return count of the list
+     */
+    public int getCount() {
+        return count;
+    }
+
+
+    /**
+     * Gets the x value of the seminars already stored in this node
+     * 
+     * @return x coordinate
+     */
+    public int getX() {
+        return storedX;
+    }
+
+
+    /**
+     * Gets the y value of the seminars already stored in this node
+     * 
+     * @return y coordinate
+     */
+    public int getY() {
+        return storedY;
     }
 }

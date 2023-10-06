@@ -105,8 +105,9 @@ public class CoordBTree {
      */
     private BTNode insertHelper(BTNode rt, Seminar sem) {
         if (rt.leaf()) {
-            if (rt.sem() == null) {
-                rt.setSem(sem);
+            if (rt.isEmpty() || (rt.getX() == sem.x() && rt.getY() == sem
+                .y())) {
+                rt.add(sem);
             }
             else {
                 rt.toggleLeaf();
@@ -124,7 +125,11 @@ public class CoordBTree {
                         + newRad, true));
                 }
                 rt = insertHelper(rt, sem);
-                rt = insertHelper(rt, rt.sem());
+                IdBST curr = rt.getList();
+                while (curr != null) {
+                    rt = insertHelper(rt, curr.getSem());
+                    curr = curr.getLeft();
+                }
             }
         }
         else {
@@ -178,11 +183,16 @@ public class CoordBTree {
         String newIndent = indent += "  ";
         result += toStringHelper(rt.right(), newIndent);
         if (rt.leaf()) {
-            if (rt.sem() == null)
+            if (rt.isEmpty())
                 result += indent + "E\n";
             else {
-                result += indent + "Leaf with 1 objects: " + rt.sem().id()
-                    + "\n";
+                result += indent + "Leaf with 1 objects:";
+                IdBST curr = rt.getList();
+                while (curr != null) {
+                    result += " " + curr.getId();
+                    curr = curr.getLeft();
+                }
+                result += "\n";
             }
         }
         else
