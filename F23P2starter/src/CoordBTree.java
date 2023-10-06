@@ -11,6 +11,17 @@ public class CoordBTree {
     private int count;
     private int worldSize;
 
+    /**
+     * Flyweight for the empty leaf node
+     */
+    public static final BTNode FLYWEIGHT = new BTNode(0, 0, 0, false);
+
+    /**
+     * Constructor
+     * 
+     * @param size
+     *            world size
+     */
     public CoordBTree(int size) {
         worldSize = size;
         int worldRad = (int)size / 2;
@@ -26,6 +37,60 @@ public class CoordBTree {
      */
     public BTNode getRoot() {
         return root;
+    }
+
+
+    /**
+     * recursive insert helper method to insert new seminars by coordinates
+     * 
+     * @param rt
+     *            root node
+     * @param sem
+     *            new Seminar
+     * @return modified root node
+     */
+    private BTNode insertHelper2(BTNode rt, Seminar sem) {
+        int worldRad = (int)worldSize / 2;
+
+        if (rt == FLYWEIGHT) {
+            rt = new BTNode(worldRad, worldRad, worldRad, true);
+            rt.setSem(sem);
+            return rt;
+        }
+
+        if (rt.leaf()) {
+            rt.toggleLeaf();
+            int newRad = (int)rt.rad() / 2;
+            if (rt.x()) {
+                rt.setLeft(new BTNode(rt.rad(), rt.dscrX() - newRad, rt.dscrY(),
+                    false));
+                rt.setRight(new BTNode(rt.rad(), rt.dscrX() + newRad, rt
+                    .dscrY(), false));
+            }
+            else {
+                rt.setLeft(new BTNode(newRad, rt.dscrX(), rt.dscrY() - newRad,
+                    true));
+                rt.setRight(new BTNode(newRad, rt.dscrX(), rt.dscrY() + newRad,
+                    true));
+            }
+            rt = insertHelper(rt, sem);
+            rt = insertHelper(rt, rt.sem());
+        }
+        else {
+            if (rt.x()) {
+                if (sem.x() <= rt.dscrX())
+                    rt.setLeft(insertHelper(rt.left(), sem));
+                else
+                    rt.setRight(insertHelper(rt.right(), sem));
+            }
+            else {
+                if (sem.y() <= rt.dscrY())
+                    rt.setLeft(insertHelper(rt.left(), sem));
+                else
+                    rt.setRight(insertHelper(rt.right(), sem));
+            }
+        }
+        return rt;
     }
 
 
