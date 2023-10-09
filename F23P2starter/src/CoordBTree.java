@@ -7,7 +7,7 @@
  * @version 2023.10.03
  */
 public class CoordBTree {
-    private BTNode root;
+    private BinTreeNode root;
     private int count;
     private int visit;
     private int worldSize;
@@ -15,7 +15,7 @@ public class CoordBTree {
     /**
      * Flyweight for the empty leaf node
      */
-    public static final BTNode FLYWEIGHT = new BTNode();
+    public static final BTLeafNode FLYWEIGHT = new BTLeafNode();
 
     /**
      * Constructor
@@ -38,7 +38,7 @@ public class CoordBTree {
      * 
      * @return root
      */
-    public BTNode getRoot() {
+    public BinTreeNode getRoot() {
         return root;
     }
 
@@ -61,8 +61,8 @@ public class CoordBTree {
      * @return modified root node
      * 
      */
-    private BTNode insertHelper2(
-        BTNode rt,
+    private BinTreeNode insertHelper(
+        BinTreeNode rt,
         Seminar sem,
         int sizeX,
         int sizeY,
@@ -74,45 +74,47 @@ public class CoordBTree {
         int dcx = (r + l) / 2;
         int dcy = (u + d) / 2;
 
-        if (rt == FLYWEIGHT) {
-            rt = new BTNode();
-            rt.add(sem);
-            return rt;
-        }
-
-        if (rt.leaf()) {
-            if (rt.getX() == sem.x() && rt.getY() == sem.y()) {
-                rt.add(sem);
+        if (rt instanceof BTLeafNode) {
+            BTLeafNode temp = (BTLeafNode)rt;
+            if (rt == FLYWEIGHT) {
+                temp.add(sem);
+                return temp;
+            }
+            else if (temp.getX() == sem.x() && temp.getY() == sem.y()) {
+                temp.add(sem);
             }
             else {
-                IdBST curr = rt.getList();
-                rt.setInternal();
-                rt.toggleLeaf();
-                rt.setLeft(FLYWEIGHT);
-                rt.setRight(FLYWEIGHT);
+                BTInternalNode inTemp = new BTInternalNode();
+                IdBST curr = temp.getList();
+                inTemp.setLeft(FLYWEIGHT);
+                inTemp.setRight(FLYWEIGHT);
                 while (curr != null) {
-                    rt = insertHelper2(rt, curr.getSem(), sizeX, sizeY, l, u);
+                    inTemp = (BTInternalNode)insertHelper(inTemp, curr.getSem(),
+                        sizeX, sizeY, l, u);
                     curr = curr.getLeft();
                 }
-                rt = insertHelper2(rt, sem, sizeX, sizeY, l, u);
+                inTemp = (BTInternalNode)insertHelper(inTemp, sem, sizeX, sizeY,
+                    l, u);
+                return inTemp;
             }
         }
         else {
+            BTInternalNode temp = (BTInternalNode)rt;
             if (sizeX == sizeY) {
                 if (sem.x() < dcx)
-                    rt.setLeft(insertHelper2(rt.left(), sem, sizeX / 2, sizeY,
-                        l, u));
+                    temp.setLeft(insertHelper(temp.left(), sem, sizeX / 2,
+                        sizeY, l, u));
                 else
-                    rt.setRight(insertHelper2(rt.right(), sem, sizeX / 2, sizeY,
-                        dcx, u));
+                    temp.setRight(insertHelper(temp.right(), sem, sizeX / 2,
+                        sizeY, dcx, u));
             }
             else {
                 if (sem.y() < dcy)
-                    rt.setLeft(insertHelper2(rt.left(), sem, sizeX, sizeY / 2,
-                        l, u));
+                    temp.setLeft(insertHelper(temp.left(), sem, sizeX, sizeY
+                        / 2, l, u));
                 else
-                    rt.setRight(insertHelper2(rt.right(), sem, sizeX, sizeY / 2,
-                        l, dcy));
+                    temp.setRight(insertHelper(temp.right(), sem, sizeX, sizeY
+                        / 2, l, dcy));
             }
         }
         return rt;
@@ -131,7 +133,7 @@ public class CoordBTree {
         int y = sem.y();
         if (x >= worldSize || y >= worldSize || x < 0 || y < 0)
             return false;
-        root = insertHelper2(root, sem, worldSize, worldSize, 0, 0);
+        root = insertHelper(root, sem, worldSize, worldSize, 0, 0);
         return true;
     }
 
@@ -145,30 +147,11 @@ public class CoordBTree {
      *            indent size
      * @return the print out
      */
-    private String toStringHelper(BTNode rt, String indent) {
+    private String toStringHelper(BinTreeNode rt, String indent) {
         if (rt == null)
             return "";
         String result = "";
-        String newIndent = indent + "  ";
-        result += toStringHelper(rt.right(), newIndent);
-        if (rt.leaf()) {
-            if (rt.isEmpty())
-                result += indent + "E\n";
-            else {
-                result += indent + "Leaf with 1 objects:";
-                IdBST curr = rt.getList();
-                while (curr != null) {
-                    result += " " + curr.getId();
-                    curr = curr.getLeft();
-                }
-                result += "\n";
-            }
-        }
-        else
-            result += indent + "I\n";
-        result += toStringHelper(rt.left(), newIndent);
         return result;
-
     }
 
 
@@ -256,7 +239,7 @@ public class CoordBTree {
      * @return A string of search results
      */
     private String searchHelp(
-        BTNode rt,
+        BTLeafNode rt,
         int sx,
         int sy,
         int rad,

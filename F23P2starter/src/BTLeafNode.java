@@ -1,20 +1,13 @@
 /**
- * The node class for Bintree
+ * The node class for Bintree leaf nodes
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.10.05
  */
-public class BTNode {
-    private int spanRadius;
-    private int discX;
-    private int discY;
+public class BTLeafNode implements BinTreeNode {
     private int storedX;
     private int storedY;
-    private boolean isX;
-    private BTNode leftChild;
-    private BTNode rightChild;
-    private boolean isLeaf;
     private IdBST semList; // Used as a linked list
     private int count;
 
@@ -31,14 +24,7 @@ public class BTNode {
      *            true if discriminator is on x-axis, false if not
      */
     public void initialize(int rad, int dscrX, int dscrY, boolean xAxis) {
-        spanRadius = rad;
-        discX = dscrX;
-        discY = dscrY;
-        isX = xAxis;
         semList = null;
-        leftChild = null;
-        rightChild = null;
-        isLeaf = true;
         storedX = -1;
         storedY = -1;
         count = 0;
@@ -57,7 +43,7 @@ public class BTNode {
      * @param xAxis
      *            true if discriminator is on x-axis, false if not
      */
-    public BTNode(int rad, int dscrX, int dscrY, boolean xAxis) {
+    public BTLeafNode(int rad, int dscrX, int dscrY, boolean xAxis) {
         initialize(rad, dscrX, dscrY, xAxis);
     }
 
@@ -65,15 +51,8 @@ public class BTNode {
     /**
      * Constructor initializes the node object as a flywheel
      */
-    public BTNode() {
-        spanRadius = -1;
-        discX = -1;
-        discY = -1;
-        isX = false;
+    public BTLeafNode() {
         semList = null;
-        leftChild = null;
-        rightChild = null;
-        isLeaf = true;
         storedX = -1;
         storedY = -1;
         count = 0;
@@ -131,106 +110,6 @@ public class BTNode {
      */
     public boolean isEmpty() {
         return (semList == null);
-    }
-
-
-    /**
-     * Sets the left child
-     * 
-     * @param newNode
-     *            new BTNode object
-     */
-    public void setLeft(BTNode newNode) {
-        leftChild = newNode;
-    }
-
-
-    /**
-     * Gets the left child
-     * 
-     * @return the left child node
-     */
-    public BTNode left() {
-        return leftChild;
-    }
-
-
-    /**
-     * Sets the right child node
-     * 
-     * @param newNode
-     *            new BTNode object
-     */
-    public void setRight(BTNode newNode) {
-        rightChild = newNode;
-    }
-
-
-    /**
-     * Gets the right child
-     * 
-     * @return the right child node
-     */
-    public BTNode right() {
-        return rightChild;
-    }
-
-
-    /**
-     * Gets the radius of the node's span
-     * 
-     * @return half the span of the node
-     */
-    public int rad() {
-        return spanRadius;
-    }
-
-
-    /**
-     * Gets the X-axis discriminator value
-     * 
-     * @return the value on the x axis to divide subsequent nodes by
-     */
-    public int dscrX() {
-        return discX;
-    }
-
-
-    /**
-     * Gets the Y-axis discriminator
-     * 
-     * @return y discriminator
-     */
-    public int dscrY() {
-        return discY;
-    }
-
-
-    /**
-     * Gets the axis of the node
-     * 
-     * @return true if x-axis, false if y-axis
-     */
-    public boolean x() {
-        return isX;
-    }
-
-
-    /**
-     * Toggles whether the node is a leaf or not
-     */
-    public void toggleLeaf() {
-        isLeaf = !isLeaf;
-    }
-
-
-    /**
-     * gets whether the node is a leaf or not
-     * 
-     * @return true if it is a leaf node, false if not
-     */
-    public boolean leaf() {
-        return isLeaf;
     }
 
 
