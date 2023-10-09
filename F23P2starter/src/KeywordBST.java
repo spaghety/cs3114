@@ -7,13 +7,14 @@
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.09.24
+ * @version 2023.10.08
  */
 public class KeywordBST {
     private Seminar sem;
     private KeywordBST leftChild;
     private KeywordBST rightChild;
     private String keyword;
+    private boolean leaf;
 
     /**
      * Constructor takes only the seminar object, leaving the children to be set
@@ -26,10 +27,11 @@ public class KeywordBST {
      *            new Seminar object
      */
     public KeywordBST(String kword, Seminar newSem) {
-        sem = newSem;
+        setSem(newSem);
         keyword = kword;
         leftChild = null;
         rightChild = null;
+        checkLeaf();
     }
 
 
@@ -42,8 +44,29 @@ public class KeywordBST {
      *            new keyword to be changed
      */
     public void change(Seminar newSem, String kword) {
-        sem = newSem;
+        setSem(newSem);
         keyword = kword;
+    }
+
+
+    /**
+     * Changes the seminar object
+     * 
+     * @param newSem
+     *            new Seminar object
+     */
+    public void setSem(Seminar newSem) {
+        sem = newSem;
+    }
+
+
+    /**
+     * Gets the keyword of the node
+     * 
+     * @return the keyword
+     */
+    public String getKeyword() {
+        return keyword;
     }
 
 
@@ -65,6 +88,7 @@ public class KeywordBST {
      */
     public void setLeft(KeywordBST left) {
         leftChild = left;
+        checkLeaf();
     }
 
 
@@ -76,6 +100,7 @@ public class KeywordBST {
      */
     public void setRight(KeywordBST right) {
         rightChild = right;
+        checkLeaf();
     }
 
 
@@ -100,12 +125,20 @@ public class KeywordBST {
 
 
     /**
-     * Gets the keyword of the node
-     * 
-     * @return the keyword
+     * Checks if this node is a leaf
      */
-    public String getKeyword() {
-        return keyword;
+    private void checkLeaf() {
+        leaf = (leftChild == null && rightChild == null);
+    }
+
+
+    /**
+     * Gets if this node is a leaf or not
+     * 
+     * @return true if this is a leaf, false otherwise
+     */
+    public boolean isLeaf() {
+        return leaf;
     }
 
 

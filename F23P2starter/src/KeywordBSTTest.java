@@ -42,11 +42,21 @@ public class KeywordBSTTest extends TestCase {
 
 
     /**
+     * Tests change and getSem
+     */
+    public void testChange() {
+        assertEquals(sem1, root.getSem());
+        root.change(sem2, "kword");
+        assertEquals(sem2, root.getSem());
+        assertEquals("kword", root.getKeyword());
+    }
+
+
+    /**
      * Tests printSems method
      */
     public void testPrintSem() {
         assertFuzzyEquals(sem1.toString() + "\n", root.printSem());
-
     }
 
 
