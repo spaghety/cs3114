@@ -28,7 +28,7 @@ public class IdBSTTest extends TestCase {
 
 
     /**
-     * Tests the getDate method
+     * Tests the getId method
      */
     public void testGetId() {
         assertEquals(0, root.getId());
