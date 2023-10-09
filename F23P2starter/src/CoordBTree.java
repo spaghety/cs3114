@@ -152,7 +152,7 @@ public class CoordBTree {
         if (rt == null)
             return "";
         String result = "";
-        /*String newIndent = "  "+indent;
+        String newIndent = "  "+indent;
         if (rt instanceof BTInternalNode) {
             BTInternalNode temp = (BTInternalNode) rt;
             result = indent+"I\n";
@@ -170,7 +170,7 @@ public class CoordBTree {
                 }
                 result+="\n";
             }
-        }*/
+        }
         return result;
     }
 
