@@ -77,6 +77,7 @@ public class CoordBTree {
         if (rt instanceof BTLeafNode) {
             BTLeafNode temp = (BTLeafNode)rt;
             if (rt == FLYWEIGHT) {
+                temp = new BTLeafNode();
                 temp.add(sem);
                 return temp;
             }
@@ -151,6 +152,25 @@ public class CoordBTree {
         if (rt == null)
             return "";
         String result = "";
+        /*String newIndent = "  "+indent;
+        if (rt instanceof BTInternalNode) {
+            BTInternalNode temp = (BTInternalNode) rt;
+            result = indent+"I\n";
+            result+=indent+toStringHelper(temp.left(), newIndent);
+            result+=indent+toStringHelper(temp.right(), newIndent);
+        }else {
+            BTLeafNode temp = (BTLeafNode) rt;
+            if (temp.isEmpty()) result = "E\n";
+            else {
+                result = "Leaf with "+temp.getCount()+" objects:";
+                IdBST curr = temp.getList();
+                while (curr != null) {
+                    result+=" "+curr.getId();
+                    curr = curr.getLeft();
+                }
+                result+="\n";
+            }
+        }*/
         return result;
     }
 
@@ -239,7 +259,7 @@ public class CoordBTree {
      * @return A string of search results
      */
     private String searchHelp(
-        BTLeafNode rt,
+        BinTreeNode rt,
         int sx,
         int sy,
         int rad,
@@ -249,12 +269,13 @@ public class CoordBTree {
         int u) {
         visit++;
         String result = "";
-        if (rt.leaf()) {
-            if (rt.isEmpty())
+        if (rt instanceof BTLeafNode) {
+            BTLeafNode temp = (BTLeafNode)rt;
+            if (temp.isEmpty())
                 return result + "";
-            int distance2 = dist2(rt.getX(), sx, rt.getY(), sy);
+            int distance2 = dist2(temp.getX(), sx, temp.getY(), sy);
             if (distance2 <= rad * rad) {
-                IdBST curr = rt.getList();
+                IdBST curr = temp.getList();
                 while (curr != null) {
                     result += ("Found a record with key value " + curr.getId()
                         + " at " + curr.getSem().x() + ", " + curr.getSem().y()
@@ -264,6 +285,7 @@ public class CoordBTree {
             }
         }
         else {
+            BTInternalNode temp = (BTInternalNode)rt;
             int r = l + sizeX;
             int d = u + sizeY;
             int dcx = (r + l) / 2;
@@ -272,21 +294,21 @@ public class CoordBTree {
             if (sizeX == sizeY) {
                 minDist = minDistToBox2(sx, sy, l, dcx, u, d);
                 if (minDist <= rad * rad)
-                    result += searchHelp(rt.left(), sx, sy, rad, sizeX / 2,
+                    result += searchHelp(temp.left(), sx, sy, rad, sizeX / 2,
                         sizeY, l, u);
                 minDist = minDistToBox2(sx, sy, dcx, r, u, d);
                 if (minDist <= rad * rad)
-                    result += searchHelp(rt.right(), sx, sy, rad, sizeX / 2,
+                    result += searchHelp(temp.right(), sx, sy, rad, sizeX / 2,
                         sizeY, dcx, u);
             }
             else {
                 minDist = minDistToBox2(sx, sy, l, r, u, dcy);
                 if (minDist <= rad * rad)
-                    result += searchHelp(rt.left(), sx, sy, rad, sizeX, sizeY
+                    result += searchHelp(temp.left(), sx, sy, rad, sizeX, sizeY
                         / 2, l, u);
                 minDist = minDistToBox2(sx, sy, l, r, dcy, d);
                 if (minDist <= rad * rad)
-                    result += searchHelp(rt.right(), sx, sy, rad, sizeX, sizeY
+                    result += searchHelp(temp.right(), sx, sy, rad, sizeX, sizeY
                         / 2, l, dcy);
             }
         }

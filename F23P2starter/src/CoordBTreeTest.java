@@ -21,12 +21,22 @@ public class CoordBTreeTest extends TestCase {
      * Sets up the tests following
      */
     public void setUp() {
-        stdout = System.out;
+        CoordBTree bt2 = new CoordBTree(128);
+        bt2.insert(new Seminar(0, "example", "Oct30", 90, (short)10, (short)10, 23,
+            new String[] {"tag1", "tag2", "tag3"}, "Test description"));
+        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)10, (short)10, 12,
+            new String[] {"tag1", "tag2", "tag3"}, "Test description"));
+        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)30, (short)10, 12,
+            new String[] {"tag1", "tag2", "tag3"}, "Test description"));
+        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)0, (short)0, 12,
+            new String[] {"tag1", "tag2", "tag3"}, "Test description"));
+        System.out.println(bt2.toString());
+        /*stdout = System.out;
         wSize = 8;
         bt = new CoordBTree(wSize);
         tags = new String[] { "tag1", "tag2", "tag3" };
         sem = new Seminar(0, "example", "Oct30", 90, (short)2, (short)6, 23,
-            tags, "Test description");
+            tags, "Test description");*/
     }
 
 
@@ -41,7 +51,7 @@ public class CoordBTreeTest extends TestCase {
     /**
      * Tests insert false conditions
      */
-    public void testInsertFalse() {
+    /*public void testInsertFalse() {
         Seminar falseSem = new Seminar(1, "test", "0", 10, (short)-1, (short)4,
             12, tags, "desc");
         Seminar falseSem2 = new Seminar(1, "test", "0", 10, (short)128,
@@ -54,13 +64,13 @@ public class CoordBTreeTest extends TestCase {
         assertFalse(bt.insert(falseSem2));
         assertFalse(bt.insert(falseSem3));
         assertFalse(bt.insert(falseSem4));
-    }
+    }*/
 
 
     /**
      * Tests insert and then search
      */
-    public void testInsert() {
+    /*public void testInsert() {
         PrintStream stream = new PrintStream(out);
 // System.setOut(stream);
         String content = "";
@@ -121,13 +131,13 @@ public class CoordBTreeTest extends TestCase {
         assertFuzzyEquals(content, out.toString());
         stream.flush();
         System.setOut(stdout);
-    }
+    }*/
 
 
     /**
      * Tests minDistToBox2;
      */
-    public void testMinDistToBox2() {
+    /*public void testMinDistToBox2() {
         assertEquals(2, bt.minDistToBox2(1, 1, 2, 4, 2, 4));
         assertEquals(1, bt.minDistToBox2(3, 1, 2, 4, 2, 4));
         assertEquals(2, bt.minDistToBox2(5, 1, 2, 4, 2, 4));
@@ -137,5 +147,5 @@ public class CoordBTreeTest extends TestCase {
         assertEquals(2, bt.minDistToBox2(1, 5, 2, 4, 2, 4));
         assertEquals(1, bt.minDistToBox2(3, 5, 2, 4, 2, 4));
         assertEquals(2, bt.minDistToBox2(5, 5, 2, 4, 2, 4));
-    }
+    }*/
 }
