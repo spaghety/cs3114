@@ -5,7 +5,7 @@ import student.TestCase;
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.10.05
+ * @version 2023.10.09
  */
 public class BTInternalNodeTest extends TestCase {
     private BTInternalNode node;
@@ -19,18 +19,7 @@ public class BTInternalNodeTest extends TestCase {
 
 
     /**
-     * Tests setLeft and setRight
-     */
-    public void testSetChildren() {
-        BinTreeNode testNode = new BTInternalNode();
-        node.setLeft(testNode);
-        testNode = new BTLeafNode();
-        node.setRight(testNode);
-    }
-
-
-    /**
-     * Tests getLeft and getRight
+     * Tests setLeft and setRight and getLeft and getRight
      */
     public void testGetChildren() {
         assertNull(node.left());
