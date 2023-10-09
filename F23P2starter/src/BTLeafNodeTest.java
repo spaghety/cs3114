@@ -1,22 +1,22 @@
 import student.TestCase;
 
 /**
- * Tests the BTNode class
+ * Tests the BTLeafNode class
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.10.05
  */
-public class BTNodeTest extends TestCase {
-    private BTNode node;
-    private BTNode flyWeight;
+public class BTLeafNodeTest extends TestCase {
+    private BTLeafNode node;
+    private BTLeafNode flyWeight;
 
     /**
      * Sets up the tests
      */
     public void setUp() {
-        node = new BTNode(64, 0, 0, false);
-        flyWeight = new BTNode();
+        node = new BTLeafNode(64, 0, 0, false);
+        flyWeight = new BTLeafNode();
     }
 
 
@@ -24,58 +24,10 @@ public class BTNodeTest extends TestCase {
      * Tests flyweight constructor
      */
     public void testFlyWeight() {
-        assertEquals(-1, flyWeight.rad());
-        assertEquals(-1, flyWeight.dscrX());
-        assertEquals(-1, flyWeight.dscrY());
-        assertFalse(flyWeight.x());
         assertNull(flyWeight.getList());
-        assertNull(flyWeight.left());
-        assertNull(flyWeight.right());
-        assertTrue(flyWeight.leaf());
         assertEquals(-1, flyWeight.getX());
         assertEquals(-1, flyWeight.getY());
         assertEquals(0, flyWeight.getCount());
-    }
-
-
-    /**
-     * Tests (most) setters and getters
-     */
-    public void testSetterGetter() {
-        assertEquals(64, node.rad());
-        assertEquals(0, node.dscrX());
-        assertFalse(node.x());
-        assertNull(node.left());
-        assertNull(node.right());
-        assertNull(node.getList());
-
-        BTNode left = new BTNode(32, 1, 2, true);
-        node.setLeft(left);
-        assertEquals(left, node.left());
-        BTNode right = new BTNode(32, 6, 3, true);
-        node.setRight(right);
-        assertEquals(right, node.right());
-
-        assertTrue(left.x());
-        assertEquals(32, left.rad());
-        assertEquals(1, left.dscrX());
-        assertEquals(2, left.dscrY());
-        assertTrue(right.x());
-        assertEquals(32, right.rad());
-        assertEquals(6, right.dscrX());
-        assertEquals(3, right.dscrY());
-    }
-
-
-    /**
-     * Tests leaf-related methods
-     */
-    public void testLeaf() {
-        assertTrue(node.leaf());
-        node.toggleLeaf();
-        assertFalse(node.leaf());
-        node.toggleLeaf();
-        assertTrue(node.leaf());
     }
 
 
