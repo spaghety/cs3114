@@ -3,7 +3,7 @@
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.10.08
+ * @version 2023.10.09
  */
 public class BSTree {
     private BSTree leftChild;
@@ -19,8 +19,11 @@ public class BSTree {
      * 
      * @param newSem
      *            The new Seminar object
-     * @param ele
-     *            The element to be inserted
+     * @param n
+     *            The element to be inserted, type int
+     * @param s
+     *            The element to be inserted, type String
+     *            If null, it indicates n is the actual element
      */
     public BSTree(Seminar newSem, int n, String s) {
         leftChild = null;

@@ -1,5 +1,12 @@
 import student.TestCase;
 
+/**
+ * Tests the BSTree class
+ * 
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.10.09
+ */
 public class BSTreeTest extends TestCase {
     private Seminar testSem;
     private Seminar testSems;
