@@ -6,7 +6,7 @@ import student.TestCase;
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.10.05
+ * @version 2023.10.09
  */
 public class CoordBTreeTest extends TestCase {
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -21,22 +21,23 @@ public class CoordBTreeTest extends TestCase {
      * Sets up the tests following
      */
     public void setUp() {
+        stdout = System.out;
         CoordBTree bt2 = new CoordBTree(128);
-        bt2.insert(new Seminar(0, "example", "Oct30", 90, (short)10, (short)10, 23,
-            new String[] {"tag1", "tag2", "tag3"}, "Test description"));
-        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)10, (short)10, 12,
-            new String[] {"tag1", "tag2", "tag3"}, "Test description"));
-        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)30, (short)10, 12,
-            new String[] {"tag1", "tag2", "tag3"}, "Test description"));
-        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)0, (short)0, 12,
-            new String[] {"tag1", "tag2", "tag3"}, "Test description"));
-        System.out.println(bt2.toString());
-        /*stdout = System.out;
+        bt2.insert(new Seminar(0, "example", "Oct30", 90, (short)10, (short)10,
+            23, new String[] { "tag1", "tag2", "tag3" }, "Test description"));
+        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)10, (short)10,
+            12, new String[] { "tag1", "tag2", "tag3" }, "Test description"));
+        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)30, (short)10,
+            12, new String[] { "tag1", "tag2", "tag3" }, "Test description"));
+        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)0, (short)0,
+            12, new String[] { "tag1", "tag2", "tag3" }, "Test description"));
+//        System.out.println(bt2.toString());
+
         wSize = 8;
         bt = new CoordBTree(wSize);
         tags = new String[] { "tag1", "tag2", "tag3" };
         sem = new Seminar(0, "example", "Oct30", 90, (short)2, (short)6, 23,
-            tags, "Test description");*/
+            tags, "Test description");
     }
 
 
@@ -51,7 +52,7 @@ public class CoordBTreeTest extends TestCase {
     /**
      * Tests insert false conditions
      */
-    /*public void testInsertFalse() {
+    public void testInsertFalse() {
         Seminar falseSem = new Seminar(1, "test", "0", 10, (short)-1, (short)4,
             12, tags, "desc");
         Seminar falseSem2 = new Seminar(1, "test", "0", 10, (short)128,
@@ -64,16 +65,17 @@ public class CoordBTreeTest extends TestCase {
         assertFalse(bt.insert(falseSem2));
         assertFalse(bt.insert(falseSem3));
         assertFalse(bt.insert(falseSem4));
-    }*/
+    }
 
 
     /**
      * Tests insert and then search
      */
-    /*public void testInsert() {
+    public void testInsert() {
         PrintStream stream = new PrintStream(out);
-// System.setOut(stream);
+//        System.setOut(stream);
         String content = "";
+        String result = "";
         Seminar trueSem = new Seminar(1, "example", "Oct30", 90, (short)2,
             (short)2, 2, tags, "Test description");
         Seminar trueSem2 = new Seminar(2, "example", "Oct30", 90, (short)2,
@@ -97,11 +99,9 @@ public class CoordBTreeTest extends TestCase {
         assertTrue(bt.insert(trueSem4));
         assertTrue(bt.insert(trueSem5));
         assertTrue(bt.insert(trueSem3));
-        System.out.println(bt.toString());
-        System.setOut(stdout);
+//        System.out.println(bt.toString());
 
-        System.setOut(stream);
-        bt.search(0, 0, 20);
+        result = bt.search(0, 0, 20);
         content = "Found a record with key value 2 at 2, 1\n"
             + "Found a record with key value 2 at 2, 1\n"
             + "Found a record with key value 12 at 2, 1\n"
@@ -112,32 +112,25 @@ public class CoordBTreeTest extends TestCase {
             + "Found a record with key value 6 at 7, 0\n"
             + "Found a record with key value 4 at 6, 7\n"
             + "19 nodes visited in this search\n";
-        assertFuzzyEquals(content, out.toString());
-        stream.flush();
-        System.setOut(stdout);
+        assertFuzzyEquals(content, result);
 
-        System.setOut(stream);
-        bt.search(2, 2, 0);
-        content += "Found a record with key value 1 at 2, 2\n"
+        result = bt.search(2, 2, 0);
+        content = "Found a record with key value 1 at 2, 2\n"
             + "7 nodes visited in this search\n";
-        assertFuzzyEquals(content, out.toString());
-        stream.flush();
-        System.setOut(stdout);
+        assertFuzzyEquals(content, result);
 
-        System.setOut(stream);
-        bt.search(6, 6, 1);
-        content += "Found a record with key value 4 at 6, 7\n"
+        result = bt.search(6, 6, 1);
+        content = "Found a record with key value 4 at 6, 7\n"
             + "3 nodes visited in this search\n";
-        assertFuzzyEquals(content, out.toString());
-        stream.flush();
+        assertFuzzyEquals(content, result);
         System.setOut(stdout);
-    }*/
+    }
 
 
     /**
      * Tests minDistToBox2;
      */
-    /*public void testMinDistToBox2() {
+    public void testMinDistToBox2() {
         assertEquals(2, bt.minDistToBox2(1, 1, 2, 4, 2, 4));
         assertEquals(1, bt.minDistToBox2(3, 1, 2, 4, 2, 4));
         assertEquals(2, bt.minDistToBox2(5, 1, 2, 4, 2, 4));
@@ -147,5 +140,6 @@ public class CoordBTreeTest extends TestCase {
         assertEquals(2, bt.minDistToBox2(1, 5, 2, 4, 2, 4));
         assertEquals(1, bt.minDistToBox2(3, 5, 2, 4, 2, 4));
         assertEquals(2, bt.minDistToBox2(5, 5, 2, 4, 2, 4));
-    }*/
+    }
+
 }
