@@ -7,6 +7,11 @@
  */
 public class CommandHandler {
 
+    IdBST idRoot = null;
+    CostBST costRoot = null;
+    KeywordBST kwRoot = null;
+    DateBST dateRoot = null;
+
     private int visitCount; // Visited nodes
     private int nodeCount; // Nodes in ID, Cost, Date BSTs
     private int keywordCount; // Nodes in KeywordBST
@@ -18,7 +23,6 @@ public class CommandHandler {
         visitCount = 0;
         nodeCount = 0;
         keywordCount = 0;
-// location
     }
 
 
@@ -79,7 +83,7 @@ public class CommandHandler {
             return new IdBST(newSem);
         }
         if (newSem.id() < rt.getId())
-            rt.setLeft(insertId(rt.getLeft(), newSem));
+            rt.setLeft(insertId((IdBST)rt.getLeft(), newSem));
         else
             rt.setRight(insertId(rt.getRight(), newSem));
         return rt;
