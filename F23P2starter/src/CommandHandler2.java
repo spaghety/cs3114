@@ -293,10 +293,11 @@ public class CommandHandler2 {
      * 
      * @param sem
      *            The new Seminar object to be inserted
+     * @param did
+     *            ID used to verify it's the correct seminar
      */
-    public void delete(Seminar sem) {
-        int did = sem.id();
-        idRoot = deleteBST(idRoot, did, null, did);
+    public void delete(Seminar sem, int did) {
+        idRoot = deleteBST(idRoot, sem.id(), null, did);
         // if (idRoot != null)
         nodeCount--;
         costRoot = deleteBST(costRoot, sem.cost(), null, did);
