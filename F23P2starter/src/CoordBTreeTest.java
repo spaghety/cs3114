@@ -117,18 +117,26 @@ public class CoordBTreeTest extends TestCase {
 
 
     /**
-     * Tests minDistToBox2;
+     * Tests minDistToBox2
      */
     public void testMinDistToBox2() {
-        assertEquals(2, bt.minDistToBox2(1, 1, 2, 4, 2, 4));
-        assertEquals(1, bt.minDistToBox2(3, 1, 2, 4, 2, 4));
-        assertEquals(2, bt.minDistToBox2(5, 1, 2, 4, 2, 4));
-        assertEquals(1, bt.minDistToBox2(1, 3, 2, 4, 2, 4));
-        assertEquals(0, bt.minDistToBox2(3, 3, 2, 4, 2, 4));
-        assertEquals(1, bt.minDistToBox2(5, 3, 2, 4, 2, 4));
-        assertEquals(2, bt.minDistToBox2(1, 5, 2, 4, 2, 4));
-        assertEquals(1, bt.minDistToBox2(3, 5, 2, 4, 2, 4));
-        assertEquals(2, bt.minDistToBox2(5, 5, 2, 4, 2, 4));
+        assertEquals(8, CoordBTree.minDistToBox2(1, 1, 3, 7, 3, 7));
+        assertEquals(4, CoordBTree.minDistToBox2(5, 1, 3, 7, 3, 7));
+        assertEquals(8, CoordBTree.minDistToBox2(9, 1, 3, 7, 3, 7));
+        assertEquals(4, CoordBTree.minDistToBox2(1, 5, 3, 7, 3, 7));
+        assertEquals(0, CoordBTree.minDistToBox2(5, 5, 3, 7, 3, 7));
+        assertEquals(4, CoordBTree.minDistToBox2(9, 5, 3, 7, 3, 7));
+        assertEquals(8, CoordBTree.minDistToBox2(1, 9, 3, 7, 3, 7));
+        assertEquals(4, CoordBTree.minDistToBox2(5, 9, 3, 7, 3, 7));
+        assertEquals(8, CoordBTree.minDistToBox2(9, 9, 3, 7, 3, 7));
+    }
+
+
+    /**
+     * Tests dist2
+     */
+    public void testDist2() {
+        assertEquals(32, CoordBTree.dist2(3, 7, 3, 7));
     }
 
 

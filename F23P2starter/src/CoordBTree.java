@@ -8,7 +8,7 @@
  */
 public class CoordBTree {
     private BinTreeNode root;
-    private int count;
+//    private int count;
     private int visit;
     private int worldSize;
 
@@ -28,7 +28,7 @@ public class CoordBTree {
 // int worldRad = (int)size / 2;
 // root = new BTNode(worldRad, worldRad, worldRad, true);
         root = FLYWEIGHT;
-        count = 0;
+//        count = 0;
         visit = 0;
     }
 
@@ -206,7 +206,7 @@ public class CoordBTree {
      *            lower "down" bound
      * @return The result
      */
-    public int minDistToBox2(int px, int py, int l, int r, int u, int d) {
+    public static int minDistToBox2(int px, int py, int l, int r, int u, int d) {
         int dx = 0;
         int dy = 0;
         if (px <= l)
@@ -234,7 +234,7 @@ public class CoordBTree {
      *            y2
      * @return result
      */
-    private int dist2(int x1, int x2, int y1, int y2) {
+    public static int dist2(int x1, int x2, int y1, int y2) {
         return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
     }
 
