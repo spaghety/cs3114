@@ -22,17 +22,6 @@ public class CoordBTreeTest extends TestCase {
      */
     public void setUp() {
         stdout = System.out;
-        CoordBTree bt2 = new CoordBTree(128);
-        bt2.insert(new Seminar(0, "example", "Oct30", 90, (short)10, (short)10,
-            23, new String[] { "tag1", "tag2", "tag3" }, "Test description"));
-        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)10, (short)10,
-            12, new String[] { "tag1", "tag2", "tag3" }, "Test description"));
-        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)30, (short)10,
-            12, new String[] { "tag1", "tag2", "tag3" }, "Test description"));
-        bt2.insert(new Seminar(2, "example", "Oct30", 90, (short)0, (short)0,
-            12, new String[] { "tag1", "tag2", "tag3" }, "Test description"));
-//        System.out.println(bt2.toString());
-
         wSize = 8;
         bt = new CoordBTree(wSize);
         tags = new String[] { "tag1", "tag2", "tag3" };
@@ -73,7 +62,7 @@ public class CoordBTreeTest extends TestCase {
      */
     public void testInsert() {
         PrintStream stream = new PrintStream(out);
-//        System.setOut(stream);
+// System.setOut(stream);
         String content = "";
         String result = "";
         Seminar trueSem = new Seminar(1, "example", "Oct30", 90, (short)2,
@@ -99,7 +88,7 @@ public class CoordBTreeTest extends TestCase {
         assertTrue(bt.insert(trueSem4));
         assertTrue(bt.insert(trueSem5));
         assertTrue(bt.insert(trueSem3));
-//        System.out.println(bt.toString());
+// System.out.println(bt.toString());
 
         result = bt.search(0, 0, 20);
         content = "Found a record with key value 2 at 2, 1\n"
@@ -140,6 +129,28 @@ public class CoordBTreeTest extends TestCase {
         assertEquals(2, bt.minDistToBox2(1, 5, 2, 4, 2, 4));
         assertEquals(1, bt.minDistToBox2(3, 5, 2, 4, 2, 4));
         assertEquals(2, bt.minDistToBox2(5, 5, 2, 4, 2, 4));
+    }
+
+
+    /**
+     * Tests remove method
+     */
+    public void testRemove() {
+        Seminar sem1 = new Seminar(1, "example", "Oct30", 90, (short)2,
+            (short)2, 2, tags, "Test description");
+        Seminar sem2 = new Seminar(3, "example", "Oct30", 90, (short)2,
+            (short)6, 6, tags, "Test description");
+        Seminar sem3 = new Seminar(4, "example", "Oct30", 90, (short)4,
+            (short)6, 6, tags, "Test description");
+        bt.insert(sem);
+        assertFalse(bt.remove(1, 4, 1));
+        assertTrue(bt.remove(2, 6, 0));
+        assertTrue(bt.getRoot() instanceof BTLeafNode);
+        bt.insert(sem);
+        bt.insert(sem1);
+        System.out.println(bt.toString());
+        bt.remove(2, 2, 1);
+        //assertTrue(bt.getRoot() instanceof BTLeafNode);
     }
 
 }

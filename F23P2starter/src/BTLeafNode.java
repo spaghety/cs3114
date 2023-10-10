@@ -144,6 +144,17 @@ public class BTLeafNode implements BinTreeNode {
 
 
     /**
+     * Changes the linked list of seminars
+     * 
+     * @param newList
+     *            new linked list
+     */
+    public void setList(IdBST newList) {
+        semList = newList;
+    }
+
+
+    /**
      * Gets the y value of the seminars already stored in this node
      * 
      * @return y coordinate
