@@ -152,23 +152,25 @@ public class CoordBTree {
         if (rt == null)
             return "";
         String result = "";
-        String newIndent = "  "+indent;
+        String newIndent = "  " + indent;
         if (rt instanceof BTInternalNode) {
-            BTInternalNode temp = (BTInternalNode) rt;
-            result = indent+"I\n";
-            result+=indent+toStringHelper(temp.left(), newIndent);
-            result+=indent+toStringHelper(temp.right(), newIndent);
-        }else {
-            BTLeafNode temp = (BTLeafNode) rt;
-            if (temp.isEmpty()) result = "E\n";
+            BTInternalNode temp = (BTInternalNode)rt;
+            result = indent + "I\n";
+            result += toStringHelper(temp.left(), newIndent);
+            result += toStringHelper(temp.right(), newIndent);
+        }
+        else {
+            BTLeafNode temp = (BTLeafNode)rt;
+            if (temp.isEmpty())
+                result = indent + "E\n";
             else {
-                result = "Leaf with "+temp.getCount()+" objects:";
+                result = indent + "Leaf with " + temp.getCount() + " objects:";
                 IdBST curr = temp.getList();
                 while (curr != null) {
-                    result+=" "+curr.getId();
+                    result += " " + curr.getId();
                     curr = curr.getLeft();
                 }
-                result+="\n";
+                result += "\n";
             }
         }
         return result;
@@ -338,6 +340,94 @@ public class CoordBTree {
 
 
     /**
+     * Recursive remove helper similar to searchHelp
+     * 
+     * @param rt
+     *            root node
+     * @param sx
+     *            search x-coordinate
+     * @param sy
+     *            search y-coordinate
+     * @param rad
+     *            search radius
+     * @param sizeX
+     *            size of x
+     * @param sizeY
+     *            size of y
+     * @param l
+     *            left bound
+     * @param u
+     *            upper bound
+     * @return The node object to replace itself with
+     */
+    private BinTreeNode removeHelper(
+        BinTreeNode rt,
+        int rx,
+        int ry,
+        int sizeX,
+        int sizeY,
+        int l,
+        int u,
+        int did) {
+        if (rt instanceof BTLeafNode) {
+            BTLeafNode temp = (BTLeafNode)rt;
+            IdBST tempList = temp.getList();
+            if (tempList.getId() == did) {
+                tempList = tempList.getLeft();
+            }
+            IdBST curr = tempList;
+            IdBST prev = null;
+            while (curr != null && curr.getId() != did) {
+                prev = curr;
+                curr = curr.getLeft();
+            }
+            if (curr != null)
+                prev.setLeft(curr.getLeft());
+            temp.setList(tempList);
+            return temp;
+        }
+        else {
+            BTInternalNode temp = (BTInternalNode)rt;
+            int r = l + sizeX;
+            int d = u + sizeY;
+            int dcx = (r + l) / 2;
+            int dcy = (u + d) / 2;
+            int minDist = Integer.MAX_VALUE;
+            if (sizeX == sizeY) {
+                minDist = minDistToBox2(rx, ry, l, dcx, u, d);
+                if (minDist <= 0)
+                    temp.setLeft(removeHelper(temp.left(), rx, ry, sizeX / 2,
+                        sizeY, l, u, did));
+                minDist = minDistToBox2(rx, ry, dcx, r, u, d);
+                if (minDist <= 0)
+                    temp.setRight(removeHelper(temp.right(), rx, ry, sizeX / 2,
+                        sizeY, dcx, u, did));
+            }
+            else {
+                minDist = minDistToBox2(rx, ry, l, r, u, dcy);
+                if (minDist <= 0)
+                    temp.setLeft(removeHelper(temp.left(), rx, ry, sizeX, sizeY
+                        / 2, l, u, did));
+                minDist = minDistToBox2(rx, ry, l, r, dcy, d);
+                if (minDist <= 0)
+                    temp.setRight(removeHelper(temp.right(), rx, ry, sizeX,
+                        sizeY / 2, l, dcy, did));
+            }
+            if (temp.left() instanceof BTLeafNode && temp
+                .right() instanceof BTLeafNode) {
+                if (((BTLeafNode)temp.left()).isEmpty()) {
+                    return temp.right();
+                }
+                else if (((BTLeafNode)temp.right()).isEmpty()) {
+                    return temp.left();
+                }
+            }
+            return temp;
+        }
+    }
+
+
+    /**
      * Deletes a Seminar object from the bintree
      * 
      * @param x
@@ -352,7 +442,7 @@ public class CoordBTree {
         String searchResult = search(x, y, 0);
         String needle = "Found a record with key value " + did;
         if (searchResult.contains(needle)) {
-            // implement remove
+            root = removeHelper(root, x, y, worldSize, worldSize, 0, 0, did);
             return true;
         }
         return false;
