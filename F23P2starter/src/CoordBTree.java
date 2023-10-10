@@ -162,9 +162,9 @@ public class CoordBTree {
         else {
             BTLeafNode temp = (BTLeafNode)rt;
             if (temp.isEmpty())
-                result = indent+"E\n";
+                result = indent + "E\n";
             else {
-                result = indent+"Leaf with " + temp.getCount() + " objects:";
+                result = indent + "Leaf with " + temp.getCount() + " objects:";
                 IdBST curr = temp.getList();
                 while (curr != null) {
                     result += " " + curr.getId();
@@ -371,24 +371,19 @@ public class CoordBTree {
         int did) {
         if (rt instanceof BTLeafNode) {
             BTLeafNode temp = (BTLeafNode)rt;
-            if (temp.isEmpty()) {
-                return temp;
+            IdBST tempList = temp.getList();
+            if (tempList.getId() == did) {
+                tempList = tempList.getLeft();
             }
-            if (temp.getX() == rx && temp.getY() == ry) {
-                IdBST tempList = temp.getList();
-                if (tempList.getId() == did) {
-                    tempList = tempList.getLeft();
-                }
-                IdBST curr = tempList;
-                IdBST prev = null;
-                while (curr != null && curr.getId() != did) {
-                    prev = curr;
-                    curr = curr.getLeft();
-                }
-                if (curr != null)
-                    prev.setLeft(curr.getLeft());
-                temp.setList(tempList);
+            IdBST curr = tempList;
+            IdBST prev = null;
+            while (curr != null && curr.getId() != did) {
+                prev = curr;
+                curr = curr.getLeft();
             }
+            if (curr != null)
+                prev.setLeft(curr.getLeft());
+            temp.setList(tempList);
             return temp;
         }
         else {
@@ -418,10 +413,12 @@ public class CoordBTree {
                     temp.setRight(removeHelper(temp.right(), rx, ry, sizeX,
                         sizeY / 2, l, dcy, did));
             }
-            if (temp.left() instanceof BTLeafNode && temp.right() instanceof BTLeafNode) {
-                if (((BTLeafNode) temp.left()).isEmpty()) {
+            if (temp.left() instanceof BTLeafNode && temp
+                .right() instanceof BTLeafNode) {
+                if (((BTLeafNode)temp.left()).isEmpty()) {
                     return temp.right();
-                }else {
+                }
+                else if (((BTLeafNode)temp.right()).isEmpty()) {
                     return temp.left();
                 }
             }
@@ -445,7 +442,7 @@ public class CoordBTree {
         String searchResult = search(x, y, 0);
         String needle = "Found a record with key value " + did;
         if (searchResult.contains(needle)) {
-            removeHelper(root, x, y, worldSize, worldSize, 0, 0, did);
+            root = removeHelper(root, x, y, worldSize, worldSize, 0, 0, did);
             return true;
         }
         return false;

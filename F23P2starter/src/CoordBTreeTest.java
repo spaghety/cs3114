@@ -142,15 +142,27 @@ public class CoordBTreeTest extends TestCase {
             (short)6, 6, tags, "Test description");
         Seminar sem3 = new Seminar(4, "example", "Oct30", 90, (short)4,
             (short)6, 6, tags, "Test description");
+        Seminar sem4 = new Seminar(5, "example", "Oct30", 90, (short)6,
+            (short)2, 6, tags, "Test description");
         bt.insert(sem);
         assertFalse(bt.remove(1, 4, 1));
         assertTrue(bt.remove(2, 6, 0));
         assertTrue(bt.getRoot() instanceof BTLeafNode);
         bt.insert(sem);
         bt.insert(sem1);
-        System.out.println(bt.toString());
         bt.remove(2, 2, 1);
-        //assertTrue(bt.getRoot() instanceof BTLeafNode);
+        assertTrue(bt.getRoot() instanceof BTLeafNode);
+        bt.insert(sem4);
+        bt.remove(6, 2, 5);
+        assertEquals(sem, ((BTLeafNode) bt.getRoot()).getList().getSem());
+        bt.insert(sem1);
+        bt.remove(2, 6, 0);
+        assertEquals(sem1, ((BTLeafNode) bt.getRoot()).getList().getSem());
+        bt.insert(sem);
+        bt.insert(sem2);
+        System.out.println(bt.toString());
+        bt.remove(2, 6, 3);
+        assertEquals(1, ((BTLeafNode)((BTInternalNode)((BTInternalNode) bt.getRoot()).left()).left()).getCount());
     }
 
 }
