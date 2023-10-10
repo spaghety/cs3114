@@ -7,10 +7,10 @@
  */
 public class CommandHandler2 {
 
-    private BSTree idRoot;
-    private BSTree costRoot;
-    private BSTree kwRoot;
-    private BSTree dateRoot;
+    private BSTree idRoot; // ID BST
+    private BSTree costRoot; // Cost BST
+    private BSTree dateRoot; // Date BST
+    private BSTree kwRoot; // Keyword BST
     private int visitCount;
     private int nodeCount;
     private int keywordCount;
@@ -21,8 +21,8 @@ public class CommandHandler2 {
     public CommandHandler2() {
         idRoot = null;
         costRoot = null;
-        kwRoot = null;
         dateRoot = null;
+        kwRoot = null;
         visitCount = 0;
         nodeCount = 0;
         keywordCount = 0;
