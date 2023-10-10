@@ -410,7 +410,7 @@ public class CommandHandler2 {
         }
         switch (treeString) {
             case "null":
-                return header + "\n" + "This tree is empty";
+                return header + "\nThis tree is empty\n";
             default:
                 treeString = header + "\n" + treeString;
                 treeString += "\nNumber of records: ";
