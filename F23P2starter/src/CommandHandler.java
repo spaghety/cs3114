@@ -7,17 +7,9 @@
  */
 public class CommandHandler {
 
-//    BSTree idRoot2 = null;
-//    BSTree costRoot2 = null;
-//    BSTree kwRoot2 = null;
-//    BSTree dateRoot2 = null;
-
     private int visitCount; // Visited nodes
     private int nodeCount; // Nodes in ID, Cost, Date BSTs
     private int keywordCount; // Nodes in KeywordBST\
-
-//    private int nodeCount2;
-//    private int keywordCount2;
 
     /**
      * Empty constructor
@@ -69,53 +61,6 @@ public class CommandHandler {
     public void resetCount() {
         visitCount = 0;
     }
-
-
-//    /**
-//     * Insert into each BST
-//     * 
-//     * @param sem
-//     *            The new Seminar object to be inserted
-//     */
-//    public void insert(Seminar sem) {
-//        idRoot2 = insertBST(idRoot2, sem, sem.id(), null);
-//        // if (idRoot2 != null)
-//        nodeCount2++;
-//        costRoot2 = insertBST(costRoot2, sem, sem.cost(), null);
-//        dateRoot2 = insertBST(dateRoot2, sem, Integer.MIN_VALUE, sem.date());
-//        for (String key : sem.keywords()) {
-//            kwRoot2 = insertBST(kwRoot2, sem, Integer.MIN_VALUE, key);
-//            // if (kwRoot2 != null)
-//            keywordCount2++;
-//        }
-//    }
-//
-//
-//    /**
-//     * Recursive helper method for inserting into a BSTree
-//     * 
-//     * @param rt
-//     *            root node
-//     * @param newSem
-//     *            seminar object being inserted
-//     * @param n
-//     *            compare element
-//     * @return the new node object after insertion
-//     */
-//    public BSTree insertBST(BSTree rt, Seminar newSem, int n, String s) {
-//        if (rt == null) {
-//            nodeCount++;
-//            return new BSTree(newSem, n, s);
-//        }
-//        boolean compare = s == null
-//            ? n < rt.value()
-//            : s.compareTo(rt.getString()) <= 0;
-//        if (compare)
-//            rt.setLeft(insertBST(rt.getLeft(), newSem, n, s));
-//        else
-//            rt.setRight(insertBST(rt.getRight(), newSem, n, s));
-//        return rt;
-//    }
 
 
     /**
@@ -316,69 +261,6 @@ public class CommandHandler {
     }
 
 
-//    /**
-//     * Helper method finds the node with the greatest date
-//     * 
-//     * @param rt
-//     *            node to start search
-//     * @return node with greatest date
-//     */
-//    private BSTree getMaxBST(BSTree rt) {
-//        if (rt.getRight() == null)
-//            return rt;
-//        return getMaxBST(rt.getRight());
-//    }
-//
-//
-//    /**
-//     * Helper method removes the node with the greatest value
-//     * 
-//     * @param rt
-//     *            node to start search
-//     * @return new BST to replace node
-//     */
-//    private BSTree removeMaxBST(BSTree rt) {
-//        if (rt.getRight() == null)
-//            return rt.getLeft();
-//        rt.setRight(removeMaxBST(rt.getRight()));
-//        return rt;
-//    }
-//
-//
-//    /**
-//     * Delete node from the BSTree
-//     * 
-//     * @param rt
-//     *            node to begin search
-//     * @param date
-//     *            date used to improve search efficiency
-//     * @param id
-//     *            ID used to verify the correct node
-//     * @return new BST to replace node
-//     */
-//    public BSTree deleteBST(BSTree rt, int n, String s, int id) {
-//        if (rt == null)
-//            return null;
-//        boolean compare = s == null
-//            ? n > rt.value()
-//            : s.compareTo(rt.getString()) > 0;
-//        if (compare)
-//            rt.setRight(deleteBST(rt.getRight(), n, s, id));
-//        else if (rt.getSem().id() == id) {
-//            if (rt.getLeft() == null)
-//                return rt.getRight();
-//            else {
-//                BSTree temp = getMaxBST(rt.getLeft());
-//                rt.setSem(temp.getSem());
-//                rt.setLeft(removeMaxBST(rt.getLeft()));
-//            }
-//        }
-//        else
-//            rt.setLeft(deleteBST(rt.getLeft(), n, s, id));
-//        return rt;
-//    }
-
-
     /**
      * Recursive helper node finds the node with the greatest ID
      * 
@@ -433,6 +315,7 @@ public class CommandHandler {
                 rt.setLeft(removeMaxId(rt.getLeft()));
             }
         }
+        nodeCount--;
         return rt;
     }
 
@@ -598,8 +481,9 @@ public class CommandHandler {
      * @return new BST to replace child node with
      */
     public KeywordBST deleteKeyword(KeywordBST rt, String kw, int id) {
-        if (rt == null)
+        if (rt == null) {
             return null;
+        }
         if (kw.compareTo(rt.getKeyword()) > 0)
             rt.setRight(deleteKeyword(rt.getRight(), kw, id));
         else if (rt.getSem().id() == id) {
@@ -615,70 +499,6 @@ public class CommandHandler {
             rt.setLeft(deleteKeyword(rt.getLeft(), kw, id));
         return rt;
     }
-
-
-//    /**
-//     * Prints BST
-//     * 
-//     * @param type
-//     *            BST type
-//     */
-//    public void print(String type) {
-//        String treeString = "";
-//        switch (type) {
-//            case "id":
-//                System.out.println("Id Tree:");
-//                treeString = printBST(idRoot2, "");
-//                break;
-//            case "cost":
-//                System.out.println("Id Tree:");
-//                treeString = printBST(costRoot2, "");
-//                break;
-//            case "date":
-//                System.out.println("Id Tree:");
-//                treeString = printBST(dateRoot2, "");
-//                break;
-//            case "keyword":
-//                System.out.println("Id Tree:");
-//                treeString = printBST(kwRoot2, "");
-//                break;
-//            default:
-//                return;
-//        }
-//        switch (treeString) {
-//            case "null":
-//                System.out.print("This tree is empty");
-//                break;
-//            default:
-//                System.out.print(treeString);
-//                System.out.printf("\nNumber of records: %d", getNodeCount());
-//        }
-//        System.out.println();
-//    }
-//
-//
-//    /**
-//     * Get the BST printout
-//     * 
-//     * @param rt
-//     *            root node
-//     * @param indent
-//     *            indent for the next call
-//     * @return string to print
-//     */
-//    public String printBST(BSTree rt, String indent) {
-//        if (rt == null)
-//            return indent + "null";
-//        String result = "";
-//        String nextIndent = indent + "  ";
-//        result += printBST(rt.getRight(), nextIndent) + "\n";
-//        String value = rt.getString() == null
-//            ? rt.value() + "\n"
-//            : rt.getString() + "\n";
-//        result += indent + value;
-//        result += printBST(rt.getLeft(), nextIndent);
-//        return result;
-//    }
 
 
     /**
