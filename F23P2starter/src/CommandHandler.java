@@ -28,7 +28,6 @@ public class CommandHandler {
         keywordCount = 0;
     }
 
-
     /**
      * Gets current count of visited nodes
      * 
@@ -38,20 +37,18 @@ public class CommandHandler {
         return visitCount;
     }
 
-
     /**
      * Gets current count of nodes in ID, Cost, Date BSTs
      * 
-     * Important note: This counter only increments when adding to IdBST, but
-     * the number of nodes is the same across the 3 BSTs, and the add methods
-     * operate simultaneously in the CommandHandler.
+     * Important note: This counter only increments when adding to IdBST, but the
+     * number of nodes is the same across the 3 BSTs, and the add methods operate
+     * simultaneously in the CommandHandler.
      * 
      * @return current count
      */
     public int getNodeCount() {
         return nodeCount;
     }
-
 
     /**
      * Gets current count of nodes in KeywordBST
@@ -62,7 +59,6 @@ public class CommandHandler {
         return keywordCount;
     }
 
-
     /**
      * Resets count of visited nodes
      */
@@ -70,12 +66,10 @@ public class CommandHandler {
         visitCount = 0;
     }
 
-
     /**
      * Insert into each BST
      * 
-     * @param sem
-     *            The new Seminar object to be inserted
+     * @param sem The new Seminar object to be inserted
      */
     public void insert(Seminar sem) {
         idRoot = insertBST(idRoot, sem, sem.id(), null);
@@ -90,27 +84,20 @@ public class CommandHandler {
         }
     }
 
-
     /**
      * Recursive helper method for inserting into a BSTree
      * 
-     * @param rt
-     *            root node
-     * @param newSem
-     *            seminar object being inserted
-     * @param n
-     *            compare element (int)
-     * @param s
-     *            compare element (String)
+     * @param rt     root node
+     * @param newSem seminar object being inserted
+     * @param n      compare element (int)
+     * @param s      compare element (String)
      * @return the new node object after insertion
      */
     public BSTree insertBST(BSTree rt, Seminar newSem, int n, String s) {
         if (rt == null)
             return new BSTree(newSem, n, s);
         // Compare int if String is null, otherwise compare String
-        boolean compare = s == null
-            ? n <= rt.value()
-            : s.compareTo(rt.getString()) <= 0;
+        boolean compare = s == null ? n <= rt.value() : s.compareTo(rt.getString()) <= 0;
         if (compare)
             rt.setLeft(insertBST(rt.getLeft(), newSem, n, s));
         else
@@ -118,28 +105,23 @@ public class CommandHandler {
         return rt;
     }
 
-
     /**
      * ID search method
      * 
-     * @param id
-     *            id being searched for
+     * @param id id being searched for
      * @return the seminar object being searched for or null if not found
      */
-	public Seminar searchId(int id) {
+    public Seminar searchId(int id) {
         Seminar result = searchNumber(idRoot, id);
         resetCount();
         return result;
     }
 
-
     /**
      * Single number search method
      * 
-     * @param root
-     *            the root node to be searched
-     * @param n
-     *            number being searched for
+     * @param root the root node to be searched
+     * @param n    number being searched for
      * @return the seminar object being searched for or null if not found
      */
     private Seminar searchNumber(BSTree root, int n) {
@@ -153,14 +135,11 @@ public class CommandHandler {
             return searchNumber(root.getRight(), n);
     }
 
-
     /**
      * Cost search method
      * 
-     * @param low
-     *            lower bound of cost being searched for
-     * @param high
-     *            upper bound of cost being searched for
+     * @param low  lower bound of cost being searched for
+     * @param high upper bound of cost being searched for
      * @return the string to print
      */
     public String searchCost(int low, int high) {
@@ -171,16 +150,12 @@ public class CommandHandler {
         return result;
     }
 
-
     /**
      * Number range search method
      * 
-     * @param root
-     *            the root node to be searched
-     * @param low
-     *            lower bound of number being searched for
-     * @param high
-     *            upper bound of number being searched for
+     * @param root the root node to be searched
+     * @param low  lower bound of number being searched for
+     * @param high upper bound of number being searched for
      * @return the string to print
      */
     private String searchNumRange(BSTree root, int low, int high) {
@@ -199,14 +174,11 @@ public class CommandHandler {
         }
     }
 
-
     /**
      * Date search method
      * 
-     * @param low
-     *            lower bound of date being searched for
-     * @param high
-     *            upper bound of date being searched for
+     * @param low  lower bound of date being searched for
+     * @param high upper bound of date being searched for
      * @return the string to print
      */
     public String searchDate(String low, String high) {
@@ -217,16 +189,12 @@ public class CommandHandler {
         return result;
     }
 
-
     /**
      * String range search method
      * 
-     * @param root
-     *            the root node to be searched
-     * @param low
-     *            lower bound of string being searched for
-     * @param high
-     *            upper bound of string being searched for
+     * @param root the root node to be searched
+     * @param low  lower bound of string being searched for
+     * @param high upper bound of string being searched for
      * @return the string to print
      */
     private String searchStringRange(BSTree root, String low, String high) {
@@ -247,12 +215,10 @@ public class CommandHandler {
         }
     }
 
-
     /**
      * Keyword search method
      * 
-     * @param key
-     *            keyword being searched for
+     * @param key keyword being searched for
      * @return the string to print
      */
     public String searchKeyword(String key) {
@@ -261,14 +227,11 @@ public class CommandHandler {
         return result;
     }
 
-
     /**
      * Single string keyword search method
      * 
-     * @param root
-     *            the root node to be searched
-     * @param keyword
-     *            keyword being searched for
+     * @param root    the root node to be searched
+     * @param keyword keyword being searched for
      * @return the string to print
      */
     private String searchKeyword(BSTree root, String keyword) {
@@ -286,14 +249,11 @@ public class CommandHandler {
         }
     }
 
-
     /**
      * Delete from each BST
      * 
-     * @param sem
-     *            The new Seminar object to be inserted
-     * @param did
-     *            ID used to verify it's the correct seminar
+     * @param sem The new Seminar object to be inserted
+     * @param did ID used to verify it's the correct seminar
      */
     public void delete(Seminar sem, int did) {
         idRoot = deleteBST(idRoot, sem.id(), null, did);
@@ -308,12 +268,10 @@ public class CommandHandler {
         }
     }
 
-
     /**
      * Helper method finds the node with the greatest date
      * 
-     * @param rt
-     *            node to start search
+     * @param rt node to start search
      * @return node with greatest date
      */
     private BSTree getMaxBST(BSTree rt) {
@@ -322,12 +280,10 @@ public class CommandHandler {
         return getMaxBST(rt.getRight());
     }
 
-
     /**
      * Helper method removes the node with the greatest value
      * 
-     * @param rt
-     *            node to start search
+     * @param rt node to start search
      * @return new BST to replace node
      */
     private BSTree removeMaxBST(BSTree rt) {
@@ -337,27 +293,20 @@ public class CommandHandler {
         return rt;
     }
 
-
     /**
      * Delete node from the BSTree
      * 
-     * @param rt
-     *            node to begin search
-     * @param n
-     *            Number being searched for
-     * @param s
-     *            String being searched for
-     * @param id
-     *            ID used to verify the correct node
+     * @param rt node to begin search
+     * @param n  Number being searched for
+     * @param s  String being searched for
+     * @param id ID used to verify the correct node
      * @return new BST to replace node
      */
     public BSTree deleteBST(BSTree rt, int n, String s, int id) {
         if (rt == null)
             return null;
         // Compare int if String is null, otherwise compare String
-        boolean compare = s == null
-            ? n > rt.value()
-            : s.compareTo(rt.getString()) > 0;
+        boolean compare = s == null ? n > rt.value() : s.compareTo(rt.getString()) > 0;
         if (compare)
             rt.setRight(deleteBST(rt.getRight(), n, s, id));
         else if (rt.getSem().id() == id) {
@@ -370,18 +319,15 @@ public class CommandHandler {
                 rt.setString(temp.getString());
                 rt.setLeft(removeMaxBST(rt.getLeft()));
             }
-        }
-        else
+        } else
             rt.setLeft(deleteBST(rt.getLeft(), n, s, id));
         return rt;
     }
 
-
     /**
      * Prints BST
      * 
-     * @param type
-     *            BST type
+     * @param type BST type
      * @return The print string
      */
     public String print(String type) {
@@ -389,46 +335,43 @@ public class CommandHandler {
         String header = "";
         int count = 0;
         switch (type.toLowerCase()) {
-            case "id":
-                header = "ID Tree:";
-                treeString = printBST(idRoot, "");
-                count = getNodeCount();
-                break;
-            case "cost":
-                header = "Cost Tree:";
-                treeString = printBST(costRoot, "");
-                count = getNodeCount();
-                break;
-            case "date":
-                header = "Date Tree:";
-                treeString = printBST(dateRoot, "");
-                count = getNodeCount();
-                break;
-            case "keyword":
-                header = "Keyword Tree:";
-                treeString = printBST(kwRoot, "");
-                count = getKeywordCount();
-                break;
+        case "id":
+            header = "ID Tree:";
+            treeString = printBST(idRoot, "");
+            count = getNodeCount();
+            break;
+        case "cost":
+            header = "Cost Tree:";
+            treeString = printBST(costRoot, "");
+            count = getNodeCount();
+            break;
+        case "date":
+            header = "Date Tree:";
+            treeString = printBST(dateRoot, "");
+            count = getNodeCount();
+            break;
+        case "keyword":
+            header = "Keyword Tree:";
+            treeString = printBST(kwRoot, "");
+            count = getKeywordCount();
+            break;
         }
         switch (treeString) {
-            case "null":
-                return header + "\nThis tree is empty\n";
-            default:
-                treeString = header + "\n" + treeString;
-                treeString += "\nNumber of records: ";
-                treeString += count;
+        case "null":
+            return header + "\nThis tree is empty\n";
+        default:
+            treeString = header + "\n" + treeString;
+            treeString += "\nNumber of records: ";
+            treeString += count;
         }
         return treeString + "\n";
     }
 
-
     /**
      * Get the BST printout
      * 
-     * @param rt
-     *            root node
-     * @param indent
-     *            indent for the next call
+     * @param rt     root node
+     * @param indent indent for the next call
      * @return string to print
      */
     public String printBST(BSTree rt, String indent) {
@@ -437,9 +380,7 @@ public class CommandHandler {
         String result = "";
         String nextIndent = indent + "  ";
         result += printBST(rt.getRight(), nextIndent) + "\n";
-        String value = rt.getString() == null
-            ? rt.value() + "\n"
-            : rt.getString() + "\n";
+        String value = rt.getString() == null ? rt.value() + "\n" : rt.getString() + "\n";
         result += indent + value;
         result += printBST(rt.getLeft(), nextIndent);
         return result;

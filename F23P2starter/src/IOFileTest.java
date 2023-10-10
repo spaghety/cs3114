@@ -24,8 +24,7 @@ public class IOFileTest extends TestCase {
     public void testRun() {
         try {
             SemSearch.main(new String[] { worldSize, infile });
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }

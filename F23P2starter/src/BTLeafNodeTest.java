@@ -18,11 +18,10 @@ public class BTLeafNodeTest extends TestCase {
     public void setUp() {
         node = new BTLeafNode();
         node2 = new BTLeafNode();
-        node2.add(new Seminar(2, "test", "0309221600", 13, (short)4, (short)9,
-            25, new String[] { "tag1", "tag4" }, "test description"));
+        node2.add(new Seminar(2, "test", "0309221600", 13, (short) 4, (short) 9, 25, new String[] { "tag1", "tag4" },
+                "test description"));
         flyWeight = new BTLeafNode();
     }
-
 
     /**
      * Tests flyweight constructor
@@ -34,23 +33,22 @@ public class BTLeafNodeTest extends TestCase {
         assertEquals(0, flyWeight.getCount());
     }
 
-
     /**
      * Tests seminar-related methods
      */
     public void testSem() {
         assertTrue(node.isEmpty());
 
-        Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
-            (short)9, 15, new String[] { "tag1" }, "test description");
-        Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short)4,
-            (short)9, 20, new String[] { "tag2" }, "test description");
-        Seminar s3 = new Seminar(7, "test", "0309271600", 13, (short)4,
-            (short)9, 10, new String[] { "tag3" }, "test description");
-        Seminar s4 = new Seminar(0, "test", "0309201600", 13, (short)4,
-            (short)9, 0, new String[] { "biscuit" }, "test description");
-        Seminar s5 = new Seminar(2, "test", "0309221600", 13, (short)4,
-            (short)9, 25, new String[] { "tag1", "tag4" }, "test description");
+        Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short) 4, (short) 9, 15, new String[] { "tag1" },
+                "test description");
+        Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short) 4, (short) 9, 20, new String[] { "tag2" },
+                "test description");
+        Seminar s3 = new Seminar(7, "test", "0309271600", 13, (short) 4, (short) 9, 10, new String[] { "tag3" },
+                "test description");
+        Seminar s4 = new Seminar(0, "test", "0309201600", 13, (short) 4, (short) 9, 0, new String[] { "biscuit" },
+                "test description");
+        Seminar s5 = new Seminar(2, "test", "0309221600", 13, (short) 4, (short) 9, 25, new String[] { "tag1", "tag4" },
+                "test description");
 
         node.add(s1);
         assertFalse(node.isEmpty());
@@ -87,8 +85,7 @@ public class BTLeafNodeTest extends TestCase {
         assertEquals(s1, node.getList().getSem());
         assertEquals(s2, node.getList().getNext().getSem());
     }
-    
-    
+
     /**
      * Tests the setList method
      */

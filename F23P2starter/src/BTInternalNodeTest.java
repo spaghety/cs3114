@@ -17,7 +17,6 @@ public class BTInternalNodeTest extends TestCase {
         node = new BTInternalNode();
     }
 
-
     /**
      * Tests setLeft and setRight and getLeft and getRight
      */

@@ -18,7 +18,6 @@ public class BTInternalNode implements BinTreeNode {
         rightChild = null;
     }
 
-
     /**
      * Gets the left child
      * 
@@ -27,7 +26,6 @@ public class BTInternalNode implements BinTreeNode {
     public BinTreeNode left() {
         return leftChild;
     }
-
 
     /**
      * Gets the right child
@@ -38,23 +36,19 @@ public class BTInternalNode implements BinTreeNode {
         return rightChild;
     }
 
-
     /**
      * Sets the left node
      * 
-     * @param newNode
-     *            new node object
+     * @param newNode new node object
      */
     public void setLeft(BinTreeNode newNode) {
         leftChild = newNode;
     }
 
-
     /**
      * Sets the right child node
      * 
-     * @param newNode
-     *            new node object
+     * @param newNode new node object
      */
     public void setRight(BinTreeNode newNode) {
         rightChild = newNode;

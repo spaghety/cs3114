@@ -11,7 +11,6 @@ public class BTLeafNode implements BinTreeNode {
     private IdLL semList; // Used as a linked list
     private int count;
 
-
     /**
      * Constructor initializes the node object as a flywheel
      */
@@ -22,7 +21,6 @@ public class BTLeafNode implements BinTreeNode {
         count = 0;
     }
 
-
     /**
      * Sets a node as internal node
      */
@@ -32,12 +30,10 @@ public class BTLeafNode implements BinTreeNode {
         semList = null;
     }
 
-
     /**
      * Adds a seminar object
      * 
-     * @param newSem
-     *            new Seminar object
+     * @param newSem new Seminar object
      */
     public void add(Seminar newSem) {
         storedX = newSem.x();
@@ -65,13 +61,11 @@ public class BTLeafNode implements BinTreeNode {
             curr.setNext(new IdLL(newSem));
         }
     }
-    
-    
+
     /**
      * Removes a seminar object
      * 
-     * @param did
-     *            The ID to be removed
+     * @param did The ID to be removed
      */
     public void remove(int did) {
         count--;
@@ -88,7 +82,6 @@ public class BTLeafNode implements BinTreeNode {
             prev.setNext(curr.getNext());
     }
 
-
     /**
      * Gets the seminar object
      * 
@@ -97,7 +90,6 @@ public class BTLeafNode implements BinTreeNode {
     public boolean isEmpty() {
         return (semList == null);
     }
-
 
     /**
      * Gets the list of seminars stored in this node
@@ -108,7 +100,6 @@ public class BTLeafNode implements BinTreeNode {
         return semList;
     }
 
-
     /**
      * Gets the number of seminar objects stored in this node
      * 
@@ -117,7 +108,6 @@ public class BTLeafNode implements BinTreeNode {
     public int getCount() {
         return count;
     }
-
 
     /**
      * Gets the x value of the seminars already stored in this node
@@ -128,17 +118,14 @@ public class BTLeafNode implements BinTreeNode {
         return storedX;
     }
 
-
     /**
      * Changes the linked list of seminars
      * 
-     * @param newList
-     *            new linked list
+     * @param newList new linked list
      */
     public void setList(IdLL newList) {
         semList = newList;
     }
-
 
     /**
      * Gets the y value of the seminars already stored in this node

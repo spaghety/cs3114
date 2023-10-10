@@ -18,14 +18,12 @@ public class IdLLTest extends TestCase {
      */
     public void setUp() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
-        testSem = new Seminar(0, "test", "Jan132002", 13, (short)4, (short)9,
-            15, tags, "test description");
+        testSem = new Seminar(0, "test", "Jan132002", 13, (short) 4, (short) 9, 15, tags, "test description");
         root = new IdLL(testSem);
-        testSems = new Seminar(1, "second test name", "Jun222010", 90, (short)2,
-            (short)13, 42, tags, "test description two");
+        testSems = new Seminar(1, "second test name", "Jun222010", 90, (short) 2, (short) 13, 42, tags,
+                "test description two");
         second = new IdLL(testSems);
     }
-
 
     /**
      * Tests the getId method
@@ -36,14 +34,12 @@ public class IdLLTest extends TestCase {
 
     }
 
-
     /**
      * Tests the getSem method
      */
     public void testGetSem() {
         assertTrue(root.getSem().equals(testSem));
     }
-
 
     /**
      * Tests the getNext and setNext methods

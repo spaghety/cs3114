@@ -12,14 +12,12 @@ public class IdLL {
     /**
      * Basic constructor, takes only the Seminar object
      * 
-     * @param newSem
-     *            The new Seminar object
+     * @param newSem The new Seminar object
      */
     public IdLL(Seminar newSem) {
         leftChild = null;
         sem = newSem;
     }
-
 
     /**
      * Gets the id of the seminar object stored
@@ -30,17 +28,14 @@ public class IdLL {
         return sem.id();
     }
 
-
     /**
      * Changes the seminar object
      * 
-     * @param newSem
-     *            new Seminar object
+     * @param newSem new Seminar object
      */
     public void setSem(Seminar newSem) {
         sem = newSem;
     }
-
 
     /**
      * gets the seminar object itself
@@ -51,17 +46,14 @@ public class IdLL {
         return sem;
     }
 
-
     /**
      * Sets the next LL node
      * 
-     * @param left
-     *            New LL node
+     * @param left New LL node
      */
     public void setNext(IdLL left) {
         leftChild = left;
     }
-
 
     /**
      * Gets the next object
