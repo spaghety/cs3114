@@ -189,12 +189,12 @@ public class CommandHandler2Test extends TestCase {
      */
     public void testSearchCost() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
-        Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
-            (short)9, 15, tags, "test description");
-        Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short)4,
-            (short)9, 21, tags, "test description");
-        Seminar s3 = new Seminar(5, "test", "0309251600", 13, (short)4,
-            (short)9, 5, tags, "test description");
+        s1 = new Seminar(5, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        s2 = new Seminar(6, "test", "0309261600", 13, (short)4, (short)9, 21,
+            tags, "test description");
+        s3 = new Seminar(5, "test", "0309251600", 13, (short)4, (short)9, 5,
+            tags, "test description");
         ch.insert(s1);
         ch.insert(s2);
         ch.insert(s3);
@@ -221,12 +221,12 @@ public class CommandHandler2Test extends TestCase {
      */
     public void testSearchNumRange() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
-        Seminar s1 = new Seminar(5, "test", "0309251600", 13, (short)4,
-            (short)9, 15, tags, "test description");
-        Seminar s2 = new Seminar(6, "test", "0309261600", 13, (short)4,
-            (short)9, 21, tags, "test description");
-        Seminar s3 = new Seminar(5, "test", "0309251600", 13, (short)4,
-            (short)9, 5, tags, "test description");
+        s1 = new Seminar(5, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        s2 = new Seminar(6, "test", "0309261600", 13, (short)4, (short)9, 21,
+            tags, "test description");
+        s3 = new Seminar(5, "test", "0309251600", 13, (short)4, (short)9, 5,
+            tags, "test description");
         costRoot = ch.insertBST(costRoot, s1, s1.cost(), null);
         costRoot = ch.insertBST(costRoot, s2, s2.cost(), null);
         costRoot = ch.insertBST(costRoot, s3, s3.cost(), null);
@@ -248,12 +248,12 @@ public class CommandHandler2Test extends TestCase {
      */
     public void testSearchDate() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
-        Seminar s1 = new Seminar(5, "test", "0312251600", 13, (short)4,
-            (short)9, 15, tags, "test description"); // high date
-        Seminar s2 = new Seminar(6, "test", "0309282000", 13, (short)4,
-            (short)9, 21, tags, "test description"); // middle date
-        Seminar s3 = new Seminar(5, "test", "0309250500", 13, (short)4,
-            (short)9, 5, tags, "test description"); // low date
+        s1 = new Seminar(5, "test", "0312251600", 13, (short)4, (short)9, 15,
+            tags, "test description"); // high date
+        s2 = new Seminar(6, "test", "0309282000", 13, (short)4, (short)9, 21,
+            tags, "test description"); // middle date
+        s3 = new Seminar(5, "test", "0309250500", 13, (short)4, (short)9, 5,
+            tags, "test description"); // low date
         ch.insert(s1);
         ch.insert(s2);
         ch.insert(s3);
@@ -289,14 +289,14 @@ public class CommandHandler2Test extends TestCase {
 
     public void testSearchKeyword() {
         String[] tags1 = new String[] { "tag1", "tag2", "tag3" };
-        Seminar s1 = new Seminar(5, "test", "0312251600", 13, (short)4,
-            (short)9, 15, tags1, "test description"); // high date
+        s1 = new Seminar(5, "test", "0312251600", 13, (short)4, (short)9, 15,
+            tags1, "test description"); // high date
         String[] tags2 = new String[] { "tag4", "tag5", "tag6" };
-        Seminar s2 = new Seminar(6, "test", "0309282000", 13, (short)4,
-            (short)9, 21, tags2, "test description"); // middle date
+        s2 = new Seminar(6, "test", "0309282000", 13, (short)4, (short)9, 21,
+            tags2, "test description"); // middle date
         String[] tags3 = new String[] { "tag1", "tag10", "tag3" };
-        Seminar s3 = new Seminar(7, "test", "0309250500", 13, (short)4,
-            (short)9, 5, tags3, "test description"); // low date
+        s3 = new Seminar(7, "test", "0309250500", 13, (short)4, (short)9, 5,
+            tags3, "test description"); // low date
         ch.insert(s1);
         ch.insert(s2);
         ch.insert(s3);
@@ -336,14 +336,14 @@ public class CommandHandler2Test extends TestCase {
      */
     public void testPrint2() {
         String[] tags1 = new String[] { "tag1", "tag2", "tag3" };
-        Seminar s1 = new Seminar(5, "test", "0312251600", 13, (short)4,
-            (short)9, 15, tags1, "test description"); // high date
+        s1 = new Seminar(5, "test", "0312251600", 13, (short)4, (short)9, 15,
+            tags1, "test description"); // high date
         String[] tags2 = new String[] { "tag4", "tag5", "tag6" };
-        Seminar s2 = new Seminar(6, "test", "0309282000", 13, (short)4,
-            (short)9, 21, tags2, "test description"); // middle date
+        s2 = new Seminar(6, "test", "0309282000", 13, (short)4, (short)9, 21,
+            tags2, "test description"); // middle date
         String[] tags3 = new String[] { "tag1", "tag10", "tag3" };
-        Seminar s3 = new Seminar(7, "test", "0309250500", 13, (short)4,
-            (short)9, 5, tags3, "test description"); // low date
+        s3 = new Seminar(7, "test", "0309250500", 13, (short)4, (short)9, 5,
+            tags3, "test description"); // low date
         ch.insert(s1);
         ch.insert(s2);
         ch.insert(s3);
@@ -370,16 +370,16 @@ public class CommandHandler2Test extends TestCase {
     public void testDeleteBST() {
         assertNull(ch.deleteBST(null, 0, null, 0));
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
-        Seminar s1 = new Seminar(3, "test", "0309251600", 13, (short)4,
-            (short)9, 15, tags, "test description");
-        Seminar s2 = new Seminar(5, "test", "0309251600", 13, (short)4,
-            (short)9, 15, tags, "test description");
-        Seminar s3 = new Seminar(9, "test", "0309251600", 13, (short)4,
-            (short)9, 15, tags, "test description");
-        Seminar s4 = new Seminar(15, "test", "0309251600", 13, (short)4,
-            (short)9, 15, tags, "test description");
-        Seminar s5 = new Seminar(18, "test", "0309251600", 13, (short)4,
-            (short)9, 15, tags, "test description");
+        s1 = new Seminar(3, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        s2 = new Seminar(5, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        s3 = new Seminar(9, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        s4 = new Seminar(15, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        s5 = new Seminar(18, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
         Seminar s6 = new Seminar(4, "test", "0309251600", 13, (short)4,
             (short)9, 15, tags, "test description");
         idRoot = ch.insertBST(idRoot, s3, s3.id(), null);
@@ -417,28 +417,21 @@ public class CommandHandler2Test extends TestCase {
     public void testCounter() {
         ch.resetCount();
         assertEquals(0, ch.getCount());
-        Seminar s1 = new Seminar(5, "test", "1", 13, (short)4, (short)9, 1,
-            new String[] { "tag1" }, "test description");
-        Seminar s2 = new Seminar(6, "test", "2", 13, (short)4, (short)9, 2,
-            new String[] { "tag2" }, "test description");
-        Seminar s3 = new Seminar(7, "test", "3", 13, (short)4, (short)9, 3,
-            new String[] { "tag3" }, "test description");
 
         ch.resetCount();
         // TEST COST
         costRoot = ch.insertBST(costRoot, s1, s1.cost(), null);
         costRoot = ch.insertBST(costRoot, s2, s2.cost(), null);
         costRoot = ch.insertBST(costRoot, s3, s3.cost(), null);
-        assertFuzzyEquals(s2.toString(), ch.searchNumRange(costRoot, 2, 2));
-        assertEquals(5, ch.getCount());
+        assertFuzzyEquals(s2.toString(), ch.searchNumRange(costRoot, 20, 20));
+        assertEquals(4, ch.getCount());
         ch.resetCount();
 
         // TEST DATE
         dateRoot = ch.insertBST(dateRoot, s1, Integer.MIN_VALUE, s1.date());
         dateRoot = ch.insertBST(dateRoot, s2, Integer.MIN_VALUE, s2.date());
         dateRoot = ch.insertBST(dateRoot, s3, Integer.MIN_VALUE, s3.date());
-        assertFuzzyEquals(s1.toString(), ch.searchStringRange(dateRoot, "1",
-            "1"));
+        assertFuzzyEquals("", ch.searchStringRange(dateRoot, "1", "1"));
         assertEquals(4, ch.getCount());
         ch.resetCount();
     }

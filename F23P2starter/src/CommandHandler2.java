@@ -99,13 +99,15 @@ public class CommandHandler2 {
      * @param newSem
      *            seminar object being inserted
      * @param n
-     *            compare element
+     *            compare element (int)
+     * @param s
+     *            compare element (String)
      * @return the new node object after insertion
      */
     public BSTree insertBST(BSTree rt, Seminar newSem, int n, String s) {
-        if (rt == null) {
+        if (rt == null)
             return new BSTree(newSem, n, s);
-        }
+        // Compare int if String is null, otherwise compare String
         boolean compare = s == null
             ? n <= rt.value()
             : s.compareTo(rt.getString()) <= 0;
@@ -135,8 +137,8 @@ public class CommandHandler2 {
      * @param root
      *            always takes the public static IdBST as an argument from the
      *            parser but is also recursive
-     * @param id
-     *            id being searched for
+     * @param n
+     *            number being searched for
      * @return the seminar object being searched for or null if not found
      */
     public Seminar searchNumber(BSTree root, int n) {
@@ -250,10 +252,8 @@ public class CommandHandler2 {
     /**
      * Keyword search method
      * 
-     * @param low
-     *            lower bound of date being searched for
-     * @param high
-     *            upper bound of date being searched for
+     * @param key
+     *            keyword being searched for
      * @return the string to print
      */
     public String searchKeyword(String key) {
@@ -355,6 +355,7 @@ public class CommandHandler2 {
     public BSTree deleteBST(BSTree rt, int n, String s, int id) {
         if (rt == null)
             return null;
+        // Compare int if String is null, otherwise compare String
         boolean compare = s == null
             ? n > rt.value()
             : s.compareTo(rt.getString()) > 0;
@@ -382,6 +383,7 @@ public class CommandHandler2 {
      * 
      * @param type
      *            BST type
+     * @return The print string
      */
     public String print(String type) {
         String treeString = "";
