@@ -82,13 +82,13 @@ public class CoordBTree {
             }
             else {
                 BTInternalNode inTemp = new BTInternalNode();
-                IdBST curr = temp.getList();
+                IdLL curr = temp.getList();
                 inTemp.setLeft(FLYWEIGHT);
                 inTemp.setRight(FLYWEIGHT);
                 while (curr != null) {
                     inTemp = (BTInternalNode)insertHelper(inTemp, curr.getSem(),
                         sizeX, sizeY, l, u);
-                    curr = curr.getLeft();
+                    curr = curr.getNext();
                 }
                 inTemp = (BTInternalNode)insertHelper(inTemp, sem, sizeX, sizeY,
                     l, u);
@@ -161,10 +161,10 @@ public class CoordBTree {
                 result = indent + "E\n";
             else {
                 result = indent + "Leaf with " + temp.getCount() + " objects:";
-                IdBST curr = temp.getList();
+                IdLL curr = temp.getList();
                 while (curr != null) {
                     result += " " + curr.getId();
-                    curr = curr.getLeft();
+                    curr = curr.getNext();
                 }
                 result += "\n";
             }
@@ -273,12 +273,12 @@ public class CoordBTree {
                 return result + "";
             int distance2 = dist2(temp.getX(), sx, temp.getY(), sy);
             if (distance2 <= rad * rad) {
-                IdBST curr = temp.getList();
+                IdLL curr = temp.getList();
                 while (curr != null) {
                     result += ("Found a record with key value " + curr.getId()
                         + " at " + curr.getSem().x() + ", " + curr.getSem().y()
                         + "\n");
-                    curr = curr.getLeft();
+                    curr = curr.getNext();
                 }
             }
         }

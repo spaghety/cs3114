@@ -5,7 +5,7 @@
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.10.09
  */
-public class CommandHandler2 {
+public class CommandHandler {
 
     private BSTree idRoot; // ID BST
     private BSTree costRoot; // Cost BST
@@ -18,7 +18,7 @@ public class CommandHandler2 {
     /**
      * Constructor
      */
-    public CommandHandler2() {
+    public CommandHandler() {
         idRoot = null;
         costRoot = null;
         dateRoot = null;

@@ -1,14 +1,14 @@
 import student.TestCase;
 
 /**
- * Tests the CommandHandler2
+ * Tests the CommandHandler
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.10.09
  */
-public class CommandHandler2Test extends TestCase {
-    private CommandHandler2 ch;
+public class CommandHandlerTest extends TestCase {
+    private CommandHandler ch;
 
     private BSTree idRoot;
     private BSTree dateRoot;
@@ -30,7 +30,7 @@ public class CommandHandler2Test extends TestCase {
      */
     public void setUp() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
-        ch = new CommandHandler2();
+        ch = new CommandHandler();
 
         idRoot = null;
         dateRoot = null;

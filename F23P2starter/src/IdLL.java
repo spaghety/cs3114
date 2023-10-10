@@ -1,28 +1,23 @@
 /**
- * This class defines the Binary Search Tree structure for Seminar IDs
+ * This class defines the Linked List structure for Seminar IDs
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.09.25
  */
-public class IdBST {
-    private IdBST leftChild;
-    private IdBST rightChild;
+public class IdLL {
+    private IdLL leftChild;
     private Seminar sem;
-    private boolean leaf;
 
     /**
-     * Basic constructor, takes only the Seminar object since left and right
-     * children will be set later
+     * Basic constructor, takes only the Seminar object
      * 
      * @param newSem
      *            The new Seminar object
      */
-    public IdBST(Seminar newSem) {
+    public IdLL(Seminar newSem) {
         leftChild = null;
-        rightChild = null;
         sem = newSem;
-        checkLeaf();
     }
 
 
@@ -58,68 +53,22 @@ public class IdBST {
 
 
     /**
-     * Sets the left child of the BST object
+     * Sets the next LL node
      * 
      * @param left
-     *            New leftChild BST object
+     *            New LL node
      */
-    public void setLeft(IdBST left) {
+    public void setNext(IdLL left) {
         leftChild = left;
-        checkLeaf();
     }
 
 
     /**
-     * Sets the right child of the BST object
+     * Gets the next object
      * 
-     * @param right
-     *            New rightChild BST object
+     * @return next object
      */
-    public void setRight(IdBST right) {
-        rightChild = right;
-        checkLeaf();
-    }
-
-
-    /**
-     * Checks if this node is a leaf
-     */
-    private void checkLeaf() {
-        if (leftChild == null && rightChild == null) {
-            leaf = true;
-        }
-        else {
-            leaf = false;
-        }
-    }
-
-
-    /**
-     * Gets the left child BST object
-     * 
-     * @return left child BST object
-     */
-    public IdBST getLeft() {
+    public IdLL getNext() {
         return leftChild;
-    }
-
-
-    /**
-     * Gets the right child BST object
-     * 
-     * @return right child BST object
-     */
-    public IdBST getRight() {
-        return rightChild;
-    }
-
-
-    /**
-     * Gets if this node is a leaf or not
-     * 
-     * @return true if this is a leaf, false otherwise
-     */
-    public boolean isLeaf() {
-        return leaf;
     }
 }

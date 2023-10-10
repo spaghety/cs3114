@@ -3,7 +3,6 @@ Overview of HCI Research at VT
 0610051600 90 10 10 45
 HCI Computer_Science VT Virginia_Tech
 This seminar will present an overview of HCI research at VT
-delete 1
 insert 2
 Computational Biology and Bioinformatics in CS at Virginia Tech
       0610071600       60     10     10 30
@@ -19,6 +18,12 @@ Overview of HPC and CSE Research at VT
 1203301125     35        0  0                                           25
       HPC      CSE      computer_science 
 Learn what kind of    research is done on HPC  and CSE at VT
-print cost
+print keyword
 delete 3
-print cost
+print keyword
+delete 10
+print keyword
+search cost 40 50
+delete 2
+delete 1
+print keyword

@@ -63,29 +63,29 @@ public class BTLeafNodeTest extends TestCase {
         assertEquals(2, node.getCount());
         node.add(s3);
         assertEquals(3, node.getCount());
-        assertEquals(s2, node.getList().getLeft().getSem());
-        assertEquals(s3, node.getList().getLeft().getLeft().getSem());
+        assertEquals(s2, node.getList().getNext().getSem());
+        assertEquals(s3, node.getList().getNext().getNext().getSem());
 
         node.add(s4);
         assertEquals(4, node.getCount());
         assertEquals(s4, node.getList().getSem());
-        assertEquals(s1, node.getList().getLeft().getSem());
+        assertEquals(s1, node.getList().getNext().getSem());
 
         node.add(s5);
         assertEquals(5, node.getCount());
         assertEquals(s4, node.getList().getSem());
-        assertEquals(s5, node.getList().getLeft().getSem());
-        assertEquals(s1, node.getList().getLeft().getLeft().getSem());
+        assertEquals(s5, node.getList().getNext().getSem());
+        assertEquals(s1, node.getList().getNext().getNext().getSem());
 
         node.remove(2);
         assertEquals(4, node.getCount());
         assertEquals(s4, node.getList().getSem());
-        assertEquals(s1, node.getList().getLeft().getSem());
-        assertEquals(s2, node.getList().getLeft().getLeft().getSem());
+        assertEquals(s1, node.getList().getNext().getSem());
+        assertEquals(s2, node.getList().getNext().getNext().getSem());
 
         node.remove(0);
         assertEquals(s1, node.getList().getSem());
-        assertEquals(s2, node.getList().getLeft().getSem());
+        assertEquals(s2, node.getList().getNext().getSem());
     }
     
     

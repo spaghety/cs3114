@@ -8,7 +8,7 @@
 public class BTLeafNode implements BinTreeNode {
     private int storedX;
     private int storedY;
-    private IdBST semList; // Used as a linked list
+    private IdLL semList; // Used as a linked list
     private int count;
 
 
@@ -44,25 +44,25 @@ public class BTLeafNode implements BinTreeNode {
         storedY = newSem.y();
         count++;
         if (semList == null)
-            semList = new IdBST(newSem);
+            semList = new IdLL(newSem);
         else {
             if (semList.getId() >= newSem.id()) {
-                IdBST temp = semList;
-                semList = new IdBST(newSem);
-                semList.setLeft(temp);
+                IdLL temp = semList;
+                semList = new IdLL(newSem);
+                semList.setNext(temp);
                 return;
             }
-            IdBST curr = semList;
-            while (curr.getLeft() != null) {
-                if (curr.getLeft().getId() >= newSem.id()) {
-                    IdBST temp = curr.getLeft();
-                    curr.setLeft(new IdBST(newSem));
-                    curr.getLeft().setLeft(temp);
+            IdLL curr = semList;
+            while (curr.getNext() != null) {
+                if (curr.getNext().getId() >= newSem.id()) {
+                    IdLL temp = curr.getNext();
+                    curr.setNext(new IdLL(newSem));
+                    curr.getNext().setNext(temp);
                     return;
                 }
-                curr = curr.getLeft();
+                curr = curr.getNext();
             }
-            curr.setLeft(new IdBST(newSem));
+            curr.setNext(new IdLL(newSem));
         }
     }
     
@@ -76,16 +76,16 @@ public class BTLeafNode implements BinTreeNode {
     public void remove(int did) {
         count--;
         if (semList.getId() == did) {
-            semList = semList.getLeft();
+            semList = semList.getNext();
         }
-        IdBST curr = semList;
-        IdBST prev = null;
+        IdLL curr = semList;
+        IdLL prev = null;
         while (curr != null && curr.getId() != did) {
             prev = curr;
-            curr = curr.getLeft();
+            curr = curr.getNext();
         }
         if (curr != null)
-            prev.setLeft(curr.getLeft());
+            prev.setNext(curr.getNext());
     }
 
 
@@ -104,7 +104,7 @@ public class BTLeafNode implements BinTreeNode {
      * 
      * @return seminar list
      */
-    public IdBST getList() {
+    public IdLL getList() {
         return semList;
     }
 
@@ -135,7 +135,7 @@ public class BTLeafNode implements BinTreeNode {
      * @param newList
      *            new linked list
      */
-    public void setList(IdBST newList) {
+    public void setList(IdLL newList) {
         semList = newList;
     }
 
