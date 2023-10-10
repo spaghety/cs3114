@@ -135,8 +135,7 @@ public class CommandHandler2 {
      * Single number search method
      * 
      * @param root
-     *            always takes the public static IdBST as an argument from the
-     *            parser but is also recursive
+     *            the root node to be searched
      * @param n
      *            number being searched for
      * @return the seminar object being searched for or null if not found
@@ -172,15 +171,14 @@ public class CommandHandler2 {
 
 
     /**
-     * Cost search method
+     * Number range search method
      * 
      * @param root
-     *            always takes the public static DateBST when called from
-     *            parser but not when called recursively
+     *            the root node to be searched
      * @param low
-     *            lower bound of date being searched for
+     *            lower bound of number being searched for
      * @param high
-     *            upper bound of date being searched for
+     *            upper bound of number being searched for
      * @return the string to print
      */
     public String searchNumRange(BSTree root, int low, int high) {
@@ -219,15 +217,14 @@ public class CommandHandler2 {
 
 
     /**
-     * Date search method
+     * String range search method
      * 
      * @param root
-     *            always takes the public static DateBST when called from
-     *            parser but not when called recursively
+     *            the root node to be searched
      * @param low
-     *            lower bound of date being searched for
+     *            lower bound of string being searched for
      * @param high
-     *            upper bound of date being searched for
+     *            upper bound of string being searched for
      * @return the string to print
      */
     public String searchStringRange(BSTree root, String low, String high) {
@@ -262,12 +259,10 @@ public class CommandHandler2 {
 
 
     /**
-     * Keyword search method
+     * Single string keyword search method
      * 
      * @param root
-     *            always takes the public static KeywordBST as an argument from
-     *            the
-     *            parser but is also recursive
+     *            the root node to be searched
      * @param keyword
      *            keyword being searched for
      * @return the string to print
