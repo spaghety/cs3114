@@ -35,6 +35,12 @@ public class BSTreeTest extends TestCase {
         assertEquals(1, second.value());
         assertEquals("132002", root.getString());
         assertEquals("222010", second.getString());
+        root.setValue(1000);
+        assertEquals(1000, root.value());
+        root.setString("Hello");
+        assertEquals("Hello", root.getString());
+
+
     }
 
 

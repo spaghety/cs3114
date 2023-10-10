@@ -36,12 +36,34 @@ public class BSTree {
 
 
     /**
+     * Sets the number value
+     * 
+     * @param num
+     *            the new number
+     */
+    public void setValue(int num) {
+        number = num;
+    }
+
+
+    /**
      * Gets the number value
      * 
      * @return the number value
      */
     public int value() {
         return number;
+    }
+
+
+    /**
+     * Sets the string value
+     * 
+     * @param num
+     *            the new string
+     */
+    public void setString(String num) {
+        string = num;
     }
 
 
