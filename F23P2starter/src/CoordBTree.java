@@ -8,7 +8,6 @@
  */
 public class CoordBTree {
     private BinTreeNode root;
-//    private int count;
     private int visit;
     private int worldSize;
 
@@ -25,10 +24,7 @@ public class CoordBTree {
      */
     public CoordBTree(int size) {
         worldSize = size;
-// int worldRad = (int)size / 2;
-// root = new BTNode(worldRad, worldRad, worldRad, true);
         root = FLYWEIGHT;
-//        count = 0;
         visit = 0;
     }
 
