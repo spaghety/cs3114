@@ -125,14 +125,6 @@ public class KeywordBST {
 
 
     /**
-     * Checks if this node is a leaf
-     */
-    private void checkLeaf() {
-        leaf = (leftChild == null && rightChild == null);
-    }
-
-
-    /**
      * Gets if this node is a leaf or not
      * 
      * @return true if this is a leaf, false otherwise
