@@ -11,42 +11,6 @@ public class BTLeafNode implements BinTreeNode {
     private IdBST semList; // Used as a linked list
     private int count;
 
-    /**
-     * Initializer changes node from a flywheel to a functional leaf node
-     * 
-     * @param rad
-     *            half the size of the span of the node
-     * @param dscrX
-     *            x coordinate discriminator for this node
-     * @param dscrY
-     *            y coordinate discriminator for this node
-     * @param xAxis
-     *            true if discriminator is on x-axis, false if not
-     */
-    public void initialize(int rad, int dscrX, int dscrY, boolean xAxis) {
-        semList = null;
-        storedX = -1;
-        storedY = -1;
-        count = 0;
-    }
-
-
-    /**
-     * Constructor initializes node with values
-     * 
-     * @param rad
-     *            half the size of the span of the node
-     * @param dscrX
-     *            x coordinate discriminator for this node
-     * @param dscrY
-     *            y coordinate discriminator for this node
-     * @param xAxis
-     *            true if discriminator is on x-axis, false if not
-     */
-    public BTLeafNode(int rad, int dscrX, int dscrY, boolean xAxis) {
-        initialize(rad, dscrX, dscrY, xAxis);
-    }
-
 
     /**
      * Constructor initializes the node object as a flywheel

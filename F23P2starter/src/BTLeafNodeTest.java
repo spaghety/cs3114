@@ -10,12 +10,16 @@ import student.TestCase;
 public class BTLeafNodeTest extends TestCase {
     private BTLeafNode node;
     private BTLeafNode flyWeight;
+    private BTLeafNode node2;
 
     /**
      * Sets up the tests
      */
     public void setUp() {
-        node = new BTLeafNode(64, 0, 0, false);
+        node = new BTLeafNode();
+        node2 = new BTLeafNode();
+        node2.add(new Seminar(2, "test", "0309221600", 13, (short)4, (short)9,
+            25, new String[] { "tag1", "tag4" }, "test description"));
         flyWeight = new BTLeafNode();
     }
 
@@ -74,4 +78,15 @@ public class BTLeafNodeTest extends TestCase {
         assertEquals(s1, node.getList().getLeft().getLeft().getSem());
 
     }
+    
+    
+    /**
+     * Tests the setList method
+     */
+    public void testSetList() {
+        assertFalse(node2.isEmpty());
+        node2.setList(null);
+        assertTrue(node2.isEmpty());
+    }
+
 }
