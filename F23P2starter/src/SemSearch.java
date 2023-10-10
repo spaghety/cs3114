@@ -186,7 +186,7 @@ public class SemSearch {
                                         + "ID %d\n", num);
                             }
                             else {
-                                System.out.printf("Found record with ID %d: \n",
+                                System.out.printf("Found record with ID %d:\n",
                                     num);
                                 System.out.println(result.toString());
                             }
