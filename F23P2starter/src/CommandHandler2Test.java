@@ -62,7 +62,7 @@ public class CommandHandler2Test extends TestCase {
     /**
      * Tests insert and delete
      */
-    public void testInsert() {
+    public void testInsertDelete() {
         ch.insert(s1);
         ch.insert(s2);
         ch.insert(s3);
@@ -73,10 +73,10 @@ public class CommandHandler2Test extends TestCase {
         assertEquals(5, ch.getNodeCount());
         assertEquals(6, ch.getKeywordCount());
 
-        ch.delete(s1);
+        ch.delete(s1, s1.id());
         assertEquals(4, ch.getNodeCount());
         assertEquals(5, ch.getKeywordCount());
-        ch.delete(s5);
+        ch.delete(s5, s5.id());
         assertEquals(3, ch.getNodeCount());
         assertEquals(3, ch.getKeywordCount());
     }
