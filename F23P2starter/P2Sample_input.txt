@@ -56,6 +56,7 @@ Overview of HPC and CSE Research at VT
 Learn what kind of    research is done on HPC  and CSE at VT
 
 search keyword VT
+search keyword vt
 search ID 1
 search cost 30 50
 
