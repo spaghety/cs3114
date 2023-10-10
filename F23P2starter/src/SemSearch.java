@@ -42,6 +42,7 @@ public class SemSearch {
         Scanner sc = new Scanner(infile);
         // BinTree implementation
         CommandHandler handler = new CommandHandler();
+        CommandHandler2 h2 = new CommandHandler2();
         String[] command;
         IdBST idRoot = null;
         CostBST costRoot = null;
@@ -79,17 +80,19 @@ public class SemSearch {
                     sc.nextLine();
                     String[] tags = sc.nextLine().trim().split("\\s+");
                     String desc = sc.nextLine().trim();
-                    if (handler.searchId(idRoot, id) == null) {
+//                    if (handler.searchId(idRoot, id) == null) {
+                    if (h2.searchId(id) == null) {
                         Seminar sem = new Seminar(id, courseName, date, length,
                             x, y, cost, tags, desc);
                         try {
-                            idRoot = handler.insertId(idRoot, sem);
-                            costRoot = handler.insertCost(costRoot, sem);
-                            dateRoot = handler.insertDate(dateRoot, sem);
-                            for (String key : sem.keywords()) {
-                                kwRoot = handler.insertKeyword(kwRoot, key,
-                                    sem);
-                            }
+//                            idRoot = handler.insertId(idRoot, sem);
+//                            costRoot = handler.insertCost(costRoot, sem);
+//                            dateRoot = handler.insertDate(dateRoot, sem);
+//                            for (String key : sem.keywords()) {
+//                                kwRoot = handler.insertKeyword(kwRoot, key,
+//                                    sem);
+//                            }
+                            h2.insert(sem);
                             locBT.insert(sem);
                             System.out.printf(
                                 "Successfully inserted record with ID %d\n"
@@ -107,65 +110,67 @@ public class SemSearch {
                 case "print":
                     String treeString = "";
                     switch (command[1].toLowerCase()) {
-                        case "date":
-                            System.out.println("Date Tree:");
-                            treeString = handler.printDate(dateRoot, "");
-                            switch (treeString) {
-                                case "null":
-                                    System.out.print("This tree is empty");
-                                    break;
-                                default:
-                                    System.out.print(treeString);
-                                    System.out.printf("\nNumber of records: %d",
-                                        handler.getNodeCount());
-                            }
-                            System.out.println();
-                            break;
-                        case "keyword":
-                            System.out.println("Keyword Tree:");
-                            treeString = handler.printKeyword(kwRoot, "");
-                            switch (treeString) {
-                                case "null\n":
-                                    System.out.print("This tree is empty\n");
-                                    break;
-                                default:
-                                    System.out.print(treeString);
-                                    System.out.printf("Number of records: %d\n",
-                                        handler.getKeywordCount());
-                            }
-                            break;
+//                        case "date":
+//                            System.out.println("Date Tree:");
+//                            treeString = handler.printDate(dateRoot, "");
+//                            switch (treeString) {
+//                                case "null":
+//                                    System.out.print("This tree is empty");
+//                                    break;
+//                                default:
+//                                    System.out.print(treeString);
+//                                    System.out.printf("\nNumber of records: %d",
+//                                        handler.getNodeCount());
+//                            }
+//                            System.out.println();
+//                            break;
+//                        case "keyword":
+//                            System.out.println("Keyword Tree:");
+//                            treeString = handler.printKeyword(kwRoot, "");
+//                            switch (treeString) {
+//                                case "null\n":
+//                                    System.out.print("This tree is empty\n");
+//                                    break;
+//                                default:
+//                                    System.out.print(treeString);
+//                                    System.out.printf("Number of records: %d\n",
+//                                        handler.getKeywordCount());
+//                            }
+//                            break;
                         case "location":
                             System.out.println("Location Tree:");
                             System.out.print(locBT.toString());
                             break;
-                        case "cost":
-                            System.out.println("Cost Tree:");
-                            treeString = handler.printCost(costRoot, "");
-                            switch (treeString) {
-                                case "null":
-                                    System.out.print("This tree is empty");
-                                    break;
-                                default:
-                                    System.out.print(treeString);
-                                    System.out.printf("\nNumber of records: %d",
-                                        handler.getNodeCount());
-                            }
-                            System.out.println();
-                            break;
-                        case "id":
-                            System.out.println("ID Tree:");
-                            treeString = handler.printID(idRoot, "");
-                            switch (treeString) {
-                                case "null":
-                                    System.out.print("This tree is empty");
-                                    break;
-                                default:
-                                    System.out.print(treeString);
-                                    System.out.printf("\nNumber of records: %d",
-                                        handler.getNodeCount());
-                            }
-                            System.out.println();
-                            break;
+//                        case "cost":
+//                            System.out.println("Cost Tree:");
+//                            treeString = handler.printCost(costRoot, "");
+//                            switch (treeString) {
+//                                case "null":
+//                                    System.out.print("This tree is empty");
+//                                    break;
+//                                default:
+//                                    System.out.print(treeString);
+//                                    System.out.printf("\nNumber of records: %d",
+//                                        handler.getNodeCount());
+//                            }
+//                            System.out.println();
+//                            break;
+//                        case "id":
+//                            System.out.println("ID Tree:");
+//                            treeString = handler.printID(idRoot, "");
+//                            switch (treeString) {
+//                                case "null":
+//                                    System.out.print("This tree is empty");
+//                                    break;
+//                                default:
+//                                    System.out.print(treeString);
+//                                    System.out.printf("\nNumber of records: %d",
+//                                        handler.getNodeCount());
+//                            }
+//                            System.out.println();
+//                            break;
+                        default:
+                            System.out.print(h2.print(command[1]));
                     }
                     break;
                 case "search":
@@ -173,7 +178,8 @@ public class SemSearch {
                     switch (command[1].toLowerCase()) {
                         case "id":
                             int num = Integer.parseInt(command[2]);
-                            Seminar result = handler.searchId(idRoot, num);
+//                            Seminar result = handler.searchId(idRoot, num);
+                            Seminar result = h2.searchId(num);
                             if (result == null) {
                                 System.out.printf(
                                     "Search FAILED -- There is no record with "
@@ -189,34 +195,37 @@ public class SemSearch {
                         case "cost":
                             int low = Integer.parseInt(command[2]);
                             int high = Integer.parseInt(command[3]);
-                            String costResult = handler.searchCost(costRoot,
-                                low, high);
+//                            String costResult = handler.searchCost(costRoot,
+//                                low, high);
+                            String costResult = h2.searchCost(low, high);
                             System.out.printf(
                                 "Seminars with costs in range %d to %d:\n"
                                     + costResult, low, high);
-                            System.out.printf(
-                                "%d nodes visited in this search\n", handler
-                                    .getCount());
+//                            System.out.printf(
+//                                "%d nodes visited in this search\n", handler
+//                                    .getCount());
                             handler.resetCount();
                             break;
                         case "date":
                             String l = command[2];
                             String h = command[3];
-                            String dateResult = handler.searchDate(dateRoot, l,
-                                h);
+//                            String dateResult = handler.searchDate(dateRoot, l,
+//                                h);
+                            String dateResult = h2.searchDate(l, h);
                             System.out.printf(
                                 "Seminars with dates in range %s to %s:\n"
                                     + dateResult, l, h);
-                            System.out.printf(
-                                "%d nodes visited in this search\n", handler
-                                    .getCount());
+//                            System.out.printf(
+//                                "%d nodes visited in this search\n", handler
+//                                    .getCount());
                             handler.resetCount();
                             break;
                         case "keyword":
                             System.out.printf("Seminars matching keyword %s:\n",
                                 command[2]);
-                            System.out.print(handler.searchKeyword(kwRoot,
-                                command[2]));
+//                            System.out.print(handler.searchKeyword(kwRoot,
+//                                command[2]));
+                            System.out.print(h2.searchKeyword(command[2]));
                             handler.resetCount();
                             break;
                         case "location":
@@ -233,18 +242,20 @@ public class SemSearch {
                     break;
                 case "delete":
                     int did = Integer.parseInt(command[1]);
-                    Seminar temp = handler.searchId(idRoot, did);
+//                    Seminar temp = handler.searchId(idRoot, did);
+                    Seminar temp = h2.searchId(did);
                     if (temp == null) {
                         System.out.printf("Delete FAILED -- There is no record "
                             + "with ID %d\n", did);
                         break;
                     }
-                    idRoot = handler.deleteId(idRoot, did);
-                    costRoot = handler.deleteCost(costRoot, temp.cost(), did);
-                    dateRoot = handler.deleteDate(dateRoot, temp.date(), did);
-                    for (String key : temp.keywords()) {
-                        kwRoot = handler.deleteKeyword(kwRoot, key, did);
-                    }
+//                    idRoot = handler.deleteId(idRoot, did);
+//                    costRoot = handler.deleteCost(costRoot, temp.cost(), did);
+//                    dateRoot = handler.deleteDate(dateRoot, temp.date(), did);
+//                    for (String key : temp.keywords()) {
+//                        kwRoot = handler.deleteKeyword(kwRoot, key, did);
+//                    }
+                    h2.delete(temp);
                     locBT.remove(temp.x(), temp.y(), did);
                     System.out.printf("Record with ID %d successfully deleted "
                         + "from the database\n", did);
