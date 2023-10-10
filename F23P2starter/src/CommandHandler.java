@@ -66,7 +66,7 @@ public class CommandHandler {
     /**
      * Resets count of visited nodes
      */
-    public void resetCount() {
+    private void resetCount() {
         visitCount = 0;
     }
 
@@ -126,8 +126,10 @@ public class CommandHandler {
      *            id being searched for
      * @return the seminar object being searched for or null if not found
      */
-    public Seminar searchId(int id) {
-        return searchNumber(idRoot, id);
+	public Seminar searchId(int id) {
+        Seminar result = searchNumber(idRoot, id);
+        resetCount();
+        return result;
     }
 
 
@@ -140,7 +142,7 @@ public class CommandHandler {
      *            number being searched for
      * @return the seminar object being searched for or null if not found
      */
-    public Seminar searchNumber(BSTree root, int n) {
+    private Seminar searchNumber(BSTree root, int n) {
         if (root == null)
             return null;
         if (root.value() == n)
@@ -181,7 +183,7 @@ public class CommandHandler {
      *            upper bound of number being searched for
      * @return the string to print
      */
-    public String searchNumRange(BSTree root, int low, int high) {
+    private String searchNumRange(BSTree root, int low, int high) {
         visitCount++;
         if (root == null)
             return "";
@@ -227,7 +229,7 @@ public class CommandHandler {
      *            upper bound of string being searched for
      * @return the string to print
      */
-    public String searchStringRange(BSTree root, String low, String high) {
+    private String searchStringRange(BSTree root, String low, String high) {
         visitCount++;
         if (root == null)
             return "";
@@ -254,7 +256,9 @@ public class CommandHandler {
      * @return the string to print
      */
     public String searchKeyword(String key) {
-        return searchKeyword(kwRoot, key);
+        String result = searchKeyword(kwRoot, key);
+        resetCount();
+        return result;
     }
 
 
@@ -267,7 +271,7 @@ public class CommandHandler {
      *            keyword being searched for
      * @return the string to print
      */
-    public String searchKeyword(BSTree root, String keyword) {
+    private String searchKeyword(BSTree root, String keyword) {
         if (root == null)
             return "";
         int strComp = keyword.compareTo(root.getString());
