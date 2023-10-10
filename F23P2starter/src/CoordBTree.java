@@ -372,19 +372,7 @@ public class CoordBTree {
         int did) {
         if (rt instanceof BTLeafNode) {
             BTLeafNode temp = (BTLeafNode)rt;
-            IdBST tempList = temp.getList();
-            if (tempList.getId() == did) {
-                tempList = tempList.getLeft();
-            }
-            IdBST curr = tempList;
-            IdBST prev = null;
-            while (curr != null && curr.getId() != did) {
-                prev = curr;
-                curr = curr.getLeft();
-            }
-            if (curr != null)
-                prev.setLeft(curr.getLeft());
-            temp.setList(tempList);
+            temp.remove(did);
             return temp;
         }
         else {

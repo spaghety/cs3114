@@ -34,7 +34,7 @@ public class BTLeafNode implements BinTreeNode {
 
 
     /**
-     * Sets the seminar object
+     * Adds a seminar object
      * 
      * @param newSem
      *            new Seminar object
@@ -64,6 +64,28 @@ public class BTLeafNode implements BinTreeNode {
             }
             curr.setLeft(new IdBST(newSem));
         }
+    }
+    
+    
+    /**
+     * Removes a seminar object
+     * 
+     * @param did
+     *            The ID to be removed
+     */
+    public void remove(int did) {
+        count--;
+        if (semList.getId() == did) {
+            semList = semList.getLeft();
+        }
+        IdBST curr = semList;
+        IdBST prev = null;
+        while (curr != null && curr.getId() != did) {
+            prev = curr;
+            curr = curr.getLeft();
+        }
+        if (curr != null)
+            prev.setLeft(curr.getLeft());
     }
 
 

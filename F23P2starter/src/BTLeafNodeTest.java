@@ -77,6 +77,15 @@ public class BTLeafNodeTest extends TestCase {
         assertEquals(s5, node.getList().getLeft().getSem());
         assertEquals(s1, node.getList().getLeft().getLeft().getSem());
 
+        node.remove(2);
+        assertEquals(4, node.getCount());
+        assertEquals(s4, node.getList().getSem());
+        assertEquals(s1, node.getList().getLeft().getSem());
+        assertEquals(s2, node.getList().getLeft().getLeft().getSem());
+
+        node.remove(0);
+        assertEquals(s1, node.getList().getSem());
+        assertEquals(s2, node.getList().getLeft().getSem());
     }
     
     
