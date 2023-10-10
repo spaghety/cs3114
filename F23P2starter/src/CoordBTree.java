@@ -327,6 +327,7 @@ public class CoordBTree {
      *            y-coordinate
      * @param r
      *            radius
+     * @return output string
      */
     public String search(int x, int y, int r) {
 // System.out.println(worldSize);
@@ -436,7 +437,7 @@ public class CoordBTree {
      *            y-coordinate
      * @param did
      *            ID of seminar
-     * @retrun true if successfully found and removed, false if not
+     * @return true if successfully found and removed, false if not
      */
     public boolean remove(int x, int y, int did) {
         String searchResult = search(x, y, 0);
