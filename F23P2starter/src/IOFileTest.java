@@ -18,13 +18,15 @@ public class IOFileTest extends TestCase {
         infile = "custom_test.txt";
     }
 
+
     /**
      * Tests running the file
      */
     public void testRun() {
         try {
             SemSearch.main(new String[] { worldSize, infile });
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }

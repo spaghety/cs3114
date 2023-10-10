@@ -36,26 +36,28 @@ public class CommandHandlerTest extends TestCase {
         dateRoot = null;
         costRoot = null;
         kwRoot = null;
-        sem = new Seminar(2, "test", "Jan132002", 13, (short) 4, (short) 9, 15, tags, "test description");
-        sem2 = new Seminar(1, "second test name", "Jun222010", 90, (short) 2, (short) 13, 42, tags,
-                "test description two");
+        sem = new Seminar(2, "test", "Jan132002", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        sem2 = new Seminar(1, "second test name", "Jun222010", 90, (short)2,
+            (short)13, 42, tags, "test description two");
         left = new BSTree(sem2, sem2.id(), null);
-        sem3 = new Seminar(3, "second test name", "Jun222010", 90, (short) 2, (short) 13, 42, tags,
-                "test description two");
+        sem3 = new Seminar(3, "second test name", "Jun222010", 90, (short)2,
+            (short)13, 42, tags, "test description two");
         right = new BSTree(sem3, sem3.id(), null);
 
-        s1 = new Seminar(5, "test", "0309251600", 13, (short) 4, (short) 9, 15, new String[] { "tag1" },
-                "test description");
-        s2 = new Seminar(6, "test", "0309261600", 13, (short) 4, (short) 9, 20, new String[] { "tag2" },
-                "test description");
-        s3 = new Seminar(7, "test", "0309271600", 13, (short) 4, (short) 9, 10, new String[] { "tag3" },
-                "test description");
-        s4 = new Seminar(0, "test", "0309201600", 13, (short) 4, (short) 9, 0, new String[] { "biscuit" },
-                "test description");
-        s5 = new Seminar(2, "test", "0309221600", 13, (short) 4, (short) 9, 25, new String[] { "tag1", "tag4" },
-                "test description");
+        s1 = new Seminar(5, "test", "0309251600", 13, (short)4, (short)9, 15,
+            new String[] { "tag1" }, "test description");
+        s2 = new Seminar(6, "test", "0309261600", 13, (short)4, (short)9, 20,
+            new String[] { "tag2" }, "test description");
+        s3 = new Seminar(7, "test", "0309271600", 13, (short)4, (short)9, 10,
+            new String[] { "tag3" }, "test description");
+        s4 = new Seminar(0, "test", "0309201600", 13, (short)4, (short)9, 0,
+            new String[] { "biscuit" }, "test description");
+        s5 = new Seminar(2, "test", "0309221600", 13, (short)4, (short)9, 25,
+            new String[] { "tag1", "tag4" }, "test description");
 
     }
+
 
     /**
      * Tests insert and delete
@@ -79,6 +81,7 @@ public class CommandHandlerTest extends TestCase {
         assertEquals(3, ch.getKeywordCount());
     }
 
+
     /**
      * Tests insertId
      */
@@ -94,6 +97,7 @@ public class CommandHandlerTest extends TestCase {
         assertEquals(s2, idRoot.getRight().getSem());
         assertEquals(s3, idRoot.getRight().getRight().getSem());
     }
+
 
     /**
      * Test insertCost
@@ -111,6 +115,7 @@ public class CommandHandlerTest extends TestCase {
         assertEquals(s5, costRoot.getRight().getRight().getSem());
     }
 
+
     /**
      * Test insertDate
      */
@@ -126,6 +131,7 @@ public class CommandHandlerTest extends TestCase {
         assertEquals(s4, dateRoot.getLeft().getSem());
         assertEquals(s5, dateRoot.getLeft().getRight().getSem());
     }
+
 
     /**
      * Tests insertKeyword
@@ -145,6 +151,7 @@ public class CommandHandlerTest extends TestCase {
         assertEquals(s5, kwRoot.getRight().getRight().getRight().getSem());
     }
 
+
     /**
      * Tests searchId(int) and searchNumber(BSTree, int) indirectly
      */
@@ -158,56 +165,79 @@ public class CommandHandlerTest extends TestCase {
         assertEquals(sem2.id(), ch.searchId(1).id());
     }
 
+
     /**
      * Tests searchCost(int, int)
      */
     public void testSearchCost() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
-        s1 = new Seminar(5, "test", "0309251600", 13, (short) 4, (short) 9, 15, tags, "test description");
-        s2 = new Seminar(6, "test", "0309261600", 13, (short) 4, (short) 9, 21, tags, "test description");
-        s3 = new Seminar(5, "test", "0309251600", 13, (short) 4, (short) 9, 5, tags, "test description");
+        s1 = new Seminar(5, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        s2 = new Seminar(6, "test", "0309261600", 13, (short)4, (short)9, 21,
+            tags, "test description");
+        s3 = new Seminar(5, "test", "0309251600", 13, (short)4, (short)9, 5,
+            tags, "test description");
         ch.insert(s1);
         ch.insert(s2);
         ch.insert(s3);
-        assertEquals(s1.toString() + "\n5 nodes visited in this search\n", ch.searchCost(10, 20));
-        assertEquals(s1.toString() + "\n5 nodes visited in this search\n", ch.searchCost(15, 15));
-        assertEquals(s2.toString() + "\n4 nodes visited in this search\n", ch.searchCost(20, 21));
-        assertEquals(s3.toString() + "\n4 nodes visited in this search\n", ch.searchCost(5, 10));
-        assertEquals((s3.toString() + "\n" + s1.toString() + "\n6 nodes visited in this search\n"),
-                (ch.searchCost(5, 15)));
-        assertEquals((s1.toString() + "\n" + s2.toString() + "\n6 nodes visited in this search\n"),
-                (ch.searchCost(15, 21)));
-        assertEquals(
-                (s3.toString() + "\n" + s1.toString() + "\n" + s2.toString() + "\n7 nodes visited in this search\n"),
-                (ch.searchCost(5, 21)));
+        assertEquals(s1.toString() + "\n5 nodes visited in this search\n", ch
+            .searchCost(10, 20));
+        assertEquals(s1.toString() + "\n5 nodes visited in this search\n", ch
+            .searchCost(15, 15));
+        assertEquals(s2.toString() + "\n4 nodes visited in this search\n", ch
+            .searchCost(20, 21));
+        assertEquals(s3.toString() + "\n4 nodes visited in this search\n", ch
+            .searchCost(5, 10));
+        assertEquals((s3.toString() + "\n" + s1.toString()
+            + "\n6 nodes visited in this search\n"), (ch.searchCost(5, 15)));
+        assertEquals((s1.toString() + "\n" + s2.toString()
+            + "\n6 nodes visited in this search\n"), (ch.searchCost(15, 21)));
+        assertEquals((s3.toString() + "\n" + s1.toString() + "\n" + s2
+            .toString() + "\n7 nodes visited in this search\n"), (ch.searchCost(
+                5, 21)));
     }
+
 
     /**
      * Tests searchDate and searchStringRange
      */
     public void testSearchDate() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
-        s1 = new Seminar(5, "test", "0312251600", 13, (short) 4, (short) 9, 15, tags, "test description"); // high date
-        s2 = new Seminar(6, "test", "0309282000", 13, (short) 4, (short) 9, 21, tags, "test description"); // middle
-                                                                                                           // date
-        s3 = new Seminar(5, "test", "0309250500", 13, (short) 4, (short) 9, 5, tags, "test description"); // low date
+        s1 = new Seminar(5, "test", "0312251600", 13, (short)4, (short)9, 15,
+            tags, "test description"); // high date
+        s2 = new Seminar(6, "test", "0309282000", 13, (short)4, (short)9, 21,
+            tags, "test description"); // middle
+                                       // date
+        s3 = new Seminar(5, "test", "0309250500", 13, (short)4, (short)9, 5,
+            tags, "test description"); // low date
         ch.insert(s1);
         ch.insert(s2);
         ch.insert(s3);
-        assertEquals("2 nodes visited in this search\n", (ch.searchDate("04", "1")));
-        assertFuzzyEquals((s1.toString() + "\n4 nodes visited in this search\n"),
-                (ch.searchDate("0312251600", "0312251600")));
-        assertFuzzyEquals((s1.toString() + "\n4 nodes visited in this search\n"), (ch.searchDate("031", "032")));
-        assertFuzzyEquals((s2.toString() + "\n5 nodes visited in this search\n"), (ch.searchDate("030928", "030929")));
-        assertFuzzyEquals((s3.toString() + "\n5 nodes visited in this search\n"), (ch.searchDate("030925", "030927")));
-        assertFuzzyEquals((s2.toString() + "\n" + s1.toString() + "\n6 nodes visited in this search\n"),
-                (ch.searchDate("030928", "032")));
-        assertFuzzyEquals((s3.toString() + "\n" + s2.toString() + "\n6 nodes visited in this search\n"),
-                (ch.searchDate("030", "031")));
-        assertFuzzyEquals(
-                (s3.toString() + "\n" + s2.toString() + "\n" + s1.toString() + "\n7 nodes visited in this search\n"),
-                (ch.searchDate("0", "1")));
+        assertEquals("2 nodes visited in this search\n", (ch.searchDate("04",
+            "1")));
+        assertFuzzyEquals((s1.toString()
+            + "\n4 nodes visited in this search\n"), (ch.searchDate(
+                "0312251600", "0312251600")));
+        assertFuzzyEquals((s1.toString()
+            + "\n4 nodes visited in this search\n"), (ch.searchDate("031",
+                "032")));
+        assertFuzzyEquals((s2.toString()
+            + "\n5 nodes visited in this search\n"), (ch.searchDate("030928",
+                "030929")));
+        assertFuzzyEquals((s3.toString()
+            + "\n5 nodes visited in this search\n"), (ch.searchDate("030925",
+                "030927")));
+        assertFuzzyEquals((s2.toString() + "\n" + s1.toString()
+            + "\n6 nodes visited in this search\n"), (ch.searchDate("030928",
+                "032")));
+        assertFuzzyEquals((s3.toString() + "\n" + s2.toString()
+            + "\n6 nodes visited in this search\n"), (ch.searchDate("030",
+                "031")));
+        assertFuzzyEquals((s3.toString() + "\n" + s2.toString() + "\n" + s1
+            .toString() + "\n7 nodes visited in this search\n"), (ch.searchDate(
+                "0", "1")));
     }
+
 
     /**
      * Tests searchKeyword, both overloaded methods
@@ -215,24 +245,30 @@ public class CommandHandlerTest extends TestCase {
 
     public void testSearchKeyword() {
         String[] tags1 = new String[] { "tag1", "tag2", "tag3" };
-        s1 = new Seminar(5, "test", "0312251600", 13, (short) 4, (short) 9, 15, tags1, "test description"); // high date
+        s1 = new Seminar(5, "test", "0312251600", 13, (short)4, (short)9, 15,
+            tags1, "test description"); // high date
         String[] tags2 = new String[] { "tag4", "tag5", "tag6" };
-        s2 = new Seminar(6, "test", "0309282000", 13, (short) 4, (short) 9, 21, tags2, "test description"); // middle
-                                                                                                            // date
+        s2 = new Seminar(6, "test", "0309282000", 13, (short)4, (short)9, 21,
+            tags2, "test description"); // middle
+                                        // date
         String[] tags3 = new String[] { "tag1", "tag10", "tag3" };
-        s3 = new Seminar(7, "test", "0309250500", 13, (short) 4, (short) 9, 5, tags3, "test description"); // low date
+        s3 = new Seminar(7, "test", "0309250500", 13, (short)4, (short)9, 5,
+            tags3, "test description"); // low date
         ch.insert(s1);
         ch.insert(s2);
         ch.insert(s3);
-        assertFuzzyEquals(s3.toString() + "\n" + s1.toString() + "\n", ch.searchKeyword("tag1"));
+        assertFuzzyEquals(s3.toString() + "\n" + s1.toString() + "\n", ch
+            .searchKeyword("tag1"));
         assertFuzzyEquals(s1.toString() + "\n", ch.searchKeyword("tag2"));
-        assertFuzzyEquals(s3.toString() + "\n" + s1.toString() + "\n", ch.searchKeyword("tag3"));
+        assertFuzzyEquals(s3.toString() + "\n" + s1.toString() + "\n", ch
+            .searchKeyword("tag3"));
         assertFuzzyEquals(s2.toString() + "\n", ch.searchKeyword("tag4"));
         assertFuzzyEquals(s2.toString() + "\n", ch.searchKeyword("tag5"));
         assertFuzzyEquals(s2.toString() + "\n", ch.searchKeyword("tag6"));
         assertFuzzyEquals(s3.toString() + "\n", ch.searchKeyword("tag10"));
 
     }
+
 
     /**
      * Tests the print method
@@ -244,38 +280,46 @@ public class CommandHandlerTest extends TestCase {
         ch.insert(s3);
         ch.insert(s4);
         ch.insert(s5);
-        assertFuzzyEquals(
-                "ID Tree:\n      null\n" + "    7\n" + "      null\n" + "  6\n" + "    null\n" + "5\n" + "      null\n"
-                        + "    2\n" + "      null\n" + "  0\n" + "    null\n" + "Number of records: 5\n",
-                ch.print("ID"));
+        assertFuzzyEquals("ID Tree:\n      null\n" + "    7\n" + "      null\n"
+            + "  6\n" + "    null\n" + "5\n" + "      null\n" + "    2\n"
+            + "      null\n" + "  0\n" + "    null\n"
+            + "Number of records: 5\n", ch.print("ID"));
     }
+
 
     /**
      * Tests the print method
      */
     public void testPrint2() {
         String[] tags1 = new String[] { "tag1", "tag2", "tag3" };
-        s1 = new Seminar(5, "test", "0312251600", 13, (short) 4, (short) 9, 15, tags1, "test description"); // high date
+        s1 = new Seminar(5, "test", "0312251600", 13, (short)4, (short)9, 15,
+            tags1, "test description"); // high date
         String[] tags2 = new String[] { "tag4", "tag5", "tag6" };
-        s2 = new Seminar(6, "test", "0309282000", 13, (short) 4, (short) 9, 21, tags2, "test description"); // middle
-                                                                                                            // date
+        s2 = new Seminar(6, "test", "0309282000", 13, (short)4, (short)9, 21,
+            tags2, "test description"); // middle
+                                        // date
         String[] tags3 = new String[] { "tag1", "tag10", "tag3" };
-        s3 = new Seminar(7, "test", "0309250500", 13, (short) 4, (short) 9, 5, tags3, "test description"); // low date
+        s3 = new Seminar(7, "test", "0309250500", 13, (short)4, (short)9, 5,
+            tags3, "test description"); // low date
         ch.insert(s1);
         ch.insert(s2);
         ch.insert(s3);
-        assertFuzzyEquals(
-                "Cost Tree:\n" + "    null\n  21\n    null\n15\n    null\n  5\n    null\n" + "Number of records: 3\n",
-                ch.print("Cost"));
-        assertFuzzyEquals("Date Tree:\n" + "  null\n0312251600\n    null\n  0309282000\n      null\n"
-                + "    0309250500\n      null\n" + "Number of records: 3\n", ch.print("Date"));
-        assertFuzzyEquals(
-                "Keyword Tree:\n" + "            null\n" + "          tag6\n" + "            null\n" + "        tag5\n"
-                        + "          null\n" + "      tag4\n" + "        null\n" + "    tag3\n        null\n"
-                        + "      tag3\n" + "        null\n" + "  tag2\n" + "      null\n" + "    tag10\n"
-                        + "      null\n" + "tag1\n    null\n" + "  tag1\n" + "    null\n" + "Number of records: 9\n",
-                ch.print("Keyword"));
+        assertFuzzyEquals("Cost Tree:\n"
+            + "    null\n  21\n    null\n15\n    null\n  5\n    null\n"
+            + "Number of records: 3\n", ch.print("Cost"));
+        assertFuzzyEquals("Date Tree:\n"
+            + "  null\n0312251600\n    null\n  0309282000\n      null\n"
+            + "    0309250500\n      null\n" + "Number of records: 3\n", ch
+                .print("Date"));
+        assertFuzzyEquals("Keyword Tree:\n" + "            null\n"
+            + "          tag6\n" + "            null\n" + "        tag5\n"
+            + "          null\n" + "      tag4\n" + "        null\n"
+            + "    tag3\n        null\n" + "      tag3\n" + "        null\n"
+            + "  tag2\n" + "      null\n" + "    tag10\n" + "      null\n"
+            + "tag1\n    null\n" + "  tag1\n" + "    null\n"
+            + "Number of records: 9\n", ch.print("Keyword"));
     }
+
 
     /**
      * Tests deleteBST method
@@ -283,12 +327,18 @@ public class CommandHandlerTest extends TestCase {
     public void testDeleteBST() {
         assertNull(ch.deleteBST(null, 0, null, 0));
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
-        s1 = new Seminar(3, "test", "0309251600", 13, (short) 4, (short) 9, 15, tags, "test description");
-        s2 = new Seminar(5, "test", "0309251600", 13, (short) 4, (short) 9, 15, tags, "test description");
-        s3 = new Seminar(9, "test", "0309251600", 13, (short) 4, (short) 9, 15, tags, "test description");
-        s4 = new Seminar(15, "test", "0309251600", 13, (short) 4, (short) 9, 15, tags, "test description");
-        s5 = new Seminar(18, "test", "0309251600", 13, (short) 4, (short) 9, 15, tags, "test description");
-        Seminar s6 = new Seminar(4, "test", "0309251600", 13, (short) 4, (short) 9, 15, tags, "test description");
+        s1 = new Seminar(3, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        s2 = new Seminar(5, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        s3 = new Seminar(9, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        s4 = new Seminar(15, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        s5 = new Seminar(18, "test", "0309251600", 13, (short)4, (short)9, 15,
+            tags, "test description");
+        Seminar s6 = new Seminar(4, "test", "0309251600", 13, (short)4,
+            (short)9, 15, tags, "test description");
         idRoot = ch.insertBST(idRoot, s3, s3.id(), null);
         idRoot = ch.insertBST(idRoot, s4, s4.id(), null);
         idRoot = ch.insertBST(idRoot, s1, s1.id(), null);

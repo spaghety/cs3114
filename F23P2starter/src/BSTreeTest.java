@@ -18,12 +18,14 @@ public class BSTreeTest extends TestCase {
      */
     public void setUp() {
         String[] tags = new String[] { "tag1", "tag2", "tag3" };
-        testSem = new Seminar(0, "test", "132002", 13, (short) 4, (short) 9, 15, tags, "test description");
+        testSem = new Seminar(0, "test", "132002", 13, (short)4, (short)9, 15,
+            tags, "test description");
         root = new BSTree(testSem, testSem.id(), testSem.date());
-        testSems = new Seminar(1, "second test name", "222010", 90, (short) 2, (short) 13, 42, tags,
-                "test description two");
+        testSems = new Seminar(1, "second test name", "222010", 90, (short)2,
+            (short)13, 42, tags, "test description two");
         second = new BSTree(testSems, testSems.id(), testSems.date());
     }
+
 
     /**
      * Tests value() and getString()
@@ -40,12 +42,14 @@ public class BSTreeTest extends TestCase {
 
     }
 
+
     /**
      * Tests the getSem method
      */
     public void testGetSem() {
         assertTrue(root.getSem().equals(testSem));
     }
+
 
     /**
      * Tests the getLeft and setLeft methods
@@ -56,6 +60,7 @@ public class BSTreeTest extends TestCase {
         assertFalse(root.isLeaf());
     }
 
+
     /**
      * Tests the getRight and setRight methods
      */
@@ -64,6 +69,7 @@ public class BSTreeTest extends TestCase {
         assertTrue(testSems.equals(root.getRight().getSem()));
         assertFalse(root.isLeaf());
     }
+
 
     /**
      * Tests isLeaf

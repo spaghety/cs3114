@@ -17,10 +17,14 @@ public class BSTree {
      * Basic constructor, takes only the Seminar object since left and right
      * children will be set later
      * 
-     * @param newSem The new Seminar object
-     * @param n      The element to be inserted, type int
-     * @param s      The element to be inserted, type String If null, it indicates n
-     *               is the actual element
+     * @param newSem
+     *            The new Seminar object
+     * @param n
+     *            The element to be inserted, type int
+     * @param s
+     *            The element to be inserted, type String If null, it indicates
+     *            n
+     *            is the actual element
      */
     public BSTree(Seminar newSem, int n, String s) {
         leftChild = null;
@@ -31,14 +35,17 @@ public class BSTree {
         checkLeaf();
     }
 
+
     /**
      * Sets the number value
      * 
-     * @param num the new number
+     * @param num
+     *            the new number
      */
     public void setValue(int num) {
         number = num;
     }
+
 
     /**
      * Gets the number value
@@ -49,14 +56,17 @@ public class BSTree {
         return number;
     }
 
+
     /**
      * Sets the string value
      * 
-     * @param num the new string
+     * @param num
+     *            the new string
      */
     public void setString(String num) {
         string = num;
     }
+
 
     /**
      * Gets the string value
@@ -67,14 +77,17 @@ public class BSTree {
         return string;
     }
 
+
     /**
      * Changes the seminar object
      * 
-     * @param newSem new Seminar object
+     * @param newSem
+     *            new Seminar object
      */
     public void setSem(Seminar newSem) {
         sem = newSem;
     }
+
 
     /**
      * gets the seminar object itself
@@ -85,25 +98,30 @@ public class BSTree {
         return sem;
     }
 
+
     /**
      * Sets the left child of the BST object
      * 
-     * @param left New leftChild BST object
+     * @param left
+     *            New leftChild BST object
      */
     public void setLeft(BSTree left) {
         leftChild = left;
         checkLeaf();
     }
 
+
     /**
      * Sets the right child of the BST object
      * 
-     * @param right New rightChild BST object
+     * @param right
+     *            New rightChild BST object
      */
     public void setRight(BSTree right) {
         rightChild = right;
         checkLeaf();
     }
+
 
     /**
      * Gets the left child BST object
@@ -114,6 +132,7 @@ public class BSTree {
         return leftChild;
     }
 
+
     /**
      * Gets the right child BST object
      * 
@@ -123,6 +142,7 @@ public class BSTree {
         return rightChild;
     }
 
+
     /**
      * Gets if this node is a leaf or not
      * 
@@ -131,6 +151,7 @@ public class BSTree {
     public boolean isLeaf() {
         return leaf;
     }
+
 
     /**
      * Checks if this node is a leaf
