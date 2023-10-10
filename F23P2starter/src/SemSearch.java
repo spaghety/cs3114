@@ -44,10 +44,10 @@ public class SemSearch {
         CommandHandler handler = new CommandHandler();
         CommandHandler2 h2 = new CommandHandler2();
         String[] command;
-        IdBST idRoot = null;
-        CostBST costRoot = null;
-        KeywordBST kwRoot = null;
-        DateBST dateRoot = null;
+//        IdBST idRoot = null;
+//        CostBST costRoot = null;
+//        KeywordBST kwRoot = null;
+//        DateBST dateRoot = null;
         CoordBTree locBT = new CoordBTree(worldSize);
 // int id;
 // String courseName;
