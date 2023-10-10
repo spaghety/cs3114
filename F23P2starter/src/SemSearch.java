@@ -108,7 +108,7 @@ public class SemSearch {
                     }
                     break;
                 case "print":
-                    String treeString = "";
+//                    String treeString = "";
                     switch (command[1].toLowerCase()) {
 // case "date":
 // System.out.println("Date Tree:");
