@@ -357,15 +357,13 @@ public class CommandHandler {
         if (rt == null)
             return null;
         // Compare int if String is null, otherwise compare String
-        boolean compare = s == null
-            ? n > rt.value()
-            : s.compareTo(rt.getString()) > 0;
-        if (compare)
+        int compare = s == null ? n - rt.value() : s.compareTo(rt.getString());
+        if (compare > 0) // TO THE RIGHT
             rt.setRight(deleteBST(rt.getRight(), n, s, id));
-        else if (rt.getSem().id() == id) {
+        else if (rt.getSem().id() == id && compare == 0) { // FOUND IT
             if (rt.getLeft() == null)
                 return rt.getRight();
-            else {
+            else { // TO THE LEFT
                 BSTree temp = getMaxBST(rt.getLeft());
                 rt.setSem(temp.getSem());
                 rt.setValue(temp.value());

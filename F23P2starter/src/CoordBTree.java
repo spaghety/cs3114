@@ -4,7 +4,7 @@
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.10.03
+ * @version 2023.10.10
  */
 public class CoordBTree {
     private BinTreeNode root;
@@ -332,10 +332,7 @@ public class CoordBTree {
      * @return output string
      */
     public String search(int x, int y, int r) {
-// System.out.println(worldSize);
         String result = searchHelp(root, x, y, r, worldSize, worldSize, 0, 0);
-// System.out.print(result);
-// System.out.printf("%d nodes visited in this search\n", visit);
         result += visit + " nodes visited in this search\n";
         visit = 0;
         return result;
