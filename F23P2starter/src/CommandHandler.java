@@ -360,7 +360,7 @@ public class CommandHandler {
         int compare = s == null ? n - rt.value() : s.compareTo(rt.getString());
         if (compare > 0) // TO THE RIGHT
             rt.setRight(deleteBST(rt.getRight(), n, s, id));
-        else if (rt.getSem().id() == id && compare == 0) { // FOUND IT
+        else if (compare == 0 && rt.getSem().id() == id) { // FOUND IT
             if (rt.getLeft() == null)
                 return rt.getRight();
             else { // TO THE LEFT

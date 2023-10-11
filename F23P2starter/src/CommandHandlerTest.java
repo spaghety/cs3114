@@ -366,4 +366,21 @@ public class CommandHandlerTest extends TestCase {
         idRoot = ch.deleteBST(idRoot, 5, null, 5);
         assertEquals(3, idRoot.getLeft().getLeft().value());
     }
+
+
+    /**
+     * Tests deleteBST for keyword
+     */
+    public void testdeleteKeyword() {
+        kwRoot = ch.insertBST(kwRoot, s1, Integer.MIN_VALUE, "tag1");
+        kwRoot = ch.insertBST(kwRoot, s2, Integer.MIN_VALUE, "tag2");
+        kwRoot = ch.insertBST(kwRoot, s3, Integer.MIN_VALUE, "tag3");
+        kwRoot = ch.insertBST(kwRoot, s4, Integer.MIN_VALUE, "biscuit");
+        kwRoot = ch.insertBST(kwRoot, s5, Integer.MIN_VALUE, "tag1");
+        kwRoot = ch.insertBST(kwRoot, s5, Integer.MIN_VALUE, "tag4");
+        assertEquals(s1, ch.deleteBST(kwRoot, Integer.MIN_VALUE, "tag1", 2)
+            .getSem());
+        assertEquals(s1, ch.deleteBST(kwRoot, Integer.MIN_VALUE, "tag4", 2)
+            .getSem());
+    }
 }
