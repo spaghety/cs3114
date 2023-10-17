@@ -1,17 +1,3 @@
-import java.io.IOException;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-
-/**
- * The class containing the main method.
- *
- * @author Phillip Jordan (alexj14)
- * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.10.16
- */
-
 // On my honor:
 //
 // - I have not used source code obtained from another student,
@@ -31,6 +17,21 @@ import java.io.FileWriter;
 // anything during the discussion or modifies any computer file
 // during the discussion. I have violated neither the spirit nor
 // letter of this restriction.
+
+import java.io.IOException;
+import java.io.IOException;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+
+/**
+ * The class containing the main method.
+ *
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.10.16
+ */
 
 public class Quicksort {
 
