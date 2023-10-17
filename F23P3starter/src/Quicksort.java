@@ -1,15 +1,3 @@
-/**
- * {Project Description Here}
- */
-
-import java.io.IOException;
-
-/**
- * The class containing the main method.
- *
- * @author {Your Name Here}
- * @version {Put Something Here}
- */
 
 // On my honor:
 //
@@ -31,19 +19,39 @@ import java.io.IOException;
 // during the discussion. I have violated neither the spirit nor
 // letter of this restriction.
 
+/**
+ * {Project Description Here}
+ */
+
+import java.io.IOException;
+
+/**
+ * The class containing the main method.
+ *
+ * @author {Your Name Here}
+ * @version {Put Something Here}
+ */
+
 public class Quicksort {
 
     /**
      * This method is used to generate a file of a certain size, containing a
      * specified number of records.
      *
-     * @param filename the name of the file to create/write to
-     * @param blockSize the size of the file to generate
-     * @param format the format of file to create
-     * @throws IOException throw if the file is not open and proper
+     * @param filename
+     *            the name of the file to create/write to
+     * @param blockSize
+     *            the size of the file to generate
+     * @param format
+     *            the format of file to create
+     * @throws IOException
+     *             throw if the file is not open and proper
      */
-    public static void generateFile(String filename, String blockSize,
-        char format) throws IOException {
+    public static void generateFile(
+        String filename,
+        String blockSize,
+        char format)
+        throws IOException {
         FileGenerator generator = new FileGenerator();
         String[] inputs = new String[3];
         inputs[0] = "-" + format;
@@ -55,7 +63,7 @@ public class Quicksort {
 
     /**
      * @param args
-     *      Command line parameters.
+     *            Command line parameters.
      */
     public static void main(String[] args) {
         // This is the main file for the program.
