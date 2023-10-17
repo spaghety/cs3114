@@ -1,8 +1,9 @@
 import student.TestCase;
 
 /**
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.10.16
  */
 public class QuicksortTest extends TestCase {
     private CheckFile fileChecker;
@@ -14,6 +15,7 @@ public class QuicksortTest extends TestCase {
         fileChecker = new CheckFile();
     }
 
+
     /**
      * This method is a demonstration of the file generator and file checker
      * functionality. It calles generateFile to create a small "ascii" file.
@@ -23,9 +25,7 @@ public class QuicksortTest extends TestCase {
      * @throws Exception
      *             either a IOException or FileNotFoundException
      */
-    public void testFileGenerator()
-        throws Exception
-    {
+    public void testFileGenerator() throws Exception {
         String[] args = new String[3];
         args[0] = "input.txt";
         args[1] = "1";
@@ -36,6 +36,7 @@ public class QuicksortTest extends TestCase {
         // In a real test, the following would be assertTrue()
         assertFalse(fileChecker.checkFile("input.txt"));
     }
+
 
     /**
      * Get code coverage of the class declaration.

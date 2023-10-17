@@ -1,14 +1,15 @@
-/**
- * {Project Description Here}
- */
-
 import java.io.IOException;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 /**
  * The class containing the main method.
  *
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.10.16
  */
 
 // On my honor:
@@ -37,13 +38,20 @@ public class Quicksort {
      * This method is used to generate a file of a certain size, containing a
      * specified number of records.
      *
-     * @param filename the name of the file to create/write to
-     * @param blockSize the size of the file to generate
-     * @param format the format of file to create
-     * @throws IOException throw if the file is not open and proper
+     * @param filename
+     *            the name of the file to create/write to
+     * @param blockSize
+     *            the size of the file to generate
+     * @param format
+     *            the format of file to create
+     * @throws IOException
+     *             throw if the file is not open and proper
      */
-    public static void generateFile(String filename, String blockSize,
-        char format) throws IOException {
+    public static void generateFile(
+        String filename,
+        String blockSize,
+        char format)
+        throws IOException {
         FileGenerator generator = new FileGenerator();
         String[] inputs = new String[3];
         inputs[0] = "-" + format;
@@ -55,9 +63,33 @@ public class Quicksort {
 
     /**
      * @param args
-     *      Command line parameters.
+     *            Command line parameters.
      */
     public static void main(String[] args) {
-        // This is the main file for the program.
+        String fname = args[1]; // INPUT FILE NAME
+        int numb = Integer.parseInt(args[2]); // NUMBER OF BUFFERS 1-20
+        String statName = args[3]; // STATISTIC FILE TO WRITE TO
+        BufferPool bp = null;
+        FileWriter statFile = null;
+        File inFile = null;
+        try {
+            statFile = new FileWriter(statName);
+            inFile = new File(fname);
+            bp = new BufferPool(new Scanner(new File(fname)));
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            System.out.println("An error occured");
+            e.printStackTrace();
+        }
+        try {
+            statFile.close();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
