@@ -19,6 +19,7 @@
 // letter of this restriction.
 
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.File;
@@ -72,11 +73,10 @@ public class Quicksort {
         String statName = args[3]; // STATISTIC FILE TO WRITE TO
         BufferPool bp = null;
         FileWriter statFile = null;
-        File inFile = null;
+        RandomAccessFile inFile = null;
         try {
             statFile = new FileWriter(statName);
-            inFile = new File(fname);
-            bp = new BufferPool(new Scanner(new File(fname)));
+            bp = new BufferPool(fname, numb);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
