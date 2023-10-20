@@ -73,7 +73,7 @@ public class Quicksort {
      * @param j
      *            right index
      */
-    public void quicksort(BufferPool pool, int i, int j) {
+    private static void quicksort(BufferPool pool, int i, int j) {
         int pivotindex = findpivot(pool, i, j);
         pool.swap(pivotindex, j);
         int k = partition(pool, i, j - 1, pool.getRecord(j)[0]);
@@ -96,19 +96,40 @@ public class Quicksort {
      *            right index
      * @return
      */
-    private int findpivot(BufferPool pool, int i, int j) {
+    private static int findpivot(BufferPool pool, int i, int j) {
         return (int)(i + j) / 2;
     }
 
-    
-    private int partition(BufferPool pool, int left, int right, int pivot) {
+
+    /**
+     * This method partitions the array for the quicksort
+     * 
+     * @param pool
+     *            array object
+     * @param left
+     *            left bound
+     * @param right
+     *            right bound
+     * @param pivot
+     *            pivot point
+     * @return
+     */
+    private static int partition(
+        BufferPool pool,
+        int left,
+        int right,
+        int pivot) {
         while (left <= right) {
-            while (pool.getRecord(left)[0] < pivot) left++;
-            while ((right >= left) && pool.getRecord(right)[0] >= pivot) right--;
-            if (right > left) pool.swap(left, right);
+            while (pool.getRecord(left)[0] < pivot)
+                left++;
+            while ((right >= left) && pool.getRecord(right)[0] >= pivot)
+                right--;
+            if (right > left)
+                pool.swap(left, right);
         }
         return left;
     }
+
 
     /**
      * @param args
@@ -124,19 +145,10 @@ public class Quicksort {
         try {
             statFile = new FileWriter(statName);
             bp = new BufferPool(fname, numb);
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            System.out.println("An error occured");
-            e.printStackTrace();
-        }
-        try {
+            quicksort(bp, 0, 20);
             statFile.close();
         }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
