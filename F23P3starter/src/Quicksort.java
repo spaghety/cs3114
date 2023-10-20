@@ -64,6 +64,53 @@ public class Quicksort {
 
 
     /**
+     * Recursive quicksort method
+     * 
+     * @param pool
+     *            bufferpool object
+     * @param i
+     *            left index
+     * @param j
+     *            right index
+     */
+    public void quicksort(BufferPool pool, int i, int j) {
+        int pivotindex = findpivot(pool, i, j);
+        pool.swap(pivotindex, j);
+        int k = partition(pool, i, j - 1, pool.getRecord(j)[0]);
+        pool.swap(k, j);
+        if ((k - i) > 1)
+            quicksort(pool, i, k - 1);
+        if ((j - k) > 1)
+            quicksort(pool, k + 1, j);
+    }
+
+
+    /**
+     * Helper method to find pivot point. Can be refined to improve efficiency
+     * 
+     * @param pool
+     *            bufferpool object
+     * @param i
+     *            left index
+     * @param j
+     *            right index
+     * @return
+     */
+    private int findpivot(BufferPool pool, int i, int j) {
+        return (int)(i + j) / 2;
+    }
+
+    
+    private int partition(BufferPool pool, int left, int right, int pivot) {
+        while (left <= right) {
+            while (pool.getRecord(left)[0] < pivot) left++;
+            while ((right >= left) && pool.getRecord(right)[0] >= pivot) right--;
+            if (right > left) pool.swap(left, right);
+        }
+        return left;
+    }
+
+    /**
      * @param args
      *            Command line parameters.
      */

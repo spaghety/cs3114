@@ -89,4 +89,47 @@ public class BufferPool {
         return getRecord(index);
     }
 
+
+    /**
+     * set record in buffer pool
+     * 
+     * @param index
+     *            index of record to set
+     * @param newRec
+     *            new record to replace old data
+     */
+    public void setRecord(int index, short[] newRec) {
+        int foundIndex = -1;
+        for (int i = 0; i < buffer.length; i++) {
+            Block blck = buffer[i];
+            if (index > blck.getLeftBound() && index < blck.getLeftBound()
+                + 1024) {
+                foundIndex = i;
+                break;
+            }
+        }
+        if (foundIndex != -1) {
+            buffer[foundIndex].setRecord(foundIndex % 1024, newRec);
+            return;
+        }
+        readBlock((int)Math.floor(index / 1024) * 4096);
+        setRecord(index, newRec);
+    }
+
+
+    /**
+     * Swaps record data between two different locations
+     * 
+     * @param a
+     *            index 1
+     * @param b
+     *            index 2
+     */
+    public void swap(int a, int b) {
+        short[] record1 = getRecord(a);
+        short[] record2 = getRecord(b);
+        setRecord(a, record2);
+        setRecord(b, record1);
+    }
+
 }
