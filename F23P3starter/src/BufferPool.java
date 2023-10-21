@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -12,6 +13,7 @@ import java.io.RandomAccessFile;
 public class BufferPool {
     private String fname;
     Block[] buffer;
+    int buffersize;
 
     /**
      * Basic constructor passes the scanner object
@@ -22,6 +24,7 @@ public class BufferPool {
     public BufferPool(String inFile, int numb) {
         fname = inFile;
         buffer = new Block[numb];
+        buffersize = 0;
     }
 
 
@@ -40,6 +43,7 @@ public class BufferPool {
                     wraf.skipBytes(bIndex);
                     wraf.write(lastBlock.getData());
                     wraf.close();
+                    buffersize--;
                 }
                 catch (IOException e) {
                     e.printStackTrace();
@@ -61,6 +65,7 @@ public class BufferPool {
             e.printStackTrace();
         }
         buffer[0] = new Block((int)bIndex / 4, tempArr);
+        buffersize++;
     }
 
 
@@ -72,9 +77,9 @@ public class BufferPool {
      * @return short array representing a record with [0] representing the key
      *         and [1] the value
      */
-    public short[] getRecord(int index) {
+    public short[] getRecord(long index) {
         int foundIndex = -1;
-        for (int i = 0; i < buffer.length; i++) {
+        for (int i = 0; i < buffersize; i++) {
             Block blck = buffer[i];
             if (index > blck.getLeftBound() && index < blck.getLeftBound()
                 + 1024) {
@@ -98,7 +103,7 @@ public class BufferPool {
      * @param newRec
      *            new record to replace old data
      */
-    public void setRecord(int index, short[] newRec) {
+    public void setRecord(long index, short[] newRec) {
         int foundIndex = -1;
         for (int i = 0; i < buffer.length; i++) {
             Block blck = buffer[i];
@@ -125,11 +130,28 @@ public class BufferPool {
      * @param b
      *            index 2
      */
-    public void swap(int a, int b) {
+    public void swap(long a, long b) {
         short[] record1 = getRecord(a);
         short[] record2 = getRecord(b);
         setRecord(a, record2);
         setRecord(b, record1);
+    }
+
+
+    /**
+     * Gets the size of the input file in bytes
+     * 
+     * @return length of the file in bytes
+     */
+    public long byteSize() {
+        try {
+            RandomAccessFile file = new RandomAccessFile(fname, "r");
+            return file.length();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
 }

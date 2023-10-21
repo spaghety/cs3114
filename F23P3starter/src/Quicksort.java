@@ -73,10 +73,10 @@ public class Quicksort {
      * @param j
      *            right index
      */
-    private static void quicksort(BufferPool pool, int i, int j) {
-        int pivotindex = findpivot(pool, i, j);
+    private static void quicksort(BufferPool pool, long i, long j) {
+        long pivotindex = findpivot(pool, i, j);
         pool.swap(pivotindex, j);
-        int k = partition(pool, i, j - 1, pool.getRecord(j)[0]);
+        long k = partition(pool, i, j - 1, pool.getRecord(j)[0]);
         pool.swap(k, j);
         if ((k - i) > 1)
             quicksort(pool, i, k - 1);
@@ -96,7 +96,7 @@ public class Quicksort {
      *            right index
      * @return
      */
-    private static int findpivot(BufferPool pool, int i, int j) {
+    private static int findpivot(BufferPool pool, long i, long j) {
         return (int)(i + j) / 2;
     }
 
@@ -114,11 +114,11 @@ public class Quicksort {
      *            pivot point
      * @return
      */
-    private static int partition(
+    private static long partition(
         BufferPool pool,
-        int left,
-        int right,
-        int pivot) {
+        long left,
+        long right,
+        long pivot) {
         while (left <= right) {
             while (pool.getRecord(left)[0] < pivot)
                 left++;
@@ -145,7 +145,7 @@ public class Quicksort {
         try {
             statFile = new FileWriter(statName);
             bp = new BufferPool(fname, numb);
-            quicksort(bp, 0, 20);
+            quicksort(bp, 0, bp.byteSize());
             statFile.close();
         }
         catch (Exception e) {
