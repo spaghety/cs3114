@@ -57,7 +57,7 @@ public class Block {
     public void setRecord(int index, short[] record) {
         ByteBuffer buffer = ByteBuffer.allocate(4);
         buffer.asShortBuffer().put(record);
-        System.arraycopy(buffer.array(), 0, record, index, 4);
+        System.arraycopy(buffer.array(), 0, data, index, 4);
         dirty = true;
     }
 
