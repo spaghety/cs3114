@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.RandomAccessFile;
 import student.TestCase;
 /**
  * test class for BufferPool class
@@ -20,7 +22,22 @@ public class BufferPoolTest extends TestCase {
     }
     
     public void testGetRecord() {
-        System.out.println(bp.getRecord(0)[0]);
-        bp.getRecord(0);
+        short[] record = bp.getRecord(0);
     }
+    
+    /*public void testReadFile() {
+        try {
+            RandomAccessFile file = new RandomAccessFile("input.txt", "r");
+            byte[] tempArr = new byte[2];
+            System.out.println(tempArr[0]+", "+tempArr[1]);
+            file.read(tempArr);
+            System.out.println(tempArr[0]+", "+tempArr[1]);
+            file.skipBytes(142);
+            file.read(tempArr);
+            System.out.println(tempArr[0]+", "+tempArr[1]);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
 }

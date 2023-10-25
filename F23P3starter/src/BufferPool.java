@@ -44,20 +44,21 @@ public class BufferPool {
                     wraf.skipBytes(bIndex);
                     wraf.write(lastBlock.getData());
                     wraf.close();
-                    buffersize--;
                 }
                 catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+            buffersize--;
         }
-        for (int i = buffer.length-1; i > 0; i--) {
-            buffer[i] = buffer[i] = buffer[i-1];
+        for (int i = buffer.length - 1; i > 0; i--) {
+            buffer[i] = buffer[i] = buffer[i - 1];
         }
 
         byte[] tempArr = new byte[4096];
         try {
             RandomAccessFile raf = new RandomAccessFile(fname, "r");
+            System.out.println(bIndex);
             raf.skipBytes(bIndex);
             raf.read(tempArr);
             raf.close();
@@ -79,11 +80,10 @@ public class BufferPool {
      *         and [1] the value
      */
     public short[] getRecord(long index) {
-        System.out.println(buffersize);
         int foundIndex = -1;
         for (int i = 0; i < buffersize; i++) {
             Block blck = buffer[i];
-            if (index > blck.getLeftBound() && index < blck.getLeftBound()
+            if (index >= blck.getLeftBound() && index < blck.getLeftBound()
                 + 1024) {
                 foundIndex = i;
                 break;
@@ -107,15 +107,16 @@ public class BufferPool {
      */
     public void setRecord(long index, short[] newRec) {
         int foundIndex = -1;
-        for (int i = 0; i < buffer.length; i++) {
+        for (int i = 0; i < buffersize; i++) {
             Block blck = buffer[i];
-            if (index > blck.getLeftBound() && index < blck.getLeftBound()
+            if (index >= blck.getLeftBound() && index < blck.getLeftBound()
                 + 1024) {
                 foundIndex = i;
                 break;
             }
         }
         if (foundIndex != -1) {
+            System.out.println("setRecord("+(foundIndex % 1024)+", ["+newRec[0]+", "+newRec[1]+");");
             buffer[foundIndex].setRecord(foundIndex % 1024, newRec);
             return;
         }
