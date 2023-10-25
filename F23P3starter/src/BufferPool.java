@@ -32,9 +32,10 @@ public class BufferPool {
      * Read a block from the input file
      * 
      * @param bIndex
-     *            index to begin reading from
+     *            block index to begin reading from
      */
     public void readBlock(int bIndex) {
+        bIndex *= 4096;
         Block lastBlock = buffer[buffer.length - 1];
         if (lastBlock != null) {
             if (lastBlock.isDirty() == true) {
@@ -49,9 +50,9 @@ public class BufferPool {
                     e.printStackTrace();
                 }
             }
-            for (int i = buffer.length - 1; i > 0; i--) {
-                buffer[i - 1] = buffer[i];
-            }
+        }
+        for (int i = buffer.length-1; i > 0; i--) {
+            buffer[i] = buffer[i] = buffer[i-1];
         }
 
         byte[] tempArr = new byte[4096];
@@ -78,6 +79,7 @@ public class BufferPool {
      *         and [1] the value
      */
     public short[] getRecord(long index) {
+        System.out.println(buffersize);
         int foundIndex = -1;
         for (int i = 0; i < buffersize; i++) {
             Block blck = buffer[i];

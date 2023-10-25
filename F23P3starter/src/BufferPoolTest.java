@@ -11,7 +11,16 @@ public class BufferPoolTest extends TestCase {
     /**
      * Tests readBlock method
      */
-    public void testBP() {
+    public void testReadBlock() {
         bp.readBlock(0);
+        bp.readBlock(1);
+        bp.readBlock(2);
+        bp.readBlock(3);
+        //bp.readBlock(4);
+    }
+    
+    public void testGetRecord() {
+        System.out.println(bp.getRecord(0)[0]);
+        bp.getRecord(0);
     }
 }
