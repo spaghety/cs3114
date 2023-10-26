@@ -10,8 +10,8 @@ public class BlockTest extends TestCase {
 
     public void setUp() {
         byte[] testData;
-        ByteBuffer buffer = ByteBuffer.allocate(4);
-        buffer.asShortBuffer().put(new short[] { 1, 2 });
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.asShortBuffer().put(new short[] { 1, 2, 3, 4 });
         block = new Block(0, buffer.array());
     }
 
@@ -28,11 +28,15 @@ public class BlockTest extends TestCase {
      */
     public void testSetRecord() {
         assertFalse(block.isDirty());
-        block.setRecord(0, new short[] { 3, 4 });
+        block.setRecord(0, new short[] { 5, 6 });
         short[] testRecord = block.getRecord(0);
-        assertEquals(3, testRecord[0]);
-        assertEquals(4, testRecord[1]);
+        assertEquals(5, testRecord[0]);
+        assertEquals(6, testRecord[1]);
         assertTrue(block.isDirty());
+        block.setRecord(1, new short[]{8, 9});
+        testRecord = block.getRecord(1);
+        assertEquals(8, testRecord[0]);
+        assertEquals(9, testRecord[1]);
     }
 
 

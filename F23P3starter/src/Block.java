@@ -38,7 +38,7 @@ public class Block {
     public short[] getRecord(int index) {
         index *= 4;
         byte[] tempArr = new byte[4];
-        System.arraycopy(data, index, tempArr, index, 4);
+        System.arraycopy(data, index, tempArr, 0, 4);
         short[] record = new short[2];
         record[0] = ByteBuffer.wrap(tempArr).getShort(0);
         record[1] = ByteBuffer.wrap(tempArr).getShort(2);
@@ -57,7 +57,7 @@ public class Block {
     public void setRecord(int index, short[] record) {
         ByteBuffer buffer = ByteBuffer.allocate(4);
         buffer.asShortBuffer().put(record);
-        System.arraycopy(buffer.array(), 0, data, index, 4);
+        System.arraycopy(buffer.array(), 0, data, index*4, 4);
         dirty = true;
     }
 

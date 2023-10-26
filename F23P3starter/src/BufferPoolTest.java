@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
 import student.TestCase;
 
 /**
@@ -34,34 +35,23 @@ public class BufferPoolTest extends TestCase {
         assertEquals(4, bp.getBuffersize());
         bp.readBlock(5000); // null Block
         assertEquals(4, bp.getBuffersize());
-        
-//        bp.setRecord((long)1, new short[] {65});
-//        bp.readBlock(0);
-//        assertEquals(4, bp.getBuffersize());
+
+// bp.setRecord((long)1, new short[] {65});
+// bp.readBlock(0);
+// assertEquals(4, bp.getBuffersize());
     }
 
 
     /**
      * Tests getRecord and setRecord
      */
-    public void testGetRecord() {
+    public void testGetSetRecord() {
         short[] record = bp.getRecord(0);
-    }
-
-
-    public void testReadFile() {
-        try {
-            RandomAccessFile file = new RandomAccessFile("input.txt", "r");
-            byte[] tempArr = new byte[2];
-            System.out.println(tempArr[0] + ", " + tempArr[1]);
-            file.read(tempArr);
-            System.out.println(tempArr[0] + ", " + tempArr[1]);
-            file.skipBytes(142);
-            file.read(tempArr);
-            System.out.println(tempArr[0] + ", " + tempArr[1]);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        short[] record2 = bp.getRecord(1);
+        bp.swap(0, 1);
+        assertEquals(bp.getRecord(1)[0], record[0]);
+        assertEquals(bp.getRecord(1)[1], record[1]);
+        assertEquals(bp.getRecord(0)[0], record2[0]);
+        assertEquals(bp.getRecord(0)[1], record2[1]);
     }
 }

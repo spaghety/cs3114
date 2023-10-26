@@ -69,7 +69,6 @@ public class BufferPool {
         byte[] tempArr = new byte[BLOCK_SIZE];
         try {
             RandomAccessFile raf = new RandomAccessFile(fname, "r");
-            System.out.println(bIndex);
             raf.skipBytes(bIndex);
             raf.read(tempArr);
             raf.close();
@@ -100,10 +99,12 @@ public class BufferPool {
                 break;
             }
         }
-        if (foundIndex != -1)
-            return buffer[foundIndex].getRecord(foundIndex % RECORD_COUNT);
+        if (foundIndex != -1) {
+            return buffer[foundIndex].getRecord((int)(index % RECORD_COUNT));
+        }
 
-        readBlock((int)Math.floor(index / RECORD_COUNT) * BLOCK_SIZE);
+        readBlock((int)Math.floor(index / RECORD_COUNT) * BLOCK_SIZE); // TIMES
+                                                                       // 4???
         return getRecord(index);
     }
 
@@ -127,12 +128,10 @@ public class BufferPool {
             }
         }
         if (foundIndex != -1) {
-            System.out.println("setRecord(" + (foundIndex % RECORD_COUNT)
-                + ", [" + newRec[0] + ", " + newRec[1] + ");");
-            buffer[foundIndex].setRecord(foundIndex % RECORD_COUNT, newRec);
+            buffer[foundIndex].setRecord((int)(index % RECORD_COUNT), newRec);
             return;
         }
-        readBlock((int)Math.floor(index / RECORD_COUNT) * BLOCK_SIZE);
+        readBlock((int)Math.floor(index / RECORD_COUNT));
         setRecord(index, newRec);
     }
 
