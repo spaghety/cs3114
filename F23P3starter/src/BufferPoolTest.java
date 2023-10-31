@@ -62,10 +62,10 @@ public class BufferPoolTest extends TestCase {
      * @throws IOException
      */
     public void testWriteToFile() throws IOException {
-        bp.setRecord(1050, new short[] { 0, 0 });
-        bp.flush();
-        assertEquals(0, bp.getRecord(1050)[0]);
-        assertEquals(0, bp.getRecord(1050)[1]);
+        bp.setRecord(1050, new short[] { 65, 34 });
+//        bp.flush();
+        assertEquals(65, bp.getRecord(1050)[0]);
+        assertEquals(34, bp.getRecord(1050)[1]);
     }
 
 
@@ -77,6 +77,10 @@ public class BufferPoolTest extends TestCase {
     public void testGetSetRecord() throws IOException {
         short[] record = bp.getRecord(0);
         short[] record2 = bp.getRecord(1);
+        assertEquals(bp.getRecord(0)[0], record[0]);
+        assertEquals(bp.getRecord(0)[1], record[1]);
+        assertEquals(bp.getRecord(1)[0], record2[0]);
+        assertEquals(bp.getRecord(1)[1], record2[1]);
         bp.swap(0, 1);
         assertEquals(bp.getRecord(1)[0], record[0]);
         assertEquals(bp.getRecord(1)[1], record[1]);

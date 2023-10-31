@@ -138,9 +138,10 @@ public class BufferPool {
      * @throws IOException
      */
     public void swap(long a, long b) throws IOException {
-        System.out.println("swap call");
+        System.out.println("swap call, L" + a + " R" + b);
         short[] record1 = getRecord(a);
         short[] record2 = getRecord(b);
+        System.out.println("left" + record1[0] + " right" + record2[0]);
         setRecord(a, record2);
         setRecord(b, record1);
     }

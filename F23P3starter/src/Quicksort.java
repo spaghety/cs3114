@@ -130,6 +130,7 @@ public class Quicksort {
         throws IOException {
         while (left <= right) {
             System.out.println("while call, L" + left + " R" + right);
+            System.out.println("pivot" + pivot);
             while (pool.getRecord(left)[0] < pivot) {
                 left++;
                 System.out.println("L" + left);
