@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import student.TestCase;
@@ -28,8 +29,9 @@ public class BufferPoolTest extends TestCase {
 
     /**
      * Tests readBlock method
+     * @throws IOException 
      */
-    public void testReadBlock() {
+    public void testReadBlock() throws IOException {
         assertEquals(0, bp.getBuffersize());
         bp.readBlock(0);
         assertEquals(1, bp.getBuffersize());
@@ -44,16 +46,25 @@ public class BufferPoolTest extends TestCase {
         bp.readBlock(5000); // null Block
         assertEquals(4, bp.getBuffersize());
 
-// bp.setRecord((long)1, new short[] {65});
-// bp.readBlock(0);
-// assertEquals(4, bp.getBuffersize());
+        bp.setRecord(1, new short[] { 65, 34 });
+        bp.readBlock(0);
+        assertEquals(4, bp.getBuffersize());
+    }
+
+
+    public void testWriteToFile() throws IOException {
+        bp.setRecord(1050, new short[] { 0, 0 });
+        bp.flush();
+        assertEquals(0, bp.getRecord(1050)[0]);
+        assertEquals(0, bp.getRecord(1050)[1]);
     }
 
 
     /**
      * Tests getRecord and setRecord
+     * @throws IOException 
      */
-    public void testGetSetRecord() {
+    public void testGetSetRecord() throws IOException {
         short[] record = bp.getRecord(0);
         short[] record2 = bp.getRecord(1);
         bp.swap(0, 1);

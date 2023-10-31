@@ -44,20 +44,16 @@ public class BufferPool {
      * 
      * @param bIndex
      *            block index to begin reading from
+     * @throws IOException
      */
-    public void readBlock(int bIndex) {
+    public void readBlock(int bIndex) throws IOException {
         bIndex *= BLOCK_SIZE;
         Block lastBlock = buffer[buffer.length - 1];
         if (lastBlock != null) {
             if (lastBlock.isDirty() == true) {
-                try {
-                    wraf.seek(bIndex);
-                    wraf.write(lastBlock.getData());
-                    wraf.close();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
+                System.out.println(bIndex);
+                wraf.seek(bIndex);
+                wraf.write(lastBlock.getData());
             }
             buffersize--;
         }
@@ -66,13 +62,8 @@ public class BufferPool {
         }
 
         byte[] tempArr = new byte[BLOCK_SIZE];
-        try {
-            wraf.seek(bIndex);
-            wraf.read(tempArr);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        wraf.seek(bIndex);
+        wraf.read(tempArr);
         buffer[0] = new Block((int)bIndex / 4, tempArr);
         buffersize++;
     }
@@ -85,8 +76,9 @@ public class BufferPool {
      *            index to retrieve (record index or byte index/4)
      * @return short array representing a record with [0] representing the key
      *         and [1] the value
+     * @throws IOException 
      */
-    public short[] getRecord(long index) {
+    public short[] getRecord(long index) throws IOException {
         int foundIndex = -1;
         for (int i = 0; i < buffersize; i++) {
             Block blck = buffer[i];
@@ -102,7 +94,7 @@ public class BufferPool {
         System.out.println("readBlock(" + Math.floor(index / RECORD_COUNT)
             + ")");
         readBlock((int)Math.floor(index / RECORD_COUNT));
-        return buffer[0].getRecord((int) (index % RECORD_COUNT));
+        return buffer[0].getRecord((int)(index % RECORD_COUNT));
     }
 
 
@@ -113,8 +105,9 @@ public class BufferPool {
      *            index of record to set
      * @param newRec
      *            new record to replace old data
+     * @throws IOException 
      */
-    public void setRecord(long index, short[] newRec) {
+    public void setRecord(long index, short[] newRec) throws IOException {
         int foundIndex = -1;
         for (int i = 0; i < buffersize; i++) {
             Block blck = buffer[i];
@@ -140,13 +133,30 @@ public class BufferPool {
      *            index 1
      * @param b
      *            index 2
+     * @throws IOException 
      */
-    public void swap(long a, long b) {
+    public void swap(long a, long b) throws IOException {
         System.out.println("swap call");
         short[] record1 = getRecord(a);
         short[] record2 = getRecord(b);
         setRecord(a, record2);
         setRecord(b, record1);
+    }
+
+
+    /**
+     * Clears the buffer pool by writing all dirty buffers
+     * @throws IOException
+     */
+    public void flush() throws IOException {
+        for (int i = 0; i < buffersize; i++) {
+            if (buffer[i].isDirty()) {
+                wraf.seek(buffer[i].getLeftBound());
+                wraf.write(buffer[i].getData());
+            }
+            buffer[i] = null;
+            buffersize = 0;
+        }
     }
 
 }
