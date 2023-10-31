@@ -157,7 +157,7 @@ public class Quicksort {
             statFile = new FileWriter(statName);
             inFile = new RandomAccessFile(fname, "rw");
             bp = new BufferPool(inFile, numb);
-            int quickCalls = quicksort(bp, 0, inFile.length() - 1);
+            int quickCalls = quicksort(bp, 0, inFile.length()/4);
             statFile.write("calls to quicksort: ");
             statFile.write(quickCalls);
             bp.flush();
