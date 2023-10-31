@@ -14,7 +14,15 @@ public class BufferPoolTest extends TestCase {
     private BufferPool bp;
 
     public void setUp() {
-        bp = new BufferPool("input.txt", 4);
+        bp = null;
+        RandomAccessFile wraf;
+        try {
+            wraf = new RandomAccessFile("input.txt", "rw");
+            bp = new BufferPool(wraf, 4);
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 

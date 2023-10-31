@@ -40,10 +40,11 @@ public class QuicksortTest extends TestCase {
 
     /**
      * Get code coverage of the class declaration.
+     * 
      */
     public void testQInit() {
         Quicksort tree = new Quicksort();
         assertNotNull(tree);
-        Quicksort.main(new String[]{"", "input.txt", "1", "stat.txt"});
+        Quicksort.main(new String[] { "", "input.txt", "1", "stat.txt" });
     }
 }

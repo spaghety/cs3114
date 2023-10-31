@@ -73,15 +73,18 @@ public class Quicksort {
      * @param j
      *            right index
      */
-    private static void quicksort(BufferPool pool, long i, long j) {
+    private static int quicksort(BufferPool pool, long i, long j) {
+        System.out.println("quicksort(" + pool.getBuffersize() + ", " + i + ", "
+            + j + ")");
         long pivotindex = findpivot(pool, i, j);
         pool.swap(pivotindex, j);
         long k = partition(pool, i, j - 1, pool.getRecord(j)[0]);
         pool.swap(k, j);
         if ((k - i) > 1)
-            quicksort(pool, i, k - 1);
+            return quicksort(pool, i, k - 1) + 1;
         if ((j - k) > 1)
-            quicksort(pool, k + 1, j);
+            return quicksort(pool, k + 1, j) + 1;
+        return 1;
     }
 
 
@@ -144,8 +147,11 @@ public class Quicksort {
         RandomAccessFile inFile = null;
         try {
             statFile = new FileWriter(statName);
-            bp = new BufferPool(fname, numb);
-            quicksort(bp, 0, bp.byteSize());
+            inFile = new RandomAccessFile(fname, "rw");
+            bp = new BufferPool(inFile, numb);
+            int quickCalls = quicksort(bp, 0, inFile.length()-1);
+            statFile.write("calls to quicksort: ");
+            statFile.write(quickCalls);
             statFile.close();
         }
         catch (Exception e) {

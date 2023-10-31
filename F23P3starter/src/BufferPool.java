@@ -10,7 +10,7 @@ import java.io.RandomAccessFile;
  * @version 2023.10.25
  */
 public class BufferPool {
-    private String fname;
+    private RandomAccessFile wraf;
     private Block[] buffer;
     private int buffersize;
     private static final int RECORD_COUNT = 1024;
@@ -22,8 +22,8 @@ public class BufferPool {
      * @param in
      *            scanner class to pass
      */
-    public BufferPool(String inFile, int numb) {
-        fname = inFile;
+    public BufferPool(RandomAccessFile inFile, int numb) {
+        wraf = inFile;
         buffer = new Block[numb];
         buffersize = 0;
     }
@@ -51,8 +51,7 @@ public class BufferPool {
         if (lastBlock != null) {
             if (lastBlock.isDirty() == true) {
                 try {
-                    RandomAccessFile wraf = new RandomAccessFile(fname, "w");
-                    wraf.skipBytes(bIndex);
+                    wraf.seek(bIndex);
                     wraf.write(lastBlock.getData());
                     wraf.close();
                 }
@@ -68,10 +67,8 @@ public class BufferPool {
 
         byte[] tempArr = new byte[BLOCK_SIZE];
         try {
-            RandomAccessFile raf = new RandomAccessFile(fname, "r");
-            raf.skipBytes(bIndex);
-            raf.read(tempArr);
-            raf.close();
+            wraf.seek(bIndex);
+            wraf.read(tempArr);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -102,10 +99,10 @@ public class BufferPool {
         if (foundIndex != -1) {
             return buffer[foundIndex].getRecord((int)(index % RECORD_COUNT));
         }
-
-        readBlock((int)Math.floor(index / RECORD_COUNT) * BLOCK_SIZE); // TIMES
-                                                                       // 4???
-        return getRecord(index);
+        System.out.println("readBlock(" + Math.floor(index / RECORD_COUNT)
+            + ")");
+        readBlock((int)Math.floor(index / RECORD_COUNT));
+        return buffer[0].getRecord((int) (index % RECORD_COUNT));
     }
 
 
@@ -145,27 +142,11 @@ public class BufferPool {
      *            index 2
      */
     public void swap(long a, long b) {
+        System.out.println("swap call");
         short[] record1 = getRecord(a);
         short[] record2 = getRecord(b);
         setRecord(a, record2);
         setRecord(b, record1);
-    }
-
-
-    /**
-     * Gets the size of the input file in bytes
-     * 
-     * @return length of the file in bytes
-     */
-    public long byteSize() {
-        try {
-            RandomAccessFile file = new RandomAccessFile(fname, "r");
-            return file.length();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return -1;
     }
 
 }
