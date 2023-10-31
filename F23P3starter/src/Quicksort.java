@@ -72,9 +72,10 @@ public class Quicksort {
      *            left index
      * @param j
      *            right index
-     * @throws IOException 
+     * @throws IOException
      */
-    private static int quicksort(BufferPool pool, long i, long j) throws IOException {
+    private static int quicksort(BufferPool pool, long i, long j)
+        throws IOException {
         System.out.println("quicksort(" + pool.getBuffersize() + ", " + i + ", "
             + j + ")");
         long pivotindex = findpivot(pool, i, j);
@@ -99,9 +100,12 @@ public class Quicksort {
      * @param j
      *            right index
      * @return
+     * @throws IOException
      */
-    private static int findpivot(BufferPool pool, long i, long j) {
-        return (int)(i + j) / 2;
+    private static int findpivot(BufferPool pool, long i, long j)
+        throws IOException {
+        short[] record = pool.getRecord((int)Math.floor((i + j) / 2));
+        return record[0];
     }
 
 
@@ -116,14 +120,15 @@ public class Quicksort {
      *            right bound
      * @param pivot
      *            pivot point
-     * @return
-     * @throws IOException 
+     * @return first position in the right partition
+     * @throws IOException
      */
     private static long partition(
         BufferPool pool,
         long left,
         long right,
-        long pivot) throws IOException {
+        long pivot)
+        throws IOException {
         while (left <= right) {
             while (pool.getRecord(left)[0] < pivot)
                 left++;
@@ -151,7 +156,7 @@ public class Quicksort {
             statFile = new FileWriter(statName);
             inFile = new RandomAccessFile(fname, "rw");
             bp = new BufferPool(inFile, numb);
-            int quickCalls = quicksort(bp, 0, inFile.length()-1);
+            int quickCalls = quicksort(bp, 0, inFile.length() - 1);
             statFile.write("calls to quicksort: ");
             statFile.write(quickCalls);
             bp.flush();
