@@ -1,6 +1,8 @@
 import student.TestCase;
 
 /**
+ * Tests the Quicksort class
+ * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
  * @version 2023.10.16
