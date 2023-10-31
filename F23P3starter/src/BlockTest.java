@@ -3,11 +3,17 @@ import student.TestCase;
 
 /**
  * Tests Block class functionality
+ * 
+ * @author Phillip Jordan (alexj14)
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.10.16
  */
-
 public class BlockTest extends TestCase {
     Block block;
 
+    /**
+     * Sets up the tests following
+     */
     public void setUp() {
         byte[] testData;
         ByteBuffer buffer = ByteBuffer.allocate(8);
@@ -16,6 +22,9 @@ public class BlockTest extends TestCase {
     }
 
 
+    /**
+     * Tests getRecord
+     */
     public void testGetRecord() {
         short[] testRecord = block.getRecord(0);
         assertEquals(1, testRecord[0]);
@@ -33,7 +42,7 @@ public class BlockTest extends TestCase {
         assertEquals(5, testRecord[0]);
         assertEquals(6, testRecord[1]);
         assertTrue(block.isDirty());
-        block.setRecord(1, new short[]{8, 9});
+        block.setRecord(1, new short[] { 8, 9 });
         testRecord = block.getRecord(1);
         assertEquals(8, testRecord[0]);
         assertEquals(9, testRecord[1]);
@@ -50,6 +59,9 @@ public class BlockTest extends TestCase {
     }
 
 
+    /**
+     * Tests getLeftBound
+     */
     public void testGetLeftBound() {
         assertEquals(0, block.getLeftBound());
     }

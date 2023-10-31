@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- *
+ * @version 2023.10.16
  */
 public class Block {
     private byte[] data;
@@ -57,7 +57,7 @@ public class Block {
     public void setRecord(int index, short[] record) {
         ByteBuffer buffer = ByteBuffer.allocate(4);
         buffer.asShortBuffer().put(record);
-        System.arraycopy(buffer.array(), 0, data, index*4, 4);
+        System.arraycopy(buffer.array(), 0, data, index * 4, 4);
         dirty = true;
     }
 

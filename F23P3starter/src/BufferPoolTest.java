@@ -5,7 +5,7 @@ import java.nio.ByteBuffer;
 import student.TestCase;
 
 /**
- * test class for BufferPool class
+ * Test class for BufferPool class
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
@@ -14,6 +14,9 @@ import student.TestCase;
 public class BufferPoolTest extends TestCase {
     private BufferPool bp;
 
+    /**
+     * Sets up the tests following
+     */
     public void setUp() {
         bp = null;
         RandomAccessFile wraf;
@@ -29,7 +32,8 @@ public class BufferPoolTest extends TestCase {
 
     /**
      * Tests readBlock method
-     * @throws IOException 
+     * 
+     * @throws IOException
      */
     public void testReadBlock() throws IOException {
         assertEquals(0, bp.getBuffersize());
@@ -52,6 +56,11 @@ public class BufferPoolTest extends TestCase {
     }
 
 
+    /**
+     * Tests writing and flushing
+     * 
+     * @throws IOException
+     */
     public void testWriteToFile() throws IOException {
         bp.setRecord(1050, new short[] { 0, 0 });
         bp.flush();
@@ -62,7 +71,8 @@ public class BufferPoolTest extends TestCase {
 
     /**
      * Tests getRecord and setRecord
-     * @throws IOException 
+     * 
+     * @throws IOException
      */
     public void testGetSetRecord() throws IOException {
         short[] record = bp.getRecord(0);

@@ -76,7 +76,7 @@ public class BufferPool {
      *            index to retrieve (record index or byte index/4)
      * @return short array representing a record with [0] representing the key
      *         and [1] the value
-     * @throws IOException 
+     * @throws IOException
      */
     public short[] getRecord(long index) throws IOException {
         int foundIndex = -1;
@@ -105,7 +105,7 @@ public class BufferPool {
      *            index of record to set
      * @param newRec
      *            new record to replace old data
-     * @throws IOException 
+     * @throws IOException
      */
     public void setRecord(long index, short[] newRec) throws IOException {
         int foundIndex = -1;
@@ -133,7 +133,7 @@ public class BufferPool {
      *            index 1
      * @param b
      *            index 2
-     * @throws IOException 
+     * @throws IOException
      */
     public void swap(long a, long b) throws IOException {
         System.out.println("swap call");
@@ -146,6 +146,7 @@ public class BufferPool {
 
     /**
      * Clears the buffer pool by writing all dirty buffers
+     * 
      * @throws IOException
      */
     public void flush() throws IOException {
