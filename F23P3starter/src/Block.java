@@ -75,7 +75,7 @@ public class Block {
     /**
      * Checks if this block has been edited
      * 
-     * @return
+     * @return true if edited, false otherwise
      */
     public boolean isDirty() {
         return dirty;
@@ -85,7 +85,7 @@ public class Block {
     /**
      * Gets the left bound of the block
      * 
-     * @return
+     * @return the left bound
      */
     public int getLeftBound() {
         return lbound;

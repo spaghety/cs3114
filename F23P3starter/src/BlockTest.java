@@ -6,10 +6,10 @@ import student.TestCase;
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.10.16
+ * @version 2023.10.30
  */
 public class BlockTest extends TestCase {
-    Block block;
+    private Block block;
 
     /**
      * Sets up the tests following

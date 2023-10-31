@@ -70,7 +70,7 @@ public class Quicksort {
      * @param i
      *            left index
      * @param j
-     *            right index @return 
+     *            right index @return
      * @throws IOException
      */
     private static int quicksort(BufferPool pool, long i, long j)
@@ -129,12 +129,19 @@ public class Quicksort {
         long pivot)
         throws IOException {
         while (left <= right) {
-            while (pool.getRecord(left)[0] < pivot)
+            System.out.println("while call, L" + left + " R" + right);
+            while (pool.getRecord(left)[0] < pivot) {
                 left++;
-            while ((right >= left) && pool.getRecord(right)[0] >= pivot)
+                System.out.println("L" + left);
+            }
+            while ((right >= left) && pool.getRecord(right)[0] >= pivot) {
                 right--;
-            if (right > left)
+                System.out.println("R" + right);
+            }
+            if (right > left) {
+                System.out.println("left" + pool.getRecord(left)[0] + " right" + pool.getRecord(right)[0]);
                 pool.swap(left, right);
+            }
         }
         return left;
     }
@@ -157,9 +164,13 @@ public class Quicksort {
             statFile = new FileWriter(statName);
             inFile = new RandomAccessFile(fname, "rw");
             bp = new BufferPool(inFile, numb);
-            int quickCalls = quicksort(bp, 0, inFile.length()/4);
+            long tik = System.currentTimeMillis();
+            int quickCalls = quicksort(bp, 0, inFile.length());
+            long tok = System.currentTimeMillis();
             statFile.write("calls to quicksort: ");
             statFile.write(quickCalls);
+            statFile.write("\ntime (ms): ");
+            statFile.write((int)(tok - tik));
             bp.flush();
             inFile.close();
             statFile.close();
