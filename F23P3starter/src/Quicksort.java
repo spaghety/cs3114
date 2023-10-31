@@ -79,7 +79,7 @@ public class Quicksort {
             + j + ")");
         long pivotindex = findpivot(pool, i, j);
         pool.swap(pivotindex, j);
-        long k = partition(pool, i, j - 1, pool.getRecord(j)[0]);
+        long k = partition(pool, i, j - 1, pool.getRecord(j)[0] / 4);
         pool.swap(k, j);
         if ((k - i) > 1)
             return quicksort(pool, i, k - 1) + 1;
@@ -140,7 +140,8 @@ public class Quicksort {
                 System.out.println("R" + right);
             }
             if (right > left) {
-                System.out.println("left" + pool.getRecord(left)[0] + " right" + pool.getRecord(right)[0]);
+                System.out.println("left" + pool.getRecord(left)[0] + " right"
+                    + pool.getRecord(right)[0]);
                 pool.swap(left, right);
             }
         }
