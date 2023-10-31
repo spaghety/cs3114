@@ -20,7 +20,6 @@
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.io.IOException;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -71,7 +70,7 @@ public class Quicksort {
      * @param i
      *            left index
      * @param j
-     *            right index
+     *            right index @return 
      * @throws IOException
      */
     private static int quicksort(BufferPool pool, long i, long j)
@@ -99,7 +98,7 @@ public class Quicksort {
      *            left index
      * @param j
      *            right index
-     * @return
+     * @return pivot point location
      * @throws IOException
      */
     private static int findpivot(BufferPool pool, long i, long j)
@@ -142,6 +141,8 @@ public class Quicksort {
 
 
     /**
+     * The main method
+     * 
      * @param args
      *            Command line parameters.
      */

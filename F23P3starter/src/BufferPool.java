@@ -51,7 +51,7 @@ public class BufferPool {
         Block lastBlock = buffer[buffer.length - 1];
         if (lastBlock != null) {
             if (lastBlock.isDirty() == true) {
-                System.out.println(bIndex);
+//                System.out.println(bIndex);
                 wraf.seek(bIndex);
                 wraf.write(lastBlock.getData());
             }
@@ -91,8 +91,8 @@ public class BufferPool {
         if (foundIndex != -1) {
             return buffer[foundIndex].getRecord((int)(index % RECORD_COUNT));
         }
-        System.out.println("readBlock(" + Math.floor(index / RECORD_COUNT)
-            + ")");
+//        System.out.println("readBlock(" + Math.floor(index / RECORD_COUNT)
+//            + ")");
         readBlock((int)Math.floor(index / RECORD_COUNT));
         return buffer[0].getRecord((int)(index % RECORD_COUNT));
     }
@@ -136,7 +136,7 @@ public class BufferPool {
      * @throws IOException
      */
     public void swap(long a, long b) throws IOException {
-        System.out.println("swap call");
+//        System.out.println("swap call");
         short[] record1 = getRecord(a);
         short[] record2 = getRecord(b);
         setRecord(a, record2);
