@@ -76,7 +76,7 @@ public class BufferPool {
             if (buffersize < buffer.length)
                 buffersize++;
             else if (lastBlock.isDirty()) {
-                wraf.seek(lastBlock.getLeftBound()*4);
+                wraf.seek(lastBlock.getLeftBound() * 4);
                 if (wraf.getFilePointer() + lastBlock.getData().length > wraf
                     .length())
                     throw new IOException("SCANNER OUT OF BOUNDS");

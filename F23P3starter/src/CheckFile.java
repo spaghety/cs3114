@@ -8,13 +8,11 @@ import java.io.*;
  * @version 10/18/2014
  */
 
-public class CheckFile
-{
+public class CheckFile {
     /**
      * This is an empty constructor for a CheckFile object.
      */
-    public CheckFile()
-    {
+    public CheckFile() {
         // empty constructor
     }
 
@@ -28,33 +26,26 @@ public class CheckFile
      * @throws Exception
      *             either an IOException or a FileNotFoundException
      */
-    public boolean checkFile(String filename)
-        throws Exception
-    {
+    public boolean checkFile(String filename) throws Exception {
         boolean isError = false;
-        DataInputStream in =
-            new DataInputStream(new BufferedInputStream(new FileInputStream(
-                filename)));
+        DataInputStream in = new DataInputStream(new BufferedInputStream(
+            new FileInputStream(filename)));
         // Prime with the first record
         short key2 = in.readShort();
         in.readShort();
         int reccnt = 0;
-        try
-        {
-            while (true)
-            {
+        try {
+            while (true) {
                 short key1 = key2;
                 reccnt++;
                 key2 = in.readShort();
                 in.readShort();
-                if (key1 > key2)
-                {
+                if (key1 > key2) {
                     isError = true;
                 }
             }
         }
-        catch (EOFException e)
-        {
+        catch (EOFException e) {
             System.out.println(reccnt + " records processed");
         }
         in.close();
