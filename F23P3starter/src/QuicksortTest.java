@@ -29,11 +29,11 @@ public class QuicksortTest extends TestCase {
      */
     public void testFileGenerator() throws Exception {
         String[] args = new String[4];
-        args[0] = "";
-        args[1] = "input.txt";
-        args[2] = "2";
-        args[3] = "statFile.txt";
-        Quicksort.generateFile("input.txt", "3", 'a');
+//        args[0] = "";
+        args[0] = "input.txt";
+        args[1] = "12";
+        args[2] = "statFile.txt";
+        Quicksort.generateFile("input.txt", "1", 'a');
         // In a real test we would call the sort
         Quicksort.main(args);
         // In a real test, the following would be assertTrue()
