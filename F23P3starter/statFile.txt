@@ -1,2 +1,2 @@
-calls to quicksort: 2022
-time (ms): 69
+calls to quicksort: 2971
+time (ms): 25

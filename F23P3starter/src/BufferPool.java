@@ -42,34 +42,57 @@ public class BufferPool {
 
 
     /**
-     * Read a block from the input file
+     * reads a block from the binary file
      * 
      * @param bIndex
-     *            block index to begin reading from
+     *            block index, multiplied by block size during method
+     * @return Block object
      * @throws IOException
      */
-    public void readBlock(int bIndex) throws IOException {
+    public Block readBlock(int bIndex) throws IOException {
+        System.out.println("READ BLOCK");
         bIndex *= BLOCK_SIZE;
-        Block lastBlock = buffer[buffer.length - 1];
-        if (lastBlock != null) {
-            if (lastBlock.isDirty() == true) {
-                wraf.seek(bIndex);
+        byte[] tempArr = new byte[BLOCK_SIZE];
+        wraf.seek(bIndex);
+        wraf.read(tempArr);
+        return new Block((int)bIndex / 4, tempArr);
+    }
+
+
+    /**
+     * This method shifts a block at a particular index to the top of the
+     * bufferpool
+     * 
+     * @param ind
+     *            index of the block to shift. -1 if it's just making room for a
+     *            completely new block
+     * @throws IOException
+     */
+    private void moveToTop(int ind) throws IOException {
+        Block temp;
+        if (ind == 0)
+            return;
+        if (ind == -1) {
+            Block lastBlock = buffer[buffer.length - 1];
+            if (buffersize < buffer.length)
+                buffersize++;
+            else if (lastBlock.isDirty()) {
+                wraf.seek(lastBlock.getLeftBound());
                 if (wraf.getFilePointer() + lastBlock.getData().length > wraf
                     .length())
                     throw new IOException("SCANNER OUT OF BOUNDS");
                 wraf.write(lastBlock.getData());
             }
-            buffersize--;
+            ind = buffersize - 1;
+            temp = null;
         }
-        for (int i = buffer.length - 1; i > 0; i--) {
+        else {
+            temp = buffer[ind];
+        }
+        for (int i = ind; i > 0; i--) {
             buffer[i] = buffer[i - 1];
         }
-
-        byte[] tempArr = new byte[BLOCK_SIZE];
-        wraf.seek(bIndex);
-        wraf.read(tempArr);
-        buffer[0] = new Block((int)bIndex / 4, tempArr);
-        buffersize++;
+        buffer[0] = temp;
     }
 
 
@@ -94,12 +117,10 @@ public class BufferPool {
                 break;
             }
         }
-        if (foundIndex != -1) {
-            short[] recordFound = buffer[foundIndex].getRecord((int)(index
-                % RECORD_COUNT));
-            return recordFound;
+        moveToTop(foundIndex);
+        if (foundIndex == -1) {
+            buffer[0] = readBlock((int)Math.floor(index / RECORD_COUNT));
         }
-        readBlock((int)Math.floor(index / RECORD_COUNT));
         return buffer[0].getRecord((int)(index % RECORD_COUNT));
     }
 
@@ -116,7 +137,6 @@ public class BufferPool {
     public void setRecord(int index, short[] newRec) throws IOException {
         int foundIndex = -1;
         for (int i = 0; i < buffersize; i++) {
-            // System.out.println("setRecord("+index+", "+newRec[0]+")");
             Block blck = buffer[i];
             if (index >= blck.getLeftBound() && index < blck.getLeftBound()
                 + RECORD_COUNT) {
@@ -124,12 +144,11 @@ public class BufferPool {
                 break;
             }
         }
-        if (foundIndex != -1) {
-            buffer[foundIndex].setRecord((int)(index % RECORD_COUNT), newRec);
-            return;
+        moveToTop(foundIndex);
+        if (foundIndex == -1) {
+            buffer[0] = readBlock((int)Math.floor(index / RECORD_COUNT));
         }
-        readBlock((int)Math.floor(index / RECORD_COUNT));
-        setRecord(index, newRec);
+        buffer[0].setRecord((int)(index % RECORD_COUNT), newRec);
     }
 
 
@@ -147,10 +166,13 @@ public class BufferPool {
         short[] record2 = getRecord(b);
         setRecord(a, record2);
         setRecord(b, record1);
-        System.out.println("swap (" + a + ": " + record1[0] + " - " + b + ": "
-            + record2[0]);
-        System.out.println("veri (" + a + ": " + getRecord(b)[0] + " - " + b
-            + ": " + getRecord(a)[0]);
+        /*
+         * System.out.println("swap (" + a + ": " + record1[0] + " - " + b +
+         * ": "
+         * + record2[0]);
+         * System.out.println("veri (" + a + ": " + getRecord(b)[0] + " - " + b
+         * + ": " + getRecord(a)[0]);
+         */
     }
 
 

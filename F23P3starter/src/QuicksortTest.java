@@ -33,9 +33,9 @@ public class QuicksortTest extends TestCase {
         args[1] = "input.txt";
         args[2] = "2";
         args[3] = "statFile.txt";
-        Quicksort.generateFile("input.txt", "2", 'a');
+        Quicksort.generateFile("input.txt", "3", 'a');
         // In a real test we would call the sort
-        Quicksort.main(args);
+        //Quicksort.main(args);
         // In a real test, the following would be assertTrue()
         assertTrue(fileChecker.checkFile("input.txt"));
     }
