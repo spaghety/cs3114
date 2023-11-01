@@ -80,6 +80,7 @@ public class BufferPool {
                 if (wraf.getFilePointer() + lastBlock.getData().length > wraf
                     .length())
                     throw new IOException("SCANNER OUT OF BOUNDS");
+                System.out.println("WRITING TO FILE AT BLOCK "+lastBlock.getLeftBound()/RECORD_COUNT);
                 wraf.write(lastBlock.getData());
             }
             ind = buffersize - 1;

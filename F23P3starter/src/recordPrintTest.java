@@ -13,7 +13,7 @@ public class recordPrintTest extends TestCase {
     RandomAccessFile raf;
 
     public void setUp() throws FileNotFoundException {
-        raf = new RandomAccessFile("input.txt", "r");
+        raf = new RandomAccessFile("bufferTest.txt", "r");
     }
 
 
