@@ -79,8 +79,10 @@ public class Quicksort {
         int count = 1;
         int pivotindex = findpivot(pool, i, j);
         pool.swap(pivotindex, j);
-        int k = partition(pool, i, j - 1, pool.getRecord(j)[0]);
-        pool.swap(k, j);
+        short[] jRecord = pool.getRecord(j);
+        int k = partition(pool, i, j - 1, jRecord[0]);
+        pool.setRecord(j, pool.getRecord(k));
+        pool.setRecord(k, jRecord);
         if ((k - i) > 1)
             count += quicksort(pool, i, k - 1);
         if ((j - k) > 1)
@@ -129,16 +131,19 @@ public class Quicksort {
         int pivot)
         throws IOException {
         while (left <= right) {
-            // short[] leftRecord = pool.getRecord(left);
-            while (pool.getRecord(left)[0] < pivot) {
+            short[] leftRecord = pool.getRecord(left);
+            while (leftRecord[0] < pivot) {
                 left++;
+                leftRecord = pool.getRecord(left);
             }
-            // short[] rightRecord = pool.getRecord(right);
-            while ((right >= left) && (pool.getRecord(right)[0] >= pivot)) {
+            short[] rightRecord = pool.getRecord(right);
+            while ((right >= left) && (rightRecord[0] >= pivot)) {
                 right--;
+                rightRecord = pool.getRecord(right);
             }
             if (right > left) {
-                pool.swap(left, right);
+                pool.setRecord(left, rightRecord);
+                pool.setRecord(right, leftRecord);
             }
         }
         return left;
