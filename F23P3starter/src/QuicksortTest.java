@@ -47,6 +47,6 @@ public class QuicksortTest extends TestCase {
     public void testQInit() {
         Quicksort tree = new Quicksort();
         assertNotNull(tree);
-        Quicksort.main(new String[] { "", "input.txt", "1", "stat.txt" });
+        Quicksort.main(new String[] { "", "input.txt", "2", "stat.txt" });
     }
 }

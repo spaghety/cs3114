@@ -53,8 +53,8 @@ public class BufferPool {
         Block lastBlock = buffer[buffer.length - 1];
         if (lastBlock != null) {
             if (lastBlock.isDirty() == true) {
-// System.out.println(bIndex);
                 wraf.seek(bIndex);
+                if (wraf.getFilePointer()+lastBlock.getData().length > wraf.length()) throw new IOException("SCANNER OUT OF BOUNDS");
                 wraf.write(lastBlock.getData());
             }
             buffersize--;
@@ -81,6 +81,7 @@ public class BufferPool {
      * @throws IOException
      */
     public short[] getRecord(long index) throws IOException {
+        if (index == -1) return new short[] {-1, -1};
         int foundIndex = -1;
         for (int i = 0; i < buffersize; i++) {
             Block blck = buffer[i];
@@ -91,10 +92,9 @@ public class BufferPool {
             }
         }
         if (foundIndex != -1) {
-            return buffer[foundIndex].getRecord((int)(index % RECORD_COUNT));
+            short[] recordFound = buffer[foundIndex].getRecord((int)(index % RECORD_COUNT));
+            return recordFound;
         }
-// System.out.println("readBlock(" + Math.floor(index / RECORD_COUNT)
-// + ")");
         readBlock((int)Math.floor(index / RECORD_COUNT));
         return buffer[0].getRecord((int)(index % RECORD_COUNT));
     }
@@ -138,10 +138,8 @@ public class BufferPool {
      * @throws IOException
      */
     public void swap(long a, long b) throws IOException {
-        System.out.println("swap call, L" + a + " R" + b);
         short[] record1 = getRecord(a);
         short[] record2 = getRecord(b);
-        System.out.println("left" + record1[0] + " right" + record2[0]);
         setRecord(a, record2);
         setRecord(b, record1);
     }
@@ -159,8 +157,8 @@ public class BufferPool {
                 wraf.write(buffer[i].getData());
             }
             buffer[i] = null;
-            buffersize = 0;
         }
+        buffersize = 0;
     }
 
 }
