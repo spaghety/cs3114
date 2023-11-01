@@ -22,7 +22,7 @@ public class BufferPoolTest extends TestCase {
         RandomAccessFile wraf;
         try {
             wraf = new RandomAccessFile("bufferTest.txt", "rw");
-            bp = new BufferPool(wraf, 4);
+            bp = new BufferPool(wraf, 2);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -37,6 +37,7 @@ public class BufferPoolTest extends TestCase {
      */
     public void testReadBlock() throws IOException {
         assertNotNull(bp.readBlock(0));
+        assertEquals(8259, bp.readBlock(0).getRecord(64)[0]);
     }
 
 
@@ -46,10 +47,22 @@ public class BufferPoolTest extends TestCase {
      * @throws IOException
      */
     public void testWriteToFile() throws IOException {
-        bp.setRecord(1050, new short[] { 65, 34 });
-// bp.flush();
-        assertEquals(65, bp.getRecord(1050)[0]);
-        assertEquals(34, bp.getRecord(1050)[1]);
+        System.out.println(bp.getRecord(1150)[0]);
+        bp.setRecord(1100, new short[] { 65, 34 });
+        bp.flush();
+        assertEquals(65, bp.getRecord(1100)[0]);
+        assertEquals(34, bp.getRecord(1100)[1]);
+        bp.setRecord(1100, new short[] { 8269, 8224 });
+        assertEquals(8269, bp.getRecord(1100)[0]);
+        assertEquals(8224, bp.getRecord(1100)[1]);
+        bp.flush();
+        //Test natural flush process
+        bp.setRecord(64, new short[] {65, 34});
+        bp.getRecord(1100);
+        bp.getRecord(2050);
+        assertEquals(65, bp.readBlock(0).getRecord(64)[0]);
+        bp.setRecord(64, new short[] {8259, 8224});
+        bp.flush();
     }
 
 

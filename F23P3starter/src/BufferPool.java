@@ -50,7 +50,6 @@ public class BufferPool {
      * @throws IOException
      */
     public Block readBlock(int bIndex) throws IOException {
-        System.out.println("READ BLOCK");
         bIndex *= BLOCK_SIZE;
         byte[] tempArr = new byte[BLOCK_SIZE];
         wraf.seek(bIndex);
@@ -166,13 +165,6 @@ public class BufferPool {
         short[] record2 = getRecord(b);
         setRecord(a, record2);
         setRecord(b, record1);
-        /*
-         * System.out.println("swap (" + a + ": " + record1[0] + " - " + b +
-         * ": "
-         * + record2[0]);
-         * System.out.println("veri (" + a + ": " + getRecord(b)[0] + " - " + b
-         * + ": " + getRecord(a)[0]);
-         */
     }
 
 
@@ -184,7 +176,7 @@ public class BufferPool {
     public void flush() throws IOException {
         for (int i = 0; i < buffersize; i++) {
             if (buffer[i].isDirty()) {
-                wraf.seek(buffer[i].getLeftBound());
+                wraf.seek(buffer[i].getLeftBound()*4);
                 wraf.write(buffer[i].getData());
             }
             buffer[i] = null;
