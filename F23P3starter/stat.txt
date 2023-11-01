@@ -1,2 +1,2 @@
-calls to quicksort: Ϧ
-time (ms): (
+calls to quicksort: ߦ
+time (ms): 

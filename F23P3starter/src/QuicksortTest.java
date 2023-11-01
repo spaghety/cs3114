@@ -28,25 +28,27 @@ public class QuicksortTest extends TestCase {
      *             either a IOException or FileNotFoundException
      */
     public void testFileGenerator() throws Exception {
-        String[] args = new String[3];
-        args[0] = "input.txt";
-        args[1] = "1";
-        args[2] = "statFile.txt";
-        Quicksort.generateFile("input.txt", "1", 'a');
+        String[] args = new String[4];
+        args[0] = "";
+        args[1] = "input.txt";
+        args[2] = "2";
+        args[3] = "statFile.txt";
+        Quicksort.generateFile("input.txt", "2", 'a');
         // In a real test we would call the sort
-        // Quicksort.main(args);
+        Quicksort.main(args);
         // In a real test, the following would be assertTrue()
-        assertFalse(fileChecker.checkFile("input.txt"));
+        assertTrue(fileChecker.checkFile("input.txt"));
     }
-
 
     /**
      * Get code coverage of the class declaration.
      * 
      */
-    public void testQInit() {
-        Quicksort tree = new Quicksort();
-        assertNotNull(tree);
-        Quicksort.main(new String[] { "", "input.txt", "1", "stat.txt" });
-    }
+    /*
+     * public void testQInit() {
+     * Quicksort tree = new Quicksort();
+     * assertNotNull(tree);
+     * Quicksort.main(new String[] { "", "input.txt", "3", "stat.txt" });
+     * }
+     */
 }

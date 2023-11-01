@@ -13,7 +13,7 @@
 // submission), instructor, ACM/UPE tutors or the TAs assigned
 // to this course. I understand that I may discuss the concepts
 // of this program with other students, and that another student
-// may help me debug my program so long as neither of us writes
+// may help me debug my program so int as neither of us writes
 // anything during the discussion or modifies any computer file
 // during the discussion. I have violated neither the spirit nor
 // letter of this restriction.
@@ -73,18 +73,18 @@ public class Quicksort {
      *            right index @return
      * @throws IOException
      */
-    private static int quicksort(BufferPool pool, long i, long j)
+    private static int quicksort(BufferPool pool, int i, int j)
         throws IOException {
+        // System.out.println("quicksort("+i+", "+j+")");
         int count = 1;
-        //System.out.println("quicksort(buffpool, "+i+", "+j+")");
-        long pivotindex = findpivot(pool, i, j);
+        int pivotindex = findpivot(pool, i, j);
         pool.swap(pivotindex, j);
-        long k = partition(pool, i, j - 1, pool.getRecord(j)[0]);
+        int k = partition(pool, i, j - 1, pool.getRecord(j)[0]);
         pool.swap(k, j);
         if ((k - i) > 1)
-            count+=quicksort(pool, i, k - 1);
+            count += quicksort(pool, i, k - 1);
         if ((j - k) > 1)
-            count+=quicksort(pool, k + 1, j);
+            count += quicksort(pool, k + 1, j);
         return count;
     }
 
@@ -101,9 +101,9 @@ public class Quicksort {
      * @return pivot point location
      * @throws IOException
      */
-    private static long findpivot(BufferPool pool, long i, long j)
+    private static int findpivot(BufferPool pool, int i, int j)
         throws IOException {
-        long index = (i + j) / 2;
+        int index = (i + j) / 2;
         return index;
     }
 
@@ -122,19 +122,19 @@ public class Quicksort {
      * @return first position in the right partition
      * @throws IOException
      */
-    private static long partition(
+    private static int partition(
         BufferPool pool,
-        long left,
-        long right,
-        long pivot)
+        int left,
+        int right,
+        int pivot)
         throws IOException {
         while (left <= right) {
-            //short[] leftRecord = pool.getRecord(left);
+            // short[] leftRecord = pool.getRecord(left);
             while (pool.getRecord(left)[0] < pivot) {
                 left++;
             }
-            //short[] rightRecord = pool.getRecord(right);
-            while ((right >= left) && pool.getRecord(right)[0] >= pivot) {
+            // short[] rightRecord = pool.getRecord(right);
+            while ((right >= left) && (pool.getRecord(right)[0] >= pivot)) {
                 right--;
             }
             if (right > left) {
@@ -159,16 +159,14 @@ public class Quicksort {
         FileWriter statFile = null;
         RandomAccessFile inFile = null;
         try {
-            statFile = new FileWriter(statName);
+            statFile = new FileWriter(statName, false);
             inFile = new RandomAccessFile(fname, "rw");
             bp = new BufferPool(inFile, numb);
             long tik = System.currentTimeMillis();
-            int quickCalls = quicksort(bp, 0, (inFile.length() / 4) - 1);
+            int quickCalls = quicksort(bp, 0, (int)(inFile.length() / 4) - 1);
             long tok = System.currentTimeMillis();
-            statFile.write("calls to quicksort: ");
-            statFile.write(quickCalls);
-            statFile.write("\ntime (ms): ");
-            statFile.write((int)(tok - tik));
+            statFile.write("calls to quicksort: "+quickCalls);
+            statFile.write("\ntime (ms): "+(int)(tok - tik));
             bp.flush();
             inFile.close();
             statFile.close();

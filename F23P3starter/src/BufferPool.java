@@ -82,7 +82,7 @@ public class BufferPool {
      *         and [1] the value
      * @throws IOException
      */
-    public short[] getRecord(long index) throws IOException {
+    public short[] getRecord(int index) throws IOException {
         if (index == -1)
             return new short[] { -1, -1 };
         int foundIndex = -1;
@@ -113,10 +113,10 @@ public class BufferPool {
      *            new record to replace old data
      * @throws IOException
      */
-    public void setRecord(long index, short[] newRec) throws IOException {
+    public void setRecord(int index, short[] newRec) throws IOException {
         int foundIndex = -1;
         for (int i = 0; i < buffersize; i++) {
-            System.out.println("setRecord("+index+", "+newRec[0]+")");
+            // System.out.println("setRecord("+index+", "+newRec[0]+")");
             Block blck = buffer[i];
             if (index >= blck.getLeftBound() && index < blck.getLeftBound()
                 + RECORD_COUNT) {
@@ -142,11 +142,15 @@ public class BufferPool {
      *            index 2
      * @throws IOException
      */
-    public void swap(long a, long b) throws IOException {
+    public void swap(int a, int b) throws IOException {
         short[] record1 = getRecord(a);
         short[] record2 = getRecord(b);
         setRecord(a, record2);
         setRecord(b, record1);
+        System.out.println("swap (" + a + ": " + record1[0] + " - " + b + ": "
+            + record2[0]);
+        System.out.println("veri (" + a + ": " + getRecord(b)[0] + " - " + b
+            + ": " + getRecord(a)[0]);
     }
 
 

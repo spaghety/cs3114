@@ -11,21 +11,25 @@ import student.TestCase;
  */
 public class recordPrintTest extends TestCase {
     RandomAccessFile raf;
+
     public void setUp() throws FileNotFoundException {
         raf = new RandomAccessFile("input.txt", "r");
     }
-    
+
+
     public void testPrintOut() {
         int i = 0;
-        while(true) {
+        while (true) {
             try {
-                System.out.print(i+". ");
-                System.out.print("("+raf.readShort()+", ");
-                System.out.println(raf.readShort()+")");
+                System.out.print(i + ". ");
+                System.out.print("(" + raf.readShort() + ", ");
+                System.out.println(raf.readShort() + ")");
                 i++;
-            }catch(EOFException e) {
+            }
+            catch (EOFException e) {
                 break;
-            }catch(Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
