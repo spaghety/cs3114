@@ -116,6 +116,7 @@ public class BufferPool {
     public void setRecord(long index, short[] newRec) throws IOException {
         int foundIndex = -1;
         for (int i = 0; i < buffersize; i++) {
+            System.out.println("setRecord("+index+", "+newRec[0]+")");
             Block blck = buffer[i];
             if (index >= blck.getLeftBound() && index < blck.getLeftBound()
                 + RECORD_COUNT) {

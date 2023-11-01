@@ -76,15 +76,15 @@ public class Quicksort {
     private static int quicksort(BufferPool pool, long i, long j)
         throws IOException {
         int count = 1;
-        System.out.println("quicksort(buffpool, "+i+", "+j+")");
+        //System.out.println("quicksort(buffpool, "+i+", "+j+")");
         long pivotindex = findpivot(pool, i, j);
         pool.swap(pivotindex, j);
         long k = partition(pool, i, j - 1, pool.getRecord(j)[0]);
         pool.swap(k, j);
         if ((k - i) > 1)
-            count+=quicksort(pool, i, k - 1) + 1;
+            count+=quicksort(pool, i, k - 1);
         if ((j - k) > 1)
-            count+=quicksort(pool, k + 1, j) + 1;
+            count+=quicksort(pool, k + 1, j);
         return count;
     }
 
@@ -129,19 +129,16 @@ public class Quicksort {
         long pivot)
         throws IOException {
         while (left <= right) {
-            short[] leftRecord = pool.getRecord(left);
-            while (leftRecord[0] < pivot) {
+            //short[] leftRecord = pool.getRecord(left);
+            while (pool.getRecord(left)[0] < pivot) {
                 left++;
-                leftRecord = pool.getRecord(left);
             }
-            short[] rightRecord = pool.getRecord(right);
-            while ((right >= left) && rightRecord[0] >= pivot) {
+            //short[] rightRecord = pool.getRecord(right);
+            while ((right >= left) && pool.getRecord(right)[0] >= pivot) {
                 right--;
-                rightRecord = pool.getRecord(right);
             }
             if (right > left) {
-                pool.setRecord(left, rightRecord);
-                pool.setRecord(right, leftRecord);
+                pool.swap(left, right);
             }
         }
         return left;
