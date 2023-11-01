@@ -55,18 +55,18 @@ public class BufferPoolTest extends TestCase {
         assertEquals(8269, bp.getRecord(1100)[0]);
         assertEquals(8224, bp.getRecord(1100)[1]);
         bp.flush();
-        //Test natural flush process
-        bp.setRecord(80, new short[] {65, 34});
+        // Test natural flush process
+        bp.setRecord(80, new short[] { 65, 34 });
         bp.getRecord(1100);
         bp.getRecord(2050);
         assertEquals(65, bp.readBlock(0).getRecord(80)[0]);
-        bp.setRecord(80, new short[] {8259, 8224});
+        bp.setRecord(80, new short[] { 8259, 8224 });
         bp.flush();
-        bp.setRecord(1189, new short[] {65, 34});
+        bp.setRecord(1189, new short[] { 65, 34 });
         bp.getRecord(2500);
         bp.getRecord(0);
         assertEquals(65, bp.readBlock(1).getRecord(165)[0]);
-        bp.setRecord(1189, new short[] {8264, 8224});
+        bp.setRecord(1189, new short[] { 8264, 8224 });
         bp.flush();
     }
 
