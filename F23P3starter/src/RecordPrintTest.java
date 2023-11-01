@@ -7,16 +7,25 @@ import student.TestCase;
  * Prints out file as pairs of shorts
  * 
  * @author Phillip Jordan (alexj14)
- *
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.10.31
  */
-public class recordPrintTest extends TestCase {
-    RandomAccessFile raf;
+public class RecordPrintTest extends TestCase {
+    private RandomAccessFile raf;
 
+    /**
+     * Sets up the tests following
+     * 
+     * @throws FileNotFoundException
+     */
     public void setUp() throws FileNotFoundException {
-        raf = new RandomAccessFile("bufferTest.txt", "r");
+        raf = new RandomAccessFile("input.txt", "r");
     }
 
 
+    /**
+     * Tests print out
+     */
     public void testPrintOut() {
         int i = 0;
         while (true) {
