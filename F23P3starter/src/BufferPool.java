@@ -177,7 +177,7 @@ public class BufferPool {
     public void flush() throws IOException {
         for (int i = 0; i < buffersize; i++) {
             if (buffer[i].isDirty()) {
-                wraf.seek(buffer[i].getLeftBound()*4);
+                wraf.seek(buffer[i].getLeftBound() * 4);
                 wraf.write(buffer[i].getData());
             }
             buffer[i] = null;

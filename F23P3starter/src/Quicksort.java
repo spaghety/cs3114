@@ -152,9 +152,9 @@ public class Quicksort {
      *            Command line parameters.
      */
     public static void main(String[] args) {
-        String fname = args[1]; // INPUT FILE NAME
-        int numb = Integer.parseInt(args[2]); // NUMBER OF BUFFERS 1-20
-        String statName = args[3]; // STATISTIC FILE TO WRITE TO
+        String fname = args[0]; // INPUT FILE NAME
+        int numb = Integer.parseInt(args[1]); // NUMBER OF BUFFERS 1-20
+        String statName = args[2]; // STATISTIC FILE TO WRITE TO
         BufferPool bp = null;
         FileWriter statFile = null;
         RandomAccessFile inFile = null;
@@ -165,8 +165,8 @@ public class Quicksort {
             long tik = System.currentTimeMillis();
             int quickCalls = quicksort(bp, 0, (int)(inFile.length() / 4) - 1);
             long tok = System.currentTimeMillis();
-            statFile.write("calls to quicksort: "+quickCalls);
-            statFile.write("\ntime (ms): "+(int)(tok - tik));
+            statFile.write("calls to quicksort: " + quickCalls);
+            statFile.write("\ntime (ms): " + (int)(tok - tik));
             bp.flush();
             inFile.close();
             statFile.close();

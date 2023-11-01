@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 calls to quicksort: 3015
 time (ms): 25
+=======
+calls to quicksort: 998
+time (ms): 34
+>>>>>>> branch 'Project3' of https://github.com/spaghety/cs3114.git
