@@ -19,7 +19,7 @@ public class RecordPrintTest extends TestCase {
      * @throws FileNotFoundException
      */
     public void setUp() throws FileNotFoundException {
-        raf = new RandomAccessFile("input.txt", "r");
+        raf = new RandomAccessFile("bufferTest.txt", "r");
     }
 
 

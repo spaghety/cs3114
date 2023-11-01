@@ -62,10 +62,10 @@ public class BufferPoolTest extends TestCase {
         assertEquals(65, bp.readBlock(0).getRecord(80)[0]);
         bp.setRecord(80, new short[] { 8259, 8224 });
         bp.flush();
-        bp.setRecord(1189, new short[] { 65, 34 });
+        bp.setRecord(1189, new short[] { 72, 34 });
         bp.getRecord(2500);
         bp.getRecord(0);
-        assertEquals(65, bp.readBlock(1).getRecord(165)[0]);
+        assertEquals(72, bp.readBlock(1).getRecord(165)[0]);
         bp.setRecord(1189, new short[] { 8264, 8224 });
         bp.flush();
     }
