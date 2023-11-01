@@ -75,15 +75,17 @@ public class Quicksort {
      */
     private static int quicksort(BufferPool pool, long i, long j)
         throws IOException {
+        int count = 1;
+        System.out.println("quicksort(buffpool, "+i+", "+j+")");
         long pivotindex = findpivot(pool, i, j);
         pool.swap(pivotindex, j);
         long k = partition(pool, i, j - 1, pool.getRecord(j)[0]);
         pool.swap(k, j);
         if ((k - i) > 1)
-            return quicksort(pool, i, k - 1) + 1;
+            count+=quicksort(pool, i, k - 1) + 1;
         if ((j - k) > 1)
-            return quicksort(pool, k + 1, j) + 1;
-        return 1;
+            count+=quicksort(pool, k + 1, j) + 1;
+        return count;
     }
 
 
@@ -164,7 +166,7 @@ public class Quicksort {
             inFile = new RandomAccessFile(fname, "rw");
             bp = new BufferPool(inFile, numb);
             long tik = System.currentTimeMillis();
-            int quickCalls = quicksort(bp, 0, (inFile.length()/4)-1);
+            int quickCalls = quicksort(bp, 0, (inFile.length() / 4) - 1);
             long tok = System.currentTimeMillis();
             statFile.write("calls to quicksort: ");
             statFile.write(quickCalls);

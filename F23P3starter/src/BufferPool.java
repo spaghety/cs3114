@@ -54,7 +54,9 @@ public class BufferPool {
         if (lastBlock != null) {
             if (lastBlock.isDirty() == true) {
                 wraf.seek(bIndex);
-                if (wraf.getFilePointer()+lastBlock.getData().length > wraf.length()) throw new IOException("SCANNER OUT OF BOUNDS");
+                if (wraf.getFilePointer() + lastBlock.getData().length > wraf
+                    .length())
+                    throw new IOException("SCANNER OUT OF BOUNDS");
                 wraf.write(lastBlock.getData());
             }
             buffersize--;
@@ -81,7 +83,8 @@ public class BufferPool {
      * @throws IOException
      */
     public short[] getRecord(long index) throws IOException {
-        if (index == -1) return new short[] {-1, -1};
+        if (index == -1)
+            return new short[] { -1, -1 };
         int foundIndex = -1;
         for (int i = 0; i < buffersize; i++) {
             Block blck = buffer[i];
@@ -92,7 +95,8 @@ public class BufferPool {
             }
         }
         if (foundIndex != -1) {
-            short[] recordFound = buffer[foundIndex].getRecord((int)(index % RECORD_COUNT));
+            short[] recordFound = buffer[foundIndex].getRecord((int)(index
+                % RECORD_COUNT));
             return recordFound;
         }
         readBlock((int)Math.floor(index / RECORD_COUNT));
