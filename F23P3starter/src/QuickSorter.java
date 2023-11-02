@@ -1,8 +1,11 @@
 import java.io.IOException;
 
 /**
+ * This class holds all the methods required to sort the binary file
+ * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.11.01
  *
  */
 public class QuickSorter {
