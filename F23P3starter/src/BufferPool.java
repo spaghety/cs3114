@@ -7,7 +7,7 @@ import java.io.RandomAccessFile;
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.10.25
+ * @version 2023.11.01
  */
 public class BufferPool {
     private RandomAccessFile wraf;
@@ -15,6 +15,9 @@ public class BufferPool {
     private int buffersize;
     private static final int RECORD_COUNT = 1024;
     private static final int BLOCK_SIZE = 4096;
+    private int cacheHits;
+    private int diskReads;
+    private int diskWrites;
 
     /**
      * Basic constructor
@@ -28,6 +31,9 @@ public class BufferPool {
         wraf = inFile;
         buffer = new Block[numb];
         buffersize = 0;
+        cacheHits = 0;
+        diskReads = 0;
+        diskWrites = 0;
     }
 
 
@@ -50,6 +56,7 @@ public class BufferPool {
      * @throws IOException
      */
     public Block readBlock(int bIndex) throws IOException {
+        diskReads++;
         bIndex *= BLOCK_SIZE;
         byte[] tempArr = new byte[BLOCK_SIZE];
         wraf.seek(bIndex);
@@ -80,6 +87,7 @@ public class BufferPool {
                 if (wraf.getFilePointer() + lastBlock.getData().length > wraf
                     .length())
                     throw new IOException("SCANNER OUT OF BOUNDS");
+                diskWrites++;
                 wraf.write(lastBlock.getData());
             }
             ind = buffersize - 1;
@@ -120,6 +128,7 @@ public class BufferPool {
         if (foundIndex == -1) {
             buffer[0] = readBlock((int)Math.floor(index / RECORD_COUNT));
         }
+        cacheHits++;
         return buffer[0].getRecord((int)(index % RECORD_COUNT));
     }
 
@@ -177,11 +186,63 @@ public class BufferPool {
         for (int i = 0; i < buffersize; i++) {
             if (buffer[i].isDirty()) {
                 wraf.seek(buffer[i].getLeftBound() * 4);
+                diskWrites++;
                 wraf.write(buffer[i].getData());
             }
             buffer[i] = null;
         }
         buffersize = 0;
     }
+
+
+    /**
+     * Gets the number of cache hits
+     * 
+     * @return the number of cache hits
+     */
+    public int getCacheHits() {
+        return cacheHits;
+    }
+
+
+    /**
+     * Gets the number of disk reads
+     * 
+     * @return the number of disk reads
+     */
+    public int getDiskReads() {
+        return diskReads;
+    }
+
+
+    /**
+     * Gets the number of disk writes
+     * 
+     * @return the number of disk writes
+     */
+    public int getDiskWrites() {
+        return diskWrites;
+    }
+
+
+//    /**
+//     * Finds index
+//     *
+//     * @param index
+//     *            the index to be found
+//     * @return index, or -1 if not found
+//     */
+//    private int findIndex(int index) {
+//        int foundIndex = -1;
+//        for (int i = 0; i < buffersize; i++) {
+//            Block blck = buffer[i];
+//            if (index >= blck.getLeftBound() && index < blck.getLeftBound()
+//                + RECORD_COUNT) {
+//                foundIndex = i;
+//                break;
+//            }
+//        }
+//        return foundIndex;
+//    }
 
 }
