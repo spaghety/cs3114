@@ -70,13 +70,25 @@ public class Quicksort {
      * @param i
      *            left index
      * @param j
-     *            right index @return
+     *            right index
+     * @return the count of quicksort calls
      * @throws IOException
      */
     private static int quicksort(BufferPool pool, int i, int j)
         throws IOException {
-        // System.out.println("quicksort("+i+", "+j+")");
+//        System.out.println("quicksort(" + i + ", " + j + ")");
         int count = 1;
+        boolean same = true;
+        // Check if the partition is all the same
+        for (int l = i; l < j - 1; l++) {
+            if (pool.getRecord(l)[0] != pool.getRecord(l + 1)[0]) {
+                same = false;
+                break;
+            }
+        }
+        if (same)
+            return count;
+        // Real quicksort
         int pivotindex = findpivot(pool, i, j);
         pool.swap(pivotindex, j);
         short[] jRecord = pool.getRecord(j);
