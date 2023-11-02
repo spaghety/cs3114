@@ -224,25 +224,24 @@ public class BufferPool {
         return diskWrites;
     }
 
-
-//    /**
-//     * Finds index
-//     *
-//     * @param index
-//     *            the index to be found
-//     * @return index, or -1 if not found
-//     */
-//    private int findIndex(int index) {
-//        int foundIndex = -1;
-//        for (int i = 0; i < buffersize; i++) {
-//            Block blck = buffer[i];
-//            if (index >= blck.getLeftBound() && index < blck.getLeftBound()
-//                + RECORD_COUNT) {
-//                foundIndex = i;
-//                break;
-//            }
-//        }
-//        return foundIndex;
-//    }
+// /**
+// * Finds index
+// *
+// * @param index
+// * the index to be found
+// * @return index, or -1 if not found
+// */
+// private int findIndex(int index) {
+// int foundIndex = -1;
+// for (int i = 0; i < buffersize; i++) {
+// Block blck = buffer[i];
+// if (index >= blck.getLeftBound() && index < blck.getLeftBound()
+// + RECORD_COUNT) {
+// foundIndex = i;
+// break;
+// }
+// }
+// return foundIndex;
+// }
 
 }

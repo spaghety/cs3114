@@ -1,2 +1,90 @@
-calls to quicksort: 70
-time (ms): 487
+File name: input.txt
+calls to quicksort: 77
+number of cache hits: 14061744
+number of disk reads: 10552
+number of disk writes: 5768
+time (ms): 577
+File name: input.txt
+calls to quicksort: 68
+number of cache hits: 12529447
+number of disk reads: 9016
+number of disk writes: 6041
+time (ms): 863
+File name: input.txt
+calls to quicksort: 72
+number of cache hits: 116169
+number of disk reads: 36
+number of disk writes: 32
+time (ms): 27
+File name: input.txt
+calls to quicksort: 61
+number of cache hits: 108366
+number of disk reads: 10
+number of disk writes: 0
+time (ms): 27
+File name: input.txt
+calls to quicksort: 60
+number of cache hits: 12467484
+number of disk reads: 9037
+number of disk writes: 6674
+time (ms): 832
+File name: input.txt
+calls to quicksort: 71
+number of cache hits: 47911
+number of disk reads: 4
+number of disk writes: 0
+time (ms): 19
+File name: input.txt
+calls to quicksort: 63
+number of cache hits: 43173
+number of disk reads: 4
+number of disk writes: 0
+time (ms): 20
+File name: input.txt
+calls to quicksort: 61
+number of cache hits: 43858
+number of disk reads: 4
+number of disk writes: 0
+time (ms): 21
+File name: input.txt
+calls to quicksort: 59
+number of cache hits: 48601
+number of disk reads: 4
+number of disk writes: 0
+time (ms): 15
+File name: input.txt
+calls to quicksort: 59
+number of cache hits: 44531
+number of disk reads: 4
+number of disk writes: 0
+time (ms): 19
+File name: input.txt
+calls to quicksort: 67
+number of cache hits: 119527
+number of disk reads: 41
+number of disk writes: 37
+time (ms): 37
+File name: input.txt
+calls to quicksort: 69
+number of cache hits: 127660
+number of disk reads: 58
+number of disk writes: 52
+time (ms): 32
+File name: input.txt
+calls to quicksort: 63
+number of cache hits: 119626
+number of disk reads: 42
+number of disk writes: 37
+time (ms): 27
+File name: input.txt
+calls to quicksort: 64
+number of cache hits: 127148
+number of disk reads: 48
+number of disk writes: 40
+time (ms): 28
+File name: input.txt
+calls to quicksort: 62
+number of cache hits: 11149566
+number of disk reads: 7705
+number of disk writes: 5580
+time (ms): 774

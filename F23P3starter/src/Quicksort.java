@@ -63,106 +63,6 @@ public class Quicksort {
 
 
     /**
-     * Recursive quicksort method
-     * 
-     * @param pool
-     *            bufferpool object
-     * @param i
-     *            left index
-     * @param j
-     *            right index
-     * @return the count of quicksort calls
-     * @throws IOException
-     */
-    private static int quicksort(BufferPool pool, int i, int j)
-        throws IOException {
-//        System.out.println("quicksort(" + i + ", " + j + ")");
-        int count = 1;
-        boolean same = true;
-        // Check if the partition is all the same
-        for (int l = i; l < j - 1; l++) {
-            if (pool.getRecord(l)[0] != pool.getRecord(l + 1)[0]) {
-                same = false;
-                break;
-            }
-        }
-        if (same)
-            return count;
-        // Real quicksort
-        int pivotindex = findpivot(pool, i, j);
-        pool.swap(pivotindex, j);
-        short[] jRecord = pool.getRecord(j);
-        int k = partition(pool, i, j - 1, jRecord[0]);
-        pool.setRecord(j, pool.getRecord(k));
-        pool.setRecord(k, jRecord);
-        if ((k - i) > 1)
-            count += quicksort(pool, i, k - 1);
-        if ((j - k) > 1)
-            count += quicksort(pool, k + 1, j);
-        return count;
-    }
-
-
-    /**
-     * Helper method to find pivot point. Can be refined to improve efficiency
-     * 
-     * @param pool
-     *            bufferpool object
-     * @param i
-     *            left index
-     * @param j
-     *            right index
-     * @return pivot point location
-     * @throws IOException
-     */
-    private static int findpivot(BufferPool pool, int i, int j)
-        throws IOException {
-        int index = (i + j) / 2;
-        return index;
-    }
-
-
-    /**
-     * This method partitions the array for the quicksort
-     * 
-     * @param pool
-     *            array object
-     * @param left
-     *            left bound
-     * @param right
-     *            right bound
-     * @param pivot
-     *            pivot point
-     * @return first position in the right partition
-     * @throws IOException
-     */
-    private static int partition(
-        BufferPool pool,
-        int left,
-        int right,
-        int pivot)
-        throws IOException {
-        while (left <= right) {
-            short[] leftRecord = pool.getRecord(left);
-            while (leftRecord[0] < pivot) {
-                left++;
-                leftRecord = pool.getRecord(left);
-            }
-            short[] rightRecord = pool.getRecord(right);
-            while ((right >= left) && (rightRecord[0] >= pivot)) {
-                right--;
-                rightRecord = pool.getRecord(right);
-            }
-            if (right > left) {
-                pool.setRecord(left, rightRecord);
-                pool.setRecord(right, leftRecord);
-            }
-        }
-        return left;
-    }
-
-
-    /**
      * The main method
      * 
      * @param args
@@ -176,14 +76,20 @@ public class Quicksort {
         FileWriter statFile = null;
         RandomAccessFile inFile = null;
         try {
-            statFile = new FileWriter(statName, false);
+            statFile = new FileWriter(statName, true);
             inFile = new RandomAccessFile(fname, "rw");
             bp = new BufferPool(inFile, numb);
             long tik = System.currentTimeMillis();
-            int quickCalls = quicksort(bp, 0, (int)(inFile.length() / 4) - 1);
+            QuickSorter qs = new QuickSorter(bp);
+            int quickCalls = qs.quicksort(0, (int)(inFile.length() / 4) - 1);
             long tok = System.currentTimeMillis();
-            statFile.write("calls to quicksort: " + quickCalls);
-            statFile.write("\ntime (ms): " + (int)(tok - tik));
+            statFile.write("File name: " + fname + "\n");
+            statFile.write("calls to quicksort: " + quickCalls + "\n");
+            statFile.write("number of cache hits: " + bp.getCacheHits() + "\n");
+            statFile.write("number of disk reads: " + bp.getDiskReads() + "\n");
+            statFile.write("number of disk writes: " + bp.getDiskWrites()
+                + "\n");
+            statFile.write("time (ms): " + (int)(tok - tik) + "\n");
             bp.flush();
             inFile.close();
             statFile.close();
