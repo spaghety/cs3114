@@ -26,11 +26,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 /**
- * The class containing the main method.
+ * The class containing the quicksort method.
  *
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.10.16
+ * @version 2023.11.01
  */
 
 public class Quicksort {
@@ -74,14 +74,19 @@ public class Quicksort {
      * @return the count of quicksort calls
      * @throws IOException
      */
-    private static int quicksort(BufferPool pool, int i, int j)
+    public static int quicksort(BufferPool pool, int i, int j)
         throws IOException {
-//        System.out.println("quicksort(" + i + ", " + j + ")");
+// System.out.println("quicksort(" + i + ", " + j + ")");
         int count = 1;
+        int pivotindex = findpivot(pool, i, j);
         boolean same = true;
         // Check if the partition is all the same
-        for (int l = i; l < j - 1; l++) {
-            if (pool.getRecord(l)[0] != pool.getRecord(l + 1)[0]) {
+        short[] lRecord = {};
+        short[] nextRecord = {};
+        for (int l = i; l < j; l++) {
+            lRecord = pool.getRecord(l);
+            nextRecord = pool.getRecord(l + 1);
+            if (lRecord[0] != nextRecord[0]) {
                 same = false;
                 break;
             }
@@ -89,7 +94,6 @@ public class Quicksort {
         if (same)
             return count;
         // Real quicksort
-        int pivotindex = findpivot(pool, i, j);
         pool.swap(pivotindex, j);
         short[] jRecord = pool.getRecord(j);
         int k = partition(pool, i, j - 1, jRecord[0]);
@@ -176,14 +180,19 @@ public class Quicksort {
         FileWriter statFile = null;
         RandomAccessFile inFile = null;
         try {
-            statFile = new FileWriter(statName, false);
+            statFile = new FileWriter(statName, true);
             inFile = new RandomAccessFile(fname, "rw");
             bp = new BufferPool(inFile, numb);
             long tik = System.currentTimeMillis();
             int quickCalls = quicksort(bp, 0, (int)(inFile.length() / 4) - 1);
             long tok = System.currentTimeMillis();
-            statFile.write("calls to quicksort: " + quickCalls);
-            statFile.write("\ntime (ms): " + (int)(tok - tik));
+            statFile.write("File name: " + fname + "\n");
+            statFile.write("calls to quicksort: " + quickCalls + "\n");
+            statFile.write("number of cache hits: " + bp.getCacheHits() + "\n");
+            statFile.write("number of disk reads: " + bp.getDiskReads() + "\n");
+            statFile.write("number of disk writes: " + bp.getDiskWrites()
+                + "\n");
+            statFile.write("time (ms): " + (int)(tok - tik) + "\n");
             bp.flush();
             inFile.close();
             statFile.close();
