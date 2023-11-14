@@ -1,8 +1,8 @@
 /**
  * Hash table class
  *
- * @author <Put Something Here>
- * @version <Put Something Here>
+ * @author Phillip Jordan (alexj14)
+ * @version 2023.11.14
  */
 
 public class Hash

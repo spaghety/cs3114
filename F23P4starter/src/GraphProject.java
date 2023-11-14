@@ -1,10 +1,15 @@
 // -------------------------------------------------------------------------
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  * Main for Graph project (CS3114/CS5040 Fall 2023 Project 4).
  * Usage: java GraphProject <init-hash-size> <command-file>
  *
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author Phillip Jordan (alexj14)
+ * @version 2023.11.14
  *
  */
 
@@ -34,6 +39,27 @@ public class GraphProject
      *     Command line parameters
      */
     public static void main(String[] args) {
-        // This is the main file for the program.
+        int initHashSize = Integer.parseInt(args[1]);
+        String fname = args[2];
+        Scanner sc = null;
+        try {
+            File fin = new File(fname);
+            sc = new Scanner(fin);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+        String command = sc.next();
+        switch(command) {
+            case "insert":
+                String[] line = sc.nextLine().split("<SEP>");
+                break;
+            case "remove":
+                break;
+            case "print":
+                break;
+            
+        }
     }
 }
