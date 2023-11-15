@@ -1,2 +1,0 @@
-        int dx = px <= l ? l - px : px > r ? px - r : 0;
-        int dy = py <= u ? u - py : py > d ? py - d : 0;
