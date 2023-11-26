@@ -76,6 +76,22 @@ public class HashTable {
 
 
     /**
+     * Checks if array size needs to be doubled to make more room
+     */
+    private void checkExtend() {
+        if (artCount * 2 >= size || songCount * 2 >= size) {
+            size *= 2;
+            Vertex[] temp = artists;
+            artists = new Vertex[size];
+            System.arraycopy(temp, 0, artists, 0, artCount);
+            temp = songs;
+            songs = new Vertex[size];
+            System.arraycopy(temp, 0, songs, 0, songCount);
+        }
+    }
+
+
+    /**
      * Combines the hashing and probing functions together and returns the index
      * 
      * @param arr
@@ -84,7 +100,7 @@ public class HashTable {
      *            value input
      * @return index to insert
      */
-    public int hashNProbe(Vertex[] arr, String v) {
+    private int hashNProbe(Vertex[] arr, String v) {
         int init = Hash.h(v, arr.length);
         Vertex probe = songs[init];
         int prober = 0;
@@ -164,6 +180,8 @@ public class HashTable {
             temp.prev = artists[artInd].head;
             artists[artInd].head.next = temp;
         }
+        if (status > 0)
+            checkExtend();
         return status;
     }
 }
