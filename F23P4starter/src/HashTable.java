@@ -32,7 +32,6 @@ public class HashTable {
             song = s;
             art = a;
             weight = 0;
-            prev = null;
             next = null;
         }
     }
@@ -96,17 +95,28 @@ public class HashTable {
 
 
     /**
-     * Checks if array size needs to be doubled to make more room
+     * Checks if array size needs to be doubled to make more room and doubles if
+     * necessary, rehashing old vertices into new array
      */
     private void checkExtend() {
         if (artCount * 2 >= size || songCount * 2 >= size) {
             size *= 2;
             Vertex[] temp = artists;
             artists = new Vertex[size];
-            System.arraycopy(temp, 0, artists, 0, artCount);
+            for (int i = 0; i < temp.length; i++) {
+                if (temp[i] != null) {
+                    int newInd = hashNProbe(artists, temp[i].val);
+                    artists[newInd] = temp[i];
+                }
+            }
             temp = songs;
             songs = new Vertex[size];
-            System.arraycopy(temp, 0, songs, 0, songCount);
+            for (int i = 0; i < temp.length; i++) {
+                if (temp[i] != null) {
+                    int newInd = hashNProbe(songs, temp[i].val);
+                    songs[newInd] = temp[i];
+                }
+            }
         }
     }
 
@@ -122,14 +132,14 @@ public class HashTable {
      */
     private int hashNProbe(Vertex[] arr, String v) {
         int init = Hash.h(v, arr.length);
-        Vertex probe = songs[init];
+        Vertex probe = arr[init];
         int prober = 0;
         while (probe != null) {
             if (probe.val == v) {
                 return (int)(init + Math.pow((double)prober, 2.0)) % size;
             }
             prober++;
-            probe = songs[(int)(init + Math.pow(prober, 2.0)) % size];
+            probe = arr[(int)(init + Math.pow(prober, 2.0)) % size];
         }
         return (init + (int)Math.pow(prober, 2.0)) % size;
     }
@@ -150,7 +160,7 @@ public class HashTable {
         if (artists[ind] != null) {
             Edge curr = artists[ind].head;
             while (curr != null) {
-                if (curr.art == a && curr.song == s) {
+                if (curr.song.equals(s)) {
                     return curr;
                 }
                 curr = curr.next;
@@ -171,7 +181,7 @@ public class HashTable {
      *         song, 3=edge insert, 4=already exists
      */
     public int insert(String song, String artist) {
-        if (find(song, artist) != null)
+        if (find(artist, song) != null)
             return 4;
         int songInd = hashNProbe(songs, song);
         int status = 0;
@@ -184,7 +194,6 @@ public class HashTable {
         else {
             Edge temp = songs[songInd].head;
             songs[songInd].head = new Edge(song, artist);
-            temp.prev = songs[songInd].head;
             songs[songInd].head.next = temp;
             status += 1;
         }
@@ -198,11 +207,10 @@ public class HashTable {
         else {
             Edge temp = artists[artInd].head;
             artists[artInd].head = new Edge(song, artist);
-            temp.prev = artists[artInd].head;
             artists[artInd].head.next = temp;
             status += 2;
         }
-        if (status > 0)
+        if (status < 4)
             checkExtend();
         return status;
     }
@@ -242,11 +250,15 @@ public class HashTable {
             curr = curr.next;
         }
         if (prev == null) {
-            list[index].head = null;
+            list[index] = null;
+            if (isSong)
+                songCount--;
+            else
+                artCount--;
         }
         else {
-            curr.next.prev = prev;
-            prev.next = curr.next;
+            if (curr.next != null)
+                prev.next = curr.next;
         }
         if (isSong) {
             songs = list;
@@ -280,14 +292,51 @@ public class HashTable {
         Edge curr = list[index].head;
         while (curr != null) {
             removeHelper(!isSong, curr.art, curr.song);
+            curr = curr.next;
         }
         list[index] = null;
         if (isSong) {
+            songCount--;
             songs = list;
         }
         else {
+            artCount--;
             artists = list;
         }
         return true;
+    }
+
+
+    /**
+     * Returns printout for list of artists
+     * 
+     * @return string to print
+     */
+    public String printArtists() {
+        String result = "";
+        for (int i = 0; i < artists.length; i++) {
+            if (artists[i] != null) {
+                result += i + ": |" + artists[i].val + "|\n";
+            }
+        }
+        result += "total artists: " + artCount + "\n";
+        return result;
+    }
+
+
+    /**
+     * Returns printout for list of songs
+     * 
+     * @return string to print
+     */
+    public String printSongs() {
+        String result = "";
+        for (int i = 0; i < songs.length; i++) {
+            if (songs[i] != null) {
+                result += i + ": |" + songs[i].val + "|\n";
+            }
+        }
+        result += "total songs: " + songCount + "\n";
+        return result;
     }
 }

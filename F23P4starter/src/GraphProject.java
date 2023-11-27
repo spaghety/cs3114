@@ -54,19 +54,68 @@ public class GraphProject {
             String command = sc.next();
             switch (command) {
                 case "insert":
-                    String[] line = sc.nextLine().split("<SEP>");
-                    ht.insert(line[1], line[0]);
+                    String line = sc.nextLine();
+                    String[] linesplit = sc.nextLine().split("<SEP>");
+                    switch (ht.insert(linesplit[1], linesplit[0])) {
+                        case 4:
+                            System.out.printf(
+                                "|%s| duplicates a record already in the database.\n",
+                                line);
+                            break;
+                        case 0:
+                            System.out.printf(
+                                "|%s| is added to the Artist database.\n|%s| is added to the Song database.\n",
+                                linesplit[1], linesplit[0]);
+                            break;
+                        case 1:
+                            System.out.printf(
+                                "|%s| is added to the Artist database.\n",
+                                linesplit[1]);
+                            break;
+                        case 2:
+                            System.out.printf(
+                                "|%s| is added to the Song database.\n",
+                                linesplit[0]);
+                            break;
+                    }
                     break;
                 case "remove":
-                    sc.nextLine();
+                    String arg = sc.next();
+                    String txt = sc.nextLine();
+                    if (arg == "song") {
+                        if (ht.remove(true, txt)) {
+                            System.out.printf(
+                                "|%s| is removed from the Song database.\n",
+                                txt);
+                        }
+                        else {
+                            System.out.printf(
+                                "|%s| does not exist in the Song database.\n",
+                                txt);
+                        }
+                    }
+                    else {
+                        if (ht.remove(false, txt)) {
+                            System.out.printf(
+                                "|%s| is removed from the Artist database.\n",
+                                txt);
+                        }
+                        else {
+                            System.out.printf(
+                                "|%s| does not exist in the Artist database.\n",
+                                txt);
+                        }
+                    }
                     break;
                 case "print":
-                    String arg = sc.nextLine();
-                    System.out.println("print argument" + arg);
-                    switch (arg) {
+                    String argm = sc.nextLine();
+                    System.out.println("print argument" + argm);
+                    switch (argm) {
                         case "artist":
+                            System.out.print(ht.printArtists());
                             break;
                         case "song":
+                            System.out.print(ht.printSongs());
                             break;
                         case "graph":
                             break;
