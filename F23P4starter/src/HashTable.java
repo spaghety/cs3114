@@ -7,8 +7,8 @@
 public class HashTable {
     private Vertex[] songs, artists;
     private int size;
-    int artCount;
-    int songCount;
+    private int artCount;
+    private int songCount;
 
     /**
      * Defines graph edges
@@ -76,6 +76,26 @@ public class HashTable {
 
 
     /**
+     * Gets the number of distinct artists in the database
+     * 
+     * @return artist count
+     */
+    public int artistCount() {
+        return artCount;
+    }
+
+
+    /**
+     * Gets the number of distinct songs in the database
+     * 
+     * @return song count
+     */
+    public int songCount() {
+        return songCount;
+    }
+
+
+    /**
      * Checks if array size needs to be doubled to make more room
      */
     private void checkExtend() {
@@ -106,12 +126,12 @@ public class HashTable {
         int prober = 0;
         while (probe != null) {
             if (probe.val == v) {
-                return (int)(init + Math.pow((double)prober, 2.0));
+                return (int)(init + Math.pow((double)prober, 2.0)) % size;
             }
             prober++;
-            probe = songs[(int)(init + Math.pow(prober, 2.0))];
+            probe = songs[(int)(init + Math.pow(prober, 2.0)) % size];
         }
-        return init + (int)Math.pow(prober, 2.0);
+        return (init + (int)Math.pow(prober, 2.0)) % size;
     }
 
 
@@ -127,12 +147,14 @@ public class HashTable {
      */
     private Edge find(String a, String s) {
         int ind = hashNProbe(artists, a);
-        Edge curr = artists[ind].head;
-        while (curr != null) {
-            if (curr.art == a && curr.song == s) {
-                return curr;
+        if (artists[ind] != null) {
+            Edge curr = artists[ind].head;
+            while (curr != null) {
+                if (curr.art == a && curr.song == s) {
+                    return curr;
+                }
+                curr = curr.next;
             }
-            curr = curr.next;
         }
         return null;
     }
@@ -157,7 +179,6 @@ public class HashTable {
             Vertex temp = new Vertex(song);
             temp.head = new Edge(song, artist);
             songs[songInd] = temp;
-            status += 2;
             songCount++;
         }
         else {
@@ -165,13 +186,13 @@ public class HashTable {
             songs[songInd].head = new Edge(song, artist);
             temp.prev = songs[songInd].head;
             songs[songInd].head.next = temp;
+            status += 1;
         }
         int artInd = hashNProbe(artists, artist);
         if (artists[artInd] == null) {
             Vertex temp = new Vertex(artist);
             temp.head = new Edge(song, artist);
             artists[artInd] = temp;
-            status += 1;
             artCount++;
         }
         else {
@@ -179,9 +200,94 @@ public class HashTable {
             artists[artInd].head = new Edge(song, artist);
             temp.prev = artists[artInd].head;
             artists[artInd].head.next = temp;
+            status += 2;
         }
         if (status > 0)
             checkExtend();
         return status;
+    }
+
+
+    /**
+     * Helper method removes specific edge by artist and song from a specific
+     * list
+     * 
+     * @param isSong
+     *            true if removing from song list false if removing from artist
+     *            list
+     * @param a
+     *            artist name
+     * @param s
+     *            song name
+     */
+    private void removeHelper(boolean isSong, String a, String s) {
+        Vertex[] list;
+        String key;
+        if (isSong) {
+            list = songs;
+            key = s;
+        }
+        else {
+            list = artists;
+            key = a;
+        }
+        int index = hashNProbe(list, key);
+        Edge prev = null;
+        Edge curr = list[index].head;
+        while (curr != null) {
+            if (curr.art == a && curr.song == s) {
+                break;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+        if (prev == null) {
+            list[index].head = null;
+        }
+        else {
+            curr.next.prev = prev;
+            prev.next = curr.next;
+        }
+        if (isSong) {
+            songs = list;
+        }
+        else {
+            artists = list;
+        }
+    }
+
+
+    /**
+     * Remove edges based on either artist name or song name
+     * 
+     * @param isSong
+     *            search through song list or artist list
+     * @param val
+     *            song name or artist name
+     * @return true if successful, false if not found
+     */
+    public boolean remove(boolean isSong, String val) {
+        Vertex[] list;
+        if (isSong) {
+            list = songs;
+        }
+        else {
+            list = artists;
+        }
+        int index = hashNProbe(list, val);
+        if (list[index] == null)
+            return false;
+        Edge curr = list[index].head;
+        while (curr != null) {
+            removeHelper(!isSong, curr.art, curr.song);
+        }
+        list[index] = null;
+        if (isSong) {
+            songs = list;
+        }
+        else {
+            artists = list;
+        }
+        return true;
     }
 }
