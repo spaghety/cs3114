@@ -141,8 +141,7 @@ public class HashTable {
             prober++;
             probe = arr[(int)(init + Math.pow(prober, 2.0)) % size];
         }
-        System.out.println(init+" - "+prober);
-        return (init + (int)Math.pow(prober, 2.0)) % size;
+        return (int)((init+Math.pow(prober, 2.0))%size);
     }
 
 

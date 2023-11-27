@@ -73,7 +73,7 @@ public class HashTableTest extends student.TestCase {
         ht.insert("song1", "artist1");
         ht.insert("song2", "artist2");
         ht.insert("song3", "artist3");
-        ht.insert("song4", "artist4"); //PROBER HAVING ISSUES HERE
+        ht.insert("song4", "artist4");
         System.out.print(ht.printArtists());
         System.out.print(ht.printSongs());
     }
