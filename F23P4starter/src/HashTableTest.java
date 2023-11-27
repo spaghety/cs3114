@@ -68,5 +68,14 @@ public class HashTableTest extends student.TestCase {
         assertEquals(2, ht.artistCount());
         assertEquals(2, ht.songCount());
     }
+    
+    public void testPrint() {
+        ht.insert("song1", "artist1");
+        ht.insert("song2", "artist2");
+        ht.insert("song3", "artist3");
+        ht.insert("song4", "artist4"); //PROBER HAVING ISSUES HERE
+        System.out.print(ht.printArtists());
+        System.out.print(ht.printSongs());
+    }
 
 }
