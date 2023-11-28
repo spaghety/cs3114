@@ -21,8 +21,8 @@ public class HashTable {
      */
     private class Edge {
         int weight;
-        String song;
-        String art;
+        int song;
+        int art;
         Edge prev, next;
 
         /**
@@ -32,8 +32,8 @@ public class HashTable {
          *            artist or song name
          */
         Edge(String s, String a) {
-            song = s;
-            art = a;
+            song = hashNProbe(songs, s);
+            art = hashNProbe(artists, a);
             weight = 0;
             next = null;
         }
@@ -172,7 +172,7 @@ public class HashTable {
         if (artists[ind] != null) {
             Edge curr = artists[ind].head;
             while (curr != null) {
-                if (curr.song.equals(s)) {
+                if (curr.song == hashNProbe(songs, s)) {
                     return curr;
                 }
                 curr = curr.next;
@@ -238,26 +238,25 @@ public class HashTable {
      *            true if removing from song list false if removing from artist
      *            list
      * @param a
-     *            artist name
+     *            artist index
      * @param s
-     *            song name
+     *            song index
      */
-    private void removeHelper(boolean isSong, String a, String s) {
+    private void removeHelper(boolean isSong, int a, int s) {
         Vertex[] list;
-        String key;
+        int index;
         if (isSong) {
             list = songs;
-            key = s;
+            index = s;
         }
         else {
             list = artists;
-            key = a;
+            index = a;
         }
-        int index = hashNProbe(list, key);
         Edge prev = null;
         Edge curr = list[index].head;
         while (curr != null) {
-            if (curr.art.equals(a) && curr.song.equals(s)) {
+            if (curr.art == a && curr.song == s) {
                 break;
             }
             prev = curr;
@@ -355,12 +354,38 @@ public class HashTable {
     }
 
 
+    private int[] neighbors(boolean isSong, int v) {
+        int cnt = 0;
+        Edge curr;
+        Vertex vx;
+        if (isSong)
+            vx = songs[v];
+        else
+            vx = artists[v];
+        for (curr = vx.head; curr != null; curr = curr.next) {
+            cnt++;
+        }
+        int[] temp = new int[cnt];
+        cnt = 0;
+        for (curr = vx.head; curr != null; curr = curr.next) {
+            if (isSong) {
+                temp[cnt++] = curr.art;
+            }
+            else {
+                temp[cnt++] = curr.song;
+            }
+        }
+        return temp;
+    }
+
+
     /**
      * Returns printout for graph statistics
      * 
      * @return string to print
      */
     public String printGraph() {
-        return "";
+        int maxSize = 0;
+        return "There are _ connected components\nThe largest connected component has _ elements\nThe diameter of the largest component is _";
     }
 }

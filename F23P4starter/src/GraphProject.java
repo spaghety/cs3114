@@ -125,6 +125,7 @@ public class GraphProject {
                             System.out.print(ht.printSongs());
                             break;
                         case " graph":
+                            System.out.print(ht.printGraph());
                             break;
                     }
                     break;
