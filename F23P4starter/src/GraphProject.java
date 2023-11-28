@@ -54,9 +54,9 @@ public class GraphProject {
             String command = sc.next();
             switch (command) {
                 case "insert":
-                    String line = sc.nextLine();
+                    String line = sc.nextLine().substring(1);
                     String[] linesplit = line.split("<SEP>", 2);
-                    int result = ht.insert(linesplit[1], linesplit[0].trim());
+                    int result = ht.insert(linesplit[1], linesplit[0]);
                     switch (result % 10) {
                         case 4:
                             System.out.printf(
@@ -66,12 +66,12 @@ public class GraphProject {
                         case 0:
                             System.out.printf(
                                 "|%s| is added to the Artist database.\n|%s| is added to the Song database.\n",
-                                linesplit[0].trim(), linesplit[1]);
+                                linesplit[0], linesplit[1]);
                             break;
                         case 1:
                             System.out.printf(
                                 "|%s| is added to the Artist database.\n",
-                                linesplit[0].trim());
+                                linesplit[0]);
                             break;
                         case 2:
                             System.out.printf(
@@ -89,7 +89,7 @@ public class GraphProject {
                     break;
                 case "remove":
                     String arg = sc.next();
-                    String txt = sc.nextLine().trim();
+                    String txt = sc.nextLine().substring(1);
                     if (arg.equals("song")) {
                         if (ht.remove(true, txt)) {
                             System.out.printf(

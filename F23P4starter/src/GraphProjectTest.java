@@ -39,7 +39,7 @@ public class GraphProjectTest extends TestCase {
      * This method is simply to get code coverage of the class declaration.
      */
     public void testQInit() {
-        // it.main(new String[] { "10", "testinput.txt" });
+        it.main(new String[] { "10", "testinput.txt" });
     }
 
 
