@@ -54,19 +54,18 @@ public class GraphProjectTest extends TestCase {
         it.main(new String[] { "10", "unitTestCaseA.txt" });
         System.out.flush();
         System.setOut(oldOut);
-        assertEquals("|song1| is added to the Artist database.\r\n"
-            + "|artist1| is added to the Song database.\r\n"
-            + "|song2| is added to the Artist database.\r\n"
-            + "|artist2| is added to the Song database.\r\n"
-            + "|song3| is added to the Artist database.\r\n"
-            + "|artist3| is added to the Song database.\r\n"
-            + "|song3| does not exist in the Song database.\r\n"
-            + "|song5| is added to the Artist database.\r\n"
-            + "|artist5| is added to the Song database.\r\n"
-            + "|song6| is added to the Artist database.\r\n"
-            + "Artist hash table size doubled.\r\n"
-            + "|artist6| is added to the Song database.\r\n"
-            + "Song hash table size doubled.\r\n"
-            + "|song7| is added to the Artist database.\n", baos.toString());
+        assertEquals("|artist1| is added to the Artist database.\r\n"
+            + "|song1| is added to the Song database.\r\n"
+            + "|artist2| is added to the Artist database.\r\n"
+            + "|song2| is added to the Song database.\r\n"
+            + "|artist3| is added to the Artist database.\r\n"
+            + "|song3| is added to the Song database.\r\n"
+            + "|song3| is removed from the Song database.\r\n"
+            + "|artist5| is added to the Artist database.\r\n"
+            + "|song5| is added to the Song database.\r\n"
+            + "|song6| is added to the Song database.\r\n"
+            + "|artist6| is added to the Artist database.\r\n"
+            + "|song7| is added to the Song database.\r\n"
+            + "Song hash table size doubled.\r\n" + "", baos.toString());
     }
 }

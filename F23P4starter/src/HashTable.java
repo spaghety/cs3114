@@ -386,6 +386,6 @@ public class HashTable {
      */
     public String printGraph() {
         int maxSize = 0;
-        return "There are _ connected components\nThe largest connected component has _ elements\nThe diameter of the largest component is _";
+        return "There are _ connected components\nThe largest connected component has _ elements\nThe diameter of the largest component is _\n";
     }
 }

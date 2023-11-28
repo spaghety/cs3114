@@ -1,4 +1,5 @@
-
+insert artist1<SEP>song1
+print artist
 remove song When Summer's Through
 print song
 print artist
