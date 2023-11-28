@@ -107,7 +107,7 @@ public class HashTable {
      */
     private int checkExtend() {
         int result = 0;
-        if (capTriggerArt * 2 >= artists.length) {
+        if (capTriggerArt * 2 > artists.length) {
             Vertex[] temp = artists;
             artists = new Vertex[artists.length * 2];
             for (int i = 0; i < temp.length; i++) {
@@ -118,7 +118,7 @@ public class HashTable {
             }
             result += 1;
         }
-        if (capTriggerSong * 2 >= songs.length) {
+        if (capTriggerSong * 2 > songs.length) {
             Vertex[] temp = songs;
             songs = new Vertex[songs.length * 2];
             for (int i = 0; i < temp.length; i++) {

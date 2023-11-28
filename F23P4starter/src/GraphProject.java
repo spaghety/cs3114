@@ -57,6 +57,13 @@ public class GraphProject {
                     String line = sc.nextLine().substring(1);
                     String[] linesplit = line.split("<SEP>", 2);
                     int result = ht.insert(linesplit[1], linesplit[0]);
+                    if (result >= 20) {
+                        System.out.println("Song hash table size doubled.");
+                        result -= 20;
+                    }
+                    if (result >= 10) {
+                        System.out.println("Artist hash table size doubled.");
+                    }
                     switch (result % 10) {
                         case 4:
                             System.out.printf(
@@ -78,13 +85,6 @@ public class GraphProject {
                                 "|%s| is added to the Song database.\n",
                                 linesplit[1]);
                             break;
-                    }
-                    if (result >= 20) {
-                        System.out.println("Song hash table size doubled.");
-                        result -= 20;
-                    }
-                    if (result >= 10) {
-                        System.out.println("Artist hash table size doubled.");
                     }
                     break;
                 case "remove":

@@ -96,7 +96,8 @@ public class HashTableTest extends student.TestCase {
         ht.insert("song1", "artist2");
         ht.insert("song1", "artist3");
         ht.insert("song1", "artist4");
-        assertEquals(11, ht.insert("song1", "artist5"));
+        assertEquals(1, ht.insert("song1", "artist5"));
+        assertEquals(11, ht.insert("song1", "artist6"));
     }
 
 
