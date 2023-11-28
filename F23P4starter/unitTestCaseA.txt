@@ -1,0 +1,8 @@
+insert song1<SEP>artist1
+insert song2<SEP>artist2
+insert song3<SEP>artist3
+remove song song3
+insert song5<SEP>artist5
+insert song6<SEP>artist5
+insert song6<SEP>artist6
+insert song7<SEP>artist6

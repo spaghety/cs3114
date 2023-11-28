@@ -9,7 +9,7 @@ import java.util.Scanner;
  * Usage: java GraphProject <init-hash-size> <command-file>
  *
  * @author Phillip Jordan (alexj14)
- * @version 2023.11.14
+ * @version 2023.11.23
  *
  */
 
@@ -56,7 +56,8 @@ public class GraphProject {
                 case "insert":
                     String line = sc.nextLine();
                     String[] linesplit = line.split("<SEP>", 2);
-                    switch (ht.insert(linesplit[1], linesplit[0].trim())) {
+                    int result = ht.insert(linesplit[1], linesplit[0].trim());
+                    switch (result % 10) {
                         case 4:
                             System.out.printf(
                                 "|%s| duplicates a record already in the database.\n",
@@ -78,11 +79,18 @@ public class GraphProject {
                                 linesplit[1]);
                             break;
                     }
+                    if (result >= 20) {
+                        System.out.println("Song hash table size doubled.");
+                        result -= 20;
+                    }
+                    if (result >= 10) {
+                        System.out.println("Artist hash table size doubled.");
+                    }
                     break;
                 case "remove":
                     String arg = sc.next();
                     String txt = sc.nextLine().trim();
-                    if (arg == "song") {
+                    if (arg.equals("song")) {
                         if (ht.remove(true, txt)) {
                             System.out.printf(
                                 "|%s| is removed from the Song database.\n",

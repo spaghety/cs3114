@@ -2,14 +2,15 @@
  * Defines the Hash Table and graph contained within
  * 
  * @author Phillip Jordan (alexj14)
+ * @version 2023.11.23
  *
  */
 public class HashTable {
     private Vertex[] songs, artists;
-    private int size;
     private int artCount;
     private int songCount;
-    private int capTrigger;
+    private int capTriggerArt;
+    private int capTriggerSong;
     private Vertex TOMBSTONE = new Vertex("TOMBSTONE");
 
     /**
@@ -70,10 +71,10 @@ public class HashTable {
     public HashTable(int initSize) {
         songs = new Vertex[initSize];
         artists = new Vertex[initSize];
-        size = initSize;
         artCount = 0;
         songCount = 0;
-        capTrigger = 0;
+        capTriggerArt = 0;
+        capTriggerSong = 0;
     }
 
 
@@ -98,29 +99,37 @@ public class HashTable {
 
 
     /**
-     * Checks if array size needs to be doubled to make more room and doubles if
-     * necessary, rehashing old vertices into new array
+     * Checks if the hash tables need to be extended and then does so if
+     * necessary
+     * 
+     * @return 0 if they aren't extended, 1 if only artists, 2 if only songs, 3
+     *         if both
      */
-    private void checkExtend() {
-        if (capTrigger * 2 >= size) {
-            size *= 2;
+    private int checkExtend() {
+        int result = 0;
+        if (capTriggerArt * 2 >= artists.length) {
             Vertex[] temp = artists;
-            artists = new Vertex[size];
+            artists = new Vertex[artists.length * 2];
             for (int i = 0; i < temp.length; i++) {
                 if (temp[i] != null) {
                     int newInd = hashNProbe(artists, temp[i].val);
                     artists[newInd] = temp[i];
                 }
             }
-            temp = songs;
-            songs = new Vertex[size];
+            result += 1;
+        }
+        if (capTriggerSong * 2 >= songs.length) {
+            Vertex[] temp = songs;
+            songs = new Vertex[songs.length * 2];
             for (int i = 0; i < temp.length; i++) {
                 if (temp[i] != null) {
                     int newInd = hashNProbe(songs, temp[i].val);
                     songs[newInd] = temp[i];
                 }
             }
+            result += 2;
         }
+        return result;
     }
 
 
@@ -139,12 +148,12 @@ public class HashTable {
         int prober = 0;
         while (probe != null) {
             if (probe.val.equals(v)) {
-                return (int)((init + Math.pow(prober, 2.0)) % size);
+                return (int)((init + Math.pow(prober, 2.0)) % arr.length);
             }
             prober++;
-            probe = arr[(int)((init + Math.pow(prober, 2.0)) % size)];
+            probe = arr[(int)((init + Math.pow(prober, 2.0)) % arr.length)];
         }
-        return (int)((init + Math.pow(prober, 2.0)) % size);
+        return (int)((init + Math.pow(prober, 2.0)) % arr.length);
     }
 
 
@@ -193,7 +202,7 @@ public class HashTable {
             temp.head = new Edge(song, artist);
             songs[songInd] = temp;
             songCount++;
-            capTrigger = Math.max(capTrigger, songCount);
+            capTriggerSong = Math.max(capTriggerSong, songCount);
         }
         else {
             Edge temp = songs[songInd].head;
@@ -207,7 +216,7 @@ public class HashTable {
             temp.head = new Edge(song, artist);
             artists[artInd] = temp;
             artCount++;
-            capTrigger = Math.max(capTrigger, artCount);
+            capTriggerArt = Math.max(capTriggerArt, artCount);
         }
         else {
             Edge temp = artists[artInd].head;
@@ -216,7 +225,7 @@ public class HashTable {
             status += 2;
         }
         if (status < 4)
-            checkExtend();
+            status += 10 * checkExtend();
         return status;
     }
 
