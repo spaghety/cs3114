@@ -32,7 +32,7 @@ public class GraphProjectTest
      */
     public void setUp()
     { // Nothing needed yet
-
+        
     }
 
 
@@ -42,6 +42,6 @@ public class GraphProjectTest
     public void testQInit()
     {
         GraphProject it = new GraphProject();
-        assertNotNull(it);
+        it.main(new String[] {"10", "testinput.txt"});
     }
 }

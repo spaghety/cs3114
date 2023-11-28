@@ -9,6 +9,8 @@ public class HashTable {
     private int size;
     private int artCount;
     private int songCount;
+    private int capTrigger;
+    private Vertex TOMBSTONE = new Vertex("TOMBSTONE");
 
     /**
      * Defines graph edges
@@ -71,6 +73,7 @@ public class HashTable {
         size = initSize;
         artCount = 0;
         songCount = 0;
+        capTrigger = 0;
     }
 
 
@@ -99,7 +102,7 @@ public class HashTable {
      * necessary, rehashing old vertices into new array
      */
     private void checkExtend() {
-        if (artCount * 2 >= size || songCount * 2 >= size) {
+        if (capTrigger * 2 >= size) {
             size *= 2;
             Vertex[] temp = artists;
             artists = new Vertex[size];
@@ -135,13 +138,13 @@ public class HashTable {
         Vertex probe = arr[init];
         int prober = 0;
         while (probe != null) {
-            if (probe.val == v) {
-                return (int)(init + Math.pow((double)prober, 2.0)) % size;
+            if (probe.val.equals(v)) {
+                return (int)((init + Math.pow(prober, 2.0)) % size);
             }
             prober++;
-            probe = arr[(int)(init + Math.pow(prober, 2.0)) % size];
+            probe = arr[(int)((init + Math.pow(prober, 2.0)) % size)];
         }
-        return (int)((init+Math.pow(prober, 2.0))%size);
+        return (int)((init + Math.pow(prober, 2.0)) % size);
     }
 
 
@@ -190,6 +193,7 @@ public class HashTable {
             temp.head = new Edge(song, artist);
             songs[songInd] = temp;
             songCount++;
+            capTrigger = Math.max(capTrigger, songCount);
         }
         else {
             Edge temp = songs[songInd].head;
@@ -203,6 +207,7 @@ public class HashTable {
             temp.head = new Edge(song, artist);
             artists[artInd] = temp;
             artCount++;
+            capTrigger = Math.max(capTrigger, artCount);
         }
         else {
             Edge temp = artists[artInd].head;
@@ -243,14 +248,14 @@ public class HashTable {
         Edge prev = null;
         Edge curr = list[index].head;
         while (curr != null) {
-            if (curr.art == a && curr.song == s) {
+            if (curr.art.equals(a) && curr.song.equals(s)) {
                 break;
             }
             prev = curr;
             curr = curr.next;
         }
         if (prev == null) {
-            list[index] = null;
+            list[index] = TOMBSTONE;
             if (isSong)
                 songCount--;
             else
@@ -294,7 +299,7 @@ public class HashTable {
             removeHelper(!isSong, curr.art, curr.song);
             curr = curr.next;
         }
-        list[index] = null;
+        list[index] = TOMBSTONE;
         if (isSong) {
             songCount--;
             songs = list;
@@ -338,5 +343,15 @@ public class HashTable {
         }
         result += "total songs: " + songCount + "\n";
         return result;
+    }
+
+
+    /**
+     * Returns printout for graph statistics
+     * 
+     * @return string to print
+     */
+    public String printGraph() {
+        return "";
     }
 }

@@ -38,8 +38,8 @@ public class GraphProject {
      *            Command line parameters
      */
     public static void main(String[] args) {
-        int initHashSize = Integer.parseInt(args[1]);
-        String fname = args[2];
+        int initHashSize = Integer.parseInt(args[0]);
+        String fname = args[1];
         Scanner sc = null;
         try {
             File fin = new File(fname);
@@ -55,8 +55,8 @@ public class GraphProject {
             switch (command) {
                 case "insert":
                     String line = sc.nextLine();
-                    String[] linesplit = sc.nextLine().split("<SEP>");
-                    switch (ht.insert(linesplit[1], linesplit[0])) {
+                    String[] linesplit = line.split("<SEP>", 2);
+                    switch (ht.insert(linesplit[1], linesplit[0].trim())) {
                         case 4:
                             System.out.printf(
                                 "|%s| duplicates a record already in the database.\n",
@@ -65,23 +65,23 @@ public class GraphProject {
                         case 0:
                             System.out.printf(
                                 "|%s| is added to the Artist database.\n|%s| is added to the Song database.\n",
-                                linesplit[1], linesplit[0]);
+                                linesplit[0].trim(), linesplit[1]);
                             break;
                         case 1:
                             System.out.printf(
                                 "|%s| is added to the Artist database.\n",
-                                linesplit[1]);
+                                linesplit[0].trim());
                             break;
                         case 2:
                             System.out.printf(
                                 "|%s| is added to the Song database.\n",
-                                linesplit[0]);
+                                linesplit[1]);
                             break;
                     }
                     break;
                 case "remove":
                     String arg = sc.next();
-                    String txt = sc.nextLine();
+                    String txt = sc.nextLine().trim();
                     if (arg == "song") {
                         if (ht.remove(true, txt)) {
                             System.out.printf(
@@ -109,15 +109,14 @@ public class GraphProject {
                     break;
                 case "print":
                     String argm = sc.nextLine();
-                    System.out.println("print argument" + argm);
                     switch (argm) {
-                        case "artist":
+                        case " artist":
                             System.out.print(ht.printArtists());
                             break;
-                        case "song":
+                        case " song":
                             System.out.print(ht.printSongs());
                             break;
-                        case "graph":
+                        case " graph":
                             break;
                     }
                     break;
