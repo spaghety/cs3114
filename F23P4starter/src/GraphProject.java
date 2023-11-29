@@ -68,12 +68,13 @@ public class GraphProject {
                     switch (result % 10) {
                         case 4:
                             System.out.printf(
-                                "|%s| duplicates a record already in the database.\n",
-                                line);
+                                "|%s| duplicates a record already in the "
+                                    + "database.\n", line);
                             break;
                         case 0:
                             System.out.printf(
-                                "|%s| is added to the Artist database.\n|%s| is added to the Song database.\n",
+                                "|%s| is added to the Artist database.\n|%s| "
+                                    + "is added to the Song database.\n",
                                 linesplit[0], linesplit[1]);
                             break;
                         case 1:

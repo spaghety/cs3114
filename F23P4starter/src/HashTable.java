@@ -7,24 +7,27 @@
  *
  */
 public class HashTable {
-    private Vertex[] songs, artists;
+    private Vertex[] songs;
+    private Vertex[] artists;
     private int artCount;
     private int songCount;
     private int capTriggerArt;
     private int capTriggerSong;
-    private Vertex TOMBSTONE = new Vertex("TOMBSTONE");
+    private Vertex tombStone = new Vertex("TOMBSTONE");
 
     /**
      * Defines graph edges
      * 
      * @author Phillip Jordan (alexj14)
-     *
+     * @author David (Ta-Jung) Lin (davidsmile)
+     * @version 2023.11.28
      */
     private class Edge {
-        int weight;
-        int song;
-        int art;
-        Edge prev, next;
+        private int weight;
+        private int song;
+        private int art;
+        private Edge prev;
+        private Edge next;
 
         /**
          * Edge constructor just takes node value
@@ -45,11 +48,12 @@ public class HashTable {
      * This class defines a song or artist node in the graph
      * 
      * @author Phillip Jordan (alexj14)
-     *
+     * @author David (Ta-Jung) Lin (davidsmile)
+     * @version 2023.11.28
      */
     private class Vertex {
-        Edge head;
-        String val;
+        private Edge head;
+        private String val;
 
         /**
          * Constructor initializes the vertex
@@ -264,7 +268,7 @@ public class HashTable {
             curr = curr.next;
         }
         if (prev == null) {
-            list[index] = TOMBSTONE;
+            list[index] = tombStone;
             if (isSong)
                 songCount--;
             else
@@ -308,7 +312,7 @@ public class HashTable {
             removeHelper(!isSong, curr.art, curr.song);
             curr = curr.next;
         }
-        list[index] = TOMBSTONE;
+        list[index] = tombStone;
         if (isSong) {
             songCount--;
             songs = list;
@@ -387,6 +391,8 @@ public class HashTable {
      */
     public String printGraph() {
         int maxSize = 0;
-        return "There are _ connected components\nThe largest connected component has _ elements\nThe diameter of the largest component is _\n";
+        return "There are _ connected components\nThe largest connected "
+            + "component has _ elements\nThe diameter of the largest component "
+            + "is _\n";
     }
 }
