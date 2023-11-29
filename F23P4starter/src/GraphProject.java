@@ -9,6 +9,7 @@ import java.util.Scanner;
  * Usage: java GraphProject <init-hash-size> <command-file>
  *
  * @author Phillip Jordan (alexj14)
+ * @author David (Ta-Jung) Lin (davidsmile)
  * @version 2023.11.23
  *
  */

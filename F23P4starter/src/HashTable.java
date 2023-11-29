@@ -2,7 +2,8 @@
  * Defines the Hash Table and graph contained within
  * 
  * @author Phillip Jordan (alexj14)
- * @version 2023.11.23
+ * @author David (Ta-Jung) Lin (davidsmile)
+ * @version 2023.11.28
  *
  */
 public class HashTable {
