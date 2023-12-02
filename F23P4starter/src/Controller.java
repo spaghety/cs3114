@@ -22,8 +22,12 @@ public class Controller {
     }
 
 
-    public int insert(String v, String w) {
-        if (graph.hasEdge(1, 2)) return 4;
+    public int insert(String a, String s) {
+        int aind = artists.find(a);
+        int sind = songs.find(s);
+        if (aind == -1) {
+        }
+        graph.addEdge(aind, sind, 1);
         return 0;
     }
 }
