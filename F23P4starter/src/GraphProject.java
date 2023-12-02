@@ -39,7 +39,7 @@ public class GraphProject {
      *            Command line parameters
      */
     public static void main(String[] args) {
-        int initHashSize = Integer.parseInt(args[0]);
+        int initsize = Integer.parseInt(args[0]);
         String fname = args[1];
         Scanner sc = null;
         try {
@@ -50,14 +50,16 @@ public class GraphProject {
             e.printStackTrace();
             System.exit(0);
         }
-        HashTable ht = new HashTable(initHashSize);
+        Controller ct = new Controller(initsize);
         while (sc.hasNextLine()) {
             String command = sc.next();
             switch (command) {
                 case "insert":
                     String line = sc.nextLine().substring(1);
                     String[] linesplit = line.split("<SEP>", 2);
-                    int result = ht.insert(linesplit[1], linesplit[0]);
+                    ct.insert(linesplit[1], linesplit[0]);
+                    //int result = ht.insert(linesplit[1], linesplit[0]);
+                    int result = 0;
                     if (result >= 20) {
                         System.out.println("Song hash table size doubled.");
                         result -= 20;
@@ -93,7 +95,7 @@ public class GraphProject {
                     String arg = sc.next();
                     String txt = sc.nextLine().substring(1);
                     if (arg.equals("song")) {
-                        if (ht.remove(true, txt)) {
+                        if (ht.remove(txt)) {
                             System.out.printf(
                                 "|%s| is removed from the Song database.\n",
                                 txt);
@@ -105,7 +107,7 @@ public class GraphProject {
                         }
                     }
                     else {
-                        if (ht.remove(false, txt)) {
+                        if (ht.remove(txt)) {
                             System.out.printf(
                                 "|%s| is removed from the Artist database.\n",
                                 txt);
@@ -121,13 +123,13 @@ public class GraphProject {
                     String argm = sc.nextLine();
                     switch (argm) {
                         case " artist":
-                            System.out.print(ht.printArtists());
+                            //System.out.print(ht.printArtists());
                             break;
                         case " song":
-                            System.out.print(ht.printSongs());
+                            //System.out.print(ht.printSongs());
                             break;
                         case " graph":
-                            System.out.print(ht.printGraph());
+                            //System.out.print(ht.printGraph());
                             break;
                     }
                     break;

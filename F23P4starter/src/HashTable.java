@@ -7,63 +7,34 @@
  *
  */
 public class HashTable {
-    private Vertex[] songs;
-    private Vertex[] artists;
-    private int artCount;
-    private int songCount;
-    private int capTriggerArt;
-    private int capTriggerSong;
-    private Vertex tombStone = new Vertex("TOMBSTONE");
+    private Node[] table;
+    private int count;
+    private int capTrigger;
+    private Node tombstone = new Node("TOMBSTONE", -1);
 
     /**
-     * Defines graph edges
+     * This class defines a song or artist node pointing to a vertex in the
+     * graph
      * 
      * @author Phillip Jordan (alexj14)
      * @author David (Ta-Jung) Lin (davidsmile)
      * @version 2023.11.28
      */
-    private class Edge {
-        private int weight;
-        private int song;
-        private int art;
-        private Edge prev;
-        private Edge next;
-
-        /**
-         * Edge constructor just takes node value
-         * 
-         * @param v
-         *            artist or song name
-         */
-        Edge(String s, String a) {
-            song = hashNProbe(songs, s);
-            art = hashNProbe(artists, a);
-            weight = 0;
-            next = null;
-        }
-    }
-
-
-    /**
-     * This class defines a song or artist node in the graph
-     * 
-     * @author Phillip Jordan (alexj14)
-     * @author David (Ta-Jung) Lin (davidsmile)
-     * @version 2023.11.28
-     */
-    private class Vertex {
-        private Edge head;
+    private class Node {
+        private int head;
         private String val;
 
         /**
-         * Constructor initializes the vertex
+         * Constructor initializes the node
          * 
          * @param v
          *            value - either song name or artist name
+         * @param h
+         *            index of the corresponding vertex in the graph
          */
-        public Vertex(String v) {
+        public Node(String v, int h) {
             val = v;
-            head = null;
+            head = h;
         }
     }
 
@@ -74,67 +45,41 @@ public class HashTable {
      *            initial hash table size
      */
     public HashTable(int initSize) {
-        songs = new Vertex[initSize];
-        artists = new Vertex[initSize];
-        artCount = 0;
-        songCount = 0;
-        capTriggerArt = 0;
-        capTriggerSong = 0;
+        table = new Node[initSize];
+        count = 0;
+        capTrigger = 0;
     }
 
 
     /**
-     * Gets the number of distinct artists in the database
+     * Gets the number of distinct table entries
      * 
-     * @return artist count
+     * @return number of valid table entries
      */
-    public int artistCount() {
-        return artCount;
+    public int count() {
+        return count;
     }
 
 
     /**
-     * Gets the number of distinct songs in the database
-     * 
-     * @return song count
-     */
-    public int songCount() {
-        return songCount;
-    }
-
-
-    /**
-     * Checks if the hash tables need to be extended and then does so if
+     * Checks if the hash table need to be extended and then does so if
      * necessary
      * 
-     * @return 0 if they aren't extended, 1 if only artists, 2 if only songs, 3
-     *         if both
+     * @return true if extended, false if not
      */
-    private int checkExtend() {
-        int result = 0;
-        if (capTriggerArt * 2 > artists.length) {
-            Vertex[] temp = artists;
-            artists = new Vertex[artists.length * 2];
+    private boolean checkExtend() {
+        if (capTrigger * 2 > table.length) {
+            Node[] temp = table;
+            table = new Node[table.length * 2];
             for (int i = 0; i < temp.length; i++) {
                 if (temp[i] != null) {
-                    int newInd = hashNProbe(artists, temp[i].val);
-                    artists[newInd] = temp[i];
+                    int newInd = hashNProbe(temp[i].val);
+                    table[newInd] = temp[i];
                 }
             }
-            result += 1;
+            return true;
         }
-        if (capTriggerSong * 2 > songs.length) {
-            Vertex[] temp = songs;
-            songs = new Vertex[songs.length * 2];
-            for (int i = 0; i < temp.length; i++) {
-                if (temp[i] != null) {
-                    int newInd = hashNProbe(songs, temp[i].val);
-                    songs[newInd] = temp[i];
-                }
-            }
-            result += 2;
-        }
-        return result;
+        return false;
     }
 
 
@@ -147,252 +92,97 @@ public class HashTable {
      *            value input
      * @return index to insert
      */
-    private int hashNProbe(Vertex[] arr, String v) {
-        int init = Hash.h(v, arr.length);
-        Vertex probe = arr[init];
+    private int hashNProbe(String v) {
+        int init = Hash.h(v, table.length);
+        Node probe = table[init];
         int prober = 0;
         while (probe != null) {
             if (probe.val.equals(v)) {
-                return (int)((init + Math.pow(prober, 2.0)) % arr.length);
+                return (int)((init + Math.pow(prober, 2.0)) % table.length);
             }
             prober++;
-            probe = arr[(int)((init + Math.pow(prober, 2.0)) % arr.length)];
+            probe = table[(int)((init + Math.pow(prober, 2.0)) % table.length)];
         }
-        return (int)((init + Math.pow(prober, 2.0)) % arr.length);
+        return (int)((init + Math.pow(prober, 2.0)) % table.length);
     }
 
 
     /**
-     * Finds a specific artist and song edge and returns null if it doesn't
-     * exist
+     * Insert new entry
      * 
-     * @param a
-     *            artist name
-     * @param s
-     *            song name
-     * @return Edge object
-     */
-    private Edge find(String a, String s) {
-        int ind = hashNProbe(artists, a);
-        if (artists[ind] != null) {
-            Edge curr = artists[ind].head;
-            while (curr != null) {
-                if (curr.song == hashNProbe(songs, s)) {
-                    return curr;
-                }
-                curr = curr.next;
-            }
-        }
-        return null;
-    }
-
-
-    /**
-     * Insert new record
+     * @param val
+     *            string value of the node being inserted
      * 
-     * @param song
-     *            song title
-     * @param artist
-     *            artist name
-     * @return exit status: 0=new artist and song, 1=new artist, 2=new
-     *         song, 3=edge insert, 4=already exists
+     * @param h
+     *            index of the head of the corresponding graph vertex
+     * 
+     * @return exit status: 0=insert new no extension, 1=insert new with
+     *         extension, -1=entry exists already
      */
-    public int insert(String song, String artist) {
-        if (find(artist, song) != null)
-            return 4;
-        int songInd = hashNProbe(songs, song);
+    public int insert(String val, int h) {
+        int ind = hashNProbe(val);
         int status = 0;
-        if (songs[songInd] == null) {
-            Vertex temp = new Vertex(song);
-            temp.head = new Edge(song, artist);
-            songs[songInd] = temp;
-            songCount++;
-            capTriggerSong = Math.max(capTriggerSong, songCount);
-        }
-        else {
-            Edge temp = songs[songInd].head;
-            songs[songInd].head = new Edge(song, artist);
-            songs[songInd].head.next = temp;
-            status += 1;
-        }
-        int artInd = hashNProbe(artists, artist);
-        if (artists[artInd] == null) {
-            Vertex temp = new Vertex(artist);
-            temp.head = new Edge(song, artist);
-            artists[artInd] = temp;
-            artCount++;
-            capTriggerArt = Math.max(capTriggerArt, artCount);
-        }
-        else {
-            Edge temp = artists[artInd].head;
-            artists[artInd].head = new Edge(song, artist);
-            artists[artInd].head.next = temp;
-            status += 2;
-        }
-        if (status < 4)
-            status += 10 * checkExtend();
-        return status;
-    }
-
-
-    /**
-     * Helper method removes specific edge by artist and song from a specific
-     * list
-     * 
-     * @param isSong
-     *            true if removing from song list false if removing from artist
-     *            list
-     * @param a
-     *            artist index
-     * @param s
-     *            song index
-     */
-    private void removeHelper(boolean isSong, int a, int s) {
-        Vertex[] list;
-        int index;
-        if (isSong) {
-            list = songs;
-            index = s;
-        }
-        else {
-            list = artists;
-            index = a;
-        }
-        Edge prev = null;
-        Edge curr = list[index].head;
-        while (curr != null) {
-            if (curr.art == a && curr.song == s) {
-                break;
-            }
-            prev = curr;
-            curr = curr.next;
-        }
-        if (prev == null) {
-            list[index] = tombStone;
-            if (isSong)
-                songCount--;
+        if (table[ind] == null) {
+            table[ind] = new Node(val, h);
+            count++;
+            capTrigger = Math.max(capTrigger, count);
+            if (checkExtend())
+                return 1;
             else
-                artCount--;
+                return 0;
         }
         else {
-            if (curr.next != null)
-                prev.next = curr.next;
-        }
-        if (isSong) {
-            songs = list;
-        }
-        else {
-            artists = list;
+            return -1;
         }
     }
 
 
     /**
-     * Remove edges based on either artist name or song name
+     * Find an entry based on the string value and return the corresponding
+     * graph index
      * 
-     * @param isSong
-     *            search through song list or artist list
+     * @param key
+     *            string to search for
+     * @return index in the graph
+     */
+    public int find(String key) {
+        int ind = hashNProbe(key);
+        if (table[ind] == null)
+            return -1;
+        else
+            return table[ind].head;
+    }
+
+
+    /**
+     * Remove a node based on value
+     * 
      * @param val
      *            song name or artist name
      * @return true if successful, false if not found
      */
-    public boolean remove(boolean isSong, String val) {
-        Vertex[] list;
-        if (isSong) {
-            list = songs;
-        }
-        else {
-            list = artists;
-        }
-        int index = hashNProbe(list, val);
-        if (list[index] == null)
+    public boolean remove(String val) {
+        int index = hashNProbe(val);
+        if (table[index] == null)
             return false;
-        Edge curr = list[index].head;
-        while (curr != null) {
-            removeHelper(!isSong, curr.art, curr.song);
-            curr = curr.next;
-        }
-        list[index] = tombStone;
-        if (isSong) {
-            songCount--;
-            songs = list;
-        }
-        else {
-            artCount--;
-            artists = list;
-        }
+        table[index] = tombstone;
+        count--;
         return true;
     }
 
 
     /**
-     * Returns printout for list of artists
+     * Returns printout for list of entries
      * 
      * @return string to print
      */
-    public String printArtists() {
+    public String print() {
         String result = "";
-        for (int i = 0; i < artists.length; i++) {
-            if (artists[i] != null) {
-                result += i + ": |" + artists[i].val + "|\n";
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null) {
+                result += i + ": |" + table[i].val + "|\n";
             }
         }
-        result += "total artists: " + artCount + "\n";
         return result;
-    }
-
-
-    /**
-     * Returns printout for list of songs
-     * 
-     * @return string to print
-     */
-    public String printSongs() {
-        String result = "";
-        for (int i = 0; i < songs.length; i++) {
-            if (songs[i] != null) {
-                result += i + ": |" + songs[i].val + "|\n";
-            }
-        }
-        result += "total songs: " + songCount + "\n";
-        return result;
-    }
-
-
-    private int[] neighbors(boolean isSong, int v) {
-        int cnt = 0;
-        Edge curr;
-        Vertex vx;
-        if (isSong)
-            vx = songs[v];
-        else
-            vx = artists[v];
-        for (curr = vx.head; curr != null; curr = curr.next) {
-            cnt++;
-        }
-        int[] temp = new int[cnt];
-        cnt = 0;
-        for (curr = vx.head; curr != null; curr = curr.next) {
-            if (isSong) {
-                temp[cnt++] = curr.art;
-            }
-            else {
-                temp[cnt++] = curr.song;
-            }
-        }
-        return temp;
-    }
-
-
-    /**
-     * Returns printout for graph statistics
-     * 
-     * @return string to print
-     */
-    public String printGraph() {
-        int maxSize = 0;
-        return "There are _ connected components\nThe largest connected "
-            + "component has _ elements\nThe diameter of the largest component "
-            + "is _\n";
     }
 }

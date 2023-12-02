@@ -21,32 +21,11 @@ public class HashTableTest extends student.TestCase {
      * Tests simple insert cases
      */
     public void testInsertSimple() {
-        assertEquals(0, ht.insert("song1", "artist1"));
-        assertEquals(1, ht.artistCount());
-        assertEquals(1, ht.songCount());
-        assertEquals(0, ht.insert("song2", "artist2"));
-        assertEquals(2, ht.artistCount());
-        assertEquals(2, ht.songCount());
-        assertEquals(4, ht.insert("song2", "artist2"));
-    }
-
-
-    /**
-     * Tests more complex insert operations
-     */
-    public void testInsertGraph() {
-        assertEquals(0, ht.insert("song1", "artist1"));
-        assertEquals(1, ht.insert("song1", "artist2"));
-        assertEquals(2, ht.artistCount());
-        assertEquals(1, ht.songCount());
-        assertEquals(2, ht.insert("song2", "artist1"));
-        assertEquals(2, ht.songCount());
-        assertEquals(0, ht.insert("song3", "artist3"));
-        assertEquals(3, ht.songCount());
-        assertEquals(3, ht.artistCount());
-        assertEquals(3, ht.insert("song2", "artist3"));
-        assertEquals(3, ht.songCount());
-        assertEquals(3, ht.artistCount());
+        assertEquals(0, ht.insert("song1", 1));
+        assertEquals(1, ht.count());
+        assertEquals(0, ht.insert("song2", 1));
+        assertEquals(2, ht.count());
+        assertEquals(-1, ht.insert("song2", 1));
     }
 
 
@@ -54,38 +33,14 @@ public class HashTableTest extends student.TestCase {
      * Tests simple remove operations
      */
     public void testRemoveSimple() {
-        assertEquals(0, ht.insert("song1", "artist1"));
-        assertEquals(1, ht.artistCount());
-        assertTrue(ht.remove(false, "artist1"));
-        assertFalse(ht.remove(false, "asdf"));
-        assertEquals(0, ht.artistCount());
-        assertEquals(0, ht.songCount());
-        assertEquals(0, ht.insert("song1", "artist1"));
-        assertEquals(1, ht.insert("song1", "artist2"));
-        assertTrue(ht.remove(true, "song1"));
-        assertEquals(0, ht.artistCount());
-        assertEquals(0, ht.songCount());
-    }
-
-
-    /**
-     * Tests more complex remove operations
-     */
-    public void testRemoveComplex() {
-        ht.insert("song1", "artist1");
-        ht.insert("song2", "artist2");
-        ht.insert("song3", "artist2");
-        ht.insert("song4", "artist2");
-        assertTrue(ht.remove(false, "artist2"));
-        assertEquals(1, ht.artistCount());
-        assertEquals(1, ht.songCount());
-        ht.insert("song2", "artist2");
-        ht.insert("song3", "artist2");
-        ht.insert("song4", "artist2");
-        assertTrue(ht.remove(true, "song3"));
-        assertTrue(ht.remove(true, "song2"));
-        assertEquals(2, ht.artistCount());
-        assertEquals(2, ht.songCount());
+        assertEquals(0, ht.insert("song1", 1));
+        assertTrue(ht.remove("song1"));
+        assertFalse(ht.remove("asdf"));
+        assertEquals(0, ht.count());
+        assertEquals(0, ht.insert("song1", 1));
+        assertEquals(-1, ht.insert("song1", 1));
+        assertTrue(ht.remove("song1"));
+        assertEquals(0, ht.count());
     }
 
 
@@ -93,12 +48,12 @@ public class HashTableTest extends student.TestCase {
      * Tests the ability for the hash table to extend
      */
     public void testExpand() {
-        ht.insert("song1", "artist1");
-        ht.insert("song1", "artist2");
-        ht.insert("song1", "artist3");
-        ht.insert("song1", "artist4");
-        assertEquals(1, ht.insert("song1", "artist5"));
-        assertEquals(11, ht.insert("song1", "artist6"));
+        ht.insert("song1", 1);
+        ht.insert("song2", 1);
+        ht.insert("song3", 1);
+        ht.insert("song4", 1);
+        assertEquals(0, ht.insert("song5", 1));
+        assertEquals(1, ht.insert("song6", 1));
     }
 
 
@@ -106,20 +61,15 @@ public class HashTableTest extends student.TestCase {
      * Tests print methods
      */
     public void testPrint() {
-        ht.insert("song1", "artist1");
-        ht.insert("song2", "artist2");
-        ht.insert("song3", "artist3");
-        ht.insert("song4", "artist4");
-        assertFuzzyEquals(
-            "0: |artist4|\n2: |artist1|\n4: |artist3|\n8: |artist2|\ntotal artists: 4",
-            ht.printArtists());
-        assertFuzzyEquals(
-            "0: |song3|\n1: |song4|\n8: |song1|\n9: |song2|\ntotal songs: 4", ht
-                .printSongs());
-        ht.remove(false, "artist1");
-        assertFuzzyEquals(
-            "0: |artist4|\n2: |TOMBSTONE|\n4: |artist3|\n8: |artist2|\ntotal artists: 3",
-            ht.printArtists());
+        ht.insert("song1", 1);
+        ht.insert("song2", 1);
+        ht.insert("song3", 1);
+        ht.insert("song4", 1);
+        assertFuzzyEquals("0: |song3|\n1: |song4|\n8: |song1|\n9: |song2|\n", ht
+            .print());
+        ht.remove("song1");
+        assertFuzzyEquals("0: |song3|\r\n" + "1: |song4|\r\n"
+            + "8: |TOMBSTONE|\r\n" + "9: |song2|\r\n" + "", ht.print());
     }
 
 }
