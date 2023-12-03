@@ -149,8 +149,9 @@ public class HashTable {
         int ind = hashNProbe(key);
         if (table[ind] == null)
             return -1;
-        else
+        else {
             return table[ind].head;
+        }
     }
 
 
@@ -172,6 +173,25 @@ public class HashTable {
 
 
     /**
+     * Remove a node based on the graph vertex it references
+     * 
+     * @param h
+     *            graph vertex index
+     * @return true if successful, false if not
+     */
+    public boolean remove(int h) {
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null && table[i].head == h) {
+                table[i] = tombstone;
+                count--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
      * Returns printout for list of entries
      * 
      * @return string to print
@@ -180,7 +200,12 @@ public class HashTable {
         String result = "";
         for (int i = 0; i < table.length; i++) {
             if (table[i] != null) {
-                result += i + ": |" + table[i].val + "|\n";
+                if (table[i].head == -1) {
+                    result += i + ": TOMBSTONE\n";
+                }
+                else {
+                    result += i + ": |" + table[i].val + "|\n";
+                }
             }
         }
         return result;

@@ -6,3 +6,5 @@ insert artist5<SEP>song5
 insert artist5<SEP>song6
 insert artist6<SEP>song6
 insert artist6<SEP>song7
+print song
+print artist

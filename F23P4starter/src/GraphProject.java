@@ -57,9 +57,7 @@ public class GraphProject {
                 case "insert":
                     String line = sc.nextLine().substring(1);
                     String[] linesplit = line.split("<SEP>", 2);
-                    ct.insert(linesplit[1], linesplit[0]);
-                    //int result = ht.insert(linesplit[1], linesplit[0]);
-                    int result = 0;
+                    int result = ct.insert(linesplit[0], linesplit[1]);
                     if (result >= 20) {
                         System.out.println("Song hash table size doubled.");
                         result -= 20;
@@ -73,7 +71,7 @@ public class GraphProject {
                                 "|%s| duplicates a record already in the "
                                     + "database.\n", line);
                             break;
-                        case 0:
+                        case 3:
                             System.out.printf(
                                 "|%s| is added to the Artist database.\n|%s| "
                                     + "is added to the Song database.\n",
@@ -95,7 +93,7 @@ public class GraphProject {
                     String arg = sc.next();
                     String txt = sc.nextLine().substring(1);
                     if (arg.equals("song")) {
-                        if (ht.remove(txt)) {
+                        if (ct.removeSong(txt)) {
                             System.out.printf(
                                 "|%s| is removed from the Song database.\n",
                                 txt);
@@ -107,7 +105,7 @@ public class GraphProject {
                         }
                     }
                     else {
-                        if (ht.remove(txt)) {
+                        if (ct.removeArtist(txt)) {
                             System.out.printf(
                                 "|%s| is removed from the Artist database.\n",
                                 txt);
@@ -123,13 +121,13 @@ public class GraphProject {
                     String argm = sc.nextLine();
                     switch (argm) {
                         case " artist":
-                            //System.out.print(ht.printArtists());
+                            System.out.println(ct.printArtists());
                             break;
                         case " song":
-                            //System.out.print(ht.printSongs());
+                            System.out.println(ct.printSongs());
                             break;
                         case " graph":
-                            //System.out.print(ht.printGraph());
+                            // print graph
                             break;
                     }
                     break;
