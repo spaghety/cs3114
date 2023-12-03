@@ -178,4 +178,14 @@ public class GraphL {
         }
         return temp;
     }
+    
+    public void copy(GraphL newGraph) {
+        for (int i=0;i<nodeArray.length;i++) {
+            Edge curr = nodeArray[i].next;
+            while (curr != null) {
+                newGraph.addEdge(i, curr.vertex, 1);
+                curr = curr.next;
+            }
+        }
+    }
 }

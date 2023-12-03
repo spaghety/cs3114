@@ -69,8 +69,8 @@ public class GraphProjectTest extends TestCase {
             + "|song7| is added to the Song database.\r\n" + "0: TOMBSTONE\r\n"
             + "2: |song5|\r\n" + "3: |song6|\r\n" + "4: |song7|\r\n"
             + "8: |song1|\r\n" + "9: |song2|\r\n" + "total songs: 5\r\n"
-            + "2: |artist1|\r\n" + "3: |artist6|\r\n" + "4: |artist3|\r\n"
-            + "6: |artist5|\r\n" + "8: |artist2|\r\n" + "total artists: 5\r\n",
+            + "2: |artist1|\r\n" + "3: |artist6|\r\n" + "4: TOMBSTONE\r\n"
+            + "6: |artist5|\r\n" + "8: |artist2|\r\n" + "total artists: 4\r\n",
             baos.toString());
     }
 }
