@@ -1,10 +1,19 @@
-insert artist1<SEP>song1
-insert artist2<SEP>song2
-insert artist3<SEP>song3
-remove song song3
-insert artist5<SEP>song5
-insert artist5<SEP>song6
-insert artist6<SEP>song6
-insert artist6<SEP>song7
+insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
+insert Blind Lemon Jefferson<SEP>Long Lonesome Blues
+insert Blind Lemon Jefferson<SEP>Long   Lonesome Blues
+insert Blind Lemon Jefferson<SEP>long Lonesome Blues
+insert Ma Rainey<SEP>Ma Rainey's Black Bottom
+insert Ma Rainey<SEP>Long Lonesome Blues
+remove artist Ma Rainey
+insert Ma Rainey<SEP>Mississippi Boweavil Blues
+insert Ma Rainey<SEP>Fixin' To Die Blues
+insert Kid Rock<SEP>Cowboy
+insert Avenged Sevenfold<SEP>Gunslinger
+insert Metallica<SEP>Nothing Else Matters
+insert Tejon Street Corner Thieves<SEP>Whiskey
+insert Polyphia<SEP>Playing God
+insert MF DOOM<SEP>Coffin Nails
+insert Avenged Sevenfold<SEP>Unholy Confessions
 print song
 print artist
+print graph

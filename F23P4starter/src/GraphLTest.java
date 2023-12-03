@@ -1,6 +1,7 @@
 /**
  * @author Phillip Jordan (alexj14)
- *         Tests the Graph class
+ * @version 2023.12.03
+ *          Tests the Graph class
  */
 public class GraphLTest extends student.TestCase {
     GraphL graph;
@@ -72,5 +73,19 @@ public class GraphLTest extends student.TestCase {
         graph.addEdge(0, 4, 1);
         assertEquals(1, graph.neighbors(0)[0]);
         assertEquals(2, graph.neighbors(0)[1]);
+    }
+
+
+    /**
+     * Tests the copy helper method
+     */
+    public void testCopy() {
+        graph.addEdge(0, 1, 1);
+        graph.addEdge(3, 4, 1);
+        GraphL otherGraph = new GraphL();
+        otherGraph.init(20);
+        graph.copy(otherGraph);
+        assertEquals(20, otherGraph.nodeCount());
+        assertEquals(2, otherGraph.edgeCount());
     }
 }

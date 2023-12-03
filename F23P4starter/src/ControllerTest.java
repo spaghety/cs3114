@@ -45,5 +45,25 @@ public class ControllerTest extends student.TestCase {
             .printArtists());
         assertEquals("0: TOMBSTONE\n8: TOMBSTONE\n9: TOMBSTONE\ntotal songs: 0",
             ct.printSongs());
+        assertEquals(3, ct.insert("artist5", "song5"));
+        assertTrue(ct.removeSong("song5"));
+        assertEquals(
+            "0: TOMBSTONE\n2: TOMBSTONE\n8: TOMBSTONE\n9: TOMBSTONE\ntotal songs: 0",
+            ct.printSongs());
+    }
+
+
+    /**
+     * Tests the graph functionality with the printGraph method
+     */
+    public void testGraph() {
+        ct.insert("artist1", "song1");
+        ct.insert("artist2", "song1");
+        ct.insert("artist2", "song3");
+        ct.insert("artist5", "song5");
+        ct.insert("artist6", "song5");
+        assertEquals(
+            "There are 2 connected components\nThe largest connected component has 4 elements\nThe diameter of the largest component is 4",
+            ct.printGraph());
     }
 }

@@ -177,7 +177,7 @@ public class Controller {
      * 
      * @return string to print
      */
-    public void printGraph() {
+    public String printGraph() {
         int[][] D = floyd(graph);
         int compCount = 0;
         int maxDi = 0;
@@ -196,9 +196,9 @@ public class Controller {
             j++;
             i = j;
         }
-        System.out.println("There are " + compCount
+        return "There are " + compCount
             + " connected components\nThe largest connected component has "
             + maxSize + " elements\nThe diameter of the largest component is "
-            + maxDi);
+            + maxDi;
     }
 }

@@ -127,7 +127,7 @@ public class GraphProject {
                             System.out.println(ct.printSongs());
                             break;
                         case " graph":
-                            ct.printGraph();
+                            System.out.println(ct.printGraph());
                             break;
                     }
                     break;
