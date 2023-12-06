@@ -1,15 +1,17 @@
 /**
+ * This class holds all the functions called by the parser in main() and
+ * implements them in the hash table and graph
+ * 
  * @author Phillip Jordan (alexj14)
- * @version 2023.12.02
- *          This class holds all the functions called by the parser in main()
- *          and
- *          implements them in the hash table and graph
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.12.05
+ * 
  */
 public class Controller {
-    GraphL graph;
-    HashTable artists;
-    HashTable songs;
-    int newInd;
+    private GraphL graph;
+    private HashTable artists;
+    private HashTable songs;
+    private int newInd;
 
     /**
      * Constructor initializes variables and structures
@@ -144,31 +146,31 @@ public class Controller {
      * @param D
      *            array to put results in
      */
-    private int[][] floyd(GraphL G) {
-        int[][] D = new int[G.nodeCount()][G.nodeCount()];
-        for (int i = 0; i < G.nodeCount(); i++) { // Initialize D with weights
-            for (int j = 0; j < G.nodeCount(); j++) {
-                if (G.weight(i, j) != 0) {
-                    D[i][j] = G.weight(i, j);
+    private int[][] floyd(GraphL g) {
+        int[][] d = new int[g.nodeCount()][g.nodeCount()];
+        for (int i = 0; i < g.nodeCount(); i++) { // Initialize D with weights
+            for (int j = 0; j < g.nodeCount(); j++) {
+                if (g.weight(i, j) != 0) {
+                    d[i][j] = g.weight(i, j);
                 }
                 else {
-                    D[i][j] = Integer.MAX_VALUE;
+                    d[i][j] = Integer.MAX_VALUE;
                 }
             }
         }
 
-        for (int k = 0; k < G.nodeCount(); k++) { // Compute all k paths
-            for (int i = 0; i < G.nodeCount(); i++) {
-                for (int j = 0; j < G.nodeCount(); j++) {
-                    if ((D[i][k] != Integer.MAX_VALUE)
-                        && (D[k][j] != Integer.MAX_VALUE) && (D[i][j] > (D[i][k]
-                            + D[k][j]))) {
-                        D[i][j] = D[i][k] + D[k][j];
+        for (int k = 0; k < g.nodeCount(); k++) { // Compute all k paths
+            for (int i = 0; i < g.nodeCount(); i++) {
+                for (int j = 0; j < g.nodeCount(); j++) {
+                    if ((d[i][k] != Integer.MAX_VALUE)
+                        && (d[k][j] != Integer.MAX_VALUE) && (d[i][j] > (d[i][k]
+                            + d[k][j]))) {
+                        d[i][j] = d[i][k] + d[k][j];
                     }
                 }
             }
         }
-        return D;
+        return d;
     }
 
 
@@ -178,14 +180,14 @@ public class Controller {
      * @return string to print
      */
     public String printGraph() {
-        int[][] D = floyd(graph);
+        int[][] d = floyd(graph);
         int compCount = 0;
         int maxDi = 0;
         int maxSize = 0;
         int i = 0;
         int j = 0;
         while (i < graph.nodeCount()) {
-            while (D[i][j] != Integer.MAX_VALUE) {
+            while (d[i][j] != Integer.MAX_VALUE) {
                 maxDi = Math.max(maxDi, D[i][j] + 1);
                 j++;
             }

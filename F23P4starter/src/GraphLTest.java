@@ -1,10 +1,12 @@
 /**
+ * Tests the Graph class
+ * 
  * @author Phillip Jordan (alexj14)
- * @version 2023.12.03
- *          Tests the Graph class
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.12.05
  */
 public class GraphLTest extends student.TestCase {
-    GraphL graph;
+    private GraphL graph;
 
     /**
      * Sets up conditions for future tests

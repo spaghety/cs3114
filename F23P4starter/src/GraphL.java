@@ -1,12 +1,17 @@
 /**
+ * Defines the graph data structure
+ * 
  * @author Phillip Jordan (alexj14)
- *         Defines the graph data structure
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.12.05
  */
 public class GraphL {
 
     private class Edge { // Doubly linked list node
-        int vertex, weight;
-        Edge prev, next;
+        private int vertex;
+        private int weight;
+        private Edge prev;
+        private Edge next;
 
         Edge(int v, int w, Edge p, Edge n) {
             vertex = v;
@@ -19,7 +24,9 @@ public class GraphL {
     private Edge[] nodeArray;
     private int numEdge;
 
-    // No real constructor needed
+    /**
+     * No real constructor needed
+     */
     GraphL() {
     }
 
@@ -164,7 +171,13 @@ public class GraphL {
     }
 
 
-    // Returns an array containing the indicies of the neighbors of v
+    /**
+     * Returns an array containing the indicies of the neighbors of v
+     * 
+     * @param v
+     *            node to find neighbors
+     * @return array containing the indicies of the neighbors of v
+     */
     public int[] neighbors(int v) {
         int cnt = 0;
         Edge curr;
@@ -178,9 +191,16 @@ public class GraphL {
         }
         return temp;
     }
-    
+
+
+    /**
+     * Copy method
+     * 
+     * @param newGraph
+     *            The new GraphL to be copied into
+     */
     public void copy(GraphL newGraph) {
-        for (int i=0;i<nodeArray.length;i++) {
+        for (int i = 0; i < nodeArray.length; i++) {
             Edge curr = nodeArray[i].next;
             while (curr != null) {
                 newGraph.addEdge(i, curr.vertex, 1);

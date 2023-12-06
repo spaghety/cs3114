@@ -7,7 +7,7 @@
  *
  */
 public class HashTableTest extends student.TestCase {
-    HashTable ht;
+    private HashTable ht;
 
     /**
      * Sets up tests

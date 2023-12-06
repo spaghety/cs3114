@@ -1,9 +1,12 @@
 /**
+ * This class tests the controller class
+ * 
  * @author Phillip Jordan (alexj14)
- *         This class tests the controller class
+ * @author Ta-Jung (David) Lin (davidsmile)
+ * @version 2023.12.05
  */
 public class ControllerTest extends student.TestCase {
-    Controller ct;
+    private Controller ct;
 
     /**
      * Sets up conditions for future tests
@@ -47,9 +50,8 @@ public class ControllerTest extends student.TestCase {
             ct.printSongs());
         assertEquals(3, ct.insert("artist5", "song5"));
         assertTrue(ct.removeSong("song5"));
-        assertEquals(
-            "0: TOMBSTONE\n2: TOMBSTONE\n8: TOMBSTONE\n9: TOMBSTONE\ntotal songs: 0",
-            ct.printSongs());
+        assertEquals("0: TOMBSTONE\n2: TOMBSTONE\n8: TOMBSTONE\n9: TOMBSTONE\n"
+            + "total songs: 0", ct.printSongs());
     }
 
 
@@ -63,7 +65,8 @@ public class ControllerTest extends student.TestCase {
         ct.insert("artist5", "song5");
         ct.insert("artist6", "song5");
         assertEquals(
-            "There are 2 connected components\nThe largest connected component has 4 elements\nThe diameter of the largest component is 4",
+            "There are 2 connected components\nThe largest connected component "
+                + "has 4 elements\nThe diameter of the largest component is 4",
             ct.printGraph());
     }
 }
