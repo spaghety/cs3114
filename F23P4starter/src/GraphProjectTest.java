@@ -11,7 +11,7 @@ import java.nio.file.Paths;
  * @version 2023.12.05
  */
 public class GraphProjectTest extends TestCase {
-    private GraphProject it = new GraphProject();
+//    private GraphProject it = new GraphProject();
 
     // ----------------------------------------------------------
     /**
