@@ -92,29 +92,28 @@ public class GraphProject {
                 case "remove":
                     String arg = sc.next();
                     String txt = sc.nextLine().substring(1);
-                    if (arg.equals("song")) {
-                        if (ct.removeSong(txt)) {
-                            System.out.printf(
-                                "|%s| is removed from the Song database.\n",
-                                txt);
-                        }
-                        else {
-                            System.out.printf(
-                                "|%s| does not exist in the Song database.\n",
-                                txt);
-                        }
-                    }
-                    else {
-                        if (ct.removeArtist(txt)) {
-                            System.out.printf(
-                                "|%s| is removed from the Artist database.\n",
-                                txt);
-                        }
-                        else {
-                            System.out.printf(
-                                "|%s| does not exist in the Artist database.\n",
-                                txt);
-                        }
+                    System.out.printf("|%s| ", txt);
+                    switch (arg) {
+                        case "song":
+                            if (ct.removeSong(txt)) {
+                                System.out.printf(
+                                    "is removed from the Song database.\n");
+                            }
+                            else {
+                                System.out.printf(
+                                    "does not exist in the Song database.\n");
+                            }
+                            break;
+                        default:
+                            if (ct.removeArtist(txt)) {
+                                System.out.printf(
+                                    "is removed from the Artist database.\n");
+                            }
+                            else {
+                                System.out.printf(
+                                    "does not exist in the Artist database.\n");
+                            }
+                            break;
                     }
                     break;
                 case "print":
