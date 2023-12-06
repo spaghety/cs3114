@@ -81,8 +81,9 @@ public class Controller {
      */
     public boolean removeSong(String name) {
         int graphind = songs.find(name);
-        if (graphind == -1)
+        if (graphind == -1) {
             return false;
+        }
         songs.remove(name);
         int[] nbrs = graph.neighbors(graphind);
         for (int i = 0; i < nbrs.length; i++) {
