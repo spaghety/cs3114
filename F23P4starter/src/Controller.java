@@ -45,15 +45,17 @@ public class Controller {
         }
         int result = 0;
         if (aind == -1) {
-            if (artists.insert(a, newInd) == 1)
+            if (artists.insert(a, newInd) == 1) {
                 result += 10;
+            }
             aind = newInd;
             newInd++;
             result += 1;
         }
         if (sind == -1) {
-            if (songs.insert(s, newInd) == 1)
+            if (songs.insert(s, newInd) == 1) {
                 result += 20;
+            }
             sind = newInd;
             newInd++;
             result += 2;
