@@ -31,9 +31,8 @@ public class GraphProjectTest extends TestCase {
     /**
      * Set up the tests that follow.
      */
-    public void setUp() { // Nothing needed yet
-        it = new GraphProject();
-
+    public void setUp() {
+        new GraphProject();
     }
 
 
