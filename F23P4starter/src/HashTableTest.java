@@ -37,7 +37,9 @@ public class HashTableTest extends student.TestCase {
         assertTrue(ht.remove("song1"));
         assertFalse(ht.remove("asdf"));
         assertEquals(0, ht.count());
+        System.out.println(ht.print());
         assertEquals(0, ht.insert("song1", 1));
+        System.out.println(ht.print());
         assertEquals(-1, ht.insert("song1", 1));
         assertTrue(ht.remove("song1"));
         assertEquals(0, ht.count());
@@ -65,12 +67,21 @@ public class HashTableTest extends student.TestCase {
      * Tests the ability for the hash table to extend
      */
     public void testExpand() {
-        ht.insert("song1", 1);
-        ht.insert("song2", 1);
-        ht.insert("song3", 1);
-        ht.insert("song4", 1);
-        assertEquals(0, ht.insert("song5", 1));
-        assertEquals(1, ht.insert("song6", 1));
+        ht.insert("Q", 1);
+        ht.insert("W", 1);
+        ht.insert("E", 1);
+        ht.insert("R", 1);
+        assertEquals(0, ht.insert("T", 1));
+        assertEquals(1, ht.insert("Y", 1));
+        ht.insert("U", 1);
+        ht.insert("I", 1);
+        ht.insert("O", 1);
+        System.out.println(ht.print());
+        assertTrue(ht.remove("R"));
+        assertFalse(ht.remove("L"));
+        System.out.println(ht.print());
+        ht.insert("R", 1);
+        System.out.println(ht.print());
     }
 
 
