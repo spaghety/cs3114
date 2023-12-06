@@ -126,10 +126,12 @@ public class HashTable {
             table[ind] = new Node(val, h);
             count++;
             capTrigger = Math.max(capTrigger, count);
-            if (checkExtend())
+            if (checkExtend()) {
                 return 1;
-            else
+            }
+            else {
                 return 0;
+            }
         }
         else {
             return -1;
@@ -147,8 +149,9 @@ public class HashTable {
      */
     public int find(String key) {
         int ind = hashNProbe(key);
-        if (table[ind] == null)
+        if (table[ind] == null) {
             return -1;
+        }
         else {
             return table[ind].head;
         }
@@ -164,8 +167,9 @@ public class HashTable {
      */
     public boolean remove(String val) {
         int index = hashNProbe(val);
-        if (table[index] == null)
+        if (table[index] == null) {
             return false;
+        }
         table[index] = tombstone;
         count--;
         return true;
