@@ -188,7 +188,7 @@ public class Controller {
         int j = 0;
         while (i < graph.nodeCount()) {
             while (d[i][j] != Integer.MAX_VALUE) {
-                maxDi = Math.max(maxDi, D[i][j] + 1);
+                maxDi = Math.max(maxDi, d[i][j] + 1);
                 j++;
             }
             if (j - i > 0) {
