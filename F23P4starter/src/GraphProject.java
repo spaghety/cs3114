@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------------
 
 import java.io.File;
-//import java.io.FileNotFoundException;
+// import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -10,8 +10,7 @@ import java.util.Scanner;
  *
  * @author Phillip Jordan (alexj14)
  * @author David (Ta-Jung) Lin (davidsmile)
- * @version 2023.11.23
- *
+ * @version 2023.12.06
  */
 
 // On my honor:
@@ -35,6 +34,8 @@ import java.util.Scanner;
 
 public class GraphProject {
     /**
+     * Main method
+     * 
      * @param args
      *            Command line parameters
      */
