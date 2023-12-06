@@ -58,12 +58,14 @@ public class GraphProject {
                     String line = sc.nextLine().substring(1);
                     String[] linesplit = line.split("<SEP>", 2);
                     int result = ct.insert(linesplit[0], linesplit[1]);
+                    boolean songDoubled = false;
                     if (result >= 20) {
-                        System.out.println("Song hash table size doubled.");
+                        songDoubled = true;
                         result -= 20;
                     }
+                    boolean artistDoubled = false;
                     if (result >= 10) {
-                        System.out.println("Artist hash table size doubled.");
+                        artistDoubled = true;
                     }
                     switch (result % 10) {
                         case 4:
@@ -72,20 +74,40 @@ public class GraphProject {
                                     + "database.\n", line);
                             break;
                         case 3:
+                            if (artistDoubled) {
+                                System.out.println(
+                                    "Artist hash table size doubled.");
+                            }
                             System.out.printf(
-                                "|%s| is added to the Artist database.\n|%s| "
-                                    + "is added to the Song database.\n",
-                                linesplit[0], linesplit[1]);
+                                "|%s| is added to the Artist database.\n",
+                                linesplit[0]);
+                            if (songDoubled) {
+                                System.out.println(
+                                    "Song hash table size doubled.");
+                            }
+                            System.out.printf(
+                                "|%s| is added to the Song database.\n",
+                                linesplit[1]);
                             break;
                         case 1:
+                            if (artistDoubled) {
+                                System.out.println(
+                                    "Artist hash table size doubled.");
+                            }
                             System.out.printf(
                                 "|%s| is added to the Artist database.\n",
                                 linesplit[0]);
                             break;
                         case 2:
+                            if (songDoubled) {
+                                System.out.println(
+                                    "Song hash table size doubled.");
+                            }
                             System.out.printf(
                                 "|%s| is added to the Song database.\n",
                                 linesplit[1]);
+                            break;
+                        default:
                             break;
                     }
                     break;
@@ -104,7 +126,7 @@ public class GraphProject {
                                     "does not exist in the Song database.\n");
                             }
                             break;
-                        default:
+                        case "artist":
                             if (ct.removeArtist(txt)) {
                                 System.out.printf(
                                     "is removed from the Artist database.\n");
@@ -113,6 +135,8 @@ public class GraphProject {
                                 System.out.printf(
                                     "does not exist in the Artist database.\n");
                             }
+                            break;
+                        default:
                             break;
                     }
                     break;
@@ -128,9 +152,12 @@ public class GraphProject {
                         case " graph":
                             System.out.println(ct.printGraph());
                             break;
+                        default:
+                            break;
                     }
                     break;
-
+                default:
+                    break;
             }
         }
     }

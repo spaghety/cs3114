@@ -14,6 +14,7 @@ insert Tejon Street Corner Thieves<SEP>Whiskey
 insert Polyphia<SEP>Playing God
 insert MF DOOM<SEP>Coffin Nails
 insert Avenged Sevenfold<SEP>Unholy Confessions
+remove song Coffin Nails
 print song
 print artist
 print graph

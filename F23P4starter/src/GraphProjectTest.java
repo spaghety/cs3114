@@ -33,14 +33,63 @@ public class GraphProjectTest extends TestCase {
      */
     public void setUp() { // Nothing needed yet
         it = new GraphProject();
+
     }
 
 
     /**
-     * This method is simply to get code coverage of the class declaration.
+     * Makes a txt for testing
      */
-    public void testQInit() {
-        // it.main(new String[] { "10", "testinput.txt" });
+    public void testGenerateTxt() {
+        for (int i = 'A'; i <= 'U'; i++) {
+            System.out.printf("insert %cart<SEP>song\n", i);
+        }
+    }
+
+
+    /**
+     * This method tests the sample input file
+     */
+    public void testSampleInupt() {
+        ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
+        PrintStream newOut = new PrintStream(baos2);
+        PrintStream oldOut = System.out;
+        System.setOut(newOut);
+        GraphProject.main(new String[] { "10", "P4sampleInput.txt" });
+        System.out.flush();
+        System.setOut(oldOut);
+// System.out.print(baos2.toString());
+        assertEquals(
+            "|When Summer's Through| does not exist in the Song database.\n"
+                + "total songs: 0\n" + "total artists: 0\n"
+                + "There are 0 connected components\n"
+                + "The largest connected component has 0 elements\n"
+                + "The diameter of the largest component is 0\n"
+                + "|Blind Lemon Jefferson| is added to the Artist database.\n"
+                + "|Long Lonesome Blues| is added to the Song database.\n"
+                + "|Blind Lemon Jefferson<SEP>Long Lonesome Blues| duplicates "
+                + "a record already in the database.\n"
+                + "|Long   Lonesome Blues| is added to the Song database.\n"
+                + "|long Lonesome Blues| is added to the Song database.\n"
+                + "|Ma Rainey| is added to the Artist database.\n"
+                + "|Ma Rainey's Black Bottom| is added to the Song database.\n"
+                + "|Mississippi Boweavil Blues| is added to the Song "
+                + "database.\n" + "Song hash table size doubled.\n"
+                + "|Fixin' To Die Blues| is added to the Song database.\n"
+                + "0: |Blind Lemon Jefferson|\n" + "7: |Ma Rainey|\n"
+                + "total artists: 2\n" + "1: |Fixin' To Die Blues|\n"
+                + "2: |Mississippi Boweavil Blues|\n"
+                + "7: |long Lonesome Blues|\n" + "15: |Long Lonesome Blues|\n"
+                + "16: |Ma Rainey's Black Bottom|\n"
+                + "19: |Long   Lonesome Blues|\n" + "total songs: 6\n"
+                + "There are 1 connected components\n"
+                + "The largest connected component has 8 elements\n"
+                + "The diameter of the largest component is 4\n"
+                + "|Sleepy| does not exist in the Song database.\n"
+                + "|ma rainey| does not exist in the Artist database.\n"
+                + "|Ma Rainey| is removed from the Artist database.\n"
+                + "0: |Blind Lemon Jefferson|\n" + "7: TOMBSTONE\n"
+                + "total artists: 1\n", baos2.toString());
     }
 
 
@@ -55,52 +104,94 @@ public class GraphProjectTest extends TestCase {
         GraphProject.main(new String[] { "10", "unitTestCaseA.txt" });
         System.out.flush();
         System.setOut(oldOut);
+//        System.out.print(baos.toString());
         assertEquals(
             "|Blind Lemon Jefferson| is added to the Artist database.\n"
                 + "|Long Lonesome Blues| is added to the Song database.\n"
-                + "|Blind Lemon Jefferson<SEP>Long Lonesome Blues| "
-                + "duplicates a record already in the database.\n"
+                + "|Blind Lemon Jefferson<SEP>Long Lonesome Blues| duplicates a "
+                + "record already in the database.\n"
                 + "|Long   Lonesome Blues| is added to the Song database.\n"
                 + "|long Lonesome Blues| is added to the Song database.\n"
                 + "|Ma Rainey| is added to the Artist database.\n"
                 + "|Ma Rainey's Black Bottom| is added to the Song database.\n"
                 + "|Ma Rainey| is removed from the Artist database.\n"
                 + "|Ma Rainey| is added to the Artist database.\n"
-                + "|Mississippi Boweavil Blues| "
-                + "is added to the Song database.\n"
+                + "|Mississippi Boweavil Blues| is added to the Song database.\n"
                 + "|Fixin' To Die Blues| is added to the Song database.\n"
-                + "Song hash table size doubled.\n"
                 + "|Kid Rock| is added to the Artist database.\n"
+                + "Song hash table size doubled.\n"
                 + "|Cowboy| is added to the Song database.\n"
                 + "|Avenged Sevenfold| is added to the Artist database.\n"
                 + "|Gunslinger| is added to the Song database.\n"
                 + "|Metallica| is added to the Artist database.\n"
                 + "|Nothing Else Matters| is added to the Song database.\n"
                 + "Artist hash table size doubled.\n"
-                + "|Tejon Street Corner Thieves| "
-                + "is added to the Artist database.\n"
+                + "|Tejon Street Corner Thieves| is added to the Artist database.\n"
                 + "|Whiskey| is added to the Song database.\n"
                 + "|Polyphia| is added to the Artist database.\n"
                 + "|Playing God| is added to the Song database.\n"
-                + "Song hash table size doubled.\n"
                 + "|MF DOOM| is added to the Artist database.\n"
+                + "Song hash table size doubled.\n"
                 + "|Coffin Nails| is added to the Song database.\n"
                 + "|Unholy Confessions| is added to the Song database.\n"
+                + "|Coffin Nails| is removed from the Song database.\n"
                 + "0: |Nothing Else Matters|\n" + "2: |Cowboy|\n"
                 + "4: TOMBSTONE\n" + "8: |Playing God|\n" + "10: |Whiskey|\n"
                 + "21: |Fixin' To Die Blues|\n"
                 + "22: |Mississippi Boweavil Blues|\n" + "24: |Gunslinger|\n"
                 + "27: |long Lonesome Blues|\n" + "33: |Unholy Confessions|\n"
-                + "35: |Long Lonesome Blues|\n" + "37: |Coffin Nails|\n"
-                + "39: |Long   Lonesome Blues|\n" + "total songs: 12\n"
+                + "35: |Long Lonesome Blues|\n" + "37: TOMBSTONE\n"
+                + "39: |Long   Lonesome Blues|\n" + "total songs: 11\n"
                 + "0: |Blind Lemon Jefferson|\n" + "1: |Kid Rock|\n"
                 + "4: |Tejon Street Corner Thieves|\n" + "5: TOMBSTONE\n"
                 + "7: |Ma Rainey|\n" + "8: |Polyphia|\n"
-                + "9: |Avenged Sevenfold|\n" + "12: |MF DOOM|\n"
-                + "18: |Metallica|\n" + "total artists: 8\n"
+                + "9: |Avenged Sevenfold|\n" + "12: TOMBSTONE\n"
+                + "18: |Metallica|\n" + "total artists: 7\n"
                 + "There are 8 connected components\n"
                 + "The largest connected component has 4 elements\n"
                 + "The diameter of the largest component is 3\n" + "", baos
                     .toString());
+    }
+    
+    /**
+     * Tests case B
+     */
+    public void testCaseB() {
+        ByteArrayOutputStream baos3 = new ByteArrayOutputStream();
+        PrintStream newOut = new PrintStream(baos3);
+        PrintStream oldOut = System.out;
+        System.setOut(newOut);
+        GraphProject.main(new String[] { "5", "unitTestCaseB.txt" });
+        System.out.flush();
+        System.setOut(oldOut);
+ System.out.print(baos3.toString());
+        assertEquals(
+            "|Aart| is added to the Artist database.\n"
+            + "|song| is added to the Song database.\n"
+            + "|Bart| is added to the Artist database.\n"
+            + "Artist hash table size doubled.\n"
+            + "|Cart| is added to the Artist database.\n"
+            + "|Dart| is added to the Artist database.\n"
+            + "|Eart| is added to the Artist database.\n"
+            + "Artist hash table size doubled.\n"
+            + "|Fart| is added to the Artist database.\n"
+            + "|Gart| is added to the Artist database.\n"
+            + "|Hart| is added to the Artist database.\n"
+            + "|Iart| is added to the Artist database.\n"
+            + "|Jart| is added to the Artist database.\n"
+            + "Artist hash table size doubled.\n"
+            + "|Kart| is added to the Artist database.\n"
+            + "|Lart| is added to the Artist database.\n"
+            + "|Mart| is added to the Artist database.\n"
+            + "|Nart| is added to the Artist database.\n"
+            + "|Oart| is added to the Artist database.\n"
+            + "|Part| is added to the Artist database.\n"
+            + "|Qart| is added to the Artist database.\n"
+            + "|Rart| is added to the Artist database.\n"
+            + "|Sart| is added to the Artist database.\n"
+            + "|Tart| is added to the Artist database.\n"
+            + "Artist hash table size doubled.\n"
+            + "|Uart| is added to the Artist database.\n"
+            + "|do this| ", baos3.toString());
     }
 }

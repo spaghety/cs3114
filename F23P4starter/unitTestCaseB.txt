@@ -1,0 +1,24 @@
+insert Aart<SEP>song
+insert Bart<SEP>song
+insert Cart<SEP>song
+insert Dart<SEP>song
+insert Eart<SEP>song
+insert Fart<SEP>song
+insert Gart<SEP>song
+insert Hart<SEP>song
+insert Iart<SEP>song
+insert Jart<SEP>song
+insert Kart<SEP>song
+insert Lart<SEP>song
+insert Mart<SEP>song
+insert Nart<SEP>song
+insert Oart<SEP>song
+insert Part<SEP>song
+insert Qart<SEP>song
+insert Rart<SEP>song
+insert Sart<SEP>song
+insert Tart<SEP>song
+insert Uart<SEP>song
+remove dont do this
+print stuff
+wrongcommand
