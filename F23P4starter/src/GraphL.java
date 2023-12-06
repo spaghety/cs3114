@@ -27,7 +27,8 @@ public class GraphL {
     /**
      * No real constructor needed
      */
-    GraphL() {
+    public GraphL() {
+        // No real constructor needed
     }
 
 
