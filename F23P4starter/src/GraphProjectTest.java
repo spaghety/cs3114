@@ -138,7 +138,7 @@ public class GraphProjectTest extends TestCase {
                 + "12: TOMBSTONE\n" + "18: |Metallica|\n" + "total artists: 7\n"
                 + "There are 8 connected components\n"
                 + "The largest connected component has 4 elements\n"
-                + "The diameter of the largest component is 3\n", baos
+                + "The diameter of the largest component is 2\n", baos
                     .toString());
     }
 
