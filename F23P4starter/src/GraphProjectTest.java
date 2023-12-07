@@ -40,6 +40,7 @@ public class GraphProjectTest extends TestCase {
      * This method tests the sample input file
      */
     public void testSampleInupt() {
+        GraphProject.main(new String[] { "10", "testinput.txt" });
         ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
         PrintStream newOut = new PrintStream(baos2);
         PrintStream oldOut = System.out;
@@ -95,14 +96,16 @@ public class GraphProjectTest extends TestCase {
         assertEquals(
             "|Blind Lemon Jefferson| is added to the Artist database.\n"
                 + "|Long Lonesome Blues| is added to the Song database.\n"
-                + "|Blind Lemon Jefferson<SEP>Long Lonesome Blues| duplicates a record already in the database.\n"
+                + "|Blind Lemon Jefferson<SEP>Long Lonesome Blues| "
+                + "duplicates a record already in the database.\n"
                 + "|Long   Lonesome Blues| is added to the Song database.\n"
                 + "|long Lonesome Blues| is added to the Song database.\n"
                 + "|Ma Rainey| is added to the Artist database.\n"
                 + "|Ma Rainey's Black Bottom| is added to the Song database.\n"
                 + "|Ma Rainey| is removed from the Artist database.\n"
                 + "|Ma Rainey| is added to the Artist database.\n"
-                + "|Mississippi Boweavil Blues| is added to the Song database.\n"
+                + "|Mississippi Boweavil Blues| "
+                + "is added to the Song database.\n"
                 + "|Fixin' To Die Blues| is added to the Song database.\n"
                 + "|Kid Rock| is added to the Artist database.\n"
                 + "Song hash table size doubled.\n"
@@ -112,7 +115,8 @@ public class GraphProjectTest extends TestCase {
                 + "|Metallica| is added to the Artist database.\n"
                 + "|Nothing Else Matters| is added to the Song database.\n"
                 + "Artist hash table size doubled.\n"
-                + "|Tejon Street Corner Thieves| is added to the Artist database.\n"
+                + "|Tejon Street Corner Thieves| "
+                + "is added to the Artist database.\n"
                 + "|Whiskey| is added to the Song database.\n"
                 + "|Polyphia| is added to the Artist database.\n"
                 + "|Playing God| is added to the Song database.\n"

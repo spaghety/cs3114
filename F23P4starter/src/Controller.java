@@ -185,6 +185,17 @@ public class Controller {
      */
     public String printGraph() {
         int[][] d = floyd(graph);
+        for (int i = 0; i < d.length; i++) {
+            for (int j = 0; j < d[i].length; j++) {
+                if (d[i][j] == Integer.MAX_VALUE) {
+                    System.out.print("   ");
+                }
+                else {
+                    System.out.printf("[%d]", d[i][j]);
+                }
+            }
+            System.out.println();
+        }
         int compCount = 0;
         int maxDi = 0;
         int maxSize = 0;
@@ -192,7 +203,12 @@ public class Controller {
         int j = 0;
         while (i < graph.nodeCount()) {
             while (d[i][j] != Integer.MAX_VALUE) {
-                maxDi = Math.max(maxDi, d[i][j] + 1);
+                if (i != j) {
+                    maxDi = Math.max(maxDi, d[i][j] + 1);
+                }
+                else {
+                    maxDi = Math.max(maxDi, 1);
+                }
                 j++;
             }
             if (j - i > 0) {
