@@ -44,14 +44,13 @@ public class ControllerTest extends student.TestCase {
         assertEquals(3, ct.insert("artist1", "song1"));
         assertEquals(2, ct.insert("artist1", "song2"));
         assertTrue(ct.removeArtist("artist1"));
-        assertEquals("2: TOMBSTONE\r\n" + "3: TOMBSTONE\ntotal artists: 0", ct
-            .printArtists());
-        assertEquals("0: TOMBSTONE\n8: TOMBSTONE\n9: TOMBSTONE\ntotal songs: 0",
-            ct.printSongs());
+        assertEquals("2: TOMBSTONE\ntotal artists: 0", ct.printArtists());
+        assertEquals("8: TOMBSTONE\n9: TOMBSTONE\ntotal songs: 0", ct
+            .printSongs());
         assertEquals(3, ct.insert("artist5", "song5"));
         assertTrue(ct.removeSong("song5"));
-        assertEquals("0: TOMBSTONE\n2: TOMBSTONE\n8: TOMBSTONE\n9: TOMBSTONE\n"
-            + "total songs: 0", ct.printSongs());
+        assertEquals("2: TOMBSTONE\n8: TOMBSTONE\n9: TOMBSTONE\ntotal songs: 0",
+            ct.printSongs());
     }
 
 

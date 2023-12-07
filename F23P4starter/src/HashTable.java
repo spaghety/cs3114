@@ -96,7 +96,7 @@ public class HashTable {
         int init = Hash.h(v, table.length);
         Node probe = table[init];
         int prober = 0;
-        while (probe != null) {
+        while (probe != null && probe != tombstone) {
             if (probe.val.equals(v)) {
                 return (int)((init + Math.pow(prober, 2.0)) % table.length);
             }
@@ -122,7 +122,7 @@ public class HashTable {
     public int insert(String val, int h) {
         int ind = hashNProbe(val);
         int status = 0;
-        if (table[ind] == null) {
+        if (table[ind] == null || table[ind] == tombstone) {
             table[ind] = new Node(val, h);
             count++;
             capTrigger = Math.max(capTrigger, count);
@@ -149,7 +149,7 @@ public class HashTable {
      */
     public int find(String key) {
         int ind = hashNProbe(key);
-        if (table[ind] == null) {
+        if (table[ind] == null || table[ind] == tombstone) {
             return -1;
         }
         else {
@@ -167,7 +167,7 @@ public class HashTable {
      */
     public boolean remove(String val) {
         int index = hashNProbe(val);
-        if (table[index] == null) {
+        if (table[index] == null || table[index] == tombstone) {
             return false;
         }
         table[index] = tombstone;
