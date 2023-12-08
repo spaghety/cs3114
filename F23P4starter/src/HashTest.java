@@ -10,7 +10,7 @@ public class HashTest extends TestCase {
      * Sets up the tests that follow. In general, used for initialization
      */
     public void setUp() {
-        // Nothing Here
+        new Hash();
     }
 
 

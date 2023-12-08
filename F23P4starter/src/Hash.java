@@ -9,6 +9,14 @@
 public class Hash {
 
     /**
+     * Empty constructor
+     */
+    public Hash() {
+        // Nothing needs to be executed
+    }
+
+
+    /**
      * Compute the hash function
      * 
      * @param s
