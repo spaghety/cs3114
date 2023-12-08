@@ -53,7 +53,7 @@ public class GraphProject {
         }
         Controller ct = new Controller(initsize);
         while (sc.hasNextLine()) {
-            String command = sc.next();
+            String command = sc.next().trim();
             switch (command) {
                 case "insert":
                     String line = sc.nextLine().substring(1);
@@ -144,15 +144,15 @@ public class GraphProject {
                     }
                     break;
                 case "print":
-                    String argm = sc.nextLine();
+                    String argm = sc.nextLine().trim();
                     switch (argm) {
-                        case " artist":
+                        case "artist":
                             System.out.println(ct.printArtists());
                             break;
-                        case " song":
+                        case "song":
                             System.out.println(ct.printSongs());
                             break;
-                        case " graph":
+                        case "graph":
                             System.out.println(ct.printGraph());
                             break;
                         default:
