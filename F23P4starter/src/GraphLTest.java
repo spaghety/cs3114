@@ -38,6 +38,25 @@ public class GraphLTest extends student.TestCase {
         assertEquals(1, graph.edgeCount());
         assertFalse(graph.hasEdge(1, 2));
     }
+    
+    
+    /**
+     * Tests the add edge method
+     */
+    public void testAddEdge2() {
+        graph.addEdge(0, 1, 3);
+        graph.addEdge(0, 2, 4);
+        graph.addEdge(2, 3, 1);
+        graph.addEdge(2, 5, 6);
+        graph.addEdge(2, 8, 7);
+        assertEquals(5, graph.edgeCount());
+        graph.addEdge(1, 0, 5);
+        assertEquals(6, graph.edgeCount());
+        graph.addEdge(2, 7, 2);
+        assertEquals(7, graph.edgeCount());
+        graph.addEdge(2, 5, 6);
+        assertEquals(7, graph.edgeCount());
+    }
 
 
     /**
@@ -51,6 +70,26 @@ public class GraphLTest extends student.TestCase {
         assertEquals(1, graph.edgeCount());
         assertFalse(graph.hasEdge(1, 0));
     }
+    
+    
+    /**
+     * Tests the remove edge method
+     */
+    public void testRemoveEdge2() {
+        graph.addEdge(0, 1, 3);
+        graph.addEdge(0, 2, 4);
+        graph.addEdge(2, 3, 1);
+        graph.addEdge(2, 5, 6);
+        graph.addEdge(2, 8, 7);
+        assertEquals(5, graph.edgeCount());
+        graph.removeEdge(1, 0);
+        assertEquals(5, graph.edgeCount());
+        graph.removeEdge(2, 7);
+        assertEquals(5, graph.edgeCount());
+        graph.removeEdge(2, 5);
+        assertEquals(4, graph.edgeCount());
+        assertFalse(graph.hasEdge(2, 5));
+    }
 
 
     /**
@@ -62,6 +101,10 @@ public class GraphLTest extends student.TestCase {
         graph.addEdge(2, 3, 1);
         assertEquals(4, graph.weight(0, 2));
         assertEquals(0, graph.weight(5, 6));
+        assertEquals(3, graph.weight(0, 1));
+        graph.addEdge(2, 5, 6);
+        graph.addEdge(2, 8, 7);
+        assertEquals(0, graph.weight(2, 7));
     }
 
 

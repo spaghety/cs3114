@@ -126,7 +126,7 @@ public class GraphL {
      */
     public int weight(int v, int w) {
         Edge curr = find(v, w);
-        if ((curr.next == null) || (curr.next.vertex != w)) {
+        if (curr.next == null || curr.next.vertex != w) {
             return 0;
         }
         else {
