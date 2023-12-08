@@ -42,6 +42,7 @@ public class HashTableTest extends student.TestCase {
         System.out.println(ht.print());
         assertEquals(-1, ht.insert("song1", 1));
         assertTrue(ht.remove("song1"));
+        assertFalse(ht.remove("song1"));
         assertEquals(0, ht.count());
     }
 
@@ -50,15 +51,16 @@ public class HashTableTest extends student.TestCase {
      * Tests remove(int) and find(String) operations
      */
     public void testRemoveFind() {
+        assertEquals(-1, ht.find("Q"));
         assertEquals(0, ht.insert("Q", 1));
         assertEquals(0, ht.insert("W", 2));
         assertEquals(0, ht.insert("E", 3));
         assertEquals(0, ht.insert("R", 4));
         assertEquals(0, ht.insert("T", 5));
         assertTrue(ht.remove(3));
+        assertFalse(ht.remove(3));
         assertFalse(ht.remove(9));
         assertEquals(4, ht.count());
-        assertEquals(-1, ht.find("Y"));
         assertEquals(-1, ht.find("E"));
         assertEquals(5, ht.find("T"));
     }
