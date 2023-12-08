@@ -209,40 +209,30 @@ public class GraphL {
             }
         }
     }
-    
-    
+
+
     /**
-     * The union method when using weighted union
+     * Merge two subtrees if they are different
      * 
-     * @param a node one
-     * @param b node two
+     * @param a
+     *            node one
+     * @param b
+     *            node two
      */
-    private void union(int a, int b) {
-        int root1 = find(a); // Find root of node a
-        int root2 = find(b); // Find root of node b
-        if (root1 != root2) { // Merge with weighted union
-            if (weights[root2] > weights[root1]) {
-                array[root1] = root2;
-                weights[root2] += weights[root1];
-            }
-            else {
-                array[root2] = root1;
-                weights[root1] += weights[root2];
-            }
+    public void uNION(int a, int b) {
+        int root1 = fIND(a); // Find root of node a
+        int root2 = fIND(b); // Find root of node b
+        if (root1 != root2) { // Merge two trees
+            array[root1] = root2;
         }
     }
 
 
-    /**
-     * Return the root of curr's tree with path compression
-     * 
-     * @param curr
-     * @return
-     */
-    private int find(int curr) {
-        if (array[curr] == -1)
-            return curr; // At root
-        array[curr] = find(array[curr]);
-        return array[curr];
+    // Return the root of curr's tree
+    public int fIND(int curr) {
+        while (array[curr] != -1) {
+            curr = array[curr];
+        }
+        return curr; // Now at root
     }
 }
