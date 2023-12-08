@@ -58,7 +58,9 @@ public class GraphProject {
                 case "insert":
                     String line = sc.nextLine().substring(1);
                     String[] linesplit = line.split("<SEP>", 2);
-                    int result = ct.insert(linesplit[0], linesplit[1]);
+                    String artistName = linesplit[0].trim();
+                    String songName = linesplit[1].trim();
+                    int result = ct.insert(artistName, songName);
                     boolean songDoubled = false;
                     if (result >= 20) {
                         songDoubled = true;
@@ -81,14 +83,14 @@ public class GraphProject {
                             }
                             System.out.printf(
                                 "|%s| is added to the Artist database.\n",
-                                linesplit[0]);
+                                artistName);
                             if (songDoubled) {
                                 System.out.println(
                                     "Song hash table size doubled.");
                             }
                             System.out.printf(
                                 "|%s| is added to the Song database.\n",
-                                linesplit[1]);
+                                songName);
                             break;
                         case 1:
                             if (artistDoubled) {
@@ -97,7 +99,7 @@ public class GraphProject {
                             }
                             System.out.printf(
                                 "|%s| is added to the Artist database.\n",
-                                linesplit[0]);
+                                artistName);
                             break;
                         case 2:
                             if (songDoubled) {
@@ -106,7 +108,7 @@ public class GraphProject {
                             }
                             System.out.printf(
                                 "|%s| is added to the Song database.\n",
-                                linesplit[1]);
+                                songName);
                             break;
                         default:
                             break;

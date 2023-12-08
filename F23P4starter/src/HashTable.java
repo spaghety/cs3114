@@ -10,7 +10,7 @@ public class HashTable {
     private Node[] table;
     private int count;
     private int capTrigger;
-    private Node tombstone = new Node("TOMBSTONE", -1);
+    private final Node tombstone = new Node("TOMBSTONE", -1);
 
     /**
      * This class defines a song or artist node pointing to a vertex in the

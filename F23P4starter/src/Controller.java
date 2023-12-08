@@ -89,9 +89,9 @@ public class Controller {
         for (int i = 0; i < nbrs.length; i++) {
             graph.removeEdge(graphind, nbrs[i]);
             graph.removeEdge(nbrs[i], graphind);
-            if (graph.neighbors(nbrs[i]).length == 0) {
-                artists.remove(nbrs[i]);
-            }
+//            if (graph.neighbors(nbrs[i]).length == 0) {
+//                artists.remove(nbrs[i]);
+//            }
         }
         return true;
     }
@@ -114,9 +114,9 @@ public class Controller {
         for (int i = 0; i < nbrs.length; i++) {
             graph.removeEdge(graphind, nbrs[i]);
             graph.removeEdge(nbrs[i], graphind);
-            if (graph.neighbors(nbrs[i]).length == 0) {
-                songs.remove(nbrs[i]);
-            }
+//            if (graph.neighbors(nbrs[i]).length == 0) {
+//                songs.remove(nbrs[i]);
+//            }
         }
         return true;
     }
