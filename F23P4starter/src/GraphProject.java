@@ -116,7 +116,7 @@ public class GraphProject {
                     break;
                 case "remove":
                     String arg = sc.next();
-                    String txt = sc.nextLine().substring(1);
+                    String txt = sc.nextLine().substring(1).trim();
                     System.out.printf("|%s| ", txt);
                     switch (arg) {
                         case "song":
