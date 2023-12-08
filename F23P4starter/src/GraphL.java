@@ -3,7 +3,7 @@
  * 
  * @author Phillip Jordan (alexj14)
  * @author Ta-Jung (David) Lin (davidsmile)
- * @version 2023.12.05
+ * @version 2023.12.07
  */
 public class GraphL {
 
