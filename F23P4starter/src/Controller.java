@@ -89,9 +89,9 @@ public class Controller {
         for (int i = 0; i < nbrs.length; i++) {
             graph.removeEdge(graphind, nbrs[i]);
             graph.removeEdge(nbrs[i], graphind);
-//            if (graph.neighbors(nbrs[i]).length == 0) {
-//                artists.remove(nbrs[i]);
-//            }
+// if (graph.neighbors(nbrs[i]).length == 0) {
+// artists.remove(nbrs[i]);
+// }
         }
         return true;
     }
@@ -114,9 +114,9 @@ public class Controller {
         for (int i = 0; i < nbrs.length; i++) {
             graph.removeEdge(graphind, nbrs[i]);
             graph.removeEdge(nbrs[i], graphind);
-//            if (graph.neighbors(nbrs[i]).length == 0) {
-//                songs.remove(nbrs[i]);
-//            }
+// if (graph.neighbors(nbrs[i]).length == 0) {
+// songs.remove(nbrs[i]);
+// }
         }
         return true;
     }
@@ -145,10 +145,8 @@ public class Controller {
     /**
      * Floyd's algorithm
      * 
-     * @param G
+     * @param g
      *            graph object
-     * @param D
-     *            array to put results in
      */
     private int[][] floyd(GraphL g) {
         int[][] d = new int[g.nodeCount()][g.nodeCount()];
@@ -212,4 +210,7 @@ public class Controller {
             + maxSize + " elements\nThe diameter of the largest component is "
             + maxDi;
     }
+
+
+    
 }
