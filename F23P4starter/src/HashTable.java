@@ -96,9 +96,9 @@ public class HashTable {
         Node probe = table[init];
         int prober = 0;
         while (probe != null && probe != tombstone) {
-            if (probe.val.equals(v)) {
-                return (int)((init + Math.pow(prober, 2.0)) % table.length);
-            }
+// if (probe.val.equals(v)) {
+// return (int)((init + Math.pow(prober, 2.0)) % table.length);
+// }
             prober++;
             probe = table[(int)((init + Math.pow(prober, 2.0)) % table.length)];
         }
@@ -151,6 +151,10 @@ public class HashTable {
             if (probe.val.equals(v)) {
                 return (int)((init + Math.pow(prober, 2.0)) % table.length);
             }
+            if (prober >= table.length) {
+                // Quadratic probing result cycles when reaching length
+                return -1;
+            }
             prober++;
             probe = table[(int)((init + Math.pow(prober, 2.0)) % table.length)];
         }
@@ -168,6 +172,9 @@ public class HashTable {
      */
     public int find(String key) {
         int ind = hashNProbe2(key);
+        if (ind < 0) {
+            return -1;
+        }
         if (table[ind] == null) {
             return -1;
         }
@@ -186,6 +193,9 @@ public class HashTable {
      */
     public boolean remove(String val) {
         int index = hashNProbe2(val);
+        if (index < 0) {
+            return false;
+        }
         if (table[index] == null) {
             return false;
         }

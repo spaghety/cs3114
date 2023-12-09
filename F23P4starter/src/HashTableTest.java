@@ -77,6 +77,20 @@ public class HashTableTest extends student.TestCase {
         assertEquals(-1, ht.insert("V", 1));
         assertEquals("4: |T|\n5: |U|\n6: TOMBSTONE\n7: |C|\n8: |D|\n9: |E|\n"
             + "10: |F|\n11: |G|\n15: |V|\n", ht.print());
+        ht.insert("P", 1);
+        ht.remove("P");
+        ht.insert("Q", 1);
+        ht.remove("Q");
+        ht.insert("R", 1);
+        ht.remove("R");
+        ht.insert("S", 1);
+        ht.remove("S");
+        System.out.println(ht.print());
+        assertEquals(1, ht.find("V"));
+        ht.remove("V");
+        System.out.println(ht.print());
+        assertEquals(-1, ht.find("V"));
+        assertFalse(ht.remove("V"));
     }
 
 
