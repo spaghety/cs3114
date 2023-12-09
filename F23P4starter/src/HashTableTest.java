@@ -26,6 +26,7 @@ public class HashTableTest extends student.TestCase {
         assertEquals(0, ht.insert("song2", 1));
         assertEquals(2, ht.count());
         assertEquals(-1, ht.insert("song2", 1));
+//        System.out.println(ht.print());
     }
 
 
@@ -37,13 +38,42 @@ public class HashTableTest extends student.TestCase {
         assertTrue(ht.remove("song1"));
         assertFalse(ht.remove("asdf"));
         assertEquals(0, ht.count());
-        System.out.println(ht.print());
+//        System.out.println(ht.print());
         assertEquals(0, ht.insert("song1", 1));
-        System.out.println(ht.print());
+//        System.out.println(ht.print());
         assertEquals(-1, ht.insert("song1", 1));
         assertTrue(ht.remove("song1"));
         assertFalse(ht.remove("song1"));
         assertEquals(0, ht.count());
+    }
+    
+    
+    /**
+     * Tests remove
+     */
+    public void testRemove() {
+        ht.insert("A", 1);
+        ht.insert("B", 1);
+        ht.insert("C", 1);
+        ht.insert("D", 1);
+        ht.insert("E", 1);
+        ht.insert("F", 1);
+        ht.insert("G", 1);
+        System.out.println(ht.print());
+        assertTrue(ht.remove("A"));
+        System.out.println(ht.print());
+        ht.insert("T", 1);
+        System.out.println(ht.print());
+        ht.insert("U", 1);
+        System.out.println(ht.print());
+        ht.insert("V", 1);
+        System.out.println(ht.print());
+        assertTrue(ht.remove("B"));
+        System.out.println(ht.print());
+        ht.insert("V", 1);
+        System.out.println(ht.print());
+//        ht.insert("U", 1);
+//        System.out.println(ht.print());
     }
 
 
@@ -79,12 +109,12 @@ public class HashTableTest extends student.TestCase {
         ht.insert("U", 1);
         ht.insert("I", 1);
         ht.insert("O", 1);
-        System.out.println(ht.print());
+//        System.out.println(ht.print());
         assertTrue(ht.remove("R"));
         assertFalse(ht.remove("L"));
-        System.out.println(ht.print());
+//        System.out.println(ht.print());
         ht.insert("R", 1);
-        System.out.println(ht.print());
+//        System.out.println(ht.print());
     }
 
 
