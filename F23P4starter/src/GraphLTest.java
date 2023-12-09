@@ -78,7 +78,7 @@ public class GraphLTest extends student.TestCase {
         assertArrayEquals(compare, graph.compConnect(6));
         graph.addEdge(0, 2, 1);
         graph.addEdge(2, 0, 1);
-        int[] compare2 = { 8, 8, 8, 8, -1, 8 };
+        int[] compare2 = { 5, 5, 5, 5, -1, -1 };
         assertArrayEquals(compare2, graph.compConnect(6));
     }
 

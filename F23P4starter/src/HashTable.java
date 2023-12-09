@@ -120,6 +120,9 @@ public class HashTable {
      *         extension, -1=entry exists already
      */
     public int insert(String val, int h) {
+//        if (find(val) > -1) {
+//            return -1;
+//        }
         int ind = hashNProbe(val);
         int status = 0;
         if (table[ind] == null || table[ind] == tombstone) {

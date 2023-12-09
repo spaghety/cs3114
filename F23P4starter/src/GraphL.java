@@ -224,14 +224,16 @@ public class GraphL {
      * @return Parent pointer array
      */
     public int[] compConnect(int n) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                uNION(i, j);
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    uNION(i, j);
+                }
             }
         }
-        for (int i = 0; i < n; i++) {
-            System.out.println(array[i]);
-        }
+// for (int i = 0; i < n; i++) {
+// System.out.println(array[i]);
+// }
         return Arrays.copyOfRange(array, 0, n);
     }
 

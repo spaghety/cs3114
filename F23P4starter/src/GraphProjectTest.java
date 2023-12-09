@@ -135,8 +135,8 @@ public class GraphProjectTest extends TestCase {
                 + "4: |Tejon Street Corner Thieves|\n" + "7: |Ma Rainey|\n"
                 + "8: |Polyphia|\n" + "9: |Avenged Sevenfold|\n"
                 + "12: |MF DOOM|\n" + "18: |Metallica|\n" + "total artists: 8\n"
-                + "There are 1 connected components\n"
-                + "The largest connected component has 20 elements\n"
+                + "There are 10 connected components\n"
+                + "The largest connected component has 4 elements\n"
                 + "The diameter of the largest component is 2\n", baos
                     .toString());
     }
