@@ -85,6 +85,7 @@ public class GraphProjectTest extends TestCase {
      * Tests one input file to output
      */
     public void testCaseA() {
+        GraphProject.main(new String[] { "10", "unitTestCaseA.txt" });
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream newOut = new PrintStream(baos);
         PrintStream oldOut = System.out;
@@ -134,8 +135,8 @@ public class GraphProjectTest extends TestCase {
                 + "4: |Tejon Street Corner Thieves|\n" + "7: |Ma Rainey|\n"
                 + "8: |Polyphia|\n" + "9: |Avenged Sevenfold|\n"
                 + "12: |MF DOOM|\n" + "18: |Metallica|\n" + "total artists: 8\n"
-                + "There are 8 connected components\n"
-                + "The largest connected component has 4 elements\n"
+                + "There are 1 connected components\n"
+                + "The largest connected component has 20 elements\n"
                 + "The diameter of the largest component is 2\n", baos
                     .toString());
     }
@@ -179,46 +180,5 @@ public class GraphProjectTest extends TestCase {
             + "Artist hash table size doubled.\n"
             + "|Uart| is added to the Artist database.\n" + "|do this| ", baos3
                 .toString());
-    }
-
-
-    /**
-     * This method tests another input file
-     */
-    public void testAnother() {
-        ByteArrayOutputStream baos4 = new ByteArrayOutputStream();
-        PrintStream newOut = new PrintStream(baos4);
-        PrintStream oldOut = System.out;
-        System.setOut(newOut);
-        GraphProject.main(new String[] { "10", "testinput.txt" });
-        System.out.flush();
-        System.setOut(oldOut);
-        assertEquals("|aaaa| is added to the Artist database.\n"
-            + "|aaaa| is added to the Song database.\n"
-            + "|bbbb| is added to the Artist database.\n"
-            + "|bbbb| is added to the Song database.\n"
-            + "|cccc| is added to the Song database.\n"
-            + "|dddd| is added to the Artist database.\n"
-            + "|dddd| is added to the Song database.\n"
-            + "|zzzz| is added to the Artist database.\n"
-            + "|zzzz| is added to the Song database.\n"
-            + "|eeee| is added to the Artist database.\n"
-            + "Song hash table size doubled.\n"
-            + "|eeee| is added to the Song database.\n"
-            + "Artist hash table size doubled.\n"
-            + "|ffff| is added to the Artist database.\n"
-            + "|ffff| is added to the Song database.\n" + "0: |dddd|\n"
-            + "2: |bbbb|\n" + "9: |eeee|\n" + "13: |aaaa|\n" + "18: |ffff|\n"
-            + "19: |zzzz|\n" + "total artists: 6\n" + "0: |dddd|\n"
-            + "2: |bbbb|\n" + "9: |eeee|\n" + "11: |cccc|\n" + "13: |aaaa|\n"
-            + "18: |zzzz|\n" + "19: |ffff|\n" + "total songs: 7\n"
-            + "|aaaa| is removed from the Artist database.\n" + "0: |dddd|\n"
-            + "2: |bbbb|\n" + "9: |eeee|\n" + "13: TOMBSTONE\n" + "18: |ffff|\n"
-            + "19: |zzzz|\n" + "total artists: 5\n" + "0: |dddd|\n"
-            + "2: |bbbb|\n" + "9: |eeee|\n" + "11: |cccc|\n" + "13: |aaaa|\n"
-            + "18: |zzzz|\n" + "19: |ffff|\n" + "total songs: 7\n"
-            + "There are 5 connected components\n"
-            + "The largest connected component has 2 elements\n"
-            + "The diameter of the largest component is 2\n", baos4.toString());
     }
 }

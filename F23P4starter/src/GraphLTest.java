@@ -1,3 +1,5 @@
+import static org.junit.Assert.assertArrayEquals;
+
 /**
  * Tests the Graph class
  * 
@@ -38,8 +40,8 @@ public class GraphLTest extends student.TestCase {
         assertEquals(1, graph.edgeCount());
         assertFalse(graph.hasEdge(1, 2));
     }
-    
-    
+
+
     /**
      * Tests the add edge method
      */
@@ -56,6 +58,28 @@ public class GraphLTest extends student.TestCase {
         assertEquals(7, graph.edgeCount());
         graph.addEdge(2, 5, 6);
         assertEquals(7, graph.edgeCount());
+
+    }
+
+
+    /**
+     * Tests union
+     */
+    public void testUnion() {
+        graph.addEdge(0, 1, 1);
+        graph.addEdge(1, 0, 1);
+        graph.addEdge(2, 3, 1);
+        graph.addEdge(3, 2, 1);
+        graph.addEdge(2, 5, 1);
+        graph.addEdge(5, 2, 1);
+        graph.addEdge(3, 8, 1);
+        graph.addEdge(8, 3, 1);
+        int[] compare = { 1, -1, 5, 5, -1, -1 };
+        assertArrayEquals(compare, graph.compConnect(6));
+        graph.addEdge(0, 2, 1);
+        graph.addEdge(2, 0, 1);
+        int[] compare2 = { 8, 8, 8, 8, -1, 8 };
+        assertArrayEquals(compare2, graph.compConnect(6));
     }
 
 
@@ -70,8 +94,8 @@ public class GraphLTest extends student.TestCase {
         assertEquals(1, graph.edgeCount());
         assertFalse(graph.hasEdge(1, 0));
     }
-    
-    
+
+
     /**
      * Tests the remove edge method
      */

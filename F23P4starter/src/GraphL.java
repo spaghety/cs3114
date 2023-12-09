@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Defines the graph data structure
  * 
@@ -21,6 +23,7 @@ public class GraphL {
         }
     }
 
+    private int[] array; // Parent pointer array
     private Edge[] nodeArray;
     private int numEdge;
 
@@ -40,9 +43,11 @@ public class GraphL {
      */
     public void init(int n) {
         nodeArray = new Edge[n];
+        array = new int[n];
         // List headers;
         for (int i = 0; i < n; i++) {
             nodeArray[i] = new Edge(-1, -1, null, null);
+            array[i] = -1;
         }
         numEdge = 0;
     }
@@ -212,27 +217,58 @@ public class GraphL {
 
 
     /**
-     * Merge two subtrees if they are different
+     * Operates union-find if an edge exists
+     * 
+     * @param n
+     *            Number of elements
+     * @return Parent pointer array
+     */
+    public int[] compConnect(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                uNION(i, j);
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            System.out.println(array[i]);
+        }
+        return Arrays.copyOfRange(array, 0, n);
+    }
+
+
+    /**
+     * Merge two nodes if they are different
      * 
      * @param a
      *            node one
      * @param b
      *            node two
      */
-    public void uNION(int a, int b) {
+    private void uNION(int a, int b) {
+        if (!hasEdge(a, b)) {
+            return;
+        }
         int root1 = fIND(a); // Find root of node a
         int root2 = fIND(b); // Find root of node b
-        if (root1 != root2) { // Merge two trees
+        if (root1 != root2) { // Merge two nodes
             array[root1] = root2;
         }
     }
 
 
-    // Return the root of curr's tree
-    public int fIND(int curr) {
-        while (array[curr] != -1) {
-            curr = array[curr];
+    /**
+     * Return the root of curr's node
+     * 
+     * @param curr
+     *            current node
+     * @return root of curr
+     */
+    private int fIND(int curr) {
+        if (array[curr] == -1) {
+            return curr; // At root
         }
-        return curr; // Now at root
+        array[curr] = fIND(array[curr]);
+        return array[curr];
     }
+
 }
