@@ -26,7 +26,7 @@ public class HashTableTest extends student.TestCase {
         assertEquals(0, ht.insert("song2", 1));
         assertEquals(2, ht.count());
         assertEquals(-1, ht.insert("song2", 1));
-//        System.out.println(ht.print());
+// System.out.println(ht.print());
     }
 
 
@@ -38,18 +38,18 @@ public class HashTableTest extends student.TestCase {
         assertTrue(ht.remove("song1"));
         assertFalse(ht.remove("asdf"));
         assertEquals(0, ht.count());
-//        System.out.println(ht.print());
+// System.out.println(ht.print());
         assertEquals(0, ht.insert("song1", 1));
-//        System.out.println(ht.print());
+// System.out.println(ht.print());
         assertEquals(-1, ht.insert("song1", 1));
         assertTrue(ht.remove("song1"));
         assertFalse(ht.remove("song1"));
         assertEquals(0, ht.count());
     }
-    
-    
+
+
     /**
-     * Tests remove
+     * Tests remove and isTombstone
      */
     public void testRemove() {
         ht.insert("A", 1);
@@ -59,21 +59,24 @@ public class HashTableTest extends student.TestCase {
         ht.insert("E", 1);
         ht.insert("F", 1);
         ht.insert("G", 1);
-        System.out.println(ht.print());
+        assertFalse(ht.isTombstone(5));
         assertTrue(ht.remove("A"));
-        System.out.println(ht.print());
+        assertEquals(-1, ht.find("A"));
+        assertTrue(ht.isTombstone(5));
+        assertEquals("5: TOMBSTONE\n6: |B|\n7: |C|\n8: |D|\n9: |E|\n"
+            + "10: |F|\n11: |G|\n", ht.print());
         ht.insert("T", 1);
-        System.out.println(ht.print());
         ht.insert("U", 1);
-        System.out.println(ht.print());
-        ht.insert("V", 1);
-        System.out.println(ht.print());
+        assertEquals(0, ht.insert("V", 1));
+        assertEquals("4: |T|\n5: |U|\n6: |B|\n7: |C|\n8: |D|\n9: |E|\n"
+            + "10: |F|\n11: |G|\n15: |V|\n", ht.print());
         assertTrue(ht.remove("B"));
-        System.out.println(ht.print());
-        ht.insert("V", 1);
-        System.out.println(ht.print());
-//        ht.insert("U", 1);
-//        System.out.println(ht.print());
+        assertTrue(ht.isTombstone(6));
+        assertEquals("4: |T|\n5: |U|\n6: TOMBSTONE\n7: |C|\n8: |D|\n9: |E|\n"
+            + "10: |F|\n11: |G|\n15: |V|\n", ht.print());
+        assertEquals(-1, ht.insert("V", 1));
+        assertEquals("4: |T|\n5: |U|\n6: TOMBSTONE\n7: |C|\n8: |D|\n9: |E|\n"
+            + "10: |F|\n11: |G|\n15: |V|\n", ht.print());
     }
 
 
@@ -109,12 +112,12 @@ public class HashTableTest extends student.TestCase {
         ht.insert("U", 1);
         ht.insert("I", 1);
         ht.insert("O", 1);
-//        System.out.println(ht.print());
+// System.out.println(ht.print());
         assertTrue(ht.remove("R"));
         assertFalse(ht.remove("L"));
-//        System.out.println(ht.print());
+// System.out.println(ht.print());
         ht.insert("R", 1);
-//        System.out.println(ht.print());
+// System.out.println(ht.print());
     }
 
 
@@ -129,8 +132,8 @@ public class HashTableTest extends student.TestCase {
         assertFuzzyEquals("0: |song3|\n1: |song4|\n8: |song1|\n9: |song2|\n", ht
             .print());
         ht.remove("song1");
-        assertFuzzyEquals("0: |song3|\r\n" + "1: |song4|\r\n"
-            + "8: |TOMBSTONE|\r\n" + "9: |song2|\r\n" + "", ht.print());
+        assertFuzzyEquals("0: |song3|\n1: |song4|\n8: |TOMBSTONE|\n"
+            + "9: |song2|\n", ht.print());
     }
 
 }

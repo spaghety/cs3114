@@ -85,9 +85,8 @@ public class HashTable {
 
     /**
      * Combines the hashing and probing functions together and returns the index
+     * Stops probing when there is a tombstone
      * 
-     * @param arr
-     *            array input
      * @param v
      *            value input
      * @return index to insert
@@ -120,25 +119,42 @@ public class HashTable {
      *         extension, -1=entry exists already
      */
     public int insert(String val, int h) {
-//        if (find(val) > -1) {
-//            return -1;
-//        }
-        int ind = hashNProbe(val);
-        int status = 0;
-        if (table[ind] == null || table[ind] == tombstone) {
-            table[ind] = new Node(val, h);
-            count++;
-            capTrigger = Math.max(capTrigger, count);
-            if (checkExtend()) {
-                return 1;
-            }
-            else {
-                return 0;
-            }
-        }
-        else {
+        if (find(val) > -1) {
             return -1;
         }
+        int ind = hashNProbe(val);
+        table[ind] = new Node(val, h);
+        count++;
+        capTrigger = Math.max(capTrigger, count);
+        if (checkExtend()) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
+
+    /**
+     * Combines the hashing and probing functions together and returns the index
+     * Probes through the tombstones for find and remove
+     * 
+     * @param v
+     *            value input
+     * @return index to insert
+     */
+    private int hashNProbe2(String v) {
+        int init = Hash.h(v, table.length);
+        Node probe = table[init];
+        int prober = 0;
+        while (probe != null) {
+            if (probe.val.equals(v)) {
+                return (int)((init + Math.pow(prober, 2.0)) % table.length);
+            }
+            prober++;
+            probe = table[(int)((init + Math.pow(prober, 2.0)) % table.length)];
+        }
+        return (int)((init + Math.pow(prober, 2.0)) % table.length);
     }
 
 
@@ -151,8 +167,8 @@ public class HashTable {
      * @return index in the graph
      */
     public int find(String key) {
-        int ind = hashNProbe(key);
-        if (table[ind] == null || table[ind] == tombstone) {
+        int ind = hashNProbe2(key);
+        if (table[ind] == null) {
             return -1;
         }
         else {
@@ -169,8 +185,8 @@ public class HashTable {
      * @return true if successful, false if not found
      */
     public boolean remove(String val) {
-        int index = hashNProbe(val);
-        if (table[index] == null || table[index] == tombstone) {
+        int index = hashNProbe2(val);
+        if (table[index] == null) {
             return false;
         }
         table[index] = tombstone;
@@ -195,6 +211,19 @@ public class HashTable {
             }
         }
         return false;
+    }
+
+
+    /**
+     * Checks if a specific location in the hashtable is a tombstone
+     * Used for debugging
+     * 
+     * @param ind
+     *            Specific location
+     * @return True if it's a tombstone, false otherwise
+     */
+    public boolean isTombstone(int ind) {
+        return table[ind] == tombstone;
     }
 
 
