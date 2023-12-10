@@ -183,18 +183,21 @@ public class Controller {
      */
     public String printGraph() {
         int[][] d = floyd(graph);
-        int nodeCount = songs.count() + artists.count();
-        int[] array = graph.compConnect(nodeCount);
-        int compCount = 0;
+        int vertexCount = songs.count() + artists.count();
+        int[] array = graph.compConnect(graph.nodeCount());
+        int rootCount = 0;
+        int childCount = 0;
         int mostFreq = 0; // Most frequent element
         int maxSize = -1; // Count of mostFreq
-        for (int a = 0; a < nodeCount; a++) {
+        for (int a = 0; a < vertexCount; a++) {
             if (array[a] == -1) {
-                compCount++; // Unique root count
+//                rootCount++; // Unique root count, but this includes empty
+//                             // nodes! Correction in later code
                 continue; // Don't find how many -1 there are
             }
+            childCount++;
             int count = 0;
-            for (int b = 0; b < nodeCount; b++) {
+            for (int b = 0; b < vertexCount; b++) {
                 if (array[a] == array[b]) {
                     count++;
                 }
@@ -204,7 +207,8 @@ public class Controller {
                 mostFreq = array[a];
             }
         }
-        maxSize++; // Because maxSize only counted number of children nodes
+        maxSize++; // Because maxSize only counted children nodes
+        rootCount = vertexCount - childCount; // Real rootCount
         int maxDi = 0;
         int i = 0;
         int j = 0;
@@ -226,7 +230,7 @@ public class Controller {
             i = j;
         }
 
-        return "There are " + compCount
+        return "There are " + rootCount
             + " connected components\nThe largest connected component has "
             + maxSize + " elements\nThe diameter of the largest component is "
             + maxDi;

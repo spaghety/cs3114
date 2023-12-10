@@ -43,13 +43,26 @@ public class GraphL {
      */
     public void init(int n) {
         nodeArray = new Edge[n];
-        array = new int[n];
+//        array = new int[n];
+        initArray(n);
         // List headers;
         for (int i = 0; i < n; i++) {
             nodeArray[i] = new Edge(-1, -1, null, null);
-            array[i] = -1;
+//            array[i] = -1;
         }
         numEdge = 0;
+    }
+    
+    /**
+     * Initializes the parent pointer array
+     * * @param n
+     *            number of vertices
+     */
+    private void initArray(int n) {
+        array = new int[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = -1;
+        }
     }
 
 
@@ -224,6 +237,7 @@ public class GraphL {
      * @return Parent pointer array
      */
     public int[] compConnect(int n) {
+        initArray(n);
         for (int k = 0; k < n; k++) {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
@@ -234,7 +248,9 @@ public class GraphL {
 // for (int i = 0; i < n; i++) {
 // System.out.println(array[i]);
 // }
-        return Arrays.copyOfRange(array, 0, n);
+        int[] temp = Arrays.copyOfRange(array, 0, n);
+        initArray(n);
+        return temp;
     }
 
 

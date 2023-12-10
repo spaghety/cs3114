@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertArrayEquals;
+import java.util.Arrays;
 
 /**
  * Tests the Graph class
@@ -114,6 +115,37 @@ public class GraphLTest extends student.TestCase {
         assertEquals(4, graph.edgeCount());
         assertFalse(graph.hasEdge(2, 5));
     }
+    
+    /**
+     * Tests the remove edge method
+     */
+    public void testRemoveEdge3() {
+        graph.addEdge(2, 1, 1);
+        graph.addEdge(1, 2, 1);
+        graph.addEdge(0, 2, 1);
+        graph.addEdge(2, 0, 1);
+        assertEquals(4, graph.edgeCount());
+        graph.addEdge(5, 8, 1);
+        graph.addEdge(8, 5, 1);
+        assertEquals(6, graph.edgeCount());
+        int[] array = graph.compConnect(10);
+        System.out.println(Arrays.toString(array));
+        int[] nbrs = graph.neighbors(2);
+        for (int i = 0; i < nbrs.length; i++) {
+            assertTrue(graph.hasEdge(2, nbrs[i]));
+            assertTrue(graph.hasEdge(nbrs[i], 2));
+            graph.removeEdge(2, nbrs[i]);
+            graph.removeEdge(nbrs[i], 2);
+//            System.out.println("Neighbor = " + nbrs[i]);
+        }
+        array = graph.compConnect(10);
+//        System.out.println(Arrays.toString(array));
+        assertEquals(2, graph.edgeCount());
+        assertFalse(graph.hasEdge(0, 1));
+        assertFalse(graph.hasEdge(1, 0));
+        assertFalse(graph.hasEdge(0, 2));
+        assertFalse(graph.hasEdge(2, 0));
+    }
 
 
     /**
@@ -142,6 +174,8 @@ public class GraphLTest extends student.TestCase {
         graph.addEdge(0, 4, 1);
         assertEquals(1, graph.neighbors(0)[0]);
         assertEquals(2, graph.neighbors(0)[1]);
+        assertEquals(3, graph.neighbors(0)[2]);
+        assertEquals(4, graph.neighbors(0)[3]);
     }
 
 
