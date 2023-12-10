@@ -1,13 +1,10 @@
-insert aaaa<SEP>aaaa
-insert bbbb<SEP>bbbb
-insert aaaa<SEP>cccc
-insert dddd<SEP>dddd
-insert zzzz<SEP>zzzz
-insert eeee<SEP>eeee
-insert ffff<SEP>ffff
-print artist
-print song
+insert aaaa<SEP>1111
+print graph
+insert aaaa<SEP>1222
+print graph
+insert dddd<SEP>ddd4
+insert zzzz<SEP>zzz4
+insert ffff<SEP>fff4
+print graph
 remove artist aaaa
-print artist
-print song
 print graph
