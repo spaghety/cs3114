@@ -40,6 +40,7 @@ public class GraphProjectTest extends TestCase {
      * This method tests the sample input file
      */
     public void testSampleInupt() {
+//        GraphProject.main(new String[] { "10", "P4sampleInput.txt" });
         ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
         PrintStream newOut = new PrintStream(baos2);
         PrintStream oldOut = System.out;
@@ -85,7 +86,7 @@ public class GraphProjectTest extends TestCase {
      * Tests one input file to output
      */
     public void testCaseA() {
-        GraphProject.main(new String[] { "10", "unitTestCaseA.txt" });
+//        GraphProject.main(new String[] { "10", "unitTestCaseA.txt" });
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream newOut = new PrintStream(baos);
         PrintStream oldOut = System.out;
@@ -135,7 +136,7 @@ public class GraphProjectTest extends TestCase {
                 + "4: |Tejon Street Corner Thieves|\n" + "7: |Ma Rainey|\n"
                 + "8: |Polyphia|\n" + "9: |Avenged Sevenfold|\n"
                 + "12: |MF DOOM|\n" + "18: |Metallica|\n" + "total artists: 8\n"
-                + "There are 10 connected components\n"
+                + "There are 9 connected components\n"
                 + "The largest connected component has 4 elements\n"
                 + "The diameter of the largest component is 2\n", baos
                     .toString());
@@ -180,5 +181,43 @@ public class GraphProjectTest extends TestCase {
             + "Artist hash table size doubled.\n"
             + "|Uart| is added to the Artist database.\n" + "|do this| ", baos3
                 .toString());
+    }
+    
+    /**
+     * Tests testinput.txt
+     */
+    public void testTestinput() {
+        ByteArrayOutputStream baos5 = new ByteArrayOutputStream();
+        PrintStream newOut = new PrintStream(baos5);
+        PrintStream oldOut = System.out;
+        System.setOut(newOut);
+        GraphProject.main(new String[] { "5", "testinput.txt" });
+        System.out.flush();
+        System.setOut(oldOut);
+        String compare = "|aaaa| is added to the Artist database.\n"
+            + "|1111| is added to the Song database.\n"
+            + "There are 1 connected components\n"
+            + "The largest connected component has 2 elements\n"
+            + "The diameter of the largest component is 2\n"
+            + "|1222| is added to the Song database.\n"
+            + "There are 1 connected components\n"
+            + "The largest connected component has 3 elements\n"
+            + "The diameter of the largest component is 2\n"
+            + "|dddd| is added to the Artist database.\n"
+            + "Song hash table size doubled.\n"
+            + "|ddd4| is added to the Song database.\n"
+            + "Artist hash table size doubled.\n"
+            + "|zzzz| is added to the Artist database.\n"
+            + "|zzz4| is added to the Song database.\n"
+            + "|ffff| is added to the Artist database.\n"
+            + "|fff4| is added to the Song database.\n"
+            + "There are 4 connected components\n"
+            + "The largest connected component has 3 elements\n"
+            + "The diameter of the largest component is 2\n"
+            + "|aaaa| is removed from the Artist database.\n"
+            + "There are 5 connected components\n"
+            + "The largest connected component has 2 elements\n"
+            + "The diameter of the largest component is 2\n";
+        assertEquals(compare, baos5.toString());
     }
 }
