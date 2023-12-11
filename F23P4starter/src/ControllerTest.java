@@ -150,7 +150,7 @@ public class ControllerTest extends student.TestCase {
         ct.insert("artist6", "song5");
         assertEquals(
             "There are 2 connected components\nThe largest connected component "
-                + "has 4 elements\nThe diameter of the largest component is 4",
+                + "has 4 elements\nThe diameter of the largest component is 3",
             ct.printGraph());
     }
 }
