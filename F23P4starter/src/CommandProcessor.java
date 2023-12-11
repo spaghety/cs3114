@@ -22,6 +22,7 @@ public class CommandProcessor {
      * Processes commands from the main method
      * 
      * @param args
+     *            Command line parameters
      */
     public static void processCommand(String[] args) {
         int initsize = Integer.parseInt(args[0]);
