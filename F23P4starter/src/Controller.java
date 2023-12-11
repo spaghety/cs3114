@@ -202,25 +202,40 @@ public class Controller {
         maxSize++; // Because maxSize only counted children nodes
         rootCount = vertexCount - childCount; // Real rootCount
         int maxDi = 0;
-        int i = 0;
-        int j = 0;
-        while (i < graph.nodeCount()) {
-            while (d[i][j] != Integer.MAX_VALUE) {
-                if (i != j) {
-                    maxDi = Math.max(maxDi, d[i][j] + 1);
+        for (int i = 0; i < graph.nodeCount(); i++) {
+            for (int j = 0; j < graph.nodeCount(); j++) {
+                if (d[i][j] != Integer.MAX_VALUE) {
+                    if (i == mostFreq || j == mostFreq || array[i] == mostFreq
+                        || array[j] == mostFreq) {
+                        if (i != j) {
+                            maxDi = Math.max(maxDi, d[i][j]);
+                        }
+                        else {
+                            maxDi = Math.max(maxDi, 1);
+                        }
+                    }
                 }
-                else {
-                    maxDi = Math.max(maxDi, 1);
-                }
-                j++;
             }
-// if (j - i > 0) {
-// compCount++;
-// maxSize = Math.max(maxSize, j - i);
-// }
-            j++;
-            i = j;
         }
+// int i = 0;
+// int j = 0;
+// while (i < graph.nodeCount()) {
+// while (d[i][j] != Integer.MAX_VALUE) {
+// if (i != j) {
+// maxDi = Math.max(maxDi, d[i][j] + 1);
+// }
+// else {
+// maxDi = Math.max(maxDi, 1);
+// }
+// j++;
+// }
+//// if (j - i > 0) {
+//// compCount++;
+//// maxSize = Math.max(maxSize, j - i);
+//// }
+// j++;
+// i = j;
+// }
 
         return "There are " + rootCount
             + " connected components\nThe largest connected component has "

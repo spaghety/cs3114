@@ -198,7 +198,7 @@ public class GraphProjectTest extends TestCase {
             + "|1111| is added to the Song database.\n"
             + "There are 1 connected components\n"
             + "The largest connected component has 2 elements\n"
-            + "The diameter of the largest component is 2\n"
+            + "The diameter of the largest component is 1\n"
             + "|1222| is added to the Song database.\n"
             + "There are 1 connected components\n"
             + "The largest connected component has 3 elements\n"
@@ -217,7 +217,7 @@ public class GraphProjectTest extends TestCase {
             + "|aaaa| is removed from the Artist database.\n"
             + "There are 5 connected components\n"
             + "The largest connected component has 2 elements\n"
-            + "The diameter of the largest component is 2\n";
+            + "The diameter of the largest component is 1\n";
         assertEquals(compare, baos5.toString());
     }
 }
