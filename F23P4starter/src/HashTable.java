@@ -72,7 +72,7 @@ public class HashTable {
             Node[] temp = table;
             table = new Node[table.length * 2];
             for (int i = 0; i < temp.length; i++) {
-                if (temp[i] != null) {
+                if (temp[i] != null && temp[i] != tombstone) {
                     int newInd = hashNProbe(temp[i].val);
                     table[newInd] = temp[i];
                 }
@@ -246,7 +246,7 @@ public class HashTable {
         String result = "";
         for (int i = 0; i < table.length; i++) {
             if (table[i] != null) {
-                if (table[i].head == -1) {
+                if (table[i] == tombstone) {
                     result += i + ": TOMBSTONE\n";
                 }
                 else {
